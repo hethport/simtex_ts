@@ -1,10 +1,11 @@
 export interface ParseSuccess<T> {
   success: true;
   value: T;
+  remaining: string;
 }
 
-export function parseSuccess<T>(value: T): ParseSuccess<T> {
-  return {success: true, value};
+export function parseSuccess<T>(value: T, remaining = ''): ParseSuccess<T> {
+  return {success: true, value, remaining};
 }
 
 export interface ParseError {
