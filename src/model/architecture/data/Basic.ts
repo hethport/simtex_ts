@@ -7,13 +7,9 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Word } from "./Word";
-import { Breakdown } from "./fragment/Breakdown";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { Word } from './Word';
+import { Breakdown } from './fragment/Breakdown';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -24,26 +20,26 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Basic extends Breakdown {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = Word.alphabetLowerCase + S`\\d` + Word.indexDigits + Word.delimiterAlphabet
-			+ S`\\+`;
+  private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet
+			+ '\\+';
 
-	/**
+  /**
 	 * The pattern for basics.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`[` + Basic.alphabet + S`]*[` + Word.alphabetLowerCase + S`]+[`
-			+ Basic.alphabet + S`]*` + Word.subscriptRegularExpression);
+  static readonly pattern:  RegExp = new RegExp('[' + Basic.alphabet + ']*[' + Word.alphabetLowerCase + ']+['
+			+ Basic.alphabet + ']*' + Word.subscriptRegularExpression);
 
-	/**
+  /**
 	 * Creates a basic.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super(deleriPosition, text);
-	}
+  public constructor(deleriPosition: MetadataPosition, text: string) {
+    super(deleriPosition, text);
+  }
 }

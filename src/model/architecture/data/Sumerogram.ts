@@ -7,11 +7,10 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Word } from "./Word";
-import { Breakdown } from "./fragment/Breakdown";
-import { MetadataPosition } from "./fragment/MetadataPosition";
+import { Word } from './Word';
+import { Breakdown } from './fragment/Breakdown';
+import { MetadataPosition } from './fragment/MetadataPosition';
+import {Tag} from '../metadata/Tag';
 
 
 
@@ -24,56 +23,61 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Sumerogram extends Breakdown {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = Word.alphabetUpperCase + S`\\d` + Word.indexDigits + Word.delimiterAlphabet
-			+ S`\\.` + S`x`;
+  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet
+			+ '\\.' + 'x';
 
-	/**
+  /**
 	 * The pattern for Sumerograms.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`[` + Sumerogram.alphabet + S`]*` + S`[` + Word.alphabetUpperCase + S`]+`
-			+ S`[` + Sumerogram.alphabet + S`]*` + Word.subscriptRegularExpression);
+  static readonly pattern :  RegExp = new RegExp('[' + Sumerogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
+			+ '[' + Sumerogram.alphabet + ']*' + Word.subscriptRegularExpression);
 
-	/**
+  /**
 	 * The symbol for inscribed characters.
 	 */
-	protected static readonly inscribedCharacter:  java.lang.String | null = S`×`;
+  protected static readonly inscribedCharacter:  string = '×';
 
-	/**
+  /**
 	 * The pattern for inscribed character.
 	 */
-	private static inscribedCharacterPattern:  java.util.regex.Pattern | null = java.util.regex.Pattern
-			.compile(S`([` + Word.alphabetUpperCase + S`\\d]{1})(x)([` + Word.alphabetUpperCase + S`\\d]{1})`);
+  private static inscribedCharacterPattern = new RegExp('([' + Word.alphabetUpperCase + '\\d]{1})(x)([' + Word.alphabetUpperCase + '\\d]{1})');
 
-	/**
+  /**
 	 * Creates a Sumerogram.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super(deleriPosition, Sumerogram.resoveInscribedCharacter(text));
-	}
+  public constructor(deleriPosition: MetadataPosition, text: string) {
+    super(deleriPosition, Sumerogram.resolveInscribedCharacter(text));
+  }
 
-	/**
+  /**
 	 * Resolve inscribed characters and returns it.
 	 * 
 	 * @param text The text.
 	 * @return The text with resolved inscribed characters.
 	 * @since 11
 	 */
-	private static resoveInscribedCharacter(text: java.lang.String| null):  java.lang.String | null {
-		let  matcher: java.util.regex.Matcher = Sumerogram.inscribedCharacterPattern.matcher(text);
+  private static resolveInscribedCharacter(text: string):  string {
 
-		let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
-		while (matcher.find())
-			matcher.appendReplacement(buffer, matcher.group(1) + Sumerogram.inscribedCharacter + matcher.group(3));
-		matcher.appendTail(buffer);
+    const  matches = text.matchAll(Sumerogram.inscribedCharacterPattern);
+    let index = 0;
+    const buffer: string[] = [];
+    for (const match of matches) {
+      buffer.push(text.substring(index, match.index) + match[1] + Sumerogram.inscribedCharacter + match[3]);
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
 
-		return buffer.toString();
-	}
+    if(index < text.length) {
+      buffer.push(text.substring(index, text.length - 1));
+    }
+
+    return buffer.join('');
+  }
 
 }

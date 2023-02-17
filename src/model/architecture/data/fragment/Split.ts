@@ -7,17 +7,16 @@
  */
 
 
-
-import { JavaObject, java, S } from "../../../../../../../../../../usr/bin/java";
-import { Content } from "./Content";
-import { Metadata } from "./Metadata";
-import { MetadataPosition } from "./MetadataPosition";
-import { Slice } from "./Slice";
-import { Status } from "../../Status";
-import { StatusEvent } from "../../StatusEvent";
-import { StatusEventCode } from "../../StatusEventCode";
-import { StatusLevel } from "../../StatusLevel";
-import { Word } from "../Word";
+import { Content } from './Content';
+import { Metadata } from './Metadata';
+import { MetadataPosition } from './MetadataPosition';
+import { Slice } from './Slice';
+import { Status } from '../../Status';
+import { StatusEvent } from '../../StatusEvent';
+import { StatusEventCode } from '../../StatusEventCode';
+import { StatusLevel } from '../../StatusLevel';
+import { Word } from '../Word';
+import {Tag} from '../../metadata/Tag';
 
 
 
@@ -29,38 +28,38 @@ import { Word } from "../Word";
  * @version 1.0
  * @since 11
  */
-export  class Split extends JavaObject {
-	/**
+export  class Split {
+  /**
 	 * The pattern.
 	 */
-	public static pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`([\\-]*[^\\-]*)`);
+  public static pattern = new RegExp('([\\-]*[^\\-]*)');
 
-	/**
+  /**
 	 * The pattern for index.
 	 */
-	private static indexPattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`([` + Word.alphabet + S`]+)(\\d+|x)($|\\.)`);
+  private static indexPattern = new RegExp('([' + Word.alphabet + ']+)(\\d+|x)($|\\.)');
 
-	/**
+  /**
 	 * The pattern for delimiter.
 	 */
-	private static delimiterPattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`([` + Word.delimiterAlphabet + S`]{1})`);
+  private static delimiterPattern = new RegExp('([' + Word.delimiterAlphabet + ']{1})');
 
-	/**
+  /**
 	 * The deleri ('*' / erased / Rasur) position.
 	 */
-	private deleriPosition:  MetadataPosition | null;
+  private deleriPosition: MetadataPosition;
 
-	/**
+  /**
 	 * The main part.
 	 */
-	private readonly mainPart:  java.util.List<Slice> | null;
+  private readonly mainPart: Slice[];
 
-	/**
+  /**
 	 * The subscript.
 	 */
-	private readonly subscript:  java.util.List<Slice> | null;
+  private readonly subscript: Slice[] = [];
 
-	/**
+  /**
 	 * Creates a split.
 	 * 
 	 * @param status         The status.
@@ -68,217 +67,220 @@ export  class Split extends JavaObject {
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(status: Status| null, deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super();
+  public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
+    
+    this.deleriPosition = deleriPosition;
 
-		this.deleriPosition = deleriPosition;
+    const  split: string[] = text.split('\\' + Word.subscript, 2);
 
-		let  split: java.lang.String[] = text.split(S`\\` + Word.subscript, 2);
+    this.mainPart = this.normalize(split[0]);
 
-		this.mainPart = this.normalize(split[0]);
+    if (split.length === 1)
+      this.subscript = [];
+    else {
+      if (split[1].includes(Word.subscript))
+        status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+          'multiple suffix characters \'' + Word.subscript + '\' available in split \'' + text + '\'.'));
 
-		if (split.length === 1)
-			this.subscript = new  java.util.ArrayList();
-		else {
-			if (split[1].contains(Word.subscript))
-				status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
-						S`multiple suffix characters '` + Word.subscript + S`' available in split '` + text + '.'));
+      this.subscript = this.normalize(split[1]);
+    }
+  }
 
-			this.subscript = this.normalize(split[1]);
-		}
-	}
-
-	/**
+  /**
 	 * Normalizes the text.
 	 * 
 	 * @param text The text to normalize.
 	 * @return The normalized text.
 	 * @since 11
 	 */
-	private normalize(/* final */  text: java.lang.String| null):  java.util.List<Slice> | null {
-		let  slice: java.util.List<Slice> = new  java.util.ArrayList();
+  private normalize(/* final */  text: string): Slice[] {
+    const  slice: Slice[] = [];
 
-		if (!text.isEmpty()) {
-			/*
-			 * convert index digits and unknown reading (the delimiters are removed)
-			 */
-			let  matcher: java.util.regex.Matcher = Split.indexPattern.matcher(text.replaceAll(S`[` + Word.delimiterAlphabet + S`]+`, S``));
-			let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
-			while (matcher.find())
-				matcher.appendReplacement(buffer,
-						matcher.group(1) + Split.convertToIndex(matcher.group(2)) + matcher.group(3));
-			matcher.appendTail(buffer);
+    if (text.length > 0) {
+      /*
+	  * convert index digits and unknown reading (the delimiters are removed)
+	  */
 
-			/*
-			 * create the slices take into account the delimiters
-			 */
-			let  plainText: java.lang.String = buffer.toString();
+      let plainText = text.replace('[' + Word.delimiterAlphabet + ']+', '');
+      let  matches = plainText.matchAll(Split.indexPattern);
+      let index = 0;
+      const buffer: string[] = [];
+      for (const match of matches) {
+        buffer.push(match[1] + Split.convertToIndex(match[2]) + match[3]);
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-			matcher = Split.delimiterPattern.matcher(text);
+      if(index < text.length) {
+        buffer.push(text.substring(index, text.length - 1));
+      }
 
-			let  indexBegin: number = 0;
-			while (matcher.find()) {
-				buffer = new  java.lang.StringBuffer();
+      /*
+	  * create the slices take into account the delimiters
+	  */
+      plainText = buffer.join('');
 
-				matcher.appendReplacement(buffer, S``);
 
-				if (buffer.length() > 0) {
-					let  indexEnd: number = indexBegin + buffer.length();
+      matches = text.matchAll(Split.delimiterPattern);
+      let indexBegin = 0;
+      index = 0;
+      for (const match of matches) {
+        if (match.index && indexBegin < match.index) {
+          const indexEnd =  indexBegin + (match.index - indexBegin);
 
-					slice.add(new  Content(plainText.substring(indexBegin, indexEnd)));
+          slice.push(new Content(plainText.substring(indexBegin, indexEnd)));
 
-					indexBegin = indexEnd;
-				}
+          indexBegin = indexEnd;
+        }
 
-				let  delimiter: java.lang.String = matcher.group(1);
-				if (Word.deleri.equals(delimiter)) {
-					slice.add(new  Metadata(this.deleriPosition));
+        const  delimiter: string = match[1];
+        if (Word.deleri == delimiter) {
+          slice.push(new Metadata(null, this.deleriPosition));
 
-					this.deleriPosition = MetadataPosition.initial.equals(this.deleriPosition) ? MetadataPosition.end
-							: MetadataPosition.initial;
-				} else
-					slice.add(new  Metadata(delimiter));
-			}
+          this.deleriPosition = MetadataPosition.initial == this.deleriPosition ? MetadataPosition.end
+            : MetadataPosition.initial;
+        } else
+          slice.push(new  Metadata(delimiter, null));
 
-			buffer = new  java.lang.StringBuffer();
-			matcher.appendTail(buffer);
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-			if (buffer.length() > 0)
-				slice.add(new  Content(plainText.substring(indexBegin, indexBegin + buffer.length())));
-		}
+      if(index < text.length) {
+        slice.push(plainText.substring(indexBegin, indexBegin + (text.length - index)));
+      }
+    }
 
-		return slice;
-	}
+    return slice;
+  }
 
-	/**
+  /**
 	 * Converts to index.
 	 * 
 	 * @param text The text to convert to index.
 	 * @return The index digits.
 	 * @since 11
 	 */
-	private static convertToIndex(text: java.lang.String| null):  java.lang.String | null {
-		let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
+  private static convertToIndex(text: string): string {
+    const  buffer: string[] = [];
 
-		for (let  i: number = 0; i < text.length(); i++) {
-			switch (text.charAt(i)) {
-			case '0':
-				buffer.append(S`₀`);
-				break;
+    for (let  i = 0; i < text.length; i++) {
+      switch (text.charAt(i)) {
+      case '0':
+        buffer.push('₀');
+        break;
 
-			case '1':
-				buffer.append(S`₁`);
-				break;
+      case '1':
+        buffer.push('₁');
+        break;
 
-			case '2':
-				buffer.append(S`₂`);
-				break;
+      case '2':
+        buffer.push('₂');
+        break;
 
-			case '3':
-				buffer.append(S`₃`);
-				break;
+      case '3':
+        buffer.push('₃');
+        break;
 
-			case '4':
-				buffer.append(S`₄`);
-				break;
+      case '4':
+        buffer.push('₄');
+        break;
 
-			case '5':
-				buffer.append(S`₅`);
-				break;
+      case '5':
+        buffer.push('₅');
+        break;
 
-			case '6':
-				buffer.append(S`₆`);
-				break;
+      case '6':
+        buffer.push('₆');
+        break;
 
-			case '7':
-				buffer.append(S`₇`);
-				break;
+      case '7':
+        buffer.push('₇');
+        break;
 
-			case '8':
-				buffer.append(S`₈`);
-				break;
+      case '8':
+        buffer.push('₈');
+        break;
 
-			case '9':
-				buffer.append(S`₉`);
-				break;
+      case '9':
+        buffer.push('₉');
+        break;
 
-			case 'x':
-				buffer.append(S`ₓ`);
-				break;
+      case 'x':
+        buffer.push('ₓ');
+        break;
 
-default:
+      default:
 
-			}
-		}
+      }
+    }
 
-		return buffer.toString();
-	}
+    return buffer.join('');
+  }
 
-	/**
+  /**
 	 * Returns the deleri ('*' / erased / Rasur) position.
 	 *
 	 * @return The deleri ('*' / erased / Rasur) position.
 	 * @since 11
 	 */
-	public getDeleriPosition():  MetadataPosition | null {
-		return this.deleriPosition;
-	}
+  public getDeleriPosition(): MetadataPosition {
+    return this.deleriPosition;
+  }
 
-	/**
+  /**
 	 * Returns the main part.
 	 *
 	 * @return The main part.
 	 * @since 11
 	 */
-	public getMainPart():  java.util.List<Slice> | null {
-		return this.mainPart;
-	}
+  public getMainPart():  Slice[] {
+    return this.mainPart;
+  }
 
-	/**
+  /**
 	 * Returns the main part plain text.
 	 *
 	 * @return The main part plain text.
 	 * @since 11
 	 */
-	public getMainPartPlainText():  java.lang.String | null {
-		return Split.getPlainText(this.mainPart);
-	}
+  public getMainPartPlainText():  string {
+    return Split.getPlainText(this.mainPart);
+  }
 
-	/**
+  /**
 	 * Returns the subscript.
 	 *
 	 * @return The subscript.
 	 * @since 11
 	 */
-	public getSubscript():  java.util.List<Slice> | null {
-		return this.subscript;
-	}
+  public getSubscript(): Slice[] {
+    return this.subscript;
+  }
 
-	/**
+  /**
 	 * Returns the subscript plain text.
 	 *
 	 * @return The subscript plain text.
 	 * @since 11
 	 */
-	public getSubscriptPlainText():  java.lang.String | null {
-		return Split.getPlainText(this.subscript);
-	}
+  public getSubscriptPlainText(): string | null {
+    return Split.getPlainText(this.subscript);
+  }
 
-	/**
+  /**
 	 * Returns the plain text of given slices.
 	 * 
 	 * @param slices The slices.
 	 * @return The plain text.
 	 * @since 11
 	 */
-	private static getPlainText(slices: java.util.List<Slice>| null):  java.lang.String | null {
-		let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
+  private static getPlainText(slices: Slice[]): string {
+    const  buffer: string[] = [];
 
-		for (let slice of slices)
-			if (slice instanceof Content)
-				buffer.append(( slice as Content).getText());
+    for (const slice of slices)
+      if (slice instanceof Content)
+        buffer.push(( slice as Content).getText());
 
-		return buffer.toString();
-	}
+    return buffer.join('');
+  }
 
 }

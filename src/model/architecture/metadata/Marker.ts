@@ -7,14 +7,12 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Metadata } from "./Metadata";
-import { Tag } from "./Tag";
-import { LineSource } from "../LineSource";
-import { StatusEvent } from "../StatusEvent";
-import { StatusEventCode } from "../StatusEventCode";
-import { StatusLevel } from "../StatusLevel";
+import { Metadata } from './Metadata';
+import { Tag } from './Tag';
+import { LineSource } from '../LineSource';
+import { StatusEvent } from '../StatusEvent';
+import { StatusEventCode } from '../StatusEventCode';
+import { StatusLevel } from '../StatusLevel';
 
 
 
@@ -27,23 +25,24 @@ import { StatusLevel } from "../StatusLevel";
  * @since 11
  */
 export  class Marker extends Metadata {
-	/**
+  /**
 	 * Defines the depth for nested curly braces in the tag pattern.
 	 */
-	private static readonly curlyBracketTagDepth:  number = 5;
+  private static readonly curlyBracketTagDepth:  number = 5;
 
-	/**
+  /**
 	 * Defines a regular expression that does not match curly brackets.
 	 */
-	public static readonly notCurlyBracketPattern:  java.lang.String | null = S`[^\\{\\}]*`;
+  // TODO: fix regex
+  public static readonly notCurlyBracketPattern:  RegExp = new RegExp('[^\\{\\}]*');
 
-	/**
-	 * The tag pattern.
-	 */
-	public static readonly tagPattern:  java.util.regex.Pattern | null = java.util.regex.Pattern
-			.compile(S`\\{(/M|[MSGFK]{1}):` + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + S`\\}`);
+  /**
+   * The tag pattern.
+   */
+  // TODO: fix regex
+  public static readonly tagPattern:  RegExp = new RegExp('\\{(/M|[MSGFK]{1}):' + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + '\\}');
 
-	/**
+  /**
 	 * Returns the regular expression that matches nested curly braces of the given
 	 * depth.
 	 * 
@@ -52,66 +51,59 @@ export  class Marker extends Metadata {
 	 *         depth.
 	 * @since 11
 	 */
-	private static getNestedCurlyBracketDepthPattern(depth: number):  java.lang.String | null {
-		return depth === 1 ? S``
-				: S`((` + Marker.notCurlyBracketPattern + S`|\\{` + Marker.notCurlyBracketPattern
-						+ Marker.getNestedCurlyBracketDepthPattern(--depth) + S`\\}` + S`)*)`;
-	}
+  private static getNestedCurlyBracketDepthPattern(depth: number):  string | null {
+    return depth === 1 ? ''
+      : '((' + Marker.notCurlyBracketPattern + '|\\{' + Marker.notCurlyBracketPattern
+						+ Marker.getNestedCurlyBracketDepthPattern(--depth) + '\\}' + ')*)';
+  }
 
-	/**
+  /**
 	 * The tags.
 	 */
-	private readonly tags:  java.util.List<Tag> | null = new  java.util.ArrayList();
+  private readonly tags:  Tag[] = [];
 
-	/**
+  /**
 	 * Creates a marker.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super(source);
+  public constructor(source: LineSource) {
+    super(source);
 
-		let  buffer: java.lang.StringBuffer;
+    const  matches = source.getTextNormalized().matchAll(Marker.tagPattern);
+    let index = 0;
+    for (const match of matches) {
+      this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index, match.index));
+      this.tags.push(new Tag(match[0], match[1], match[2]));
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
 
-		// extract the tags and texts
-		let  matcher: java.util.regex.Matcher = Marker.tagPattern.matcher(source.getTextNormalized());
-		while (matcher.find()) {
-			buffer = new  java.lang.StringBuffer();
+    if(index < source.getTextNormalized().length) {
+      this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index, source.getTextNormalized().length - 1));
+    }
+  }
 
-			matcher.appendReplacement(buffer, S``);
-
-			this.addUnexpectedStatusEvent(buffer);
-
-			this.tags.add(new  Tag(matcher.group(0), matcher.group(1), matcher.group(2)));
-		}
-
-		buffer = new  java.lang.StringBuffer();
-		matcher.appendTail(buffer);
-		this.addUnexpectedStatusEvent(buffer);
-	}
-
-	/**
+  /**
 	 * Adds an unexpected status event if the segment is not empty.
 	 * 
 	 * @param buffer The buffer that contains the segment.
 	 * @since 11
 	 */
-	private addUnexpectedStatusEvent(buffer: java.lang.StringBuffer| null):  void {
-		let  segment: java.lang.String = buffer.toString();
-		if (!segment.isBlank())
-			this.getStatus().add(new  StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
-					S`the segment '` + segment.trim() + S`' is not a marker.`));
-	}
+  private addUnexpectedStatusEvent(segment: string):  void {
+    if (segment.trim().length > 0)
+      this.getStatus().add(new  StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
+        'the segment \'' + segment.trim() + '\' is not a marker.'));
+  }
 
-	/**
+  /**
 	 * Returns the tags.
 	 *
 	 * @return The tags.
 	 * @since 11
 	 */
-	public getTags():  java.util.List<Tag> | null {
-		return this.tags;
-	}
+  public getTags():  Tag[] {
+    return this.tags;
+  }
 
 }

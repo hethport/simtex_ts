@@ -7,11 +7,9 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Word } from "./Word";
-import { Breakdown } from "./fragment/Breakdown";
-import { MetadataPosition } from "./fragment/MetadataPosition";
+import { Word } from './Word';
+import { Breakdown } from './fragment/Breakdown';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 
@@ -24,65 +22,62 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Number extends Breakdown {
-	/**
+  /**
 	 * The unknown number.
 	 */
-	private static readonly unknownNumber:  java.lang.String | null = S`n`;
+  private static readonly unknownNumber:  string = 'n';
 
-	/**
+  /**
 	 * The alphabet for known numbers.
 	 */
-	private static readonly alphabetKnown:  java.lang.String | null = S`\\d` + Word.delimiterAlphabet;
+  private static readonly alphabetKnown:  string = '\\d' + Word.delimiterAlphabet;
 
-	/**
+  /**
 	 * The alphabet for unknown numbers.
 	 */
-	private static readonly alphabetUnknown:  java.lang.String | null = Word.delimiterAlphabet;
+  private static readonly alphabetUnknown:  string = Word.delimiterAlphabet;
 
-	/**
+  /**
 	 * The pattern for numbers.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`([` + Number.alphabetKnown + S`]*` + S`\\d` + S`[` + Number.alphabetKnown
-			+ S`]*` + Word.subscriptRegularExpression + S`)|(` + S`[` + Number.alphabetUnknown + S`]*` + Number.unknownNumber + S`[`
-			+ Number.alphabetUnknown + S`]*` + Word.subscriptRegularExpression + S`)`);
+  static readonly pattern:  RegExp = new RegExp('([' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
+			+ ']*' + Word.subscriptRegularExpression + ')|(' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
+			+ Number.alphabetUnknown + ']*' + Word.subscriptRegularExpression + ')');
 
-	/**
+  /**
 	 * The integer. Null if unknown.
 	 */
-	private readonly integer:  java.lang.Integer | null;
+  private readonly integer: number;
 
-	/**
+  /**
 	 * Creates a number.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super(deleriPosition, text);
+  public constructor(deleriPosition: MetadataPosition, text: string) {
+    super(deleriPosition, text);
 
-		let  integer: java.lang.Integer;
-		try {
-			integer = java.lang.Integer.parseInt(this.getPlainText());
-		} catch (e) {
-if (e instanceof java.lang.Exception) {
-			integer = null;
-		} else {
-	throw e;
-	}
-}
+    let  integer: number;
+    try {
+      integer = parseInt(this.getPlainText());
+    } catch (e) {
+      // TODO: handle Exception
+      throw e;
+    }
 
-		this.integer = integer;
-	}
+    this.integer = integer;
+  }
 
-	/**
+  /**
 	 * Returns the integer.
 	 *
 	 * @return The integer. Null if unknown.
 	 * @since 11
 	 */
-	public getInteger():  java.lang.Integer | null {
-		return this.integer;
-	}
+  public getInteger(): number {
+    return this.integer;
+  }
 
 }

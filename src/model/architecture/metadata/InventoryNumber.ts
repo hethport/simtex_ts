@@ -7,11 +7,8 @@
  */
 
 
-
-import { Identifier } from "./Identifier";
-import { LineSource } from "../LineSource";
-
-
+import { Identifier } from './Identifier';
+import { LineSource } from '../LineSource';
 
 
 /**
@@ -23,14 +20,13 @@ import { LineSource } from "../LineSource";
  */
 export  class InventoryNumber extends Identifier {
 
-	/**
+  /**
 	 * Creates an inventory number.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super(source);
-	}
-
+  public constructor(source: LineSource) {
+    super(source);
+  }
 }

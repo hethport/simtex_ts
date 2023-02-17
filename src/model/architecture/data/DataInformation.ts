@@ -7,12 +7,8 @@
  */
 
 
-
-import { JavaObject, java } from "../../../../../../../../../usr/bin/java";
-import { LineInformation } from "./LineInformation";
-import { ParagraphLanguageType } from "../metadata/ParagraphLanguageType";
-
-
+import { LineInformation } from './LineInformation';
+import { ParagraphLanguageType } from '../metadata/ParagraphLanguageType';
 
 
 /**
@@ -22,18 +18,18 @@ import { ParagraphLanguageType } from "../metadata/ParagraphLanguageType";
  * @version 1.0
  * @since 11
  */
-export  class DataInformation extends JavaObject {
-	/**
+export  class DataInformation {
+  /**
 	 * The paragraph language.
 	 */
-	private readonly paragraphLanguage:  ParagraphLanguageType | null;
+  private readonly paragraphLanguage:  ParagraphLanguageType;
 
-	/**
+  /**
 	 * The line information.
 	 */
-	private readonly line:  LineInformation | null;
+  private readonly line:  LineInformation;
 
-	/**
+  /**
 	 * Creates an information for a data line.
 	 * 
 	 * @param paragraphLanguage The paragraph language.
@@ -41,41 +37,38 @@ export  class DataInformation extends JavaObject {
 	 * @param lineNumber        The line number.
 	 * @since 11
 	 */
-	public constructor(paragraphLanguage: ParagraphLanguageType| null, linePrefix: java.lang.String| null, lineNumber: java.lang.String| null) {
-		super();
+  public constructor(paragraphLanguage: ParagraphLanguageType, linePrefix: string| null, lineNumber: string| null) {
+    this.paragraphLanguage = paragraphLanguage;
+    this.line = new  LineInformation(linePrefix, lineNumber);
+  }
 
-		this.paragraphLanguage = paragraphLanguage;
-		this.line = new  LineInformation(linePrefix, lineNumber);
-	}
-
-	/**
+  /**
 	 * Returns true if the paragraph language is set.
 	 *
 	 * @return True if the paragraph language is set.
 	 * @since 11
 	 */
-	public isParagraphLanguageSet():  boolean {
-		return this.paragraphLanguage !== null;
-	}
+  public isParagraphLanguageSet():  boolean {
+    return this.paragraphLanguage != null;
+  }
 
-	/**
+  /**
 	 * Returns the paragraph language.
 	 *
 	 * @return The paragraph language.
 	 * @since 11
 	 */
-	public getParagraphLanguage():  ParagraphLanguageType | null {
-		return this.paragraphLanguage;
-	}
+  public getParagraphLanguage():  ParagraphLanguageType {
+    return this.paragraphLanguage;
+  }
 
-	/**
+  /**
 	 * Returns the line.
 	 *
 	 * @return The line.
 	 * @since 11
 	 */
-	public getLine():  LineInformation | null {
-		return this.line;
-	}
-
+  public getLine():  LineInformation {
+    return this.line;
+  }
 }

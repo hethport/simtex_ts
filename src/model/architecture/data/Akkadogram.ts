@@ -7,13 +7,9 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Word } from "./Word";
-import { Breakdown } from "./fragment/Breakdown";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { Word } from './Word';
+import { Breakdown } from './fragment/Breakdown';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -24,25 +20,25 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Akkadogram extends Breakdown {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = Word.alphabetUpperCase + S`\\d` + Word.indexDigits + Word.delimiterAlphabet;
+  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
 
-	/**
+  /**
 	 * The pattern for Akkadograms.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`[` + Akkadogram.alphabet + S`]*` + S`[` + Word.alphabetUpperCase + S`]+`
-			+ S`[` + Akkadogram.alphabet + S`]*` + Word.subscriptRegularExpression);
+  static readonly pattern:  RegExp = new RegExp('[' + Akkadogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
+			+ '[' + Akkadogram.alphabet + ']*' + Word.subscriptRegularExpression);
 
-	/**
+  /**
 	 * Creates an Akkadogram.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super(deleriPosition, text);
-	}
+  public constructor(deleriPosition: MetadataPosition, text: string) {
+    super(deleriPosition, text);
+  }
 }

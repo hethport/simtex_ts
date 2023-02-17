@@ -7,11 +7,7 @@
  */
 
 
-
-import { JavaObject, java } from "../../../../../../../../../usr/bin/java";
-import { LineEntity } from "../LineEntity";
-
-
+import { LineEntity } from '../LineEntity';
 
 
 /**
@@ -21,33 +17,30 @@ import { LineEntity } from "../LineEntity";
  * @version 1.0
  * @since 11
  */
-export  class Empty extends JavaObject implements LineEntity {
-	/**
+export  class Empty implements LineEntity {
+  /**
 	 * The length of the code points containing only spaces. 0 if the string is
 	 * empty.
 	 */
-	private readonly length:  number;
+  private readonly length:  number;
 
-	/**
+  /**
 	 * Creates an empty string or a code point containing only spaces.
 	 * 
 	 * @param text The text.
 	 * @since 11
 	 */
-	public constructor(text: java.lang.String| null) {
-		super();
+  public constructor(text: string) {
+    this.length = text.length;
+  }
 
-		this.length = text.length();
-	}
-
-	/**
+  /**
 	 * Returns the length.
 	 *
 	 * @return The length.
 	 * @since 11
 	 */
-	public getLength():  number {
-		return this.length;
-	}
-
+  public getLength():  number {
+    return this.length;
+  }
 }

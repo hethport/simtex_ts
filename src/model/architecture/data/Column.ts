@@ -7,11 +7,7 @@
  */
 
 
-
-import { JavaObject, java } from "../../../../../../../../../usr/bin/java";
-import { LineEntity } from "../LineEntity";
-
-
+import { LineEntity } from '../LineEntity';
 
 
 /**
@@ -21,15 +17,15 @@ import { LineEntity } from "../LineEntity";
  * @version 1.0
  * @since 11
  */
-export  class Column extends JavaObject implements LineEntity {
-	/**
+export  class Column implements LineEntity {
+  /**
 	 * Creates a column for a table.
-	 * 
-	 * @param separator The separator.
+	 *
 	 * @since 11
 	 */
-	public constructor(separator: java.lang.String| null) {
-		super();
-	}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  public constructor() {
+
+  }
 
 }

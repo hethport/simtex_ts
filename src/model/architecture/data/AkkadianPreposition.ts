@@ -7,11 +7,7 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Fragment } from "./fragment/Fragment";
-
-
+import { Fragment } from './fragment/Fragment';
 
 
 /**
@@ -22,55 +18,54 @@ import { Fragment } from "./fragment/Fragment";
  * @since 11
  */
 export  class AkkadianPreposition extends Fragment {
-	/**
+  /**
 	 * The pattern for prepositions.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern
-			.compile(S`\\b((_A\\-NA)|(_ANA)|(_I\\-NA)|(_IŠ\\-TU)|(_IT\\-TI)|(_PA-NI))([ ]+)`);
+  static readonly pattern:  RegExp = new RegExp('\\b((_A\\-NA)|(_ANA)|(_I\\-NA)|(_IŠ\\-TU)|(_IT\\-TI)|(_PA-NI))([ ]+)');
 
-	/**
+  /**
 	 * The preposition.
 	 */
-	private readonly preposition:  java.lang.String | null;
+  private readonly preposition:  string;
 
-	/**
+  /**
 	 * The number of leading whitespace.
 	 */
-	private readonly leadingWhitespace:  number;
+  private readonly leadingWhitespace:  number;
 
-	/**
+  /**
 	 * Creates a Akkadian preposition.
 	 * 
 	 * @param text The text.
 	 * @since 11
 	 */
-	public constructor(text: java.lang.String| null) {
-		super(text);
+  public constructor(text: string) {
+    super(text);
 
-		text = text.substring(1);
+    text = text.substring(1);
 
-		this.preposition = text.trim();
-		this.leadingWhitespace = text.length() - this.preposition.length();
-	}
+    this.preposition = text.trim();
+    this.leadingWhitespace = text.length - this.preposition.length;
+  }
 
-	/**
+  /**
 	 * Returns the preposition.
 	 *
 	 * @return The preposition.
 	 * @since 11
 	 */
-	public getPreposition():  java.lang.String | null {
-		return this.preposition;
-	}
+  public getPreposition():  string {
+    return this.preposition;
+  }
 
-	/**
+  /**
 	 * Returns the number of leading whitespace.
 	 *
 	 * @return The number of leading whitespace.
 	 * @since 11
 	 */
-	public getLeadingWhitespace():  number {
-		return this.leadingWhitespace;
-	}
+  public getLeadingWhitespace():  number {
+    return this.leadingWhitespace;
+  }
 
 }

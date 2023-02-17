@@ -7,11 +7,7 @@
  */
 
 
-
-import { JavaObject, java } from "../../../../../../../../../usr/bin/java";
-import { LineEntity } from "../LineEntity";
-
-
+import { LineEntity } from '../LineEntity';
 
 
 /**
@@ -21,70 +17,49 @@ import { LineEntity } from "../LineEntity";
  * @version 1.0
  * @since 11
  */
-export  class DataContent extends JavaObject {
-	/**
+export  class DataContent {
+  /**
 	 * The source.
 	 */
-	private readonly source:  java.lang.String | null;
+  private readonly source:  string | null;
 
-	/**
+  /**
 	 * The entities.
 	 */
-	private readonly entities:  java.util.List<LineEntity> | null;
+  private readonly entities:  LineEntity[];
 
-	/**
+  /**
 	 * Creates a content for a data line without entities.
-	 * 
+	 *
 	 * @param source The source.
 	 * @since 11
 	 */
-	/* eslint-disable constructor-super, @typescript-eslint/no-unsafe-call */
-public constructor(source: java.lang.String| null);
 
-	/**
-	 * Creates a content for a data line.
-	 * 
-	 * @param source   The source.
-	 * @param entities The entities.
-	 * @since 11
-	 */
-	public constructor(source: java.lang.String| null, entities: java.util.List<LineEntity>| null);
-public constructor(source: java.lang.String | null, entities?: java.util.List<LineEntity> | null) {
-const $this = (source: java.lang.String | null, entities?: java.util.List<LineEntity> | null): void => {
-if (entities === undefined) {
-		$this(source, null);
-	}
- else  {
-		super();
+  public constructor(source: string | null, entities: LineEntity[] | null) {
 
-		this.source = source;
-		this.entities = entities === null ? new  java.util.ArrayList() : entities;
-	}
-};
+    this.source = source;
+    this.entities = entities == null ? [] : entities;
 
-$this(source, entities);
+  }
 
-}
-/* eslint-enable constructor-super, @typescript-eslint/no-unsafe-call */
-
-	/**
+  /**
 	 * Returns the source.
 	 *
 	 * @return The source.
 	 * @since 11
 	 */
-	public getSource():  java.lang.String | null {
-		return this.source;
-	}
+  public getSource():  string | null{
+    return this.source;
+  }
 
-	/**
+  /**
 	 * Returns the entities.
 	 *
 	 * @return The entities.
 	 * @since 11
 	 */
-	public getEntities():  java.util.List<LineEntity> | null {
-		return this.entities;
-	}
+  public getEntities():  LineEntity[] {
+    return this.entities;
+  }
 
 }

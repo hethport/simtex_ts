@@ -8,8 +8,8 @@
 
 
 
-import { Line } from "../Line";
-import { LineSource } from "../LineSource";
+import { Line } from '../Line';
+import { LineSource } from '../LineSource';
 
 
 
@@ -23,14 +23,14 @@ import { LineSource } from "../LineSource";
  */
 export  class Metadata extends Line {
 
-	/**
+  /**
 	 * Creates a metadata for the TLH dig parser line.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super(source);
-	}
+  public constructor(source: LineSource) {
+    super(source);
+  }
 
 }

@@ -7,11 +7,7 @@
  */
 
 
-
-import { JavaObject, java } from "../../../../../../../../../../usr/bin/java";
-import { Status } from "../../Status";
-
-
+import { Status } from '../../Status';
 
 
 /**
@@ -21,47 +17,45 @@ import { Status } from "../../Status";
  * @version 1.0
  * @since 11
  */
-export  class Fragment extends JavaObject {
-	/**
+export  class Fragment {
+  /**
 	 * The entity status. The default status is 'ok'.
 	 */
-	private readonly status:  Status | null = new  Status();
+  private readonly status:  Status = new  Status();
 
-	/**
+  /**
 	 * The text.
 	 */
-	private readonly text:  java.lang.String | null;
+  private readonly text:  string| null;
 
-	/**
+  /**
 	 * Creates a fragment.
 	 * 
 	 * @param text The content.
 	 * @since 11
 	 */
-	public constructor(text: java.lang.String| null) {
-		super();
+  public constructor(text: string| null) {
+    this.text = text;
+  }
 
-		this.text = text;
-	}
-
-	/**
+  /**
 	 * Returns the status.
 	 *
 	 * @return The status.
 	 * @since 11
 	 */
-	public getStatus():  Status | null {
-		return this.status;
-	}
+  public getStatus():  Status {
+    return this.status;
+  }
 
-	/**
+  /**
 	 * Returns the text.
 	 *
 	 * @return The text.
 	 * @since 11
 	 */
-	public getText():  java.lang.String | null {
-		return this.text;
-	}
+  public getText():  string| null {
+    return this.text;
+  }
 
 }

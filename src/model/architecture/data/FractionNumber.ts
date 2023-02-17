@@ -7,11 +7,7 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Fragment } from "./fragment/Fragment";
-
-
+import { Fragment } from './fragment/Fragment';
 
 
 /**
@@ -22,42 +18,32 @@ import { Fragment } from "./fragment/Fragment";
  * @since 11
  */
 export  class FractionNumber extends Fragment {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = S`\\d`;
+  private static readonly alphabet:  string = '\\d';
 
-	/**
+  /**
 	 * The pattern for numbers.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`(` + FractionNumber.alphabet + S`)/(` + FractionNumber.alphabet + S`)`);
+  static readonly pattern:  RegExp = new RegExp('(' + FractionNumber.alphabet + ')/(' + FractionNumber.alphabet + ')');
 
-	/**
+  /**
 	 * The available glyphs.
 	 */
-	protected static readonly availableGlyphs:  java.lang.String | null = S`½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞`;
+  static readonly availableGlyphs:  string = '½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞';
 
-	/**
+  /**
 	 * The numerator.
 	 */
-	private readonly numerator:  number;
+  private readonly numerator:  number;
 
-	/**
+  /**
 	 * The denominator.
 	 */
-	private readonly denominator:  number;
+  private readonly denominator:  number;
 
-	/**
-	 * Creates a fraction number.
-	 * 
-	 * @param numerator   The numerator.
-	 * @param denominator The denominator.
-	 * @since 11
-	 */
-	/* eslint-disable constructor-super, @typescript-eslint/no-unsafe-call */
-private constructor(numerator: java.lang.String| null, denominator: java.lang.String| null);
-
-	/**
+  /**
 	 * Creates a fraction number.
 	 * 
 	 * @param text        The text.
@@ -65,195 +51,182 @@ private constructor(numerator: java.lang.String| null, denominator: java.lang.St
 	 * @param denominator The denominator.
 	 * @since 11
 	 */
-	public constructor(text: java.lang.String| null, numerator: java.lang.String| null, denominator: java.lang.String| null);
-private constructor(numeratorOrText: java.lang.String | null, denominatorOrNumerator: java.lang.String | null, denominator?: java.lang.String | null) {
-const $this = (numeratorOrText: java.lang.String | null, denominatorOrNumerator: java.lang.String | null, denominator?: java.lang.String | null): void => {
-if (denominator === undefined) {
-		$this(numerator + S`/` + denominator, numerator, denominator);
-	}
- else  {
-let text = numeratorOrText as java.lang.String;
-let numerator = denominatorOrNumerator as java.lang.String;
-		super(text);
+  constructor(text: string, numerator: string, denominator: string) {
+    super(text);
 
-		this.numerator = java.lang.Integer.parseInt(numerator);
-		this.denominator = java.lang.Integer.parseInt(denominator);
-	}
-};
+    this.numerator = parseInt(numerator);
+    this.denominator = parseInt(denominator);
+  }
+  /* eslint-enable constructor-super, @typescript-eslint/no-unsafe-call */
 
-$this(numeratorOrText, denominatorOrNumerator, denominator);
-
-}
-/* eslint-enable constructor-super, @typescript-eslint/no-unsafe-call */
-
-	/**
+  /**
 	 * Returns the numerator.
 	 *
 	 * @return The numerator.
 	 * @since 11
 	 */
-	public getNumerator():  number {
-		return this.numerator;
-	}
+  public getNumerator():  number {
+    return this.numerator;
+  }
 
-	/**
+  /**
 	 * Returns the denominator.
 	 *
 	 * @return The denominator.
 	 * @since 11
 	 */
-	public getDenominator():  number {
-		return this.denominator;
-	}
+  public getDenominator():  number {
+    return this.denominator;
+  }
 
-	/**
+  /**
 	 * Returns the glyph.
 	 * 
 	 * @return The glyph. Null if not available.
 	 * @since 11
 	 */
-	public getGlyph():  java.lang.String | null {
-		switch (this.denominator) {
-		case 2:
-			return this.numerator === 1 ? S`½` : null;
+  public getGlyph():  string | null {
+    switch (this.denominator) {
+    case 2:
+      return this.numerator === 1 ? '½' : null;
 
-		case 3:
-			switch (this.numerator) {
-			case 1:
-				return S`⅓`;
+    case 3:
+      switch (this.numerator) {
+      case 1:
+        return '⅓';
 
-			case 2:
-				return S`⅔`;
+      case 2:
+        return '⅔';
 
-			default:
-				return null;
-			}
+      default:
+        return null;
+      }
 
-		case 4:
-			switch (this.numerator) {
-			case 1:
-				return S`¼`;
+    case 4:
+      switch (this.numerator) {
+      case 1:
+        return '¼';
 
-			case 3:
-				return S`¾`;
+      case 3:
+        return '¾';
 
-			default:
-				return null;
-			}
+      default:
+        return null;
+      }
 
-		case 5:
-			switch (this.numerator) {
-			case 1:
-				return S`⅕`;
+    case 5:
+      switch (this.numerator) {
+      case 1:
+        return '⅕';
 
-			case 2:
-				return S`⅖`;
+      case 2:
+        return '⅖';
 
-			case 3:
-				return S`⅗`;
+      case 3:
+        return '⅗';
 
-			case 4:
-				return S`⅘`;
+      case 4:
+        return '⅘';
 
-			default:
-				return null;
-			}
+      default:
+        return null;
+      }
 
-		case 6:
-			switch (this.numerator) {
-			case 1:
-				return S`⅙`;
+    case 6:
+      switch (this.numerator) {
+      case 1:
+        return '⅙';
 
-			case 5:
-				return S`⅚`;
+      case 5:
+        return '⅚';
 
-			default:
-				return null;
-			}
+      default:
+        return null;
+      }
 
-		case 8:
-			switch (this.numerator) {
-			case 1:
-				return S`⅛`;
+    case 8:
+      switch (this.numerator) {
+      case 1:
+        return '⅛';
 
-			case 3:
-				return S`⅜`;
+      case 3:
+        return '⅜';
 
-			case 5:
-				return S`⅝`;
+      case 5:
+        return '⅝';
 
-			case 7:
-				return S`⅞`;
+      case 7:
+        return '⅞';
 
-			default:
-				return null;
-			}
+      default:
+        return null;
+      }
 
-		default:
-			return null;
+    default:
+      return null;
 
-		}
-	}
+    }
+  }
 
-	/**
+  /**
 	 * Returns the fraction number for given glyph.
 	 * 
 	 * @param glyph The glyph.
 	 * @return The fraction number for given glyph. Null if not available.
 	 * @since 11
 	 */
-	public static getFractionNumber(glyph: java.lang.String| null):  FractionNumber | null {
-		if (glyph === null || glyph.length() !== 1)
-			return null;
-		else
-			switch (glyph) {
-			case S`½`:
-				return new  FractionNumber(S`1`, S`2`);
+  public static getFractionNumber(glyph: string):  FractionNumber | null {
+    if (glyph.length != 1)
+      return null;
+    else
+      switch (glyph) {
+      case '½':
+        return new  FractionNumber('1/2', '1', '2');
 
-			case S`⅓`:
-				return new  FractionNumber(S`1`, S`3`);
+      case '⅓':
+        return new  FractionNumber('1/3', '1', '3');
 
-			case S`⅔`:
-				return new  FractionNumber(S`2`, S`3`);
+      case '⅔':
+        return new  FractionNumber('2/3', '2', '3');
 
-			case S`¼`:
-				return new  FractionNumber(S`1`, S`4`);
+      case '¼':
+        return new  FractionNumber('1/4', '1', '4');
 
-			case S`¾`:
-				return new  FractionNumber(S`3`, S`4`);
+      case '¾':
+        return new  FractionNumber('3/4', '3', '4');
 
-			case S`⅕`:
-				return new  FractionNumber(S`1`, S`5`);
+      case '⅕':
+        return new  FractionNumber('1/5', '1', '5');
 
-			case S`⅖`:
-				return new  FractionNumber(S`2`, S`5`);
+      case '⅖':
+        return new  FractionNumber('2/5', '2', '5');
 
-			case S`⅗`:
-				return new  FractionNumber(S`3`, S`5`);
+      case '⅗':
+        return new  FractionNumber('3/5', '3', '5');
 
-			case S`⅘`:
-				return new  FractionNumber(S`4`, S`5`);
+      case '⅘':
+        return new  FractionNumber('4/5', '4', '5');
 
-			case S`⅙`:
-				return new  FractionNumber(S`1`, S`6`);
+      case '⅙':
+        return new  FractionNumber('1/6', '1', '6');
 
-			case S`⅚`:
-				return new  FractionNumber(S`5`, S`6`);
+      case '⅚':
+        return new  FractionNumber('5/6', '5', '6');
 
-			case S`⅛`:
-				return new  FractionNumber(S`1`, S`8`);
+      case '⅛':
+        return new  FractionNumber('1/8', '1', '8');
 
-			case S`⅜`:
-				return new  FractionNumber(S`3`, S`8`);
+      case '⅜':
+        return new  FractionNumber('3/8', '3', '8');
 
-			case S`⅝`:
-				return new  FractionNumber(S`5`, S`8`);
+      case '⅝':
+        return new  FractionNumber('5/8', '5', '8');
 
-			case S`⅞`:
-				return new  FractionNumber(S`7`, S`8`);
+      case '⅞':
+        return new  FractionNumber('7/8', '7', '8');
 
-			default:
-				return null;
-			}
-	}
+      default:
+        return null;
+      }
+  }
 }

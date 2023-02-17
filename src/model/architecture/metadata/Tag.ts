@@ -7,10 +7,9 @@
  */
 
 
-
-import { JavaObject, java, S } from "../../../../../../../../../usr/bin/java";
-import { TagType } from "./TagType";
-import { LineEntity } from "../LineEntity";
+import { TagType } from './TagType';
+import { LineEntity } from '../LineEntity';
+import {ParagraphLanguageType} from './ParagraphLanguageType';
 
 
 
@@ -22,24 +21,24 @@ import { LineEntity } from "../LineEntity";
  * @version 1.0
  * @since 11
  */
-export  class Tag extends JavaObject implements LineEntity {
+export  class Tag implements LineEntity {
 
-	/**
+  /**
 	 * The segment.
 	 */
-	private readonly segment:  java.lang.String | null;
+  private readonly segment:  string;
 
-	/**
+  /**
 	 * The type.
 	 */
-	private readonly type:  TagType | null;
+  private readonly type:  TagType;
 
-	/**
+  /**
 	 * The content.
 	 */
-	private readonly content:  java.lang.String | null;
+  private readonly content:  string | null;
 
-	/**
+  /**
 	 * Creates a tag.
 	 * 
 	 * @param segment The segment.
@@ -47,66 +46,65 @@ export  class Tag extends JavaObject implements LineEntity {
 	 * @param content The content.
 	 * @since 11
 	 */
-	public constructor(segment: java.lang.String| null, type: java.lang.String| null, content: java.lang.String| null) {
-		super();
+  public constructor(segment: string, type: string, content: string) {
 
-		this.segment = segment;
+    this.segment = segment;
 
-		switch (type) {
-		case S`M`:
-			this.type = TagType.Mbegin;
-			break;
+    switch (type) {
+    case 'M':
+      this.type = TagType.Mbegin;
+      break;
 
-		case S`/M`:
-			this.type = TagType.Mend;
-			break;
+    case '/M':
+      this.type = TagType.Mend;
+      break;
 
-		default:
-			this.type = TagType.valueOf(type);
-			break;
-		}
+    default:
+      this.type = TagType[type as keyof typeof TagType];
+      break;
+    }
 
-		this.content = content === null || content.isBlank() ? null : content.trim();
-	}
+    this.content = content === null || content.trim().length == 0 ? null : content.trim();
+  }
 
-	/**
+  /**
 	 * Returns the segment.
 	 *
 	 * @return The segment.
 	 * @since 11
 	 */
-	public getSegment():  java.lang.String | null {
-		return this.segment;
-	}
+  public getSegment():  string | null {
+    return this.segment;
+  }
 
-	/**
+  /**
 	 * Returns the type.
 	 *
 	 * @return The type.
 	 * @since 11
 	 */
-	public getType():  TagType | null {
-		return this.type;
-	}
+  public getType():  TagType | null {
+    return this.type;
+  }
 
-	/**
+  /**
 	 * Returns true if the content is set.
 	 *
 	 * @return True if the content is set.
 	 * @since 11
 	 */
-	public isContentSet():  boolean {
-		return this.content !== null;
-	}
+  public isContentSet():  boolean {
+    return this.content !== null;
+  }
 
-	/**
+  /**
 	 * Returns the content.
 	 *
 	 * @return The content.
 	 * @since 11
 	 */
-	public getContent():  java.lang.String | null {
-		return this.content;
-	}
+  public getContent():  string | null {
+    return this.content;
+  }
 
 }

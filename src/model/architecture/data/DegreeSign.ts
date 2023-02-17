@@ -7,12 +7,8 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Breakdown } from "./fragment/Breakdown";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { Breakdown } from './fragment/Breakdown';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -24,17 +20,17 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class DegreeSign extends Breakdown {
-	/**
+  /**
 	 * The pattern for fragments between degree signs.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`°([^°]*)°`);
+  static readonly pattern:  RegExp = new RegExp('°([^°]*)°');
 
-	/**
+  /**
 	 * The segment.
 	 */
-	private readonly segment:  java.lang.String | null;
+  private readonly segment:  string| null;
 
-	/**
+  /**
 	 * Creates a word fragment between degree signs.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
@@ -42,20 +38,19 @@ export  class DegreeSign extends Breakdown {
 	 * @param content        The content. Null on troubles.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, segment: java.lang.String| null, content: java.lang.String| null) {
-		super(deleriPosition, content);
+  public constructor(deleriPosition: MetadataPosition, segment: string| null, content: string| null) {
+    super(deleriPosition, content);
 
-		this.segment = segment;
-	}
+    this.segment = segment;
+  }
 
-	/**
+  /**
 	 * Returns the segment.
 	 *
 	 * @return The segment.
 	 * @since 11
 	 */
-	public getSegment():  java.lang.String | null {
-		return this.segment;
-	}
-
+  public getSegment():  string | null {
+    return this.segment;
+  }
 }

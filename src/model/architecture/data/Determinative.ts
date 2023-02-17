@@ -7,13 +7,9 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { DegreeSign } from "./DegreeSign";
-import { Word } from "./Word";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { DegreeSign } from './DegreeSign';
+import { Word } from './Word';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -24,19 +20,19 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Determinative extends DegreeSign {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = Word.alphabetUpperCase + S`\\.` + S`\\d` + Word.indexDigits
+  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\.' + '\\d' + Word.indexDigits
 			+ Word.delimiterAlphabet;
 
-	/**
+  /**
 	 * The pattern for determinative.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`[` + Determinative.alphabet + S`]*` + S`[` + Word.alphabetUpperCase
-			+ S`\\.` + S`]+` + S`[` + Determinative.alphabet + S`]*` + Word.subscriptRegularExpression);
+  public static readonly pattern:  RegExp = new RegExp('[' + Determinative.alphabet + ']*' + '[' + Word.alphabetUpperCase
+			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + Word.subscriptRegularExpression);
 
-	/**
+  /**
 	 * Creates a determinative.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
@@ -44,8 +40,8 @@ export  class Determinative extends DegreeSign {
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, segment: java.lang.String| null, text: java.lang.String| null) {
-		super(deleriPosition, segment, text);
-	}
+  public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
+    super(deleriPosition, segment, text);
+  }
 
 }

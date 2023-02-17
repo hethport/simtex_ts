@@ -7,11 +7,8 @@
  */
 
 
-
-import { Identifier } from "./Identifier";
-import { LineSource } from "../LineSource";
-
-
+import { Identifier } from './Identifier';
+import { LineSource } from '../LineSource';
 
 
 /**
@@ -23,14 +20,14 @@ import { LineSource } from "../LineSource";
  */
 export  class PublicationNumber extends Identifier {
 
-	/**
+  /**
 	 * Creates a publication number.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super(source);
-	}
+  public constructor(source: LineSource) {
+    super(source);
+  }
 
 }

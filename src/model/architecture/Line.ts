@@ -6,11 +6,8 @@
  * Date:     05.12.2022
  */
 
-import { JavaObject } from "../../../../../../../../usr/bin/java";
-import { LineSource } from "./LineSource";
-import { Status } from "./Status";
-
-
+import { LineSource } from './LineSource';
+import { Status } from './Status';
 
 
 /**
@@ -20,47 +17,46 @@ import { Status } from "./Status";
  * @version 1.0
  * @since 11
  */
-export  class Line extends JavaObject {
-	/**
+export  class Line {
+  /**
 	 * The line status. The default status is 'ok'.
 	 */
-	private readonly status:  Status | null = new  Status();
+  private readonly status:  Status = new  Status();
 
-	/**
+  /**
 	 * The line source.
 	 */
-	private readonly source:  LineSource | null;
+  private readonly source:  LineSource;
 
-	/**
+  /**
 	 * Creates a TLH dig parser line.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super();
+  public constructor(source: LineSource) {
 
-		this.source = source;
-	}
+    this.source = source;
+  }
 
-	/**
+  /**
 	 * Returns the line status.
 	 *
 	 * @return The line status.
 	 * @since 11
 	 */
-	public getStatus():  Status | null {
-		return this.status;
-	}
+  public getStatus():  Status {
+    return this.status;
+  }
 
-	/**
+  /**
 	 * Returns the line source.
 	 *
 	 * @return The line source.
 	 * @since 11
 	 */
-	public getSource():  LineSource | null {
-		return this.source;
-	}
+  public getSource():  LineSource {
+    return this.source;
+  }
 
 }

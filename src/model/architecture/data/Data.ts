@@ -7,24 +7,22 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { AkkadianPreposition } from "./AkkadianPreposition";
-import { Column } from "./Column";
-import { DataContent } from "./DataContent";
-import { DataInformation } from "./DataInformation";
-import { DegreeSign } from "./DegreeSign";
-import { Empty } from "./Empty";
-import { Word } from "./Word";
-import { Line } from "../Line";
-import { LineEntity } from "../LineEntity";
-import { LineSource } from "../LineSource";
-import { StatusEvent } from "../StatusEvent";
-import { StatusEventCode } from "../StatusEventCode";
-import { StatusLevel } from "../StatusLevel";
-import { Marker } from "../metadata/Marker";
-import { ParagraphLanguageType } from "../metadata/ParagraphLanguageType";
-import { Tag } from "../metadata/Tag";
+import { AkkadianPreposition } from './AkkadianPreposition';
+import { Column } from './Column';
+import { DataContent } from './DataContent';
+import { DataInformation } from './DataInformation';
+import { DegreeSign } from './DegreeSign';
+import { Empty } from './Empty';
+import { Word } from './Word';
+import { Line } from '../Line';
+import { LineEntity } from '../LineEntity';
+import { LineSource } from '../LineSource';
+import { StatusEvent } from '../StatusEvent';
+import { StatusEventCode } from '../StatusEventCode';
+import { StatusLevel } from '../StatusLevel';
+import { Marker } from '../metadata/Marker';
+import { ParagraphLanguageType } from '../metadata/ParagraphLanguageType';
+import { Tag } from '../metadata/Tag';
 
 
 
@@ -37,27 +35,27 @@ import { Tag } from "../metadata/Tag";
  * @since 11
  */
 export  class Data extends Line {
-	/**
+  /**
 	 * The space escape character.
 	 */
-	protected static readonly spaceEscapeCharacter:  java.lang.String | null = S`⊕`;
+  static readonly spaceEscapeCharacter:  string = '⊕';
 
-	/**
+  /**
 	 * The space pattern.
 	 */
-	private static readonly spacePattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`([ ]+)`);
+  private static readonly spacePattern:  RegExp = new RegExp('([ ]+)');
 
-	/**
+  /**
 	 * The information.
 	 */
-	private readonly information:  DataInformation | null;
+  private readonly information:  DataInformation;
 
-	/**
+  /**
 	 * The content.
 	 */
-	private readonly content:  DataContent | null;
+  private readonly content:  DataContent;
 
-	/**
+  /**
 	 * Creates a data line for the TLH dig parser.
 	 * 
 	 * @param source            The line source.
@@ -65,183 +63,192 @@ export  class Data extends Line {
 	 * @param linePrefix        The line prefix.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null, paragraphLanguage: ParagraphLanguageType| null, linePrefix: java.lang.String| null) {
-		super(source);
+  public constructor(source: LineSource, paragraphLanguage: ParagraphLanguageType, linePrefix: string| null) {
+    super(source);
 
-		let  lineNumber: java.lang.String;
-		let  lineSource: java.lang.String;
-		if (source === null || source.getTextNormalized() === null) {
-			lineNumber = null;
-			lineSource = null;
+    let  lineNumber: string| null;
+    let  lineSource: string;
+    if (source == null || source.getTextNormalized() == null) {
+      lineNumber = null;
+      lineSource = '';
 
-			this.getStatus().add(
-					new  StatusEvent(StatusLevel.maximal, StatusEventCode.required, S`line source is not available`));
-		} else {
+      this.getStatus().add(
+        new  StatusEvent(StatusLevel.maximal, StatusEventCode.required, 'line source is not available'));
+    } else {
 
-			let  split: java.lang.String[] = source.getTextNormalized().split(S`#`, 2);
+      const  split: string[] = source.getTextNormalized().split('#', 2);
 
-			if (split.length === 1) {
-				lineNumber = null;
-				lineSource = split[0];
+      if (split.length === 1) {
+        lineNumber = null;
+        lineSource = split[0];
 
-				this.getStatus().add(new  StatusEvent(StatusLevel.critical, StatusEventCode.required,
-						S`line number is not available`));
-			} else {
-				lineNumber = split[0];
-				lineSource = split[1];
+        this.getStatus().add(new  StatusEvent(StatusLevel.critical, StatusEventCode.required,
+          'line number is not available'));
+      } else {
+        lineNumber = split[0];
+        lineSource = split[1];
 
-				if (lineNumber.isBlank())
-					this.getStatus().add(new  StatusEvent(StatusLevel.minor, StatusEventCode.empty, S`line number is empty`));
-			}
-		}
+        if (lineNumber.trim().length == 0)
+          this.getStatus().add(new  StatusEvent(StatusLevel.minor, StatusEventCode.empty, 'line number is empty'));
+      }
+    }
 
-		this.information = new  DataInformation(paragraphLanguage, linePrefix, lineNumber);
-		this.content = StatusLevel.ok.equals(this.getStatus().getLevel()) ? new  DataContent(lineSource, Data.parse(lineSource))
-				: new  DataContent(lineSource);
+    this.information = new  DataInformation(paragraphLanguage, linePrefix, lineNumber);
+    this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(lineSource))
+      : new  DataContent(lineSource, null);
 
-		for (let entity of this.content.getEntities())
-			if (entity instanceof Word)
-				this.getStatus().addLevel(( entity as Word).getStatus());
-	}
+    for (const entity of this.content.getEntities())
+      if (entity instanceof Word)
+        this.getStatus().addLevel(( entity as Word).getStatus());
+  }
 
-	/**
+  /**
 	 * Parses the line text.
 	 * 
 	 * @param text The text to parse.
 	 * @return The entities.
 	 * @since 11
 	 */
-	private static parse(text: java.lang.String| null):  java.util.List<LineEntity> | null {
-		if (text === null || text.isBlank())
-			return new  java.util.ArrayList();
-		else {
-			// extract the tags and segments
-			let  entities: java.util.List<LineEntity> = new  java.util.ArrayList();
+  private static parse(text: string| null):  LineEntity[] {
+    if (text == null || text.trim().length == 0)
+      return [];
+    else {
+      // extract the tags and segments
+      const  entities: LineEntity[] = [];
 
-			let  matcher: java.util.regex.Matcher = Marker.tagPattern.matcher(text.trim());
+      text = text.trim();
+      const  matches = text.matchAll(Marker.tagPattern);
+      let index = 0;
+      for (const match of matches) {
+        if (match.index && index < match.index) {
 
-			let  buffer: java.lang.StringBuffer;
-			while (matcher.find()) {
-				buffer = new  java.lang.StringBuffer();
+          entities.push(Data.parseSegment(text.substring(index, match.index)));
+        }
+        entities.push(new Tag(match[0], match[1], match[2]));
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-				matcher.appendReplacement(buffer, S``);
+      if(index < text.length) {
+        entities.push(Data.parseSegment(text.substring(index, text.length - 1)));
+      }
 
-				if (buffer.length() > 0)
-					entities.addAll(Data.parseSegment(buffer.toString()));
+      return entities;
+    }
+  }
 
-				entities.add(new  Tag(matcher.group(0), matcher.group(1), matcher.group(2)));
-			}
-
-			buffer = new  java.lang.StringBuffer();
-			matcher.appendTail(buffer);
-			if (buffer.length() > 0)
-				entities.addAll(Data.parseSegment(buffer.toString()));
-
-			return entities;
-		}
-	}
-
-	/**
+  /**
 	 * Parses the segment and returns the respective entities.
 	 * 
 	 * @param segment The segment to parse.
 	 * @return The entities.
 	 * @since 11
 	 */
-	private static parseSegment(segment: java.lang.String| null):  java.util.List<LineEntity> | null {
-		if (segment.isBlank())
-			return java.util.Arrays.asList(new  Empty(segment));
-		else {
-			/*
-			 * escape required spaces to extract words
-			 */
+  private static parseSegment(segment: string):  LineEntity[] {
+    if (segment.trim().length == 0)
+      return [new  Empty(segment)];
+    else {
+      /*
+	   * escape required spaces to extract words
+	   */
 
-			// escape spaces in determinative and glossing
-			let  matcher: java.util.regex.Matcher = DegreeSign.pattern.matcher(segment);
+      // escape spaces in determinative and glossing
+      let  matches = segment.matchAll(DegreeSign.pattern);
+      let index = 0;
+      let buffer: string[] = [];
+      for (const match of matches) {
+        if (match.index && index < match.index) {
+          buffer.push(segment.substring(index, match.index));
+        }
+        buffer.push(match[0].replace(' ', Data.spaceEscapeCharacter));
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-			let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
-			while (matcher.find())
-				matcher.appendReplacement(buffer, matcher.group(0).replaceAll(S` `, Data.spaceEscapeCharacter));
-			matcher.appendTail(buffer);
+      if(index < segment.length) {
+        buffer.push(segment.substring(index, segment.length - 1));
+      }
 
-			// escape spaces after Akkadian prepositions
-			matcher = AkkadianPreposition.pattern.matcher(buffer.toString());
+      // escape spaces after Akkadian prepositions
+      matches = buffer.join('').matchAll(AkkadianPreposition.pattern);
+      index = 0;
+      buffer = [];
+      for (const match of matches) {
+        if (match.index && index < match.index) {
+          buffer.push(segment.substring(index, match.index));
+        }
+        buffer.push(match[0].replace(' ', Data.spaceEscapeCharacter));
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-			buffer = new  java.lang.StringBuffer();
-			while (matcher.find())
-				matcher.appendReplacement(buffer, matcher.group(0).replaceAll(S` `, Data.spaceEscapeCharacter));
-			matcher.appendTail(buffer);
+      if(index < segment.length) {
+        buffer.push(segment.substring(index, segment.length - 1));
+      }
 
-			/*
-			 * extract the words, restore spaces and parse
-			 */
-			let  entities: java.util.List<LineEntity> = new  java.util.ArrayList();
+      /*
+	   * extract the words, restore spaces and parse
+	   */
+      const  entities: LineEntity[] = [];
 
-			matcher = Data.spacePattern.matcher(buffer.toString());
+      const wordBuffer = buffer.join('');
+      matches = wordBuffer.matchAll(Data.spacePattern);
+      index = 0;
+      for (const match of matches) {
+        if (match.index && index < match.index) {
+          entities.push(this.getSegmentEntity(wordBuffer.substring(index, match.index)));
+        }
+        entities.push(new Empty(match[1]));
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
 
-			while (matcher.find()) {
-				buffer = new  java.lang.StringBuffer();
-				matcher.appendReplacement(buffer, S``);
+      if(index < wordBuffer.length) {
+        entities.push(this.getSegmentEntity(wordBuffer.substring(index, wordBuffer.length - 1)));
+      }
+      return entities;
+    }
 
-				if (buffer.length() > 0)
-					entities.add(Data.getSegmentEntity(buffer));
+  }
 
-				entities.add(new  Empty(matcher.group(1)));
-			}
-			buffer = new  java.lang.StringBuffer();
-			matcher.appendTail(buffer);
-			if (buffer.length() > 0)
-				entities.add(Data.getSegmentEntity(buffer));
-
-			return entities;
-		}
-
-	}
-
-	/**
+  /**
 	 * Returns the segment entity for given text.
 	 * 
-	 * @param buffer The buffer containing the text.
+	 * @param text The buffer containing the text.
 	 * @return The segment entity.
 	 * @since 11
 	 */
-	private static getSegmentEntity(buffer: java.lang.StringBuffer| null):  LineEntity | null {
-		 let  text: java.lang.String = buffer.toString();
+  private static getSegmentEntity(text: string):  LineEntity {
+    return '\\' == text ? new  Column() : new  Word(text.replace(Data.spaceEscapeCharacter, ' '));
+  }
 
-		return S`\\`.equals(text) ? new  Column(text) : new  Word(text.replaceAll(Data.spaceEscapeCharacter, S` `));
-	}
-
-	/**
+  /**
 	 * Parses the line content and returns the content.
 	 * 
 	 * @param text The text to parse.
 	 * @return The content.
 	 * @since 11
 	 */
-	public static parseContent(text: java.lang.String| null):  DataContent | null {
-		 let  normalized: java.lang.String = LineSource.normalize(text);
+  public static parseContent(text: string):  DataContent {
+    const  normalized: string = LineSource.normalize(text);
 
-		return new  DataContent(normalized, Data.parse(normalized));
-	}
+    return new  DataContent(normalized, Data.parse(normalized));
+  }
 
-	/**
+  /**
 	 * Returns the information.
 	 *
 	 * @return The information.
 	 * @since 11
 	 */
-	public getInformation():  DataInformation | null {
-		return this.information;
-	}
+  public getInformation():  DataInformation | null {
+    return this.information;
+  }
 
-	/**
+  /**
 	 * Returns the content.
 	 *
 	 * @return The content.
 	 * @since 11
 	 */
-	public getContent():  DataContent | null {
-		return this.content;
-	}
+  public getContent():  DataContent | null {
+    return this.content;
+  }
 
 }

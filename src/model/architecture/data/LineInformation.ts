@@ -6,10 +6,6 @@
  * Date:     16.02.2023
  */
 
-import { JavaObject, java, S } from "../../../../../../../../../usr/bin/java";
-
-
-
 
 /**
  * LineInformation is an immutable class that defines line information for data
@@ -19,80 +15,84 @@ import { JavaObject, java, S } from "../../../../../../../../../usr/bin/java";
  * @version 1.0
  * @since 11
  */
-export  class LineInformation extends JavaObject {
-	/**
+export  class LineInformation {
+  /**
 	 * The prefix.
 	 */
-	private readonly prefix:  java.lang.String | null;
+  private readonly prefix:  string | null;
 
-	/**
+  /**
 	 * The number.
 	 */
-	private readonly number:  java.lang.String | null;
+  private readonly number:  string;
 
-	/**
+  /**
 	 * Creates a line information.
 	 * 
 	 * @param prefix The prefix.
 	 * @param number The number.
 	 * @since 11
 	 */
-	public constructor(prefix: java.lang.String| null, number: java.lang.String| null) {
-		super();
-		this.prefix = prefix;
-		this.number = LineInformation.normalizeNumber(number);
-	}
+  public constructor(prefix: string| null, number: string | null) {
+    this.prefix = prefix;
+    this.number = LineInformation.normalizeNumber(number);
+  }
 
-	/**
+  /**
 	 * Normalizes the line number.
 	 * 
 	 * @param number The line number to normalize.
 	 * @return The normalized line number.
 	 * @since 11
 	 */
-	public static normalizeNumber(number: java.lang.String| null):  java.lang.String | null {
-		return number === null ? null
-				: number.replaceAll(S`'`, S`′`).replaceAll(S`’`, S`′`).replaceAll(S`ʹʹʹʹ'`, S`⁗`).replaceAll(S`ʹʹʹ`, S`‴`)
-						.replaceAll(S`ʹʹ`, S`″`).replaceAll(S`ʹ`, S`′`).trim();
-	}
+  public static normalizeNumber(number: string | null):  string {
 
-	/**
+    return number == null ? '' : number.replace('\'', '′')
+      .replace('’', '′')
+      .replace('ʹʹʹʹ', '⁗')
+      .replace('ʹʹʹ', '‴')
+      .replace('ʹʹ', '″')
+      .replace('ʹ', '′')
+      .trim();
+  }
+
+  /**
 	 * Returns true if the prefix is set.
 	 *
 	 * @return True if the prefix is set.
 	 * @since 11
 	 */
-	public isPrefixSet():  boolean {
-		return this.prefix !== null;
-	}
+  public isPrefixSet():  boolean {
+    return this.prefix !== null;
+  }
 
-	/**
+  /**
 	 * Returns the prefix.
 	 *
 	 * @return The prefix.
 	 * @since 11
 	 */
-	public getPrefix():  java.lang.String | null {
-		return this.prefix;
-	}
+  public getPrefix():  string | null {
+    return this.prefix;
+  }
 
-	/**
+  /**
 	 * Returns true if the number is set.
 	 *
 	 * @return True if the number is set.
 	 * @since 11
 	 */
-	public isNumberSet():  boolean {
-		return this.number !== null;
-	}
+  public isNumberSet():  boolean {
+    return this.number !== null;
+  }
 
-	/**
+  /**
 	 * Returns the number.
 	 *
 	 * @return The number.
 	 * @since 11
 	 */
-	public getNumber():  java.lang.String | null {
-		return this.number;
-	}
+  public getNumber():  string | null {
+    return this.number;
+  }
 }

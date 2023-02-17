@@ -7,11 +7,7 @@
  */
 
 
-
-import { java } from "../../../../../../../../../usr/bin/java";
-import { Fragment } from "./fragment/Fragment";
-
-
+import { Fragment } from './fragment/Fragment';
 
 
 /**
@@ -22,14 +18,14 @@ import { Fragment } from "./fragment/Fragment";
  * @since 11
  */
 export  class NotImplemented extends Fragment {
-	/**
+  /**
 	 * Creates a not implemented word fragments.
 	 * 
 	 * @param text The text.
 	 * @since 11
 	 */
-	public constructor(text: java.lang.String| null) {
-		super(text);
-	}
+  public constructor(text: string) {
+    super(text);
+  }
 
 }

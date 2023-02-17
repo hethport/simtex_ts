@@ -7,9 +7,6 @@
  */
 
 
-
-
-
 /**
  * Defines slices.
  *
@@ -17,5 +14,6 @@
  * @version 1.0
  * @since 11
  */
- interface Slice {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Slice {
 }

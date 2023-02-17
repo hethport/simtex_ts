@@ -7,11 +7,10 @@
  */
 
 
-
-import { java } from "../../../../../../../../../../usr/bin/java";
-import { Fragment } from "./Fragment";
-import { MetadataPosition } from "./MetadataPosition";
-import { Split } from "./Split";
+import { Fragment } from './Fragment';
+import { MetadataPosition } from './MetadataPosition';
+import { Split } from './Split';
+import {Tag} from '../../metadata/Tag';
 
 
 
@@ -24,74 +23,75 @@ import { Split } from "./Split";
  * @since 11
  */
 export  class Breakdown extends Fragment {
-	/**
+  /**
 	 * The splits.
 	 */
-	private readonly splits:  java.util.List<Split> | null = new  java.util.ArrayList();
+  private readonly splits:  Split[] = [];
 
-	/**
+  /**
 	 * The deleri ('*' / erased / Rasur) position.
 	 */
-	private deleriPosition:  MetadataPosition | null;
+  private deleriPosition:  MetadataPosition;
 
-	/**
+  /**
 	 * Creates a breakdown.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param text           The text. If null, do not normalize.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, text: java.lang.String| null) {
-		super(text);
+  public constructor(deleriPosition: MetadataPosition, text: string| null) {
+    super(text);
 
-		if (text !== null) {
-			let  matcher: java.util.regex.Matcher = Split.pattern.matcher(text);
+    if (text !== null) {
 
-			while (matcher.find())
-				if (!matcher.group(1).isEmpty()) {
-					let  split: Split = new  Split(this.getStatus(), deleriPosition, matcher.group(1));
-					this.splits.add(split);
+      const  matches = text.matchAll(Split.pattern);
+      for (const match of matches) {
+        if(match[1].length > 0) {
+          const  split: Split = new  Split(this.getStatus(), deleriPosition, match[1]);
+          this.splits.push(split);
 
-					deleriPosition = split.getDeleriPosition();
-				}
-		}
+          deleriPosition = split.getDeleriPosition();
+        }
+      }
+    }
 
-		this.deleriPosition = deleriPosition;
-	}
+    this.deleriPosition = deleriPosition;
+  }
 
-	/**
+  /**
 	 * Returns the deleri ('*' / erased / Rasur) position.
 	 *
 	 * @return The deleri ('*' / erased / Rasur) position.
 	 * @since 11
 	 */
-	public getDeleriPosition():  MetadataPosition | null {
-		return this.deleriPosition;
-	}
+  public getDeleriPosition():  MetadataPosition {
+    return this.deleriPosition;
+  }
 
-	/**
+  /**
 	 * Returns the splits.
 	 *
 	 * @return The splits.
 	 * @since 11
 	 */
-	public getSplits():  java.util.List<Split> | null {
-		return this.splits;
-	}
+  public getSplits(): Split[] {
+    return this.splits;
+  }
 
-	/**
+  /**
 	 * Returns the plain text.
 	 *
 	 * @return The plain text.
 	 * @since 11
 	 */
-	public getPlainText():  java.lang.String | null {
-		let  buffer: java.lang.StringBuffer = new  java.lang.StringBuffer();
+  public getPlainText():  string {
+    const  buffer: string[] = [];
 
-		for (let split of this.splits)
-			buffer.append(split.getMainPartPlainText());
+    for (const split of this.splits)
+      buffer.push(split.getMainPartPlainText());
 
-		return buffer.toString();
-	}
+    return buffer.join('');
+  }
 
 }

@@ -6,11 +6,8 @@
  * Date:     14.12.2022
  */
 
-
-
-import { JavaObject, java } from "../../../../../../../../usr/bin/java";
-import { StatusEvent } from "./StatusEvent";
-import { StatusLevel } from "./StatusLevel";
+import { StatusEvent } from './StatusEvent';
+import { StatusLevel, maxStatusLevel } from './StatusLevel';
 
 
 
@@ -22,77 +19,63 @@ import { StatusLevel } from "./StatusLevel";
  * @version 1.0
  * @since 11
  */
-export  class Status extends JavaObject {
+export  class Status {
 
-	/**
+  /**
 	 * The level.
 	 */
-	private level:  StatusLevel | null = StatusLevel.ok;
+  private level:  StatusLevel = StatusLevel.ok;
 
-	/**
+  /**
 	 * The events.
 	 */
-	private readonly events:  java.util.List<StatusEvent> | null = new  java.util.ArrayList();
+  private readonly events:  StatusEvent[] = [];
 
-	/**
-	 * Default constructor for a line status with 'ok' level and no events.
-	 * 
-	 * @since 11
-	 */
-	public constructor() {
-		super();
 
-	}
-
-	/**
+  /**
 	 * Returns the level.
 	 *
 	 * @return The level.
 	 * @since 11
 	 */
-	public getLevel():  StatusLevel | null {
-		return this.level;
-	}
+  public getLevel():  StatusLevel {
+    return this.level;
+  }
 
-	/**
+  /**
 	 * Returns the events.
 	 *
 	 * @return The events.
 	 * @since 11
 	 */
-	public getEvents():  java.util.List<StatusEvent> | null {
-		return new  java.util.ArrayList(this.events);
-	}
+  public getEvents():  StatusEvent[] {
+    return this.events;
+  }
 
-	/**
-	 * Adds the given even if non null and returns the current level.
+  /**
+	 * Adds the given even if non-null and returns the current level.
 	 * 
 	 * @param event The event to add.
 	 * @return The current level.
 	 * @since 11
 	 */
-	public add(event: StatusEvent| null):  StatusLevel | null {
-		if (event !== null) {
-			this.events.add(event);
+  public add(event: StatusEvent):  StatusLevel {
+    this.events.push(event);
+    this.level = maxStatusLevel(event.getLevel(), this.level);
 
-			this.level = StatusLevel.max(event.getLevel(), this.level);
-		}
+    return this.level;
+  }
 
-		return this.level;
-	}
-
-	/**
-	 * Adds the status level of given status if non null and returns the current
+  /**
+	 * Adds the status level of given status if non-null and returns the current
 	 * one.
 	 * 
 	 * @param status The status to add the level.
 	 * @return The current level.
 	 * @since 11
 	 */
-	public addLevel(status: Status| null):  StatusLevel | null {
-		if (status !== null)
-			this.level = StatusLevel.max(status.getLevel(), this.level);
+  public addLevel(status: Status):  StatusLevel {
 
-		return this.level;
-	}
+    return maxStatusLevel(status.getLevel(), this.level);
+  }
 }

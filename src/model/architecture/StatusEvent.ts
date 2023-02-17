@@ -6,8 +6,8 @@
  * Date:     16.02.2023
  */
 
-import { StatusEventCode } from "./StatusEventCode";
-import { StatusLevel } from "./StatusLevel";
+import { StatusEventCode } from './StatusEventCode';
+import { StatusLevel } from './StatusLevel';
 
 
 
@@ -21,22 +21,22 @@ import { StatusLevel } from "./StatusLevel";
  */
 export  class StatusEvent {
 
-	/**
+  /**
 	 * The level.
 	 */
-	private readonly level:  StatusLevel;
+  private readonly level:  StatusLevel;
 
-	/**
+  /**
 	 * The code.
 	 */
-	private readonly code:  StatusEventCode;
+  private readonly code:  StatusEventCode;
 
-	/**
+  /**
 	 * The message.
 	 */
-	private readonly message:  String;
+  private readonly message:  string;
 
-	/**
+  /**
 	 * Creates an event for a line status.
 	 * 
 	 * @param level   The level.
@@ -44,40 +44,40 @@ export  class StatusEvent {
 	 * @param message The message.
 	 * @since 11
 	 */
-	public constructor(level: StatusLevel, code: StatusEventCode, message: String) {
+  public constructor(level: StatusLevel, code: StatusEventCode, message: string) {
 
-		this.level = level;
-		this.code = code;
-		this.message = message;
-	}
+    this.level = level;
+    this.code = code;
+    this.message = message;
+  }
 
-	/**
+  /**
 	 * Returns the level.
 	 *
 	 * @return The level.
 	 * @since 11
 	 */
-	public getLevel():  StatusLevel {
-		return this.level;
-	}
+  public getLevel():  StatusLevel {
+    return this.level;
+  }
 
-	/**
+  /**
 	 * Returns the code.
 	 *
 	 * @return The code.
 	 * @since 11
 	 */
-	public getCode():  StatusEventCode {
-		return this.code;
-	}
+  public getCode():  StatusEventCode {
+    return this.code;
+  }
 
-	/**
+  /**
 	 * Returns the message.
 	 *
 	 * @return The message.
 	 * @since 11
 	 */
-	public getMessage():  String {
-		return this.message;
-	}
+  public getMessage():  string {
+    return this.message;
+  }
 }

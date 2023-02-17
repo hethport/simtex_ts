@@ -17,5 +17,7 @@
  * @version 1.0
  * @since 11
  */
- interface LineEntity {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LineEntity {
+
 }

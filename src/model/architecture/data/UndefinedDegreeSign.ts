@@ -7,12 +7,8 @@
  */
 
 
-
-import { java } from "../../../../../../../../../usr/bin/java";
-import { DegreeSign } from "./DegreeSign";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { DegreeSign } from './DegreeSign';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -25,15 +21,14 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  */
 export  class UndefinedDegreeSign extends DegreeSign {
 
-	/**
+  /**
 	 * Creates an unidentified degree sign segment.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
 	 * @param segment        The segment.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, segment: java.lang.String| null) {
-		super(deleriPosition, segment, null);
-	}
-
+  public constructor(deleriPosition: MetadataPosition, segment: string) {
+    super(deleriPosition, segment, null);
+  }
 }

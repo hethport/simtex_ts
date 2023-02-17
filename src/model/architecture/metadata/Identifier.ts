@@ -7,15 +7,11 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { Metadata } from "./Metadata";
-import { LineSource } from "../LineSource";
-import { StatusEvent } from "../StatusEvent";
-import { StatusEventCode } from "../StatusEventCode";
-import { StatusLevel } from "../StatusLevel";
-
-
+import { Metadata } from './Metadata';
+import { LineSource } from '../LineSource';
+import { StatusEvent } from '../StatusEvent';
+import { StatusEventCode } from '../StatusEventCode';
+import { StatusLevel } from '../StatusLevel';
 
 
 /**
@@ -26,64 +22,66 @@ import { StatusLevel } from "../StatusLevel";
  * @since 11
  */
 export  class Identifier extends Metadata {
-	/**
+  /**
 	 * The identifiers.
 	 */
-	private readonly identifiers:  java.util.List<java.lang.String> | null = new  java.util.ArrayList();
+  private readonly identifiers:  string[] = [];
 
-	/**
+  /**
 	 * The comment.
 	 */
-	private readonly comment:  java.lang.String | null;
+  private readonly comment:  string | null;
 
-	/**
+  /**
 	 * Creates an identifier.
 	 * 
 	 * @param source The line source.
 	 * @since 11
 	 */
-	public constructor(source: LineSource| null) {
-		super(source);
+  public constructor(source: LineSource) {
+    super(source);
 
-		let  comment: java.lang.String = S``;
+    let  comment = '';
 
-		let  textNormalized: java.lang.String = source.getTextNormalized();
-		if (textNormalized.contains(S`#`)) {
-			 let  index: number = textNormalized.indexOf(S`#`);
+    let  textNormalized: string = source.getTextNormalized();
+    if (textNormalized.includes('#')) {
+      const  index: number = textNormalized.indexOf('#');
+      comment = index + 1 < textNormalized.length ? textNormalized.substring(index + 1) : '';
+      textNormalized = textNormalized.substring(0, index);
+    }
+    this.comment = comment.trim();
+    if (this.comment.length == 0) {
+      this.comment = null;
+    }
 
-			comment = index + 1 < textNormalized.length() ? textNormalized.substring(index + 1) : S``;
-			textNormalized = textNormalized.substring(0, index);
-		}
-		this.comment = comment.isBlank() ? null : comment.trim();
+    const  identifiers: string = textNormalized.length === 1 ? '' : textNormalized.substring(1).trim();
+    for (const identifier of identifiers.split('\\+'))
+      if (identifier.trim().length > 0)
+        this.identifiers.push(identifier.trim());
 
-		let  identifiers: java.lang.String = textNormalized.length() === 1 ? S`` : textNormalized.substring(1).trim();
-		for (let identifier of identifiers.split(S`\\+`))
-			if (!identifier.isBlank())
-				this.identifiers.add(identifier.trim());
+    if (this.identifiers.length == 0)
+      this.getStatus()
+        .add(new  StatusEvent(StatusLevel.severe, StatusEventCode.undefined, 'identification is undefined'));
+  }
 
-		if (this.identifiers.isEmpty())
-			this.getStatus()
-					.add(new  StatusEvent(StatusLevel.severe, StatusEventCode.undefined, S`identification is undefined`));
-	}
-
-	/**
+  /**
 	 * Returns the identifiers.
 	 *
 	 * @return The identifiers.
 	 * @since 11
 	 */
-	public getIdentifiers():  java.util.List<java.lang.String> | null {
-		return new  java.util.ArrayList(this.identifiers);
-	}
+  public getIdentifiers():  string[] {
+    return this.identifiers;
+  }
 
-	/**
+  /**
 	 * Returns the comment.
 	 *
 	 * @return The comment.
 	 * @since 11
 	 */
-	public getComment():  java.lang.String | null {
-		return this.comment;
-	}
+  public getComment():  string | null {
+    return this.comment;
+  }
 
 }

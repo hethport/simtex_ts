@@ -7,13 +7,9 @@
  */
 
 
-
-import { java, S } from "../../../../../../../../../usr/bin/java";
-import { DegreeSign } from "./DegreeSign";
-import { Word } from "./Word";
-import { MetadataPosition } from "./fragment/MetadataPosition";
-
-
+import { DegreeSign } from './DegreeSign';
+import { Word } from './Word';
+import { MetadataPosition } from './fragment/MetadataPosition';
 
 
 /**
@@ -24,18 +20,18 @@ import { MetadataPosition } from "./fragment/MetadataPosition";
  * @since 11
  */
 export  class Glossing extends DegreeSign {
-	/**
+  /**
 	 * The alphabet.
 	 */
-	private static readonly alphabet:  java.lang.String | null = Word.alphabetLowerCase + S`\\d` + Word.indexDigits + Word.delimiterAlphabet;
+  private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
 
-	/**
+  /**
 	 * The pattern for Akkadograms.
 	 */
-	protected static readonly pattern:  java.util.regex.Pattern | null = java.util.regex.Pattern.compile(S`[` + Glossing.alphabet + S`]*` + S`[` + Word.alphabetLowerCase + S`]+`
-			+ S`[` + Glossing.alphabet + S`]*` + Word.subscriptRegularExpression);
+  public static readonly pattern:  RegExp = new RegExp('[' + Glossing.alphabet + ']*' + '[' + Word.alphabetLowerCase + ']+'
+			+ '[' + Glossing.alphabet + ']*' + Word.subscriptRegularExpression);
 
-	/**
+  /**
 	 * Creates a glossing.
 	 * 
 	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
@@ -43,8 +39,8 @@ export  class Glossing extends DegreeSign {
 	 * @param text           The text.
 	 * @since 11
 	 */
-	public constructor(deleriPosition: MetadataPosition| null, segment: java.lang.String| null, text: java.lang.String| null) {
-		super(deleriPosition, segment, text);
-	}
+  public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
+    super(deleriPosition, segment, text);
+  }
 
 }
