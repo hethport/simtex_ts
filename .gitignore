@@ -6,3 +6,9 @@ dist/
 
 src/**.js
 src/**.js.map
+
+#
+# Eclipse
+#
+/.project
+
