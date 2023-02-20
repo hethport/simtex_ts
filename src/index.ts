@@ -3,6 +3,8 @@ import {LinePreParseResult, preParseLine} from './parsers/linePreParser';
 import {parseTransliterationLineContent} from './parsers/lineContentParser';
 import {LineParseResult} from './lineParseResult';
 
+export {LineParseResult} from './lineParseResult';
+
 // noinspection JSUnusedGlobalSymbols
 export function parseTransliterationLine(input: string): LineParseResult {
 
