@@ -4,6 +4,7 @@ import {parseTransliterationLineContent} from './parsers/lineContentParser';
 import {LineParseResult} from './lineParseResult';
 
 export {LineParseResult} from './lineParseResult';
+export {wordParser} from './parsers/wordParser';
 
 // noinspection JSUnusedGlobalSymbols
 export function parseTransliterationLine(input: string): LineParseResult {
