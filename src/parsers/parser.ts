@@ -13,7 +13,7 @@ export interface ParseError {
   error: string;
 }
 
-export function parseError(error: string = 'TODO!'): ParseError {
+export function parseError(error = 'TODO!'): ParseError {
   return {success: false, error};
 }
 
