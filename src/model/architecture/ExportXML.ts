@@ -1,11 +1,11 @@
-/**
+/**[]
  * File:     ExportXML.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     20.02.2023
  */
-
+import {XmlElement} from '../../xmlModel';
 
 /**
  * Defines xml exports.
@@ -15,7 +15,7 @@
  * @since 11
  */
 export interface ExportXML {
-	 (): xmlElement[];
+  (): XmlElement;
 }
 
 /**
@@ -25,9 +25,9 @@ export interface ExportXML {
  *            The element to be encoded.
  * @return The encoded element.
  */
- export function encodeXML(element: string): string {
-	return element.replace('&', '&amp;').replace('"', '&quot;').replace('\'', '&apos;').replace('<', '&lt;')
-					.replace('>', '&gt;');
+export function encodeXML(element: string): string {
+  return element.replace('&', '&amp;').replace('"', '&quot;').replace('\'', '&apos;').replace('<', '&lt;')
+    .replace('>', '&gt;');
 }
 
 /**
@@ -37,7 +37,7 @@ export interface ExportXML {
  *            The attribute to be encoded.
  * @return The encoded attribute
  */
- export function encodeAttributeXML(attribute: string): string {
-	return attribute.replace('"', '&quot;');
+export function encodeAttributeXML(attribute: string): string {
+  return attribute.replace('"', '&quot;');
 }
 
