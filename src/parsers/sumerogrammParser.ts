@@ -1,4 +1,4 @@
-import {xmlElementNode, XmlElementNode, XmlNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
 import {Parser, seqMap, string} from 'parsimmon';
 import {ForeignCharacter, foreignCharacterParser as foreignCharacter, joinStrings} from './foreignWordsParser';
 import {clearUpperMultiStringContent} from './parserBasics';

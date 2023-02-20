@@ -1,5 +1,5 @@
 import {alt, Parser, string} from 'parsimmon';
-import {xmlElementNode, XmlElementNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 export type DamageType = XmlElementNode<'del_in'> | XmlElementNode<'del_fin'> | XmlElementNode<'laes_in'> | XmlElementNode<'laes_fin'>;
 

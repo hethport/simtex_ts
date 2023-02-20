@@ -1,4 +1,4 @@
-import {XmlElementNode} from '../xmlModel';
+import {XmlElementNode} from 'simple_xml';
 import {alt, Parser, seqMap} from 'parsimmon';
 import {upperText} from './parserBasics';
 import {optionalIndexNumber} from './indexNumberParser';

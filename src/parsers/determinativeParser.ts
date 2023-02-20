@@ -1,5 +1,5 @@
 import {alt, oneOf, Parser, seqMap, string} from 'parsimmon';
-import {xmlElementNode, XmlElementNode, XmlNode, xmlTextNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 import {clearUpperMultiStringContent, upperText} from './parserBasics';
 import {optionalIndexNumber} from './indexNumberParser';
 

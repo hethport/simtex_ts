@@ -1,5 +1,5 @@
 import {alt, Parser, regexp, seqMap, string} from 'parsimmon';
-import {xmlElementNode, XmlElementNode, XmlNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
 import {Correction, correctionParser as corrections} from './correctionParser';
 import {damageParser as damages, DamageType} from './damageParser';
 import {ellipsisParser as ellipsis} from './ellipsisParser';

@@ -1,6 +1,6 @@
 import {Parser, seq, seqMap, string} from 'parsimmon';
 import {lowerText} from './parserBasics';
-import {xmlElementNode, XmlElementNode, xmlTextNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 import {determinativ, Determinative} from './determinativeParser';
 
 export type MaterLectionis = XmlElementNode<'AOMaterLectionis'>;

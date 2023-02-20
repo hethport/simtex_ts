@@ -2,7 +2,7 @@ import {parsedWord as w, wordParser} from './wordParser';
 import {akkadogramm as aGr} from './akkadogrammParser';
 import {sumerogramm as sGr} from './sumerogrammParser';
 import {determinativ as d} from './determinativeParser';
-import {XmlElementNode} from '../xmlModel';
+import {XmlElementNode} from 'simple_xml';
 import {testParser} from './parserBasics';
 
 export interface SuccessfulTestData<T> {

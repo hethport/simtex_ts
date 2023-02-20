@@ -1,4 +1,4 @@
-import {xmlElementNode, XmlElementNode, xmlTextNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 import {Parser, regexp} from 'parsimmon';
 
 // Footnote

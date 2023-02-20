@@ -1,5 +1,5 @@
 import {alt, Parser, string} from 'parsimmon';
-import {xmlElementNode, XmlElementNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 export const paragraphSeparatorXmlNode: XmlElementNode<'parsep'> = xmlElementNode('parsep');
 

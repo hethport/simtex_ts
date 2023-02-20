@@ -1,4 +1,4 @@
-import {xmlElementNode, XmlElementNode, XmlNode} from '../xmlModel';
+import {xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
 import {oneOf, Parser, seq, seqMap, string} from 'parsimmon';
 import {DamageType} from './damageParser';
 import {Correction} from './correctionParser';

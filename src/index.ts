@@ -3,7 +3,7 @@ import {LinePreParseResult, preParseLine} from './parsers/linePreParser';
 import {parseTransliterationLineContent} from './parsers/lineContentParser';
 import {LineParseResult} from './lineParseResult';
 
-export type {LineParseResult} from './lineParseResult';
+export {type LineParseResult, writeLineParseSuccessToXml, writeLineParseResultToXml} from './lineParseResult';
 export {wordParser} from './parsers/wordParser';
 
 // noinspection JSUnusedGlobalSymbols

@@ -1,6 +1,6 @@
 import {Parser, regexp} from 'parsimmon';
 import {SuccessfulTestData} from './wordParser.spec';
-import {XmlNode, xmlTextNode} from '../xmlModel';
+import {XmlNode, xmlTextNode} from 'simple_xml';
 
 export const lowerText: Parser<string> = regexp(/[a-wyzáàéèíìúùṭṣšḫ]+/u);
 

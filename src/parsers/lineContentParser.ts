@@ -1,7 +1,7 @@
 import {alt, Failure, Result as ParsimmonResult, string} from 'parsimmon';
 import {ParagraphSeparatorNode, paragraphSeparatorParser} from './paragraphSeparatorParser';
 import {parsedWord, wordParser} from './wordParser';
-import {XmlElementNode, xmlTextNode} from '../xmlModel';
+import {XmlElementNode, xmlTextNode} from 'simple_xml';
 
 // Other
 

@@ -1,6 +1,5 @@
 import {Failure} from 'parsimmon';
-import {XmlElementNode} from './xmlModel';
-import {writeNode} from './xmlWriting';
+import {writeNode, XmlElementNode} from 'simple_xml';
 import {ParagraphSeparatorNode} from './parsers/paragraphSeparatorParser';
 
 export interface LineNumberInput {
