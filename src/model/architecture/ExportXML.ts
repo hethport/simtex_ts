@@ -1,7 +1,7 @@
 /**[]
  * File:     ExportXML.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core
- * 
+ *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     20.02.2023
  */
@@ -20,19 +20,23 @@ export interface ExportXML {
 
 /**
  * Encodes the xml element.
- * 
+ *
  * @param element
  *            The element to be encoded.
  * @return The encoded element.
  */
 export function encodeXML(element: string): string {
-  return element.replace('&', '&amp;').replace('"', '&quot;').replace('\'', '&apos;').replace('<', '&lt;')
+  return element
+    .replace('&', '&amp;')
+    .replace('"', '&quot;')
+    .replace('\'', '&apos;')
+    .replace('<', '&lt;')
     .replace('>', '&gt;');
 }
 
 /**
  * Encodes the xml attribute.
- * 
+ *
  * @param attribute
  *            The attribute to be encoded.
  * @return The encoded attribute

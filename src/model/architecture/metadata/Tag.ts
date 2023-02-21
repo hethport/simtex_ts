@@ -1,18 +1,13 @@
 /**
  * File:     Tag.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
- * 
+ *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     12.12.2022
  */
 
-
-import { TagType } from './TagType';
-import { LineEntity } from '../LineEntity';
-import {ParagraphLanguageType} from './ParagraphLanguageType';
-
-
-
+import {TagType} from './TagType';
+import {LineEntity} from '../LineEntity';
 
 /**
  * Defines tags.
@@ -21,35 +16,34 @@ import {ParagraphLanguageType} from './ParagraphLanguageType';
  * @version 1.0
  * @since 11
  */
-export  class Tag implements LineEntity {
+export class Tag implements LineEntity {
 
   /**
-	 * The segment.
-	 */
-  private readonly segment:  string;
+   * The type.
+   */
+  private readonly type: TagType;
 
   /**
-	 * The type.
-	 */
-  private readonly type:  TagType;
+   * The content.
+   */
+  private readonly content: string | null;
 
   /**
-	 * The content.
-	 */
-  private readonly content:  string | null;
-
-  /**
-	 * Creates a tag.
-	 * 
-	 * @param segment The segment.
-	 * @param type    The type.
-	 * @param content The content.
-	 * @since 11
-	 */
-  public constructor(segment: string, type: string, content: string) {
-
-    this.segment = segment;
-
+   * Creates a tag.
+   *
+   * @param segment The segment.
+   * @param type    The type.
+   * @param content The content.
+   * @since 11
+   */
+  public constructor(
+    /**
+     * The segment.
+     */
+    private readonly segment: string,
+    type: string,
+    content: string | null
+  ) {
     switch (type) {
     case 'M':
       this.type = TagType.Mbegin;
@@ -68,42 +62,42 @@ export  class Tag implements LineEntity {
   }
 
   /**
-	 * Returns the segment.
-	 *
-	 * @return The segment.
-	 * @since 11
-	 */
-  public getSegment():  string | null {
+   * Returns the segment.
+   *
+   * @return The segment.
+   * @since 11
+   */
+  public getSegment(): string | null {
     return this.segment;
   }
 
   /**
-	 * Returns the type.
-	 *
-	 * @return The type.
-	 * @since 11
-	 */
-  public getType():  TagType | null {
+   * Returns the type.
+   *
+   * @return The type.
+   * @since 11
+   */
+  public getType(): TagType | null {
     return this.type;
   }
 
   /**
-	 * Returns true if the content is set.
-	 *
-	 * @return True if the content is set.
-	 * @since 11
-	 */
-  public isContentSet():  boolean {
+   * Returns true if the content is set.
+   *
+   * @return True if the content is set.
+   * @since 11
+   */
+  public isContentSet(): boolean {
     return this.content !== null;
   }
 
   /**
-	 * Returns the content.
-	 *
-	 * @return The content.
-	 * @since 11
-	 */
-  public getContent():  string | null {
+   * Returns the content.
+   *
+   * @return The content.
+   * @since 11
+   */
+  public getContent(): string | null {
     return this.content;
   }
 

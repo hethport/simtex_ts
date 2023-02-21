@@ -1,14 +1,12 @@
 /**
  * File:     Empty.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
- * 
+ *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     12.12.2022
  */
 
-
-import { LineEntity } from '../LineEntity';
-
+import {LineEntity} from '../LineEntity';
 
 /**
  * Defines empty strings or code points containing only spaces.
@@ -17,30 +15,31 @@ import { LineEntity } from '../LineEntity';
  * @version 1.0
  * @since 11
  */
-export  class Empty implements LineEntity {
-  /**
-	 * The length of the code points containing only spaces. 0 if the string is
-	 * empty.
-	 */
-  private readonly length:  number;
+export class Empty implements LineEntity {
 
   /**
-	 * Creates an empty string or a code point containing only spaces.
-	 * 
-	 * @param text The text.
-	 * @since 11
-	 */
+   * The length of the code points containing only spaces. 0 if the string is
+   * empty.
+   */
+  private readonly length: number;
+
+  /**
+   * Creates an empty string or a code point containing only spaces.
+   *
+   * @param text The text.
+   * @since 11
+   */
   public constructor(text: string) {
     this.length = text.length;
   }
 
   /**
-	 * Returns the length.
-	 *
-	 * @return The length.
-	 * @since 11
-	 */
-  public getLength():  number {
+   * Returns the length.
+   *
+   * @return The length.
+   * @since 11
+   */
+  public getLength(): number {
     return this.length;
   }
 }

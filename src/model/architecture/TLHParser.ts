@@ -6,19 +6,16 @@
  * Date:     05.12.2022
  */
 
-import { Line } from './Line';
-import { LineSource } from './LineSource';
-import { Status } from './Status';
-import { Data } from './data/Data';
-import { ParagraphLanguage } from './metadata/ParagraphLanguage';
-import { ParagraphLanguageType, defaultParagraphLanguage } from './metadata/ParagraphLanguageType';
-import { InventoryNumber } from './metadata/InventoryNumber';
-import { PublicationNumber } from './metadata/PublicationNumber';
-import { LinePrefix } from './metadata/LinePrefix';
-import { Marker } from './metadata/Marker';
-
-
-
+import {Line} from './Line';
+import {LineSource} from './LineSource';
+import {Status} from './Status';
+import {Data} from './data/Data';
+import {ParagraphLanguage} from './metadata/ParagraphLanguage';
+import {defaultParagraphLanguage, ParagraphLanguageType} from './metadata/ParagraphLanguageType';
+import {InventoryNumber} from './metadata/InventoryNumber';
+import {PublicationNumber} from './metadata/PublicationNumber';
+import {LinePrefix} from './metadata/LinePrefix';
+import {Marker} from './metadata/Marker';
 
 /**
  * Defines TLH dig parsers.
@@ -27,16 +24,16 @@ import { Marker } from './metadata/Marker';
  * @version 1.0
  * @since 11
  */
-export  class TLHParser {
+export class TLHParser {
   /**
    * The source text.
    */
-  private readonly sourceText:  string = '';
+  private readonly sourceText: string = '';
 
   /**
    * The current paragraph language.
    */
-  private paragraphLanguage:  ParagraphLanguageType = defaultParagraphLanguage();
+  private paragraphLanguage: ParagraphLanguageType = defaultParagraphLanguage();
 
   /**
    * The status.
@@ -81,15 +78,15 @@ export  class TLHParser {
    * @param line The source text line to add.
    * @since 11
    */
-  private addLine(line: string):  void {
+  private addLine(line: string): void {
     if (line.trim().length == 0)
       ++this.number;
     else {
-      const  source: LineSource = new  LineSource(++this.number, line);
+      const source: LineSource = new LineSource(++this.number, line);
 
       let prefix: LinePrefix;
-      let  language: ParagraphLanguage;
-      let  marker: Marker;
+      let language: ParagraphLanguage;
+      let marker: Marker;
       switch (source.getTextNormalized().substring(0, 1)) {
       case '&':
         /*
@@ -127,7 +124,7 @@ export  class TLHParser {
         /*
          * paragraph language
          */
-        language = new  ParagraphLanguage(source);
+        language = new ParagraphLanguage(source);
         this.lines.push(language);
 
         // eslint-disable-next-line no-case-declarations
@@ -141,16 +138,16 @@ export  class TLHParser {
         /*
          * marker
          */
-        marker = new  Marker(source);
+        marker = new Marker(source);
         this.lines.push(marker);
 
         break;
 
       default:
-      /*
-       * data
-       */
-        this.lines.push(new  Data(source, this.paragraphLanguage, this.linePrefix));
+        /*
+         * data
+         */
+        this.lines.push(new Data(source, this.paragraphLanguage, this.linePrefix));
 
         break;
       }
@@ -163,7 +160,7 @@ export  class TLHParser {
    * @return The status.
    * @since 11
    */
-  public getStatus():  Status {
+  public getStatus(): Status {
     return this.status;
   }
 
@@ -173,7 +170,7 @@ export  class TLHParser {
    * @return The source text.
    * @since 11
    */
-  public getSourceText():  string | null {
+  public getSourceText(): string | null {
     return this.sourceText;
   }
 
@@ -183,7 +180,7 @@ export  class TLHParser {
    * @return The lines.
    * @since 11
    */
-  public getLines():  Line[]{
+  public getLines(): Line[] {
     return this.lines;
   }
 }
