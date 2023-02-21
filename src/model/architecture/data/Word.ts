@@ -31,8 +31,7 @@ import { Fragment } from './fragment/Fragment';
 import { FragmentBreakdownType } from './fragment/FragmentBreakdownType';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import { Number } from './Number';
-import {Tag} from '../metadata/Tag';
-import {XmlElement, xmlElementNode, XmlNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode, XmlNode} from 'simple_xml';
 
 
 
@@ -568,11 +567,11 @@ export  class Word implements LineEntity {
     return this.fragments;
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     let children: XmlNode[] = [];
 
     for (const fragment of this.fragments) {
-      const element: XmlElement = fragment.exportXml();
+      const element: XmlNode = fragment.exportXml();
       switch (element.tagName) {
       case Delimiter.xmlTag:
       case Basic.xmlTag:

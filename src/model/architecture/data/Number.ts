@@ -10,7 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {xmlElement, XmlElement, xmlText} from '../../../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 
 
 
@@ -81,7 +81,7 @@ export  class Number extends Breakdown {
     return this.integer;
   }
 
-  public exportXml(): XmlElement {
-    return xmlElement(Number.xmlTag, {}, [this.getPlainText()]);
+  public exportXml(): XmlElementNode {
+    return xmlElementNode(Number.xmlTag, {}, [xmlTextNode(this.getPlainText())]);
   }
 }

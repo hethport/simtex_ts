@@ -9,7 +9,7 @@
 
 import { DegreeSign } from './DegreeSign';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -33,7 +33,7 @@ export  class UndefinedDegreeSign extends DegreeSign {
     super(deleriPosition, segment, null);
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     // TODO: implement UNDEFINED_DEGREE_SIGN check in Word.ts
     return xmlElementNode(UndefinedDegreeSign.xmlTag, {}, this.exportNodes());
   }

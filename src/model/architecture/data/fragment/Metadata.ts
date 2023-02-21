@@ -11,7 +11,7 @@ import {MetadataPosition} from './MetadataPosition';
 import {Slice} from './Slice';
 import {MetadataType} from './MetadataType';
 import {Word} from '../Word';
-import {xmlElement, XmlElement} from '../../../../xmlModel';
+import {XmlElementNode, xmlElementNode, XmlNode} from 'simple_xml';
 
 
 /**
@@ -100,7 +100,7 @@ export  class Metadata implements Slice {
     return this.position;
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     let tag = '';
     switch (this.type) {
     case MetadataType.deletum:
@@ -117,7 +117,6 @@ export  class Metadata implements Slice {
       // is checked in Split.ts
       break;
     }
-    return xmlElement(tag, {}, []);
+    return xmlElementNode(tag, {}, []);
   }
-
 }

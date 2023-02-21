@@ -16,8 +16,8 @@ import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
 import { Word } from '../Word';
-import {Tag} from '../../metadata/Tag';
-import {xmlElement, XmlElement, XmlNode, xmlText} from '../../../../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
+import {xmlElement} from '../../../../../dist/xmlModel';
 
 
 
@@ -297,7 +297,7 @@ export  class Split {
 
     for (const slice of this.mainPart)
       if (slice instanceof Content) {
-        nodes.push(xmlText((slice as Content).getText()));
+        nodes.push(xmlTextNode((slice as Content).getText()));
       } else if (slice instanceof Metadata) {
         nodes.push((slice as Metadata).exportXml());
       }
@@ -311,7 +311,7 @@ export  class Split {
       }
     }
     if (buffer.length > 0) {
-      nodes.push(xmlElement('subscr', {'c': buffer.join('')}, []));
+      nodes.push(xmlElementNode('subscr', {'c': buffer.join('')}, []));
     }
     return nodes;
   }

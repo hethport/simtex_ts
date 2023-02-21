@@ -8,7 +8,7 @@
 
 
 import { LineEntity } from '../LineEntity';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -46,7 +46,7 @@ export  class Empty implements LineEntity {
     return this.length;
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     return xmlElementNode(Empty.xmlTag, {'c': this.length.toString()}, []);
   }
 }

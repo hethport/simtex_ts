@@ -10,7 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -45,7 +45,7 @@ export  class Basic extends Breakdown {
     super(deleriPosition, text);
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     return xmlElementNode(Basic.xmlTag, {}, this.exportNodes());
   }
 }

@@ -8,7 +8,7 @@
 
 
 import { LineEntity } from '../LineEntity';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -30,7 +30,7 @@ export  class Column implements LineEntity {
 
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     return xmlElementNode(Column.xmlTag, {}, []);
   }
 }

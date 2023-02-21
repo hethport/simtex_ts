@@ -250,5 +250,4 @@ export  class Data extends Line {
   public getContent():  DataContent | null {
     return this.content;
   }
-
 }

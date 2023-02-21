@@ -10,7 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -43,7 +43,7 @@ export  class Delimiter extends Breakdown {
     super(deleriPosition, text);
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     // TODO: implement DELIMITER check in Word.ts
     return xmlElementNode(Delimiter.xmlTag, {}, this.exportNodes());
   }

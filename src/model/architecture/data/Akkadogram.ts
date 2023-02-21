@@ -9,7 +9,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {xmlElementNode, xmlElement, XmlElement} from '../../../xmlModel';
+import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 /**
  * Defines Akkadograms.
@@ -42,7 +42,7 @@ export  class Akkadogram extends Breakdown {
     super(deleriPosition, text);
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     return xmlElementNode(Akkadogram.xmlTag, {}, this.exportNodes());
   }
 }

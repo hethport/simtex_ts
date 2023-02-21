@@ -6,9 +6,6 @@
  * Date:     16.02.2023
  */
 
-
-import { Word } from '../Word';
-
 export enum MetadataType {
   deletum,
   laedi,

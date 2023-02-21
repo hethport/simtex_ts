@@ -8,7 +8,7 @@
 
 
 import { Fragment } from './fragment/Fragment';
-import {xmlElement, XmlElement, xmlText} from '../../../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -70,7 +70,7 @@ export  class AkkadianPreposition extends Fragment {
     return this.leadingWhitespace;
   }
 
-  public exportXml(): XmlElement {
-    return xmlElement(AkkadianPreposition.xmlTag, {}, [this.preposition]);
+  public exportXml(): XmlElementNode {
+    return xmlElementNode(AkkadianPreposition.xmlTag, {}, [xmlTextNode(this.preposition)]);
   }
 }

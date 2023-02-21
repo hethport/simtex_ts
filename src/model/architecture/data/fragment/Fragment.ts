@@ -9,7 +9,7 @@
 
 import { Status } from '../../Status';
 import {ExportXML} from '../../ExportXML';
-import {XmlElement, xmlText} from '../../../../xmlModel';
+import {XmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -60,5 +60,5 @@ export abstract class Fragment implements ExportXML{
     return this.text;
   }
 
-  abstract exportXml(): XmlElement
+  abstract exportXml(): XmlElementNode
 }

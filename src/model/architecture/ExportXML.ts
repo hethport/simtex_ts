@@ -5,7 +5,7 @@
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     20.02.2023
  */
-import {XmlElement} from '../../xmlModel';
+import {XmlNode} from 'simple_xml';
 
 /**
  * Defines xml exports.
@@ -15,7 +15,7 @@ import {XmlElement} from '../../xmlModel';
  * @since 11
  */
 export interface ExportXML {
-  exportXml:() => XmlElement;
+  exportXml:() => XmlNode;
 }
 
 /**

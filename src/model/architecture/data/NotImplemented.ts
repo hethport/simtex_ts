@@ -7,7 +7,7 @@
  */
 
 import { Fragment } from './fragment/Fragment';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {xmlElementNode} from 'simple_xml';
 
 /**
  * Defines not implemented word fragments.

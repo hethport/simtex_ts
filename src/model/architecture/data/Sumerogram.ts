@@ -11,7 +11,7 @@ import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {Tag} from '../metadata/Tag';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 
@@ -82,7 +82,7 @@ export  class Sumerogram extends Breakdown {
     return buffer.join('');
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     return xmlElementNode(Sumerogram.xmlTag, {}, this.exportNodes());
   }
 }

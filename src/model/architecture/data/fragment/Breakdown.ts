@@ -9,7 +9,7 @@ import { Fragment } from './Fragment';
 import { MetadataPosition } from './MetadataPosition';
 import { Split } from './Split';
 import {Tag} from '../../metadata/Tag';
-import {xmlElement, XmlElement, XmlNode} from '../../../../xmlModel';
+import {XmlNode} from 'simple_xml';
 import {Content} from './Content';
 
 /**

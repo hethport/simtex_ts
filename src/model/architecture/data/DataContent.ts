@@ -61,5 +61,4 @@ export  class DataContent {
   public getEntities():  LineEntity[] {
     return this.entities;
   }
-
 }

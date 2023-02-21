@@ -10,7 +10,7 @@
 import { DegreeSign } from './DegreeSign';
 import { Word } from './Word';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {XmlElement, xmlElementNode} from '../../../xmlModel';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -45,7 +45,7 @@ export  class Glossing extends DegreeSign {
     super(deleriPosition, segment, text);
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     // TODO: šaṭ-rat°at]|abc° => <w>šaṭ-rat<materlect c="at"/></w>?
     //
     return xmlElementNode(Glossing.xmlTag, {}, this.exportNodes());

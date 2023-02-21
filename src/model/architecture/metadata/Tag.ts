@@ -9,7 +9,7 @@
 
 import {TagType} from './TagType';
 import {LineEntity} from '../LineEntity';
-import {Attributes, XmlElement, xmlElementNode, XmlNode} from '../../../xmlModel';
+import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -105,7 +105,7 @@ export  class Tag implements LineEntity {
     return this.content;
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
 
     const content: string| undefined = this.content == null ? undefined : this.content;
     const attributes: Attributes = {};

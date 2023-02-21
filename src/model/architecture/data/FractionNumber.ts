@@ -8,7 +8,7 @@
 
 
 import { Fragment } from './fragment/Fragment';
-import {xmlElement, XmlElement} from '../../../xmlModel';
+import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -233,8 +233,8 @@ export  class FractionNumber extends Fragment {
       }
   }
 
-  public exportXml(): XmlElement {
+  public exportXml(): XmlElementNode {
     const glyph: string|null = this.getGlyph();
-    return xmlElement(FractionNumber.xmlTag, {}, [glyph == null ? this.numerator + '/' + this.denominator : glyph]);
+    return xmlElementNode(FractionNumber.xmlTag, {}, [xmlTextNode(glyph == null ? this.numerator + '/' + this.denominator : glyph)]);
   }
 }
