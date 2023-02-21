@@ -10,6 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {xmlElement, XmlElement, xmlText} from '../../../xmlModel';
 
 
 
@@ -22,6 +23,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Number extends Breakdown {
+  static readonly xmlTag: string = 'num';
   /**
 	 * The unknown number.
 	 */
@@ -47,7 +49,7 @@ export  class Number extends Breakdown {
   /**
 	 * The integer. Null if unknown.
 	 */
-  private readonly integer: number;
+  private readonly integer: number| null;
 
   /**
 	 * Creates a number.
@@ -59,12 +61,11 @@ export  class Number extends Breakdown {
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
 
-    let  integer: number;
+    let  integer: number| null;
     try {
-      integer = parseInt(this.getPlainText());
+      integer = Math.abs(parseInt(this.getPlainText()));
     } catch (e) {
-      // TODO: handle Exception
-      throw e;
+      integer = null;
     }
 
     this.integer = integer;
@@ -76,8 +77,11 @@ export  class Number extends Breakdown {
 	 * @return The integer. Null if unknown.
 	 * @since 11
 	 */
-  public getInteger(): number {
+  public getInteger(): number| null {
     return this.integer;
   }
 
+  public exportXml(): XmlElement {
+    return xmlElement(Number.xmlTag, {}, [this.getPlainText()]);
+  }
 }

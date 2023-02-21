@@ -10,6 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -20,6 +21,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Delimiter extends Breakdown {
+  public static readonly xmlTag: string = 'DELIMITER';
   /**
 	 * The alphabet.
 	 */
@@ -39,5 +41,10 @@ export  class Delimiter extends Breakdown {
 	 */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
+  }
+
+  public exportXml(): XmlElement {
+    // TODO: implement DELIMITER check in Word.ts
+    return xmlElementNode(Delimiter.xmlTag, {}, this.exportNodes());
   }
 }

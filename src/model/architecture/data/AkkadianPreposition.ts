@@ -8,6 +8,7 @@
 
 
 import { Fragment } from './fragment/Fragment';
+import {xmlElement, XmlElement, xmlText} from '../../../xmlModel';
 
 
 /**
@@ -18,11 +19,12 @@ import { Fragment } from './fragment/Fragment';
  * @since 11
  */
 export  class AkkadianPreposition extends Fragment {
+  static readonly xmlTag: string = 'aGr';
+
   /**
 	 * The pattern for prepositions.
 	 */
   static readonly pattern:  RegExp = new RegExp('\\b((_A\\-NA)|(_ANA)|(_I\\-NA)|(_IŠ\\-TU)|(_IT\\-TI)|(_PA-NI))([ ]+)');
-
   /**
 	 * The preposition.
 	 */
@@ -68,4 +70,7 @@ export  class AkkadianPreposition extends Fragment {
     return this.leadingWhitespace;
   }
 
+  public exportXml(): XmlElement {
+    return xmlElement(AkkadianPreposition.xmlTag, {}, [this.preposition]);
+  }
 }

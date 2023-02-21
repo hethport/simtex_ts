@@ -1,4 +1,5 @@
-/**
+/** == null ? this.numerator + '/' + this.denominator : glyph]);
+  }
  * File:     TLHParser.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core
  *

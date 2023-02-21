@@ -10,6 +10,7 @@
 import { DegreeSign } from './DegreeSign';
 import { Word } from './Word';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -20,6 +21,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Determinative extends DegreeSign {
+  static readonly xmlTag: string = 'd';
   /**
 	 * The alphabet.
 	 */
@@ -44,4 +46,7 @@ export  class Determinative extends DegreeSign {
     super(deleriPosition, segment, text);
   }
 
+  public exportXml(): XmlElement {
+    return xmlElementNode(Determinative.xmlTag, {}, this.exportNodes());
+  }
 }

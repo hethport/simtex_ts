@@ -17,6 +17,7 @@ import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
 import { Word } from '../Word';
 import {Tag} from '../../metadata/Tag';
+import {xmlElement, XmlElement, XmlNode, xmlText} from '../../../../xmlModel';
 
 
 
@@ -83,6 +84,14 @@ export  class Split {
           'multiple suffix characters \'' + Word.subscript + '\' available in split \'' + text + '\'.'));
 
       this.subscript = this.normalize(split[1]);
+
+      for (const slice of this.subscript) {
+        if (slice instanceof Metadata) {
+          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+            'Mark \'' + split[1] + '\' is not allowed in subscript.'));
+          break;
+        }
+      }
     }
   }
 
@@ -283,4 +292,27 @@ export  class Split {
     return buffer.join('');
   }
 
+  public exportNodes(): XmlNode[] {
+    const nodes: XmlNode[] = [];
+
+    for (const slice of this.mainPart)
+      if (slice instanceof Content) {
+        nodes.push(xmlText((slice as Content).getText()));
+      } else if (slice instanceof Metadata) {
+        nodes.push((slice as Metadata).exportXml());
+      }
+
+    const  buffer: string[] = [];
+    for (const slice of this.subscript) {
+      if (slice instanceof Content) {
+        buffer.push((slice as Content).getText());
+      } else if (slice instanceof Metadata) {
+        nodes.push((slice as Metadata).exportXml());
+      }
+    }
+    if (buffer.length > 0) {
+      nodes.push(xmlElement('subscr', {'c': buffer.join('')}, []));
+    }
+    return nodes;
+  }
 }

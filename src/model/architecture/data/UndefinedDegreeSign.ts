@@ -9,6 +9,7 @@
 
 import { DegreeSign } from './DegreeSign';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -20,7 +21,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class UndefinedDegreeSign extends DegreeSign {
-
+  static readonly xmlTag: string = 'UNDEFINED_DEGREE_SIGN';
   /**
 	 * Creates an unidentified degree sign segment.
 	 * 
@@ -30,5 +31,10 @@ export  class UndefinedDegreeSign extends DegreeSign {
 	 */
   public constructor(deleriPosition: MetadataPosition, segment: string) {
     super(deleriPosition, segment, null);
+  }
+
+  public exportXml(): XmlElement {
+    // TODO: implement UNDEFINED_DEGREE_SIGN check in Word.ts
+    return xmlElementNode(UndefinedDegreeSign.xmlTag, {}, this.exportNodes());
   }
 }

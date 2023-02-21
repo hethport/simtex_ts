@@ -19,7 +19,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @version 1.0
  * @since 11
  */
-export  class DegreeSign extends Breakdown {
+export abstract class DegreeSign extends Breakdown {
   /**
 	 * The pattern for fragments between degree signs.
 	 */

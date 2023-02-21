@@ -8,6 +8,8 @@
 
 
 import { Status } from '../../Status';
+import {ExportXML} from '../../ExportXML';
+import {XmlElement, xmlText} from '../../../../xmlModel';
 
 
 /**
@@ -17,7 +19,7 @@ import { Status } from '../../Status';
  * @version 1.0
  * @since 11
  */
-export  class Fragment {
+export abstract class Fragment implements ExportXML{
   /**
 	 * The entity status. The default status is 'ok'.
 	 */
@@ -58,4 +60,5 @@ export  class Fragment {
     return this.text;
   }
 
+  abstract exportXml(): XmlElement
 }

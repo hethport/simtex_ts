@@ -11,6 +11,7 @@ import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {Tag} from '../metadata/Tag';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 
@@ -23,6 +24,7 @@ import {Tag} from '../metadata/Tag';
  * @since 11
  */
 export  class Sumerogram extends Breakdown {
+  static readonly xmlTag: string = 'sGr';
   /**
 	 * The alphabet.
 	 */
@@ -80,4 +82,7 @@ export  class Sumerogram extends Breakdown {
     return buffer.join('');
   }
 
+  public exportXml(): XmlElement {
+    return xmlElementNode(Sumerogram.xmlTag, {}, this.exportNodes());
+  }
 }

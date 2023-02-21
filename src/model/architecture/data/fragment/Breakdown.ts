@@ -5,15 +5,12 @@
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
-
 import { Fragment } from './Fragment';
 import { MetadataPosition } from './MetadataPosition';
 import { Split } from './Split';
 import {Tag} from '../../metadata/Tag';
-
-
-
+import {xmlElement, XmlElement, XmlNode} from '../../../../xmlModel';
+import {Content} from './Content';
 
 /**
  * Defines breakdowns. The delimiters are removed.
@@ -22,7 +19,7 @@ import {Tag} from '../../metadata/Tag';
  * @version 1.0
  * @since 11
  */
-export  class Breakdown extends Fragment {
+export abstract class Breakdown extends Fragment {
   /**
 	 * The splits.
 	 */
@@ -94,4 +91,11 @@ export  class Breakdown extends Fragment {
     return buffer.join('');
   }
 
+  protected exportNodes(): XmlNode[] {
+    let nodes: XmlNode[] = [];
+    for (const split of this.splits) {
+      nodes = nodes.concat(split.exportNodes());
+    }
+    return nodes;
+  }
 }

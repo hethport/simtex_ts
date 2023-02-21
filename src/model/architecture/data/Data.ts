@@ -122,14 +122,14 @@ export  class Data extends Line {
       for (const match of matches) {
         if (match.index && index < match.index) {
 
-          entities.push(Data.parseSegment(text.substring(index, match.index)));
+          entities.concat(Data.parseSegment(text.substring(index, match.index)));
         }
         entities.push(new Tag(match[0], match[1], match[2]));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
       if(index < text.length) {
-        entities.push(Data.parseSegment(text.substring(index, text.length - 1)));
+        entities.concat(Data.parseSegment(text.substring(index, text.length - 1)));
       }
 
       return entities;

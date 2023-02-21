@@ -8,6 +8,7 @@
 
 
 import { LineEntity } from '../LineEntity';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -18,6 +19,7 @@ import { LineEntity } from '../LineEntity';
  * @since 11
  */
 export  class Column implements LineEntity {
+  static readonly xmlTag: string = 'cl';
   /**
 	 * Creates a column for a table.
 	 *
@@ -28,4 +30,7 @@ export  class Column implements LineEntity {
 
   }
 
+  public exportXml(): XmlElement {
+    return xmlElementNode(Column.xmlTag, {}, []);
+  }
 }

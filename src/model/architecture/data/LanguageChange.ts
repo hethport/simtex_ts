@@ -6,15 +6,11 @@
  * Date:     20.12.2022
  */
 
-
-import { LanguageChangeType } from './LanguageChangeType';
-import { StatusEvent } from '../StatusEvent';
-import { StatusEventCode } from '../StatusEventCode';
-import { StatusLevel } from '../StatusLevel';
-import { Fragment } from './fragment/Fragment';
-
-
-
+import {LanguageChangeType} from './LanguageChangeType';
+import {StatusEvent} from '../StatusEvent';
+import {StatusEventCode} from '../StatusEventCode';
+import {StatusLevel} from '../StatusLevel';
+import {Fragment} from './fragment/Fragment';
 
 /**
  * Define language changes.
@@ -24,7 +20,8 @@ import { Fragment } from './fragment/Fragment';
  * @since 11
  */
 export  class LanguageChange extends Fragment {
-
+  // TODO: implement word languange change
+  public static readonly xmlTag: string = 'LANGUAGE_CHANGE';
   /**
 	 * The language.
 	 */
@@ -76,4 +73,26 @@ export  class LanguageChange extends Fragment {
     return this.language;
   }
 
+  public exportAbbreviation(): string {
+
+    switch (this.language) {
+    case LanguageChangeType.a:
+      return 'Akk';
+    case LanguageChangeType.ha:
+      return 'Hat';
+    case LanguageChangeType.h:
+      return 'Het';
+    case LanguageChangeType.hu:
+      return 'Hur';
+    case LanguageChangeType.p:
+      return 'Pal';
+    case LanguageChangeType.s:
+      return 'Sum';
+    case LanguageChangeType.l:
+      return 'Luw';
+    default:
+      return '';
+    }
+
+  }
 }

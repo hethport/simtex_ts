@@ -6,11 +6,10 @@
  * Date:     31.01.2023
  */
 
-
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-
+import {xmlElementNode, xmlElement, XmlElement} from '../../../xmlModel';
 
 /**
  * Defines Akkadograms.
@@ -20,6 +19,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Akkadogram extends Breakdown {
+  static readonly xmlTag: string = 'aGr';
   /**
 	 * The alphabet.
 	 */
@@ -40,5 +40,9 @@ export  class Akkadogram extends Breakdown {
 	 */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
+  }
+
+  public exportXml(): XmlElement {
+    return xmlElementNode(Akkadogram.xmlTag, {}, this.exportNodes());
   }
 }

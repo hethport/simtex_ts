@@ -15,7 +15,7 @@ import {XmlElement} from '../../xmlModel';
  * @since 11
  */
 export interface ExportXML {
-  (): XmlElement;
+  exportXml:() => XmlElement;
 }
 
 /**

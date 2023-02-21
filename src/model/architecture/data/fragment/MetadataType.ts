@@ -9,7 +9,6 @@
 
 import { Word } from '../Word';
 
-// TODO: remove
 export enum MetadataType {
   deletum,
   laedi,

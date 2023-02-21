@@ -6,9 +6,7 @@
  * Date:     16.02.2023
  */
 
-
-
-
+import {ExportXML} from './ExportXML';
 
 /**
  * Define line entities.
@@ -18,6 +16,6 @@
  * @since 11
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface LineEntity {
+export interface LineEntity extends ExportXML{
 
 }

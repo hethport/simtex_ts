@@ -11,6 +11,7 @@ import {MetadataPosition} from './MetadataPosition';
 import {Slice} from './Slice';
 import {MetadataType} from './MetadataType';
 import {Word} from '../Word';
+import {xmlElement, XmlElement} from '../../../../xmlModel';
 
 
 /**
@@ -97,6 +98,26 @@ export  class Metadata implements Slice {
 	 */
   public getPosition():  MetadataPosition | null {
     return this.position;
+  }
+
+  public exportXml(): XmlElement {
+    let tag = '';
+    switch (this.type) {
+    case MetadataType.deletum:
+      tag = this.position == MetadataPosition.initial ? 'del_in' : 'del_fin';
+      break;
+    case MetadataType.laedi:
+      tag = this.position == MetadataPosition.initial ? 'laes_in' : 'laes_fin';
+      break;
+    case MetadataType.deleri:
+      tag = this.position == MetadataPosition.initial ? 'ras_in' : 'ras_fin';
+      break;
+    default:
+      // Tag undefined/MetadataType unknown
+      // is checked in Split.ts
+      break;
+    }
+    return xmlElement(tag, {}, []);
   }
 
 }

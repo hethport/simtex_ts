@@ -10,6 +10,7 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -20,6 +21,7 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Basic extends Breakdown {
+  public static readonly xmlTag: string = 'BASIC';
   /**
 	 * The alphabet.
 	 */
@@ -41,5 +43,9 @@ export  class Basic extends Breakdown {
 	 */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
+  }
+
+  public exportXml(): XmlElement {
+    return xmlElementNode(Basic.xmlTag, {}, this.exportNodes());
   }
 }

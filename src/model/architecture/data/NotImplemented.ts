@@ -6,9 +6,8 @@
  * Date:     22.12.2022
  */
 
-
 import { Fragment } from './fragment/Fragment';
-
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 /**
  * Defines not implemented word fragments.

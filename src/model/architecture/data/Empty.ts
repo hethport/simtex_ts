@@ -8,6 +8,7 @@
 
 
 import { LineEntity } from '../LineEntity';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -18,10 +19,11 @@ import { LineEntity } from '../LineEntity';
  * @since 11
  */
 export  class Empty implements LineEntity {
+  static readonly xmlTag: string = 'space';
   /**
-	 * The length of the code points containing only spaces. 0 if the string is
-	 * empty.
-	 */
+   * The length of the code points containing only spaces. 0 if the string is
+   * empty.
+   */
   private readonly length:  number;
 
   /**
@@ -42,5 +44,9 @@ export  class Empty implements LineEntity {
 	 */
   public getLength():  number {
     return this.length;
+  }
+
+  public exportXml(): XmlElement {
+    return xmlElementNode(Empty.xmlTag, {'c': this.length.toString()}, []);
   }
 }

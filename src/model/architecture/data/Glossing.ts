@@ -10,6 +10,7 @@
 import { DegreeSign } from './DegreeSign';
 import { Word } from './Word';
 import { MetadataPosition } from './fragment/MetadataPosition';
+import {XmlElement, xmlElementNode} from '../../../xmlModel';
 
 
 /**
@@ -20,13 +21,14 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  * @since 11
  */
 export  class Glossing extends DegreeSign {
+  static readonly xmlTag: string = 'materlect';
   /**
 	 * The alphabet.
 	 */
   private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
 
   /**
-	 * The pattern for Akkadograms.
+	 * The pattern for Glossings.
 	 */
   public static readonly pattern:  RegExp = new RegExp('[' + Glossing.alphabet + ']*' + '[' + Word.alphabetLowerCase + ']+'
 			+ '[' + Glossing.alphabet + ']*' + Word.subscriptRegularExpression);
@@ -43,4 +45,9 @@ export  class Glossing extends DegreeSign {
     super(deleriPosition, segment, text);
   }
 
+  public exportXml(): XmlElement {
+    // TODO: šaṭ-rat°at]|abc° => <w>šaṭ-rat<materlect c="at"/></w>?
+    //
+    return xmlElementNode(Glossing.xmlTag, {}, this.exportNodes());
+  }
 }

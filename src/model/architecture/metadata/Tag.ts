@@ -7,11 +7,9 @@
  */
 
 
-import { TagType } from './TagType';
-import { LineEntity } from '../LineEntity';
-import {ParagraphLanguageType} from './ParagraphLanguageType';
-
-
+import {TagType} from './TagType';
+import {LineEntity} from '../LineEntity';
+import {Attributes, XmlElement, xmlElementNode, XmlNode} from '../../../xmlModel';
 
 
 /**
@@ -22,7 +20,7 @@ import {ParagraphLanguageType} from './ParagraphLanguageType';
  * @since 11
  */
 export  class Tag implements LineEntity {
-
+  static readonly unknownTag: string = 'NO_TAG';
   /**
 	 * The segment.
 	 */
@@ -107,4 +105,41 @@ export  class Tag implements LineEntity {
     return this.content;
   }
 
+  public exportXml(): XmlElement {
+
+    const content: string| undefined = this.content == null ? undefined : this.content;
+    const attributes: Attributes = {};
+    let xmlTag: string;
+
+    switch (this.type) {
+    case TagType.S:
+      xmlTag = 'c';
+      attributes['sign'] = content;
+      break;
+    case TagType.F:
+      xmlTag = 'note';
+      attributes['c'] = content;
+      break;
+    case TagType.K:
+      xmlTag = 'clb';
+      attributes['id'] = content;
+      // TODO: unknown attribute behavior 'nr'
+      attributes['nr'] = '1';
+      break;
+    case TagType.G:
+      xmlTag = 'gap';
+      attributes['c'] = content;
+      break;
+    case TagType.Mbegin:
+      //TODO: unknown tag
+      xmlTag = Tag.unknownTag;
+      break;
+    case TagType.Mend:
+      //TODO: unknown tag
+      xmlTag = Tag.unknownTag;
+      break;
+    }
+
+    return xmlElementNode(xmlTag, attributes, []);
+  }
 }

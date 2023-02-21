@@ -1,4 +1,4 @@
-type Attributes = Record<string, string | undefined>;
+export type Attributes = Record<string, string | undefined>;
 
 export interface XmlElement<TagName extends string = string> {
   tagName: TagName;
@@ -19,3 +19,11 @@ export function xmlText(content: string): XmlText {
 }
 
 export type XmlNode<TagName extends string = string> = XmlElement<TagName> | XmlText;
+
+export function xmlElementNode<TagName extends string = string>(
+  tagName: TagName,
+  attributes: Attributes = {},
+  children: XmlNode[] = []
+): XmlElement<TagName> {
+  return {tagName, attributes, children};
+}
