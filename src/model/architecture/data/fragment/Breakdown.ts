@@ -8,9 +8,7 @@
 import { Fragment } from './Fragment';
 import { MetadataPosition } from './MetadataPosition';
 import { Split } from './Split';
-import {Tag} from '../../metadata/Tag';
 import {XmlNode} from 'simple_xml';
-import {Content} from './Content';
 
 /**
  * Defines breakdowns. The delimiters are removed.
@@ -21,22 +19,22 @@ import {Content} from './Content';
  */
 export abstract class Breakdown extends Fragment {
   /**
-	 * The splits.
-	 */
+   * The splits.
+   */
   private readonly splits:  Split[] = [];
 
   /**
-	 * The deleri ('*' / erased / Rasur) position.
-	 */
+   * The deleri ('*' / erased / Rasur) position.
+   */
   private deleriPosition:  MetadataPosition;
 
   /**
-	 * Creates a breakdown.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text. If null, do not normalize.
-	 * @since 11
-	 */
+   * Creates a breakdown.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text. If null, do not normalize.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, text: string| null) {
     super(text);
 
@@ -57,31 +55,31 @@ export abstract class Breakdown extends Fragment {
   }
 
   /**
-	 * Returns the deleri ('*' / erased / Rasur) position.
-	 *
-	 * @return The deleri ('*' / erased / Rasur) position.
-	 * @since 11
-	 */
+   * Returns the deleri ('*' / erased / Rasur) position.
+   *
+   * @return The deleri ('*' / erased / Rasur) position.
+   * @since 11
+   */
   public getDeleriPosition():  MetadataPosition {
     return this.deleriPosition;
   }
 
   /**
-	 * Returns the splits.
-	 *
-	 * @return The splits.
-	 * @since 11
-	 */
+   * Returns the splits.
+   *
+   * @return The splits.
+   * @since 11
+   */
   public getSplits(): Split[] {
     return this.splits;
   }
 
   /**
-	 * Returns the plain text.
-	 *
-	 * @return The plain text.
-	 * @since 11
-	 */
+   * Returns the plain text.
+   *
+   * @return The plain text.
+   * @since 11
+   */
   public getPlainText():  string {
     const  buffer: string[] = [];
 

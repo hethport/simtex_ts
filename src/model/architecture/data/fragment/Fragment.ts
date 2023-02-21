@@ -9,7 +9,7 @@
 
 import { Status } from '../../Status';
 import {ExportXML} from '../../ExportXML';
-import {XmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
+import {XmlElementNode} from 'simple_xml';
 
 
 /**
@@ -51,11 +51,11 @@ export abstract class Fragment implements ExportXML{
   }
 
   /**
-	 * Returns the text.
-	 *
-	 * @return The text.
-	 * @since 11
-	 */
+   * Returns the text.
+   *
+   * @return The text.
+   * @since 11
+   */
   public getText():  string| null {
     return this.text;
   }

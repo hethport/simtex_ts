@@ -10,7 +10,6 @@
 import { Word } from './Word';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {Tag} from '../metadata/Tag';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
@@ -26,25 +25,25 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
 export  class Sumerogram extends Breakdown {
   static readonly xmlTag: string = 'sGr';
   /**
-	 * The alphabet.
-	 */
+   * The alphabet.
+   */
   private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet
 			+ '\\.' + 'x';
 
   /**
-	 * The pattern for Sumerograms.
-	 */
+   * The pattern for Sumerograms.
+   */
   static readonly pattern :  RegExp = new RegExp('[' + Sumerogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
 			+ '[' + Sumerogram.alphabet + ']*' + Word.subscriptRegularExpression);
 
   /**
-	 * The symbol for inscribed characters.
-	 */
+   * The symbol for inscribed characters.
+   */
   protected static readonly inscribedCharacter:  string = '×';
 
   /**
-	 * The pattern for inscribed character.
-	 */
+   * The pattern for inscribed character.
+   */
   private static inscribedCharacterPattern = new RegExp('([' + Word.alphabetUpperCase + '\\d]{1})(x)([' + Word.alphabetUpperCase + '\\d]{1})');
 
   /**
@@ -59,12 +58,12 @@ export  class Sumerogram extends Breakdown {
   }
 
   /**
-	 * Resolve inscribed characters and returns it.
-	 * 
-	 * @param text The text.
-	 * @return The text with resolved inscribed characters.
-	 * @since 11
-	 */
+   * Resolve inscribed characters and returns it.
+   *
+   * @param text The text.
+   * @return The text with resolved inscribed characters.
+   * @since 11
+   */
   private static resolveInscribedCharacter(text: string):  string {
 
     const  matches = text.matchAll(Sumerogram.inscribedCharacterPattern);

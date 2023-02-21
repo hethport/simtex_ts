@@ -23,24 +23,24 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
 export  class Glossing extends DegreeSign {
   static readonly xmlTag: string = 'materlect';
   /**
-	 * The alphabet.
-	 */
+   * The alphabet.
+   */
   private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
 
   /**
-	 * The pattern for Glossings.
-	 */
+   * The pattern for Glossings.
+   */
   public static readonly pattern:  RegExp = new RegExp('[' + Glossing.alphabet + ']*' + '[' + Word.alphabetLowerCase + ']+'
 			+ '[' + Glossing.alphabet + ']*' + Word.subscriptRegularExpression);
 
   /**
-	 * Creates a glossing.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param segment        The segment.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a glossing.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param segment        The segment.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
     super(deleriPosition, segment, text);
   }

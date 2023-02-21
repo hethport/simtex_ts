@@ -18,11 +18,11 @@ import {xmlElementNode} from 'simple_xml';
  */
 export  class NotImplemented extends Fragment {
   /**
-	 * Creates a not implemented word fragments.
-	 * 
-	 * @param text The text.
-	 * @since 11
-	 */
+   * Creates a not implemented word fragments.
+   *
+   * @param text The text.
+   * @since 11
+   */
   public constructor(text: string) {
     super(text);
   }

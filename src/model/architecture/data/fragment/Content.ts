@@ -24,21 +24,21 @@ export  class Content implements Slice {
   private readonly text:  string;
 
   /**
-	 * Creates a content.
-	 * 
-	 * @param text The text.
-	 * @since 11
-	 */
+   * Creates a content.
+   *
+   * @param text The text.
+   * @since 11
+   */
   public constructor(text: string) {
     this.text = text;
   }
 
   /**
-	 * Returns the text.
-	 *
-	 * @return The text.
-	 * @since 11
-	 */
+   * Returns the text.
+   *
+   * @return The text.
+   * @since 11
+   */
   public getText():  string {
     return this.text;
   }

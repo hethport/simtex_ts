@@ -29,18 +29,18 @@ export  class Basic extends Breakdown {
 			+ '\\+';
 
   /**
-	 * The pattern for basics.
-	 */
+   * The pattern for basics.
+   */
   static readonly pattern:  RegExp = new RegExp('[' + Basic.alphabet + ']*[' + Word.alphabetLowerCase + ']+['
 			+ Basic.alphabet + ']*' + Word.subscriptRegularExpression);
 
   /**
-	 * Creates a basic.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a basic.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
   }

@@ -36,11 +36,11 @@ export  class AkkadianPreposition extends Fragment {
   private readonly leadingWhitespace:  number;
 
   /**
-	 * Creates a Akkadian preposition.
-	 * 
-	 * @param text The text.
-	 * @since 11
-	 */
+   * Creates a Akkadian preposition.
+   *
+   * @param text The text.
+   * @since 11
+   */
   public constructor(text: string) {
     super(text);
 
@@ -51,21 +51,21 @@ export  class AkkadianPreposition extends Fragment {
   }
 
   /**
-	 * Returns the preposition.
-	 *
-	 * @return The preposition.
-	 * @since 11
-	 */
+   * Returns the preposition.
+   *
+   * @return The preposition.
+   * @since 11
+   */
   public getPreposition():  string {
     return this.preposition;
   }
 
   /**
-	 * Returns the number of leading whitespace.
-	 *
-	 * @return The number of leading whitespace.
-	 * @since 11
-	 */
+   * Returns the number of leading whitespace.
+   *
+   * @return The number of leading whitespace.
+   * @since 11
+   */
   public getLeadingWhitespace():  number {
     return this.leadingWhitespace;
   }

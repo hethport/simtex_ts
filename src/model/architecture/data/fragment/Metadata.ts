@@ -11,7 +11,7 @@ import {MetadataPosition} from './MetadataPosition';
 import {Slice} from './Slice';
 import {MetadataType} from './MetadataType';
 import {Word} from '../Word';
-import {XmlElementNode, xmlElementNode, XmlNode} from 'simple_xml';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -29,21 +29,21 @@ export  class Metadata implements Slice {
   private readonly symbol:  string | null;
 
   /**
-	 * The type.
-	 */
+   * The type.
+   */
   private readonly type:  MetadataType;
 
   /**
-	 * The position.
-	 */
+   * The position.
+   */
   private readonly position:  MetadataPosition;
   /**
-	 * Creates a metadata.
-	 * 
-	 * @param text     The text.
-	 * @param position The position.
-	 * @since 11
-	 */
+   * Creates a metadata.
+   *
+   * @param text     The text.
+   * @param position The position.
+   * @since 11
+   */
   public constructor(text: string | null, position: MetadataPosition | null) {
     this.symbol = text;
 
@@ -71,31 +71,31 @@ export  class Metadata implements Slice {
 
 
   /**
-	 * Returns the symbol.
-	 *
-	 * @return The symbol.
-	 * @since 11
-	 */
+   * Returns the symbol.
+   *
+   * @return The symbol.
+   * @since 11
+   */
   public getSymbol():  string | null {
     return this.symbol;
   }
 
   /**
-	 * Returns the type.
-	 *
-	 * @return The type.
-	 * @since 11
-	 */
+   * Returns the type.
+   *
+   * @return The type.
+   * @since 11
+   */
   public getType():  MetadataType | null {
     return this.type;
   }
 
   /**
-	 * Returns the position.
-	 *
-	 * @return The position.
-	 * @since 11
-	 */
+   * Returns the position.
+   *
+   * @return The position.
+   * @since 11
+   */
   public getPosition():  MetadataPosition | null {
     return this.position;
   }

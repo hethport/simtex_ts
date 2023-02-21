@@ -25,39 +25,39 @@ import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 export  class Number extends Breakdown {
   static readonly xmlTag: string = 'num';
   /**
-	 * The unknown number.
-	 */
+   * The unknown number.
+   */
   private static readonly unknownNumber:  string = 'n';
 
   /**
-	 * The alphabet for known numbers.
-	 */
+   * The alphabet for known numbers.
+   */
   private static readonly alphabetKnown:  string = '\\d' + Word.delimiterAlphabet;
 
   /**
-	 * The alphabet for unknown numbers.
-	 */
+   * The alphabet for unknown numbers.
+   */
   private static readonly alphabetUnknown:  string = Word.delimiterAlphabet;
 
   /**
-	 * The pattern for numbers.
-	 */
+   * The pattern for numbers.
+   */
   static readonly pattern:  RegExp = new RegExp('([' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
 			+ ']*' + Word.subscriptRegularExpression + ')|(' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
 			+ Number.alphabetUnknown + ']*' + Word.subscriptRegularExpression + ')');
 
   /**
-	 * The integer. Null if unknown.
-	 */
+   * The integer. Null if unknown.
+   */
   private readonly integer: number| null;
 
   /**
-	 * Creates a number.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a number.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
 
@@ -72,11 +72,11 @@ export  class Number extends Breakdown {
   }
 
   /**
-	 * Returns the integer.
-	 *
-	 * @return The integer. Null if unknown.
-	 * @since 11
-	 */
+   * Returns the integer.
+   *
+   * @return The integer. Null if unknown.
+   * @since 11
+   */
   public getInteger(): number| null {
     return this.integer;
   }

@@ -1,13 +1,13 @@
 /**
  * File:     Column.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
- * 
+ *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     30.01.2023
  */
 
 
-import { LineEntity } from '../LineEntity';
+import {LineEntity} from '../LineEntity';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
@@ -18,16 +18,16 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  * @version 1.0
  * @since 11
  */
-export  class Column implements LineEntity {
+export class Column implements LineEntity {
   static readonly xmlTag: string = 'cl';
   /**
-	 * Creates a column for a table.
-	 *
-	 * @since 11
-	 */
+   * Creates a column for a table.
+   *
+   * @since 11
+   */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   public constructor() {
-
+    // TODO: empty constructor is inherited automatically...
   }
 
   public exportXml(): XmlElementNode {

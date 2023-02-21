@@ -23,25 +23,25 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
 export  class Determinative extends DegreeSign {
   static readonly xmlTag: string = 'd';
   /**
-	 * The alphabet.
-	 */
+   * The alphabet.
+   */
   private static readonly alphabet:  string = Word.alphabetUpperCase + '\\.' + '\\d' + Word.indexDigits
 			+ Word.delimiterAlphabet;
 
   /**
-	 * The pattern for determinative.
-	 */
+   * The pattern for determinative.
+   */
   public static readonly pattern:  RegExp = new RegExp('[' + Determinative.alphabet + ']*' + '[' + Word.alphabetUpperCase
 			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + Word.subscriptRegularExpression);
 
   /**
-	 * Creates a determinative.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param segment        The segment.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a determinative.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param segment        The segment.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
     super(deleriPosition, segment, text);
   }

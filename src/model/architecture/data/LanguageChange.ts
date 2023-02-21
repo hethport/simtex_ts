@@ -23,16 +23,16 @@ export  class LanguageChange extends Fragment {
   // TODO: implement word languange change
   public static readonly xmlTag: string = 'LANGUAGE_CHANGE';
   /**
-	 * The language.
-	 */
+   * The language.
+   */
   private readonly language:  LanguageChangeType | null;
 
   /**
-	 * Creates a language change.
-	 * 
-	 * @param text The text.
-	 * @since 11
-	 */
+   * Creates a language change.
+   *
+   * @param text The text.
+   * @since 11
+   */
   public constructor(text: string) {
     super(text);
 
@@ -54,21 +54,21 @@ export  class LanguageChange extends Fragment {
   }
 
   /**
-	 * Returns true if the language is set.
-	 *
-	 * @return True if the language is set.
-	 * @since 11
-	 */
+   * Returns true if the language is set.
+   *
+   * @return True if the language is set.
+   * @since 11
+   */
   public isLanguageSet():  boolean {
     return this.language !== null;
   }
 
   /**
-	 * Returns the language. Null if not set.
-	 *
-	 * @return The language.
-	 * @since 11
-	 */
+   * Returns the language. Null if not set.
+   *
+   * @return The language.
+   * @since 11
+   */
   public getLanguage():  LanguageChangeType | null {
     return this.language;
   }

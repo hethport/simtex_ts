@@ -21,23 +21,23 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  */
 export abstract class DegreeSign extends Breakdown {
   /**
-	 * The pattern for fragments between degree signs.
-	 */
+   * The pattern for fragments between degree signs.
+   */
   static readonly pattern:  RegExp = new RegExp('°([^°]*)°');
 
   /**
-	 * The segment.
-	 */
+   * The segment.
+   */
   private readonly segment:  string| null;
 
   /**
-	 * Creates a word fragment between degree signs.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param segment        The segment.
-	 * @param content        The content. Null on troubles.
-	 * @since 11
-	 */
+   * Creates a word fragment between degree signs.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param segment        The segment.
+   * @param content        The content. Null on troubles.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, content: string| null) {
     super(deleriPosition, content);
 
@@ -45,11 +45,11 @@ export abstract class DegreeSign extends Breakdown {
   }
 
   /**
-	 * Returns the segment.
-	 *
-	 * @return The segment.
-	 * @since 11
-	 */
+   * Returns the segment.
+   *
+   * @return The segment.
+   * @since 11
+   */
   public getSegment():  string | null {
     return this.segment;
   }

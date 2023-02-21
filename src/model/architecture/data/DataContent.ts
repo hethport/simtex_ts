@@ -19,21 +19,21 @@ import { LineEntity } from '../LineEntity';
  */
 export  class DataContent {
   /**
-	 * The source.
-	 */
+   * The source.
+   */
   private readonly source:  string | null;
 
   /**
-	 * The entities.
-	 */
+   * The entities.
+   */
   private readonly entities:  LineEntity[];
 
   /**
-	 * Creates a content for a data line without entities.
-	 *
-	 * @param source The source.
-	 * @since 11
-	 */
+   * Creates a content for a data line without entities.
+   *
+   * @param source The source.
+   * @since 11
+   */
 
   public constructor(source: string | null, entities: LineEntity[] | null) {
 
@@ -43,21 +43,21 @@ export  class DataContent {
   }
 
   /**
-	 * Returns the source.
-	 *
-	 * @return The source.
-	 * @since 11
-	 */
+   * Returns the source.
+   *
+   * @return The source.
+   * @since 11
+   */
   public getSource():  string | null{
     return this.source;
   }
 
   /**
-	 * Returns the entities.
-	 *
-	 * @return The entities.
-	 * @since 11
-	 */
+   * Returns the entities.
+   *
+   * @return The entities.
+   * @since 11
+   */
   public getEntities():  LineEntity[] {
     return this.entities;
   }

@@ -20,54 +20,54 @@ import { ParagraphLanguageType } from '../metadata/ParagraphLanguageType';
  */
 export  class DataInformation {
   /**
-	 * The paragraph language.
-	 */
+   * The paragraph language.
+   */
   private readonly paragraphLanguage:  ParagraphLanguageType;
 
   /**
-	 * The line information.
-	 */
+   * The line information.
+   */
   private readonly line:  LineInformation;
 
   /**
-	 * Creates an information for a data line.
-	 * 
-	 * @param paragraphLanguage The paragraph language.
-	 * @param linePrefix        The line prefix.
-	 * @param lineNumber        The line number.
-	 * @since 11
-	 */
+   * Creates an information for a data line.
+   *
+   * @param paragraphLanguage The paragraph language.
+   * @param linePrefix        The line prefix.
+   * @param lineNumber        The line number.
+   * @since 11
+   */
   public constructor(paragraphLanguage: ParagraphLanguageType, linePrefix: string| null, lineNumber: string| null) {
     this.paragraphLanguage = paragraphLanguage;
     this.line = new  LineInformation(linePrefix, lineNumber);
   }
 
   /**
-	 * Returns true if the paragraph language is set.
-	 *
-	 * @return True if the paragraph language is set.
-	 * @since 11
-	 */
+   * Returns true if the paragraph language is set.
+   *
+   * @return True if the paragraph language is set.
+   * @since 11
+   */
   public isParagraphLanguageSet():  boolean {
     return this.paragraphLanguage != null;
   }
 
   /**
-	 * Returns the paragraph language.
-	 *
-	 * @return The paragraph language.
-	 * @since 11
-	 */
+   * Returns the paragraph language.
+   *
+   * @return The paragraph language.
+   * @since 11
+   */
   public getParagraphLanguage():  ParagraphLanguageType {
     return this.paragraphLanguage;
   }
 
   /**
-	 * Returns the line.
-	 *
-	 * @return The line.
-	 * @since 11
-	 */
+   * Returns the line.
+   *
+   * @return The line.
+   * @since 11
+   */
   public getLine():  LineInformation {
     return this.line;
   }

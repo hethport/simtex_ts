@@ -36,33 +36,33 @@ import { Tag } from '../metadata/Tag';
  */
 export  class Data extends Line {
   /**
-	 * The space escape character.
-	 */
+   * The space escape character.
+   */
   static readonly spaceEscapeCharacter:  string = '⊕';
 
   /**
-	 * The space pattern.
-	 */
+   * The space pattern.
+   */
   private static readonly spacePattern:  RegExp = new RegExp('([ ]+)');
 
   /**
-	 * The information.
-	 */
+   * The information.
+   */
   private readonly information:  DataInformation;
 
   /**
-	 * The content.
-	 */
+   * The content.
+   */
   private readonly content:  DataContent;
 
   /**
-	 * Creates a data line for the TLH dig parser.
-	 * 
-	 * @param source            The line source.
-	 * @param paragraphLanguage The paragraph language.
-	 * @param linePrefix        The line prefix.
-	 * @since 11
-	 */
+   * Creates a data line for the TLH dig parser.
+   *
+   * @param source            The line source.
+   * @param paragraphLanguage The paragraph language.
+   * @param linePrefix        The line prefix.
+   * @since 11
+   */
   public constructor(source: LineSource, paragraphLanguage: ParagraphLanguageType, linePrefix: string| null) {
     super(source);
 
@@ -103,12 +103,12 @@ export  class Data extends Line {
   }
 
   /**
-	 * Parses the line text.
-	 * 
-	 * @param text The text to parse.
-	 * @return The entities.
-	 * @since 11
-	 */
+   * Parses the line text.
+   *
+   * @param text The text to parse.
+   * @return The entities.
+   * @since 11
+   */
   private static parse(text: string| null):  LineEntity[] {
     if (text == null || text.trim().length == 0)
       return [];
@@ -137,12 +137,12 @@ export  class Data extends Line {
   }
 
   /**
-	 * Parses the segment and returns the respective entities.
-	 * 
-	 * @param segment The segment to parse.
-	 * @return The entities.
-	 * @since 11
-	 */
+   * Parses the segment and returns the respective entities.
+   *
+   * @param segment The segment to parse.
+   * @return The entities.
+   * @since 11
+   */
   private static parseSegment(segment: string):  LineEntity[] {
     if (segment.trim().length == 0)
       return [new  Empty(segment)];
@@ -208,23 +208,23 @@ export  class Data extends Line {
   }
 
   /**
-	 * Returns the segment entity for given text.
-	 * 
-	 * @param text The buffer containing the text.
-	 * @return The segment entity.
-	 * @since 11
-	 */
+   * Returns the segment entity for given text.
+   *
+   * @param text The buffer containing the text.
+   * @return The segment entity.
+   * @since 11
+   */
   private static getSegmentEntity(text: string):  LineEntity {
     return '\\' == text ? new  Column() : new  Word(text.replace(Data.spaceEscapeCharacter, ' '));
   }
 
   /**
-	 * Parses the line content and returns the content.
-	 * 
-	 * @param text The text to parse.
-	 * @return The content.
-	 * @since 11
-	 */
+   * Parses the line content and returns the content.
+   *
+   * @param text The text to parse.
+   * @return The content.
+   * @since 11
+   */
   public static parseContent(text: string):  DataContent {
     const  normalized: string = LineSource.normalize(text);
 
@@ -232,21 +232,21 @@ export  class Data extends Line {
   }
 
   /**
-	 * Returns the information.
-	 *
-	 * @return The information.
-	 * @since 11
-	 */
+   * Returns the information.
+   *
+   * @return The information.
+   * @since 11
+   */
   public getInformation():  DataInformation | null {
     return this.information;
   }
 
   /**
-	 * Returns the content.
-	 *
-	 * @return The content.
-	 * @since 11
-	 */
+   * Returns the content.
+   *
+   * @return The content.
+   * @since 11
+   */
   public getContent():  DataContent | null {
     return this.content;
   }

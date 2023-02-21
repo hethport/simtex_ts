@@ -4,9 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "postbuild": "eslint src",
     "build": "tsc",
-    "test": "jest",
-    "postinstall": "npx tsc"
+    "lint": "eslint src",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

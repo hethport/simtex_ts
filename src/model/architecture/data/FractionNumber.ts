@@ -22,38 +22,38 @@ export  class FractionNumber extends Fragment {
   static readonly xmlTag: string = 'num';
 
   /**
-	 * The alphabet.
-	 */
+   * The alphabet.
+   */
   private static readonly alphabet:  string = '\\d';
 
   /**
-	 * The pattern for numbers.
-	 */
+   * The pattern for numbers.
+   */
   static readonly pattern:  RegExp = new RegExp('(' + FractionNumber.alphabet + ')/(' + FractionNumber.alphabet + ')');
 
   /**
-	 * The available glyphs.
-	 */
+   * The available glyphs.
+   */
   static readonly availableGlyphs:  string = '½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞';
 
   /**
-	 * The numerator.
-	 */
+   * The numerator.
+   */
   private readonly numerator:  number;
 
   /**
-	 * The denominator.
-	 */
+   * The denominator.
+   */
   private readonly denominator:  number;
 
   /**
-	 * Creates a fraction number.
-	 * 
-	 * @param text        The text.
-	 * @param numerator   The numerator.
-	 * @param denominator The denominator.
-	 * @since 11
-	 */
+   * Creates a fraction number.
+   *
+   * @param text        The text.
+   * @param numerator   The numerator.
+   * @param denominator The denominator.
+   * @since 11
+   */
   constructor(text: string, numerator: string, denominator: string) {
     super(text);
 
@@ -63,31 +63,32 @@ export  class FractionNumber extends Fragment {
   /* eslint-enable constructor-super, @typescript-eslint/no-unsafe-call */
 
   /**
-	 * Returns the numerator.
-	 *
-	 * @return The numerator.
-	 * @since 11
-	 */
+
+   * Returns the numerator.
+   *
+   * @return The numerator.
+   * @since 11
+   */
   public getNumerator():  number {
     return this.numerator;
   }
 
   /**
-	 * Returns the denominator.
-	 *
-	 * @return The denominator.
-	 * @since 11
-	 */
+   * Returns the denominator.
+   *
+   * @return The denominator.
+   * @since 11
+   */
   public getDenominator():  number {
     return this.denominator;
   }
 
   /**
-	 * Returns the glyph.
-	 * 
-	 * @return The glyph. Null if not available.
-	 * @since 11
-	 */
+   * Returns the glyph.
+   *
+   * @return The glyph. Null if not available.
+   * @since 11
+   */
   public getGlyph():  string | null {
     switch (this.denominator) {
     case 2:
@@ -172,12 +173,12 @@ export  class FractionNumber extends Fragment {
   }
 
   /**
-	 * Returns the fraction number for given glyph.
-	 * 
-	 * @param glyph The glyph.
-	 * @return The fraction number for given glyph. Null if not available.
-	 * @since 11
-	 */
+   * Returns the fraction number for given glyph.
+   *
+   * @param glyph The glyph.
+   * @return The fraction number for given glyph. Null if not available.
+   * @since 11
+   */
   public static getFractionNumber(glyph: string):  FractionNumber | null {
     if (glyph.length != 1)
       return null;

@@ -26,18 +26,18 @@ export  class Akkadogram extends Breakdown {
   private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
 
   /**
-	 * The pattern for Akkadograms.
-	 */
+   * The pattern for Akkadograms.
+   */
   static readonly pattern:  RegExp = new RegExp('[' + Akkadogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
 			+ '[' + Akkadogram.alphabet + ']*' + Word.subscriptRegularExpression);
 
   /**
-	 * Creates an Akkadogram.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates an Akkadogram.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
   }

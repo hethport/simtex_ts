@@ -17,34 +17,34 @@
  */
 export  class LineInformation {
   /**
-	 * The prefix.
-	 */
+   * The prefix.
+   */
   private readonly prefix:  string | null;
 
   /**
-	 * The number.
-	 */
+   * The number.
+   */
   private readonly number:  string;
 
   /**
-	 * Creates a line information.
-	 * 
-	 * @param prefix The prefix.
-	 * @param number The number.
-	 * @since 11
-	 */
+   * Creates a line information.
+   *
+   * @param prefix The prefix.
+   * @param number The number.
+   * @since 11
+   */
   public constructor(prefix: string| null, number: string | null) {
     this.prefix = prefix;
     this.number = LineInformation.normalizeNumber(number);
   }
 
   /**
-	 * Normalizes the line number.
-	 * 
-	 * @param number The line number to normalize.
-	 * @return The normalized line number.
-	 * @since 11
-	 */
+   * Normalizes the line number.
+   *
+   * @param number The line number to normalize.
+   * @return The normalized line number.
+   * @since 11
+   */
   public static normalizeNumber(number: string | null):  string {
 
     return number == null ? '' : number.replace('\'', '′')
@@ -57,41 +57,41 @@ export  class LineInformation {
   }
 
   /**
-	 * Returns true if the prefix is set.
-	 *
-	 * @return True if the prefix is set.
-	 * @since 11
-	 */
+   * Returns true if the prefix is set.
+   *
+   * @return True if the prefix is set.
+   * @since 11
+   */
   public isPrefixSet():  boolean {
     return this.prefix !== null;
   }
 
   /**
-	 * Returns the prefix.
-	 *
-	 * @return The prefix.
-	 * @since 11
-	 */
+   * Returns the prefix.
+   *
+   * @return The prefix.
+   * @since 11
+   */
   public getPrefix():  string | null {
     return this.prefix;
   }
 
   /**
-	 * Returns true if the number is set.
-	 *
-	 * @return True if the number is set.
-	 * @since 11
-	 */
+   * Returns true if the number is set.
+   *
+   * @return True if the number is set.
+   * @since 11
+   */
   public isNumberSet():  boolean {
     return this.number !== null;
   }
 
   /**
-	 * Returns the number.
-	 *
-	 * @return The number.
-	 * @since 11
-	 */
+   * Returns the number.
+   *
+   * @return The number.
+   * @since 11
+   */
   public getNumber():  string | null {
     return this.number;
   }

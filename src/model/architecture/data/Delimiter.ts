@@ -23,22 +23,22 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
 export  class Delimiter extends Breakdown {
   public static readonly xmlTag: string = 'DELIMITER';
   /**
-	 * The alphabet.
-	 */
+   * The alphabet.
+   */
   private static readonly alphabet: string = Word.delimiterAlphabet;
 
   /**
-	 * The pattern for delimiters.
-	 */
+   * The pattern for delimiters.
+   */
   static readonly pattern:  RegExp = new RegExp('[' + Delimiter.alphabet + ']+' + Word.subscriptRegularExpression);
 
   /**
-	 * Creates a delimiter.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a delimiter.
+   *
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
   }

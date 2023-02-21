@@ -16,8 +16,7 @@ import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
 import { Word } from '../Word';
-import {xmlElementNode, XmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
-import {xmlElement} from '../../../../../dist/xmlModel';
+import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 
 
 
@@ -31,43 +30,43 @@ import {xmlElement} from '../../../../../dist/xmlModel';
  */
 export  class Split {
   /**
-	 * The pattern.
-	 */
+   * The pattern.
+   */
   public static pattern = new RegExp('([\\-]*[^\\-]*)');
 
   /**
-	 * The pattern for index.
-	 */
+   * The pattern for index.
+   */
   private static indexPattern = new RegExp('([' + Word.alphabet + ']+)(\\d+|x)($|\\.)');
 
   /**
-	 * The pattern for delimiter.
-	 */
+   * The pattern for delimiter.
+   */
   private static delimiterPattern = new RegExp('([' + Word.delimiterAlphabet + ']{1})');
 
   /**
-	 * The deleri ('*' / erased / Rasur) position.
-	 */
+   * The deleri ('*' / erased / Rasur) position.
+   */
   private deleriPosition: MetadataPosition;
 
   /**
-	 * The main part.
-	 */
+   * The main part.
+   */
   private readonly mainPart: Slice[];
 
   /**
-	 * The subscript.
-	 */
+   * The subscript.
+   */
   private readonly subscript: Slice[] = [];
 
   /**
-	 * Creates a split.
-	 * 
-	 * @param status         The status.
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a split.
+   *
+   * @param status         The status.
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   * @since 11
+   */
   public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
     
     this.deleriPosition = deleriPosition;
@@ -96,12 +95,12 @@ export  class Split {
   }
 
   /**
-	 * Normalizes the text.
-	 * 
-	 * @param text The text to normalize.
-	 * @return The normalized text.
-	 * @since 11
-	 */
+   * Normalizes the text.
+   *
+   * @param text The text to normalize.
+   * @return The normalized text.
+   * @since 11
+   */
   private normalize(/* final */  text: string): Slice[] {
     const  slice: Slice[] = [];
 
@@ -162,12 +161,12 @@ export  class Split {
   }
 
   /**
-	 * Converts to index.
-	 * 
-	 * @param text The text to convert to index.
-	 * @return The index digits.
-	 * @since 11
-	 */
+   * Converts to index.
+   *
+   * @param text The text to convert to index.
+   * @return The index digits.
+   * @since 11
+   */
   private static convertToIndex(text: string): string {
     const  buffer: string[] = [];
 
@@ -226,62 +225,62 @@ export  class Split {
   }
 
   /**
-	 * Returns the deleri ('*' / erased / Rasur) position.
-	 *
-	 * @return The deleri ('*' / erased / Rasur) position.
-	 * @since 11
-	 */
+   * Returns the deleri ('*' / erased / Rasur) position.
+   *
+   * @return The deleri ('*' / erased / Rasur) position.
+   * @since 11
+   */
   public getDeleriPosition(): MetadataPosition {
     return this.deleriPosition;
   }
 
   /**
-	 * Returns the main part.
-	 *
-	 * @return The main part.
-	 * @since 11
-	 */
+   * Returns the main part.
+   *
+   * @return The main part.
+   * @since 11
+   */
   public getMainPart():  Slice[] {
     return this.mainPart;
   }
 
   /**
-	 * Returns the main part plain text.
-	 *
-	 * @return The main part plain text.
-	 * @since 11
-	 */
+   * Returns the main part plain text.
+   *
+   * @return The main part plain text.
+   * @since 11
+   */
   public getMainPartPlainText():  string {
     return Split.getPlainText(this.mainPart);
   }
 
   /**
-	 * Returns the subscript.
-	 *
-	 * @return The subscript.
-	 * @since 11
-	 */
+   * Returns the subscript.
+   *
+   * @return The subscript.
+   * @since 11
+   */
   public getSubscript(): Slice[] {
     return this.subscript;
   }
 
   /**
-	 * Returns the subscript plain text.
-	 *
-	 * @return The subscript plain text.
-	 * @since 11
-	 */
+   * Returns the subscript plain text.
+   *
+   * @return The subscript plain text.
+   * @since 11
+   */
   public getSubscriptPlainText(): string | null {
     return Split.getPlainText(this.subscript);
   }
 
   /**
-	 * Returns the plain text of given slices.
-	 * 
-	 * @param slices The slices.
-	 * @return The plain text.
-	 * @since 11
-	 */
+   * Returns the plain text of given slices.
+   *
+   * @param slices The slices.
+   * @return The plain text.
+   * @since 11
+   */
   private static getPlainText(slices: Slice[]): string {
     const  buffer: string[] = [];
 
