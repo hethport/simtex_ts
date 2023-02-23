@@ -25,8 +25,7 @@ import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/Par
 import { Tag } from '../metadata/Tag';
 import {LanguageChangeType} from './LanguageChangeType';
 import {Attributes, xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
-
-
+import { InventoryNumber } from '../metadata/InventoryNumber';
 
 
 /**
@@ -62,12 +61,13 @@ export  class Data extends Line {
    * Creates a data line for the TLH dig parser.
    *
    * @param source            The line source.
+	 * @param inventoryNumber   The inventory number.
    * @param paragraphLanguage The paragraph language. If null, use default
    *                          language.
    * @param linePrefix        The line prefix.
    * @since 11
    */
-  public constructor(source: LineSource, paragraphLanguage: ParagraphLanguageType | null, linePrefix: string| null) {
+  public constructor(source: LineSource, inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null, linePrefix: string| null) {
     super(source);
 
     let  lineNumber: string| null;
@@ -97,7 +97,7 @@ export  class Data extends Line {
       }
     }
 
-    this.information = new  DataInformation(paragraphLanguage, linePrefix, lineNumber);
+    this.information = new  DataInformation(inventoryNumber, paragraphLanguage, linePrefix, lineNumber);
     this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(paragraphLanguage, lineSource))
       : new  DataContent(lineSource, null);
 
@@ -245,6 +245,30 @@ export  class Data extends Line {
   private static getSegmentEntity(paragraphLanguage: ParagraphLanguageType, text: string):  LineEntity {
     return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacter, ' '));
   }
+
+	/**
+	 * Parses the data.
+	 * 
+	 * @param inventoryNumber   The inventory number.
+	 * @param paragraphLanguage The paragraph language. If null, use default
+	 *                          language.
+	 * @param linePrefix        The line prefix.
+	 * @param lineNumber        The line number.
+	 * @param text              The text.
+	 * @return
+	 * @since 11
+	 */
+	public static parseData(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null,
+			linePrefix: string, lineNumber: string, text: string): Data {
+		const  buffer: string[] = [];
+		if (lineNumber != null)
+			buffer.push(lineNumber);
+		buffer.push("#");
+		if (text != null)
+			buffer.push(text);
+
+		return new Data(new LineSource(1, buffer.join('')), inventoryNumber, paragraphLanguage, linePrefix);
+	}
 
   /**
    * Parses the line content and returns the content.

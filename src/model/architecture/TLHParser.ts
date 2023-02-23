@@ -41,10 +41,15 @@ export class TLHParser {
    */
   private readonly status: Status = new Status();
 
+	/**
+	 * The current inventory number.
+	 */
+	private inventoryNumber: InventoryNumber | null = null;
+
   /**
    * The current line prefix.
    */
-  private linePrefix: string | null = '';
+  private linePrefix: string | null = null;
 
   /**
    * The lines.
@@ -93,7 +98,8 @@ export class TLHParser {
         /*
          * inventory number
          */
-        this.lines.push(new InventoryNumber(source));
+         this.inventoryNumber = new InventoryNumber(source);
+        this.lines.push(this.inventoryNumber);
 
         this.linePrefix = null;
 
@@ -148,7 +154,7 @@ export class TLHParser {
         /*
          * data
          */
-        this.lines.push(new Data(source, this.paragraphLanguage, this.linePrefix));
+        this.lines.push(new Data(source, this.inventoryNumber, this.paragraphLanguage, this.linePrefix));
 
         break;
       }
