@@ -6,16 +6,12 @@
  * Date:     06.12.2022
  */
 
-
 import { Metadata } from './Metadata';
 import { Tag } from './Tag';
 import { LineSource } from '../LineSource';
 import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
-
-
-
 
 /**
  * Define markers.

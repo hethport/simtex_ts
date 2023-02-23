@@ -95,4 +95,8 @@ export  class LineInformation {
   public getNumber():  string | null {
     return this.number;
   }
+
+  public getFormatted(): string {
+    return (this.prefix == null ? '' : this.prefix) + (this.number == null ? '' : this.number);
+  }
 }

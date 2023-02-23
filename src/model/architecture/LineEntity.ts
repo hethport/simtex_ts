@@ -6,6 +6,9 @@
  * Date:     16.02.2023
  */
 
+import {XmlElementNode} from 'simple_xml';
+import {ExportXML} from './ExportXML';
+
 /**
  * Define line entities.
  *
@@ -13,6 +16,6 @@
  * @version 1.0
  * @since 11
  */
-export abstract class LineEntity {
-
+export interface LineEntity extends ExportXML{
+  exportXml(): XmlElementNode;
 }

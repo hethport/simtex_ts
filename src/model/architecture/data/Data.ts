@@ -24,6 +24,7 @@ import { Marker } from '../metadata/Marker';
 import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/ParagraphLanguageType';
 import { Tag } from '../metadata/Tag';
 import {LanguageChangeType} from './LanguageChangeType';
+import {Attributes, xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
 
 
 
@@ -36,6 +37,7 @@ import {LanguageChangeType} from './LanguageChangeType';
  * @since 11
  */
 export  class Data extends Line {
+  static readonly xmlTag: string = 'lb';
   /**
    * The space escape character.
    */
@@ -278,5 +280,31 @@ export  class Data extends Line {
    */
   public getContent():  DataContent | null {
     return this.content;
+  }
+
+  /**
+   * Returns a lineBreak <lb/> node with lineEntities after it
+   *
+   * @return The content.
+   */
+  public exportXml(): XmlNode[] {
+    const entities: XmlNode[] = [];
+
+    const attributes: Attributes = {};
+
+    // TODO: give InventoryNumber to Data
+    attributes['txtid'] = 'null';
+    attributes['lnr'] = this.information.getLine().getFormatted();
+    attributes['lg'] = ParagraphLanguageType[this.information.getParagraphLanguage()];
+
+    // create new lineBreak <lb> Node, which contains lineInformation as attributes
+    entities.push(xmlElementNode(Data.xmlTag, attributes, []));
+
+    // add lineEntities after <lb> node
+    for (const entity of this.content.getEntities()) {
+      entities.push(entity.exportXml());
+    }
+
+    return entities;
   }
 }

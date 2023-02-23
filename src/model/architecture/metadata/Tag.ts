@@ -22,7 +22,6 @@ import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
 export class Tag implements LineEntity {
   static readonly unknownTag: string = 'NO_TAG';
 
-
   /**
    * The type.
    */
@@ -107,7 +106,6 @@ export class Tag implements LineEntity {
   }
 
   public exportXml(): XmlElementNode {
-
     const content: string| undefined = this.content == null ? undefined : this.content;
     const attributes: Attributes = {};
     let xmlTag: string;

@@ -16,7 +16,7 @@ import {Determinative} from './Determinative';
 import {FractionNumber} from './FractionNumber';
 import {Glossing} from './Glossing';
 import {LanguageChange} from './LanguageChange';
-import {LanguageChangeType} from './LanguageChangeType';
+import {convertToAbbreviation, LanguageChangeType} from './LanguageChangeType';
 import {NotImplemented} from './NotImplemented';
 import {Sumerogram} from './Sumerogram';
 import {UndefinedDegreeSign} from './UndefinedDegreeSign';
@@ -667,6 +667,6 @@ export class Word implements LineEntity {
       }
     }
 
-    return xmlElementNode(Word.xmlTag, {}, children);
+    return xmlElementNode(Word.xmlTag, (this.languageChange == null) ? {} : {'lg': convertToAbbreviation(this.languageChange)}, children);
   }
 }
