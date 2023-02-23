@@ -11,6 +11,7 @@ import {StatusEvent} from '../StatusEvent';
 import {StatusEventCode} from '../StatusEventCode';
 import {StatusLevel} from '../StatusLevel';
 import {Fragment} from './fragment/Fragment';
+import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 /**
  * Define language changes.
@@ -20,8 +21,9 @@ import {Fragment} from './fragment/Fragment';
  * @since 11
  */
 export  class LanguageChange extends Fragment {
-  // TODO: implement word languange change
+  // TODO: ignore language change in xml export
   public static readonly xmlTag: string = 'LANGUAGE_CHANGE';
+  
   /**
    * The language.
    */
@@ -94,5 +96,9 @@ export  class LanguageChange extends Fragment {
       return '';
     }
 
+  }
+  
+  public exportXml(): XmlElementNode {
+    return xmlElementNode(LanguageChange.xmlTag, {}, []);
   }
 }

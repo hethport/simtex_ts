@@ -8,7 +8,7 @@
 
 
 import { LineInformation } from './LineInformation';
-import { ParagraphLanguageType } from '../metadata/ParagraphLanguageType';
+import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/ParagraphLanguageType';
 
 
 /**
@@ -37,19 +37,10 @@ export  class DataInformation {
    * @param lineNumber        The line number.
    * @since 11
    */
-  public constructor(paragraphLanguage: ParagraphLanguageType, linePrefix: string| null, lineNumber: string| null) {
-    this.paragraphLanguage = paragraphLanguage;
+  public constructor(paragraphLanguage: ParagraphLanguageType| null, linePrefix: string| null, lineNumber: string| null) {
+    this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
+					: paragraphLanguage;
     this.line = new  LineInformation(linePrefix, lineNumber);
-  }
-
-  /**
-   * Returns true if the paragraph language is set.
-   *
-   * @return True if the paragraph language is set.
-   * @since 11
-   */
-  public isParagraphLanguageSet():  boolean {
-    return this.paragraphLanguage != null;
   }
 
   /**

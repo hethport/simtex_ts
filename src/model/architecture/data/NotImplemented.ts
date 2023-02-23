@@ -7,7 +7,7 @@
  */
 
 import { Fragment } from './fragment/Fragment';
-import {xmlElementNode} from 'simple_xml';
+import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 /**
  * Defines not implemented word fragments.
@@ -17,6 +17,9 @@ import {xmlElementNode} from 'simple_xml';
  * @since 11
  */
 export  class NotImplemented extends Fragment {
+  // TODO: ignore language change in xml export
+  public static readonly xmlTag: string = 'NOT_IMPLEMENTED';
+  
   /**
    * Creates a not implemented word fragments.
    *
@@ -27,4 +30,7 @@ export  class NotImplemented extends Fragment {
     super(text);
   }
 
+  public exportXml(): XmlElementNode {
+    return xmlElementNode(NotImplemented.xmlTag, {}, []);
+  }
 }

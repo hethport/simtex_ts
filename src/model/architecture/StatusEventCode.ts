@@ -7,6 +7,7 @@
  */
 
 export enum StatusEventCode {
+	parser,
   required,
   unexpected,
   empty,

@@ -21,8 +21,9 @@ import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
 import { Marker } from '../metadata/Marker';
-import { ParagraphLanguageType } from '../metadata/ParagraphLanguageType';
+import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/ParagraphLanguageType';
 import { Tag } from '../metadata/Tag';
+import {LanguageChangeType} from './LanguageChangeType';
 
 
 
@@ -59,11 +60,12 @@ export  class Data extends Line {
    * Creates a data line for the TLH dig parser.
    *
    * @param source            The line source.
-   * @param paragraphLanguage The paragraph language.
+   * @param paragraphLanguage The paragraph language. If null, use default
+   *                          language.
    * @param linePrefix        The line prefix.
    * @since 11
    */
-  public constructor(source: LineSource, paragraphLanguage: ParagraphLanguageType, linePrefix: string| null) {
+  public constructor(source: LineSource, paragraphLanguage: ParagraphLanguageType | null, linePrefix: string| null) {
     super(source);
 
     let  lineNumber: string| null;
@@ -94,25 +96,47 @@ export  class Data extends Line {
     }
 
     this.information = new  DataInformation(paragraphLanguage, linePrefix, lineNumber);
-    this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(lineSource))
+    this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(paragraphLanguage, lineSource))
       : new  DataContent(lineSource, null);
 
     for (const entity of this.content.getEntities())
       if (entity instanceof Word)
         this.getStatus().addLevel(( entity as Word).getStatus());
+        
+		/*
+		 * Updates word entities status and language change.
+		 */
+		let languageChange: LanguageChangeType | null = null;
+    for (const entity of this.content.getEntities())
+      if (entity instanceof Word) {
+				let word: Word = entity as Word;
+        		this.getStatus().addLevel(word.getStatus());
+				
+				if (word.isLanguageChangeType())
+					languageChange = word.getLanguageChangeType();
+				else if (languageChange != null) {
+					word.setLanguageChange(languageChange);
+					languageChange = null;
+				}			
+			}
   }
 
   /**
    * Parses the line text.
    *
+   * @param paragraphLanguage The paragraph language. If null, use default
+   *                          language.
    * @param text The text to parse.
    * @return The entities.
    * @since 11
    */
-  private static parse(text: string| null):  LineEntity[] {
+  private static parse(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
     if (text == null || text.trim().length == 0)
       return [];
     else {
+		if (paragraphLanguage == null)
+			paragraphLanguage = defaultParagraphLanguage();
+					
       // extract the tags and segments
       const  entities: LineEntity[] = [];
 
@@ -122,14 +146,14 @@ export  class Data extends Line {
       for (const match of matches) {
         if (match.index && index < match.index) {
 
-          entities.concat(Data.parseSegment(text.substring(index, match.index)));
+          entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
         }
         entities.push(new Tag(match[0], match[1], match[2]));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
       if(index < text.length) {
-        entities.concat(Data.parseSegment(text.substring(index, text.length - 1)));
+        entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, text.length - 1)));
       }
 
       return entities;
@@ -139,11 +163,12 @@ export  class Data extends Line {
   /**
    * Parses the segment and returns the respective entities.
    *
+   * @param paragraphLanguage The paragraph language.
    * @param segment The segment to parse.
    * @return The entities.
    * @since 11
    */
-  private static parseSegment(segment: string):  LineEntity[] {
+  private static parseSegment(paragraphLanguage: ParagraphLanguageType, segment: string):  LineEntity[] {
     if (segment.trim().length == 0)
       return [new  Empty(segment)];
     else {
@@ -193,14 +218,14 @@ export  class Data extends Line {
       index = 0;
       for (const match of matches) {
         if (match.index && index < match.index) {
-          entities.push(this.getSegmentEntity(wordBuffer.substring(index, match.index)));
+          entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index, match.index)));
         }
         entities.push(new Empty(match[1]));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
       if(index < wordBuffer.length) {
-        entities.push(this.getSegmentEntity(wordBuffer.substring(index, wordBuffer.length - 1)));
+        entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index, wordBuffer.length - 1)));
       }
       return entities;
     }
@@ -210,25 +235,29 @@ export  class Data extends Line {
   /**
    * Returns the segment entity for given text.
    *
+   * @param paragraphLanguage The paragraph language.
    * @param text The buffer containing the text.
    * @return The segment entity.
    * @since 11
    */
-  private static getSegmentEntity(text: string):  LineEntity {
-    return '\\' == text ? new  Column() : new  Word(text.replace(Data.spaceEscapeCharacter, ' '));
+  private static getSegmentEntity(paragraphLanguage: ParagraphLanguageType, text: string):  LineEntity {
+    return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacter, ' '));
   }
 
   /**
    * Parses the line content and returns the content.
    *
+   * @param paragraphLanguage The paragraph language. If null, use default
+   *                          language.
    * @param text The text to parse.
    * @return The content.
    * @since 11
    */
-  public static parseContent(text: string):  DataContent {
+  public static parseContent(paragraphLanguage: ParagraphLanguageType | null, text: string):  DataContent {
     const  normalized: string = LineSource.normalize(text);
 
-    return new  DataContent(normalized, Data.parse(normalized));
+    return new  DataContent(normalized, Data.parse(paragraphLanguage == null ? defaultParagraphLanguage()
+					: paragraphLanguage, normalized));
   }
 
   /**
