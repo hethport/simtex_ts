@@ -41,10 +41,10 @@ export class TLHParser {
    */
   private readonly status: Status = new Status();
 
-	/**
+  /**
 	 * The current inventory number.
 	 */
-	private inventoryNumber: InventoryNumber | null = null;
+  private inventoryNumber: InventoryNumber | null = null;
 
   /**
    * The current line prefix.
@@ -98,7 +98,7 @@ export class TLHParser {
         /*
          * inventory number
          */
-         this.inventoryNumber = new InventoryNumber(source);
+        this.inventoryNumber = new InventoryNumber(source);
         this.lines.push(this.inventoryNumber);
 
         this.linePrefix = null;

@@ -246,7 +246,7 @@ export  class Data extends Line {
     return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacter, ' '));
   }
 
-	/**
+  /**
 	 * Parses the data.
 	 * 
 	 * @param inventoryNumber   The inventory number.
@@ -258,17 +258,17 @@ export  class Data extends Line {
 	 * @return
 	 * @since 11
 	 */
-	public static parseData(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null,
-			linePrefix: string, lineNumber: string, text: string): Data {
-		const  buffer: string[] = [];
-		if (lineNumber != null)
-			buffer.push(lineNumber);
-		buffer.push("#");
-		if (text != null)
-			buffer.push(text);
+  public static parseData(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null,
+    linePrefix: string, lineNumber: string, text: string): Data {
+    const  buffer: string[] = [];
+    if (lineNumber != null)
+      buffer.push(lineNumber);
+    buffer.push('#');
+    if (text != null)
+      buffer.push(text);
 
-		return new Data(new LineSource(1, buffer.join('')), inventoryNumber, paragraphLanguage, linePrefix);
-	}
+    return new Data(new LineSource(1, buffer.join('')), inventoryNumber, paragraphLanguage, linePrefix);
+  }
 
   /**
    * Parses the line content and returns the content.

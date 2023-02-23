@@ -19,10 +19,10 @@ import { InventoryNumber } from '../metadata/InventoryNumber';
  * @since 11
  */
 export  class DataInformation {
-		/**
-		 * The inventory number.
-		 */
-		private readonly inventoryNumber: InventoryNumber | null;
+  /**
+   * The inventory number.
+   */
+  private readonly inventoryNumber: InventoryNumber | null;
 
   /**
    * The paragraph language.
@@ -37,28 +37,28 @@ export  class DataInformation {
   /**
    * Creates an information for a data line.
    *
-		 * @param inventoryNumber   The inventory number.
+   * @param inventoryNumber   The inventory number.
    * @param paragraphLanguage The paragraph language.
    * @param linePrefix        The line prefix.
    * @param lineNumber        The line number.
    * @since 11
    */
   public constructor(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType| null, linePrefix: string| null, lineNumber: string| null) {
-	this.inventoryNumber = inventoryNumber;
+    this.inventoryNumber = inventoryNumber;
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
       : paragraphLanguage;
     this.line = new  LineInformation(linePrefix, lineNumber);
   }
 
-		/**
-		 * Returns the inventory number.
-		 *
-		 * @return The inventory number.
-		 * @since 11
-		 */
-		public getInventoryNumber(): InventoryNumber | null {
-			return this.inventoryNumber;
-		}
+  /**
+   * Returns the inventory number.
+   *
+   * @return The inventory number.
+   * @since 11
+   */
+  public getInventoryNumber(): InventoryNumber | null {
+    return this.inventoryNumber;
+  }
 
   /**
    * Returns the paragraph language.
