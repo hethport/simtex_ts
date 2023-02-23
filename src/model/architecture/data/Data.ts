@@ -103,22 +103,22 @@ export  class Data extends Line {
       if (entity instanceof Word)
         this.getStatus().addLevel(( entity as Word).getStatus());
         
-		/*
-		 * Updates word entities status and language change.
-		 */
-		let languageChange: LanguageChangeType | null = null;
+    /*
+     * Updates word entities status and language change.
+	 */
+    let languageChange: LanguageChangeType | null = null;
     for (const entity of this.content.getEntities())
       if (entity instanceof Word) {
-				let word: Word = entity as Word;
-        		this.getStatus().addLevel(word.getStatus());
+        const word: Word = entity as Word;
+        this.getStatus().addLevel(word.getStatus());
 				
-				if (word.isLanguageChangeType())
-					languageChange = word.getLanguageChangeType();
-				else if (languageChange != null) {
-					word.setLanguageChange(languageChange);
-					languageChange = null;
-				}			
-			}
+        if (word.isLanguageChangeType())
+          languageChange = word.getLanguageChangeType();
+        else if (languageChange != null) {
+          word.setLanguageChange(languageChange);
+          languageChange = null;
+        }			
+      }
   }
 
   /**
@@ -134,8 +134,8 @@ export  class Data extends Line {
     if (text == null || text.trim().length == 0)
       return [];
     else {
-		if (paragraphLanguage == null)
-			paragraphLanguage = defaultParagraphLanguage();
+      if (paragraphLanguage == null)
+        paragraphLanguage = defaultParagraphLanguage();
 					
       // extract the tags and segments
       const  entities: LineEntity[] = [];
@@ -257,7 +257,7 @@ export  class Data extends Line {
     const  normalized: string = LineSource.normalize(text);
 
     return new  DataContent(normalized, Data.parse(paragraphLanguage == null ? defaultParagraphLanguage()
-					: paragraphLanguage, normalized));
+      : paragraphLanguage, normalized));
   }
 
   /**

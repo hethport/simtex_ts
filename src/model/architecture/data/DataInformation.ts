@@ -39,7 +39,7 @@ export  class DataInformation {
    */
   public constructor(paragraphLanguage: ParagraphLanguageType| null, linePrefix: string| null, lineNumber: string| null) {
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
-					: paragraphLanguage;
+      : paragraphLanguage;
     this.line = new  LineInformation(linePrefix, lineNumber);
   }
 

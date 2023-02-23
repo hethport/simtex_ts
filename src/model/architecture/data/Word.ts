@@ -129,10 +129,10 @@ export class Word implements LineEntity {
    */
   private deleriPosition: MetadataPosition = MetadataPosition.initial;
 
-	/**
+  /**
 	 * The language change.
 	 */
-	private languageChange: LanguageChangeType | null = null;
+  private languageChange: LanguageChangeType | null = null;
 	
   /**
    * Creates a word.
@@ -147,7 +147,7 @@ export class Word implements LineEntity {
     this.normalizedText = Word.normalize(this.text);
 
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
-					: paragraphLanguage;
+      : paragraphLanguage;
 					
     this.fragments = this.parse(this.normalizedText);
 
@@ -206,35 +206,35 @@ export class Word implements LineEntity {
     let fragments: Fragment[] = [];
 
     if (text.trim().length > 0) {
-	    // test for language changes
-	    if (text.startsWith('@'))
-	      fragments.push(new LanguageChange(text));
-	    else {
-	      // test for fraction numbers
-	      const match = text.match(FractionNumber.pattern);
-	      if (match) {
-	        fragments.push(new FractionNumber(text, match[1], match[2]));
-	      } else {
-	        /*
-			 * extract the determinative and glossing, and recursively the remainder
-			 * fragments
-			 */
-	        const matches = text.matchAll(DegreeSign.pattern);
-	        let index = 0;
-	        for (const match of matches) {
-	          if (match.index && index < match.index) {
-	            fragments = fragments.concat(this.parseSegment(text.substring(index, match.index)));
-	          }
-	          fragments.push(this.getDeterminativeGlossing(match[0], match[1]));
-	          if (match.index != null) {
-	            index = match.index + match[0].length;
-	          }
-	        }
+      // test for language changes
+      if (text.startsWith('@'))
+        fragments.push(new LanguageChange(text));
+      else {
+        // test for fraction numbers
+        const match = text.match(FractionNumber.pattern);
+        if (match) {
+          fragments.push(new FractionNumber(text, match[1], match[2]));
+        } else {
+          /*
+		   * extract the determinative and glossing, and recursively the remainder
+		   * fragments
+		   */
+          const matches = text.matchAll(DegreeSign.pattern);
+          let index = 0;
+          for (const match of matches) {
+            if (match.index && index < match.index) {
+              fragments = fragments.concat(this.parseSegment(text.substring(index, match.index)));
+            }
+            fragments.push(this.getDeterminativeGlossing(match[0], match[1]));
+            if (match.index != null) {
+              index = match.index + match[0].length;
+            }
+          }
 	
-	        if (index < text.length) {
-	          fragments = fragments.concat(this.parseSegment(text.substring(index, text.length - 1)));
-	        }
-	      }
+          if (index < text.length) {
+            fragments = fragments.concat(this.parseSegment(text.substring(index, text.length - 1)));
+          }
+        }
       }
     }
 
@@ -284,24 +284,24 @@ export class Word implements LineEntity {
   private parseSegment(segment: string): Fragment[] {
     let fragments: Fragment[] = [];
 
-      /*
+    /*
 	   * extract the prepositions, and recursively the remainder fragments
 	   */
-      const matches = segment.matchAll(AkkadianPreposition.pattern);
-      let index = 0;
-      for (const match of matches) {
-        if (match.index && index < match.index) {
-          fragments = fragments.concat(this.parseText(segment.substring(index, match.index)));
-        }
-        fragments.push(new AkkadianPreposition(match[0]));
-        if (match.index != null) {
-          index = match.index + match[0].length;
-        }
+    const matches = segment.matchAll(AkkadianPreposition.pattern);
+    let index = 0;
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        fragments = fragments.concat(this.parseText(segment.substring(index, match.index)));
       }
+      fragments.push(new AkkadianPreposition(match[0]));
+      if (match.index != null) {
+        index = match.index + match[0].length;
+      }
+    }
 
-      if (index < segment.length) {
-        fragments = fragments.concat(this.parseText(segment.substring(index, segment.length - 1)));
-      }
+    if (index < segment.length) {
+      fragments = fragments.concat(this.parseText(segment.substring(index, segment.length - 1)));
+    }
 
     return fragments;
   }
@@ -427,58 +427,58 @@ export class Word implements LineEntity {
     return this.paragraphLanguage;
   }
 
-	/**
+  /**
 	 * Returns true if the word is of type language change.
 	 * 
 	 * @return True if the word is of type language change.
 	 * @since 11
 	 */
-	public isLanguageChangeType(): boolean {
-		return this.fragments.length == 1 && (this.fragments[0] instanceof LanguageChange);
-	}
+  public isLanguageChangeType(): boolean {
+    return this.fragments.length == 1 && (this.fragments[0] instanceof LanguageChange);
+  }
 
-	/**
+  /**
 	 * Returns the language change.
 	 *
 	 * @return The language change.
 	 * @since 11
 	 */
-	public getLanguageChangeType() : LanguageChangeType | null {
-		const languageChange: LanguageChange | null = (this.fragments[0] instanceof LanguageChange) ?
+  public getLanguageChangeType() : LanguageChangeType | null {
+    const languageChange: LanguageChange | null = (this.fragments[0] instanceof LanguageChange) ?
 		this.fragments[0] as LanguageChange : null;
 		
-		return languageChange == null ? null : languageChange.getLanguage();
-	}
+    return languageChange == null ? null : languageChange.getLanguage();
+  }
 
-	/**
+  /**
 	 * Returns true if the language change is set.
 	 *
 	 * @return True if the language change is set.
 	 * @since 11
 	 */
-	public  isLanguageChangeSet() : boolean {
-		return this.languageChange != null;
-	}
+  public  isLanguageChangeSet() : boolean {
+    return this.languageChange != null;
+  }
 
-	/**
+  /**
 	 * Returns the language change.
 	 *
 	 * @return The language change.
 	 * @since 11
 	 */
-	public getLanguageChange(): LanguageChangeType | null {
-		return this.languageChange;
-	}
+  public getLanguageChange(): LanguageChangeType | null {
+    return this.languageChange;
+  }
 
-	/**
+  /**
 	 * Set the language change.
 	 *
 	 * @param language The language to set.
 	 * @since 11
 	 */
-	public setLanguageChange(language: LanguageChangeType | null) {
-		this.languageChange = language;
-	}
+  public setLanguageChange(language: LanguageChangeType | null) {
+    this.languageChange = language;
+  }
 
   /**
    * Returns the fragment for given text type without segment.
@@ -527,7 +527,7 @@ export class Word implements LineEntity {
 
     case FragmentBreakdownType.NotImplemented:
     default:
-    this.getStatus().add(new  StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word \'' + text + '\' can not be parsed.'));
+      this.getStatus().add(new  StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word \'' + text + '\' can not be parsed.'));
 
       return new NotImplemented(text);
     }
