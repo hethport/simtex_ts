@@ -21,7 +21,6 @@ import {xmlElementNode, XmlElementNode} from 'simple_xml';
  * @since 11
  */
 export  class LanguageChange extends Fragment {
-  // TODO: ignore language change in xml export
   public static readonly xmlTag: string = 'LANGUAGE_CHANGE';
   
   /**

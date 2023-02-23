@@ -9,6 +9,7 @@
 
 import { Identifier } from './Identifier';
 import { LineSource } from '../LineSource';
+import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -18,8 +19,9 @@ import { LineSource } from '../LineSource';
  * @version 1.0
  * @since 11
  */
-export  class InventoryNumber extends Identifier {
-
+export class InventoryNumber extends Identifier {
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'INVENTORY_NUMBER';
   /**
 	 * Creates an inventory number.
 	 * 
@@ -28,5 +30,9 @@ export  class InventoryNumber extends Identifier {
 	 */
   public constructor(source: LineSource) {
     super(source);
+  }
+
+  public exportXml(): XmlNode[] {
+    return [xmlElementNode(InventoryNumber.xmlTag, {}, [xmlTextNode(this.concatIdentifier())])];
   }
 }

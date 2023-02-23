@@ -8,6 +8,7 @@
 
 import {LineSource} from './LineSource';
 import {Status} from './Status';
+import {XmlNode} from 'simple_xml';
 
 
 /**
@@ -17,7 +18,7 @@ import {Status} from './Status';
  * @version 1.0
  * @since 11
  */
-export class Line {
+export abstract class Line {
   /**
    * The line status. The default status is 'ok'.
    */
@@ -57,4 +58,10 @@ export class Line {
     return this.source;
   }
 
+  /**
+   * Returns a lineBreak <lb/> node with lineEntities after it
+   *
+   * @return The content.
+   */
+  public abstract exportXml(): XmlNode[];
 }

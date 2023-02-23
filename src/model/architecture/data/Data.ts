@@ -24,7 +24,7 @@ import { Marker } from '../metadata/Marker';
 import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/ParagraphLanguageType';
 import { Tag } from '../metadata/Tag';
 import {LanguageChangeType} from './LanguageChangeType';
-import {Attributes, xmlElementNode, XmlElementNode, XmlNode} from 'simple_xml';
+import {Attributes, xmlElementNode, XmlNode} from 'simple_xml';
 import { InventoryNumber } from '../metadata/InventoryNumber';
 
 
@@ -316,8 +316,10 @@ export  class Data extends Line {
 
     const attributes: Attributes = {};
 
-    // TODO: give InventoryNumber to Data
-    attributes['txtid'] = 'null';
+    const inventoryNumber: InventoryNumber| null = this.information.getInventoryNumber();
+    if (inventoryNumber != null && inventoryNumber.getIdentifiers().length > 0) {
+      attributes['txtid'] = inventoryNumber.getIdentifiers()[0];
+    }
     attributes['lnr'] = this.information.getLine().getFormatted();
     attributes['lg'] = ParagraphLanguageType[this.information.getParagraphLanguage()];
 
@@ -326,7 +328,14 @@ export  class Data extends Line {
 
     // add lineEntities after <lb> node
     for (const entity of this.content.getEntities()) {
-      entities.push(entity.exportXml());
+      if (entity instanceof Word) {
+        const word: Word =  entity as Word;
+        if (!word.isLanguageChangeType()) {
+          entities.push(word.exportXml());
+        }
+      } else {
+        entities.push(entity.exportXml());
+      }
     }
 
     return entities;

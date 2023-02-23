@@ -17,6 +17,7 @@ import {InventoryNumber} from './metadata/InventoryNumber';
 import {PublicationNumber} from './metadata/PublicationNumber';
 import {LinePrefix} from './metadata/LinePrefix';
 import {Marker} from './metadata/Marker';
+import {XmlNode} from 'simple_xml';
 
 /**
  * Defines TLH dig parsers.
@@ -72,7 +73,7 @@ export class TLHParser {
     this.sourceText = sourceText;
 
     if (sourceText !== null)
-      sourceText.split('\n').forEach(line => this.addLine(line));
+      sourceText.replace('\r', '').split('\n').forEach(line => this.addLine(line));
 
     for (const line of this.lines)
       this.status.addLevel(line.getStatus());
@@ -189,5 +190,15 @@ export class TLHParser {
    */
   public getLines(): Line[] {
     return this.lines;
+  }
+
+  public exportXML(): XmlNode[] {
+    let nodes: XmlNode[] = [];
+
+    for (const line of this.lines) {
+      nodes = nodes.concat(line.exportXml());
+    }
+
+    return nodes;
   }
 }

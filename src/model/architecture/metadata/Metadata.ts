@@ -7,11 +7,8 @@
  */
 
 
-
 import { Line } from '../Line';
 import { LineSource } from '../LineSource';
-
-
 
 
 /**
@@ -21,7 +18,7 @@ import { LineSource } from '../LineSource';
  * @version 1.0
  * @since 11
  */
-export  class Metadata extends Line {
+export abstract class Metadata extends Line {
 
   /**
 	 * Creates a metadata for the TLH dig parser line.

@@ -21,7 +21,7 @@ import { StatusLevel } from '../StatusLevel';
  * @version 1.0
  * @since 11
  */
-export  class Identifier extends Metadata {
+export abstract class Identifier extends Metadata {
   /**
 	 * The identifiers.
 	 */
@@ -38,7 +38,7 @@ export  class Identifier extends Metadata {
 	 * @param source The line source.
 	 * @since 11
 	 */
-  public constructor(source: LineSource) {
+  protected constructor(source: LineSource) {
     super(source);
 
     let  comment = '';
@@ -84,4 +84,7 @@ export  class Identifier extends Metadata {
     return this.comment;
   }
 
+  public concatIdentifier(): string {
+    return this.identifiers.join('+');
+  }
 }

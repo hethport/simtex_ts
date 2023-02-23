@@ -9,6 +9,7 @@
 
 import { Metadata } from './Metadata';
 import { LineSource } from '../LineSource';
+import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -19,6 +20,9 @@ import { LineSource } from '../LineSource';
  * @since 11
  */
 export  class LinePrefix extends Metadata {
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'LINE_PREFIX';
+
   /**
 	 * The prefix.
 	 */
@@ -56,5 +60,9 @@ export  class LinePrefix extends Metadata {
 	 */
   public getPrefix():  string | null {
     return this.prefix;
+  }
+
+  public exportXml(): XmlNode[] {
+    return [xmlElementNode(LinePrefix.xmlTag, {}, [xmlTextNode(this.prefix == null ? '' : this.prefix)])];
   }
 }

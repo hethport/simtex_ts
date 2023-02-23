@@ -12,6 +12,7 @@ import { LineSource } from '../LineSource';
 import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
+import {xmlElementNode, XmlNode} from 'simple_xml';
 
 /**
  * Define markers.
@@ -21,14 +22,16 @@ import { StatusLevel } from '../StatusLevel';
  * @since 11
  */
 export  class Marker extends Metadata {
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'MARKER';
   /**
-	 * Defines the depth for nested curly braces in the tag pattern.
-	 */
+   * Defines the depth for nested curly braces in the tag pattern.
+   */
   private static readonly curlyBracketTagDepth:  number = 5;
 
   /**
-	 * Defines a regular expression that does not match curly brackets.
-	 */
+   * Defines a regular expression that does not match curly brackets.
+   */
   // TODO: fix regex
   public static readonly notCurlyBracketPattern:  RegExp = new RegExp('[^\\{\\}]*');
 
@@ -39,14 +42,14 @@ export  class Marker extends Metadata {
   public static readonly tagPattern:  RegExp = new RegExp('\\{(/M|[MSGFK]{1}):' + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + '\\}');
 
   /**
-	 * Returns the regular expression that matches nested curly braces of the given
-	 * depth.
-	 * 
-	 * @param depth The depth for matching with nested curly brackets.
-	 * @return The regular expression that matches nested curly braces of the given
-	 *         depth.
-	 * @since 11
-	 */
+   * Returns the regular expression that matches nested curly braces of the given
+   * depth.
+   *
+   * @param depth The depth for matching with nested curly brackets.
+   * @return The regular expression that matches nested curly braces of the given
+   *         depth.
+   * @since 11
+   */
   private static getNestedCurlyBracketDepthPattern(depth: number):  string | null {
     return depth === 1 ? ''
       : '((' + Marker.notCurlyBracketPattern + '|\\{' + Marker.notCurlyBracketPattern
@@ -54,16 +57,16 @@ export  class Marker extends Metadata {
   }
 
   /**
-	 * The tags.
-	 */
+   * The tags.
+   */
   private readonly tags:  Tag[] = [];
 
   /**
-	 * Creates a marker.
-	 * 
-	 * @param source The line source.
-	 * @since 11
-	 */
+   * Creates a marker.
+   *
+   * @param source The line source.
+   * @since 11
+   */
   public constructor(source: LineSource) {
     super(source);
 
@@ -81,11 +84,11 @@ export  class Marker extends Metadata {
   }
 
   /**
-	 * Adds an unexpected status event if the segment is not empty.
-	 * 
-	 * @param buffer The buffer that contains the segment.
-	 * @since 11
-	 */
+   * Adds an unexpected status event if the segment is not empty.
+   *
+   * @param buffer The buffer that contains the segment.
+   * @since 11
+   */
   private addUnexpectedStatusEvent(segment: string):  void {
     if (segment.trim().length > 0)
       this.getStatus().add(new  StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
@@ -93,13 +96,21 @@ export  class Marker extends Metadata {
   }
 
   /**
-	 * Returns the tags.
-	 *
-	 * @return The tags.
-	 * @since 11
-	 */
+   * Returns the tags.
+   *
+   * @return The tags.
+   * @since 11
+   */
   public getTags():  Tag[] {
     return this.tags;
   }
 
+  public exportXml(): XmlNode[] {
+    const nodes: XmlNode[] = [];
+    for (const tag of this.tags) {
+      nodes.push(tag.exportXml());
+    }
+    // TODO: group data
+    return [xmlElementNode(Marker.xmlTag, {}, nodes)];
+  }
 }

@@ -44,7 +44,6 @@ export  class Delimiter extends Breakdown {
   }
 
   public exportXml(): XmlElementNode {
-    // TODO: implement DELIMITER check in Word.ts
     return xmlElementNode(Delimiter.xmlTag, {}, this.exportNodes());
   }
 }

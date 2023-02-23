@@ -20,15 +20,6 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  */
 export class Column implements LineEntity {
   static readonly xmlTag: string = 'cl';
-  /**
-   * Creates a column for a table.
-   *
-   * @since 11
-   */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public constructor() {
-    // TODO: empty constructor is inherited automatically...
-  }
 
   public exportXml(): XmlElementNode {
     return xmlElementNode(Column.xmlTag, {}, []);

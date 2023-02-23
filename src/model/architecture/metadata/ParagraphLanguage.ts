@@ -8,11 +8,12 @@
 
 
 import { Metadata } from './Metadata';
-import { ParagraphLanguageType } from './ParagraphLanguageType';
+import {defaultParagraphLanguage, ParagraphLanguageType} from './ParagraphLanguageType';
 import { LineSource } from '../LineSource';
 import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
+import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -23,6 +24,8 @@ import { StatusLevel } from '../StatusLevel';
  * @since 11
  */
 export  class ParagraphLanguage extends Metadata {
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'PARAGRAPH_LANGUAGE';
 
   /**
 	 * The language.
@@ -73,5 +76,9 @@ export  class ParagraphLanguage extends Metadata {
   public getLanguage():  ParagraphLanguageType | null {
     return this.language;
   }
-
+  
+  public exportXml(): XmlNode[] {
+    const lang: ParagraphLanguageType =  this.language == null ? defaultParagraphLanguage() : this.language;
+    return [xmlElementNode(ParagraphLanguage.xmlTag, {}, [xmlTextNode(ParagraphLanguageType[lang])])];
+  }
 }

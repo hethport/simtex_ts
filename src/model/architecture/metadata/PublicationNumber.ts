@@ -9,6 +9,7 @@
 
 import { Identifier } from './Identifier';
 import { LineSource } from '../LineSource';
+import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 
 /**
@@ -19,7 +20,8 @@ import { LineSource } from '../LineSource';
  * @since 11
  */
 export  class PublicationNumber extends Identifier {
-
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'PUBLICATION_NUMBER';
   /**
 	 * Creates a publication number.
 	 * 
@@ -30,4 +32,7 @@ export  class PublicationNumber extends Identifier {
     super(source);
   }
 
+  public exportXml(): XmlNode[] {
+    return [xmlElementNode(PublicationNumber.xmlTag, {}, [xmlTextNode(this.concatIdentifier())])];
+  }
 }
