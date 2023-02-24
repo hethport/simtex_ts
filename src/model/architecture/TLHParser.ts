@@ -192,11 +192,11 @@ export class TLHParser {
     return this.lines;
   }
 
-  public exportXML(): XmlNode[] {
-    let nodes: XmlNode[] = [];
+  public exportXML(): XmlNode[][] {
+    const nodes: XmlNode[][] = [];
 
     for (const line of this.lines) {
-      nodes = nodes.concat(line.exportXml());
+      nodes.push(line.exportXml());
     }
 
     return nodes;
