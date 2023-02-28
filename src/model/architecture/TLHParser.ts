@@ -1,5 +1,4 @@
-/** == null ? this.numerator + '/' + this.denominator : glyph]);
-  }
+/**
  * File:     TLHParser.java
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core
  *
@@ -18,6 +17,7 @@ import {PublicationNumber} from './metadata/PublicationNumber';
 import {LinePrefix} from './metadata/LinePrefix';
 import {Marker} from './metadata/Marker';
 import {XmlNode} from 'simple_xml';
+import {OXTED} from './OXTED';
 
 /**
  * Defines TLH dig parsers.
@@ -201,4 +201,15 @@ export class TLHParser {
 
     return nodes;
   }
+  
+  /**
+   * Exports the TLH dig parser to OXTED.
+   *
+   * @return The OXTED interface.
+   * @since 11
+   */
+  public exportOXTED(): OXTED {
+    return new OXTED(this);
+  }
+ 
 }
