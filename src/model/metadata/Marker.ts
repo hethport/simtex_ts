@@ -79,7 +79,7 @@ export  class Marker extends Metadata {
     }
 
     if(index < source.getTextNormalized().length) {
-      this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index, source.getTextNormalized().length - 1));
+      this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index));
     }
   }
 

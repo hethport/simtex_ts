@@ -29,6 +29,7 @@ export function test_run(file_name: string) {
     for (const node of line.getNodes()) {
       line_list.push(writeNode(node).join(''));
     }
+    console.log('\t\t' + line.getText());
     console.log('\t\t' + line_list.join(''));
   }
 }

@@ -96,6 +96,8 @@ export  class Data extends Line {
           this.getStatus().add(new  StatusEvent(StatusLevel.minor, StatusEventCode.empty, 'line number is empty'));
       }
     }
+    
+    console.log('Data text: ' + source.getText() + ' -> normalized: ' + source.getTextNormalized() + ' -> source: ' + lineSource);
 
     this.information = new  DataInformation(inventoryNumber, paragraphLanguage, linePrefix, lineNumber);
     this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(paragraphLanguage, lineSource))
@@ -133,6 +135,7 @@ export  class Data extends Line {
    * @since 11
    */
   private static parse(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
+    console.log('Data: ' + text);
     if (text == null || text.trim().length == 0)
       return [];
     else {
@@ -147,7 +150,7 @@ export  class Data extends Line {
       let index = 0;
       for (const match of matches) {
         if (match.index && index < match.index) {
-
+          console.log('Data match subs: ' + text.substring(index, match.index));
           entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
         }
         entities.push(new Tag(match[0], match[1], match[2]));
@@ -155,7 +158,8 @@ export  class Data extends Line {
       }
 
       if(index < text.length) {
-        entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, text.length - 1)));
+        console.log('Data match remainder: ' + text.substring(index));
+        entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index)));
       }
 
       return entities;
@@ -171,6 +175,7 @@ export  class Data extends Line {
    * @since 11
    */
   private static parseSegment(paragraphLanguage: ParagraphLanguageType, segment: string):  LineEntity[] {
+    console.log('Data segment: ' + segment);
     if (segment.trim().length == 0)
       return [new  Empty(segment)];
     else {
@@ -191,7 +196,7 @@ export  class Data extends Line {
       }
 
       if(index < segment.length) {
-        buffer.push(segment.substring(index, segment.length - 1));
+        buffer.push(segment.substring(index));
       }
 
       // escape spaces after Akkadian prepositions
@@ -207,7 +212,7 @@ export  class Data extends Line {
       }
 
       if(index < segment.length) {
-        buffer.push(segment.substring(index, segment.length - 1));
+        buffer.push(segment.substring(index));
       }
 
       /*
@@ -218,6 +223,9 @@ export  class Data extends Line {
       const wordBuffer = buffer.join('');
       matches = wordBuffer.matchAll(Data.spacePattern);
       index = 0;
+      
+      console.log('Data word: ' + wordBuffer);
+      
       for (const match of matches) {
         if (match.index && index < match.index) {
           entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index, match.index)));
@@ -227,7 +235,7 @@ export  class Data extends Line {
       }
 
       if(index < wordBuffer.length) {
-        entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index, wordBuffer.length - 1)));
+        entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index)));
       }
       return entities;
     }

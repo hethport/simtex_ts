@@ -7,7 +7,7 @@
  */
 
 
-import { WordConstants } from './WordConstants';
+import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
@@ -31,8 +31,8 @@ export  class Basic extends Breakdown {
   /**
    * The pattern for basics.
    */
-  static readonly pattern:  RegExp = new RegExp('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + ']+['
-			+ Basic.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + ']+['
+			+ Basic.alphabet + ']*' + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a basic.

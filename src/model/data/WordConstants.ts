@@ -55,3 +55,9 @@ export class WordConstants {
   static readonly patternHyphenAndEscape: RegExp = new RegExp('([\\-' + WordConstants.hyphenEscapeCharacter + ']{1})' + '([^\\-' + WordConstants.hyphenEscapeCharacter + ']*)', 'g');
 
 }
+
+export function matchesFullStringRegularExpression(regularExpression: string): string {
+  return '^' + regularExpression + '$';
+}
+	
+

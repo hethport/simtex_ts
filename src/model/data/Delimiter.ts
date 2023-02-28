@@ -7,7 +7,7 @@
  */
 
 
-import { WordConstants } from './WordConstants';
+import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
@@ -30,7 +30,7 @@ export  class Delimiter extends Breakdown {
   /**
    * The pattern for delimiters.
    */
-  static readonly pattern:  RegExp = new RegExp('[' + Delimiter.alphabet + ']+' + WordConstants.subscriptRegularExpression, 'g');
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Delimiter.alphabet + ']+' + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a delimiter.

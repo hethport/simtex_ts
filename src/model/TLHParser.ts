@@ -278,6 +278,11 @@ export class OXTEDLine {
    * The status.
    */
   private readonly status: Status = new Status();
+  
+  /**
+   * The text.
+   */
+  private readonly text: string;
 
   /**
    * The status.
@@ -292,7 +297,7 @@ export class OXTEDLine {
    */
   public constructor(line: Line) {
     this.status = line.getStatus();
-
+    this.text = line.getSource().getText();
     this.nodes = line.exportXml();
   }
 
@@ -304,6 +309,16 @@ export class OXTEDLine {
    */
   public getStatus(): Status {
     return this.status;
+  }
+
+  /**
+   * Returns the text.
+   *
+   * @return The text.
+   * @since 11
+   */
+  public getText(): string {
+    return this.text;
   }
 
   /**

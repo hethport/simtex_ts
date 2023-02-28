@@ -89,6 +89,8 @@ export class Word implements LineEntity {
   public constructor(paragraphLanguage: ParagraphLanguageType | null, word: string) {
     this.text = word;
     this.normalizedText = Word.normalize(this.text);
+    
+    console.log('word: ' + this.text + ' -> normalized: ' + this.normalizedText);
 
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
       : paragraphLanguage;
@@ -148,6 +150,8 @@ export class Word implements LineEntity {
    */
   private parse(text: string): Fragment[] {
     let fragments: Fragment[] = [];
+    
+    console.log('--> parse: ' + text);
 
     if (text.trim().length > 0) {
       // test for language changes
@@ -176,7 +180,7 @@ export class Word implements LineEntity {
           }
 	
           if (index < text.length) {
-            fragments = fragments.concat(this.parseSegment(text.substring(index, text.length - 1)));
+            fragments = fragments.concat(this.parseSegment(text.substring(index)));
           }
         }
       }
@@ -228,9 +232,11 @@ export class Word implements LineEntity {
   private parseSegment(segment: string): Fragment[] {
     let fragments: Fragment[] = [];
 
+    console.log('--> parse segment: ' + segment);
+
     /*
-	   * extract the prepositions, and recursively the remainder fragments
-	   */
+	 * extract the prepositions, and recursively the remainder fragments
+	 */
     const matches = segment.matchAll(AkkadianPreposition.pattern);
     let index = 0;
     for (const match of matches) {
@@ -244,7 +250,7 @@ export class Word implements LineEntity {
     }
 
     if (index < segment.length) {
-      fragments = fragments.concat(this.parseText(segment.substring(index, segment.length - 1)));
+      fragments = fragments.concat(this.parseText(segment.substring(index)));
     }
 
     return fragments;
@@ -263,10 +269,14 @@ export class Word implements LineEntity {
 
     let type: FragmentBreakdownType | null = null;
     let buffer: string [] = [];
+    
+    console.log('-> parse Text (hyphen first index ' + hyphenFirstIndex + '): ' + text);
 
     // The text does not start with hyphen
     if (hyphenFirstIndex != 0) {
       const part: string = hyphenFirstIndex === -1 ? text : text.substring(0, hyphenFirstIndex);
+      
+      console.log('\tpart: ' + part);
 
       if (part.startsWith('_')) {
         if (Word.isAkkadogramType(part.substring(1))) {
@@ -299,7 +309,9 @@ export class Word implements LineEntity {
       const parseText = hyphenFirstIndex == 0 ? text : text.substring(hyphenFirstIndex);
       const matches = parseText.matchAll(WordConstants.patternHyphenAndEscape);
 
+      console.log('\tparse text: ' + parseText);
       for (const match of matches) {
+        console.log('\tmatch: ' + match[2]);
         if (WordConstants.hyphenEscapeCharacter == match[1]) {
           if (Word.isSumerogramType(match[2])) {
             if (type !== null && FragmentBreakdownType.Sumerogram != type) {

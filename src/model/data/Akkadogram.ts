@@ -6,7 +6,7 @@
  * Date:     31.01.2023
  */
 
-import { WordConstants } from './WordConstants';
+import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode} from 'simple_xml';
@@ -28,8 +28,8 @@ export  class Akkadogram extends Breakdown {
   /**
    * The pattern for Akkadograms.
    */
-  static readonly pattern:  RegExp = new RegExp('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
-			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
+			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates an Akkadogram.

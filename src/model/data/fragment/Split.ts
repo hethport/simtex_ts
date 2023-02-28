@@ -119,7 +119,7 @@ export  class Split {
       }
 
       if(index < text.length) {
-        buffer.push(text.substring(index, text.length - 1));
+        buffer.push(text.substring(index));
       }
 
       /*
