@@ -8,7 +8,7 @@
 
 
 import { DegreeSign } from './DegreeSign';
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
@@ -25,14 +25,14 @@ export  class Determinative extends DegreeSign {
   /**
    * The alphabet.
    */
-  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\.' + '\\d' + Word.indexDigits
-			+ Word.delimiterAlphabet;
+  private static readonly alphabet:  string = WordConstants.alphabetUpperCase + '\\.' + '\\d' + WordConstants.indexDigits
+			+ WordConstants.delimiterAlphabet;
 
   /**
    * The pattern for determinative.
    */
-  public static readonly pattern:  RegExp = new RegExp('[' + Determinative.alphabet + ']*' + '[' + Word.alphabetUpperCase
-			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + Word.subscriptRegularExpression);
+  public static readonly pattern:  RegExp = new RegExp('[' + Determinative.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase
+			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
 
   /**
    * Creates a determinative.

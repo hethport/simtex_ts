@@ -7,7 +7,7 @@
  */
 
 
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
@@ -27,14 +27,14 @@ export  class Sumerogram extends Breakdown {
   /**
    * The alphabet.
    */
-  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet
+  private static readonly alphabet:  string = WordConstants.alphabetUpperCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
 			+ '\\.' + 'x';
 
   /**
    * The pattern for Sumerograms.
    */
-  static readonly pattern :  RegExp = new RegExp('[' + Sumerogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
-			+ '[' + Sumerogram.alphabet + ']*' + Word.subscriptRegularExpression);
+  static readonly pattern :  RegExp = new RegExp('[' + Sumerogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
+			+ '[' + Sumerogram.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
 
   /**
    * The symbol for inscribed characters.
@@ -44,7 +44,7 @@ export  class Sumerogram extends Breakdown {
   /**
    * The pattern for inscribed character.
    */
-  private static inscribedCharacterPattern = new RegExp('([' + Word.alphabetUpperCase + '\\d]{1})(x)([' + Word.alphabetUpperCase + '\\d]{1})');
+  private static inscribedCharacterPattern = new RegExp('([' + WordConstants.alphabetUpperCase + '\\d]{1})(x)([' + WordConstants.alphabetUpperCase + '\\d]{1})', 'g');
 
   /**
 	 * Creates a Sumerogram.

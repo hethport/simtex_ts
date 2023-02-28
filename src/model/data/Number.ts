@@ -7,7 +7,7 @@
  */
 
 
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
@@ -32,19 +32,19 @@ export  class Number extends Breakdown {
   /**
    * The alphabet for known numbers.
    */
-  private static readonly alphabetKnown:  string = '\\d' + Word.delimiterAlphabet;
+  private static readonly alphabetKnown:  string = '\\d' + WordConstants.delimiterAlphabet;
 
   /**
    * The alphabet for unknown numbers.
    */
-  private static readonly alphabetUnknown:  string = Word.delimiterAlphabet;
+  private static readonly alphabetUnknown:  string = WordConstants.delimiterAlphabet;
 
   /**
    * The pattern for numbers.
    */
   static readonly pattern:  RegExp = new RegExp('([' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + Word.subscriptRegularExpression + ')|(' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
-			+ Number.alphabetUnknown + ']*' + Word.subscriptRegularExpression + ')');
+			+ ']*' + WordConstants.subscriptRegularExpression + ')|(' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
+			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression + ')', 'g');
 
   /**
    * The integer. Null if unknown.

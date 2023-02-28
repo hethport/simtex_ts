@@ -6,7 +6,7 @@
  * Date:     31.01.2023
  */
 
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode} from 'simple_xml';
@@ -23,13 +23,13 @@ export  class Akkadogram extends Breakdown {
   /**
 	 * The alphabet.
 	 */
-  private static readonly alphabet:  string = Word.alphabetUpperCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
+  private static readonly alphabet:  string = WordConstants.alphabetUpperCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet;
 
   /**
    * The pattern for Akkadograms.
    */
-  static readonly pattern:  RegExp = new RegExp('[' + Akkadogram.alphabet + ']*' + '[' + Word.alphabetUpperCase + ']+'
-			+ '[' + Akkadogram.alphabet + ']*' + Word.subscriptRegularExpression);
+  static readonly pattern:  RegExp = new RegExp('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
+			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
 
   /**
    * Creates an Akkadogram.

@@ -45,7 +45,7 @@ export  class Data extends Line {
   /**
    * The space pattern.
    */
-  private static readonly spacePattern:  RegExp = new RegExp('([ ]+)');
+  private static readonly spacePattern:  RegExp = new RegExp('([ ]+)', 'g');
 
   /**
    * The information.
@@ -140,7 +140,7 @@ export  class Data extends Line {
         paragraphLanguage = defaultParagraphLanguage();
 					
       // extract the tags and segments
-      const  entities: LineEntity[] = [];
+      let entities: LineEntity[] = [];
 
       text = text.trim();
       const  matches = text.matchAll(Marker.tagPattern);
@@ -148,14 +148,14 @@ export  class Data extends Line {
       for (const match of matches) {
         if (match.index && index < match.index) {
 
-          entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
+          entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
         }
         entities.push(new Tag(match[0], match[1], match[2]));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
       if(index < text.length) {
-        entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, text.length - 1)));
+        entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, text.length - 1)));
       }
 
       return entities;

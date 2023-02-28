@@ -7,7 +7,7 @@
  */
 
 
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
@@ -25,14 +25,14 @@ export  class Basic extends Breakdown {
   /**
 	 * The alphabet.
 	 */
-  private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet
+  private static readonly alphabet:  string = WordConstants.alphabetLowerCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
 			+ '\\+';
 
   /**
    * The pattern for basics.
    */
-  static readonly pattern:  RegExp = new RegExp('[' + Basic.alphabet + ']*[' + Word.alphabetLowerCase + ']+['
-			+ Basic.alphabet + ']*' + Word.subscriptRegularExpression);
+  static readonly pattern:  RegExp = new RegExp('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + ']+['
+			+ Basic.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
 
   /**
    * Creates a basic.

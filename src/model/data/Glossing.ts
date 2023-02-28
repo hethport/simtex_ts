@@ -8,7 +8,7 @@
 
 
 import { DegreeSign } from './DegreeSign';
-import { Word } from './Word';
+import { WordConstants } from './WordConstants';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
@@ -25,13 +25,13 @@ export  class Glossing extends DegreeSign {
   /**
    * The alphabet.
    */
-  private static readonly alphabet:  string = Word.alphabetLowerCase + '\\d' + Word.indexDigits + Word.delimiterAlphabet;
+  private static readonly alphabet:  string = WordConstants.alphabetLowerCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet;
 
   /**
    * The pattern for Glossings.
    */
-  public static readonly pattern:  RegExp = new RegExp('[' + Glossing.alphabet + ']*' + '[' + Word.alphabetLowerCase + ']+'
-			+ '[' + Glossing.alphabet + ']*' + Word.subscriptRegularExpression);
+  public static readonly pattern:  RegExp = new RegExp('[' + Glossing.alphabet + ']*' + '[' + WordConstants.alphabetLowerCase + ']+'
+			+ '[' + Glossing.alphabet + ']*' + WordConstants.subscriptRegularExpression, 'g');
 
   /**
    * Creates a glossing.

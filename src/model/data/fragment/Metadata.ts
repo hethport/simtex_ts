@@ -10,8 +10,8 @@
 import {MetadataPosition} from './MetadataPosition';
 import {Slice} from './Slice';
 import {MetadataType} from './MetadataType';
-import {Word} from '../Word';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
+import {WordConstants} from '../WordConstants';
 
 
 /**
@@ -53,7 +53,7 @@ export  class Metadata implements Slice {
         this.type = MetadataType.deletum;
       else if ('⸢' == text || '⸣' == text)
         this.type = MetadataType.laedi;
-      else if (Word.deleri == text)
+      else if (WordConstants.deleri == text)
         this.type = MetadataType.deleri;
       else
         this.type = MetadataType.undefined;

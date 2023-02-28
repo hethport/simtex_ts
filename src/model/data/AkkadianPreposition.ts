@@ -24,7 +24,7 @@ export  class AkkadianPreposition extends Fragment {
   /**
 	 * The pattern for prepositions.
 	 */
-  static readonly pattern:  RegExp = new RegExp('\\b((_A\\-NA)|(_ANA)|(_I\\-NA)|(_IŠ\\-TU)|(_IT\\-TI)|(_PA-NI))([ ]+)');
+  static readonly pattern:  RegExp = new RegExp('\\b((_A\\-NA)|(_ANA)|(_I\\-NA)|(_IŠ\\-TU)|(_IT\\-TI)|(_PA-NI))([ ]+)', 'g');
   /**
 	 * The preposition.
 	 */

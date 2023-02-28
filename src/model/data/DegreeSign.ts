@@ -23,7 +23,7 @@ export abstract class DegreeSign extends Breakdown {
   /**
    * The pattern for fragments between degree signs.
    */
-  static readonly pattern:  RegExp = new RegExp('°([^°]*)°');
+  static readonly pattern:  RegExp = new RegExp('°([^°]*)°', 'g');
 
   /**
    * The segment.

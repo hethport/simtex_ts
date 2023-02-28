@@ -29,7 +29,7 @@ export  class FractionNumber extends Fragment {
   /**
    * The pattern for numbers.
    */
-  static readonly pattern:  RegExp = new RegExp('(' + FractionNumber.alphabet + ')/(' + FractionNumber.alphabet + ')');
+  static readonly pattern:  RegExp = new RegExp('(' + FractionNumber.alphabet + ')/(' + FractionNumber.alphabet + ')', 'g');
 
   /**
    * The available glyphs.

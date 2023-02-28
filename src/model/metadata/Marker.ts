@@ -33,13 +33,13 @@ export  class Marker extends Metadata {
    * Defines a regular expression that does not match curly brackets.
    */
   // TODO: fix regex
-  public static readonly notCurlyBracketPattern:  RegExp = new RegExp('[^\\{\\}]*');
+  public static readonly notCurlyBracketPattern:  RegExp = new RegExp('[^\\{\\}]*', 'g');
 
   /**
    * The tag pattern.
    */
   // TODO: fix regex
-  public static readonly tagPattern:  RegExp = new RegExp('\\{(/M|[MSGFK]{1}):' + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + '\\}');
+  public static readonly tagPattern:  RegExp = new RegExp('\\{(/M|[MSGFK]{1}):' + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + '\\}', 'g');
 
   /**
    * Returns the regular expression that matches nested curly braces of the given

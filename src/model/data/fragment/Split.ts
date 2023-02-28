@@ -15,8 +15,8 @@ import { Status } from '../../Status';
 import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
-import { Word } from '../Word';
-import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
+import { WordConstants } from '../WordConstants';
+import {xmlElementNode, xmlTextNode, XmlNode, writeNode} from 'simple_xml';
 
 
 
@@ -32,17 +32,17 @@ export  class Split {
   /**
    * The pattern.
    */
-  public static pattern = new RegExp('([\\-]*[^\\-]*)');
+  public static pattern = new RegExp('([\\-]*[^\\-]*)', 'g');
 
   /**
    * The pattern for index.
    */
-  private static indexPattern = new RegExp('([' + Word.alphabet + ']+)(\\d+|x)($|\\.)');
+  private static indexPattern = new RegExp('([' + WordConstants.alphabet + ']+)(\\d+|x)($|\\.)', 'g');
 
   /**
    * The pattern for delimiter.
    */
-  private static delimiterPattern = new RegExp('([' + Word.delimiterAlphabet + ']{1})');
+  private static delimiterPattern = new RegExp('([' + WordConstants.delimiterAlphabet + ']{1})', 'g');
 
   /**
    * The deleri ('*' / erased / Rasur) position.
@@ -71,16 +71,16 @@ export  class Split {
     
     this.deleriPosition = deleriPosition;
 
-    const  split: string[] = text.split('\\' + Word.subscript, 2);
+    const  split: string[] = text.split('\\' + WordConstants.subscript, 2);
 
     this.mainPart = this.normalize(split[0]);
 
     if (split.length === 1)
       this.subscript = [];
     else {
-      if (split[1].includes(Word.subscript))
+      if (split[1].includes(WordConstants.subscript))
         status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
-          'multiple suffix characters \'' + Word.subscript + '\' available in split \'' + text + '\'.'));
+          'multiple suffix characters \'' + WordConstants.subscript + '\' available in split \'' + text + '\'.'));
 
       this.subscript = this.normalize(split[1]);
 
@@ -109,7 +109,7 @@ export  class Split {
 	  * convert index digits and unknown reading (the delimiters are removed)
 	  */
 
-      let plainText = text.replace('[' + Word.delimiterAlphabet + ']+', '');
+      let plainText = text.replace('[' + WordConstants.delimiterAlphabet + ']+', '');
       let  matches = plainText.matchAll(Split.indexPattern);
       let index = 0;
       const buffer: string[] = [];
@@ -141,7 +141,7 @@ export  class Split {
         }
 
         const  delimiter: string = match[1];
-        if (Word.deleri == delimiter) {
+        if (WordConstants.deleri == delimiter) {
           slice.push(new Metadata(null, this.deleriPosition));
 
           this.deleriPosition = MetadataPosition.initial == this.deleriPosition ? MetadataPosition.end

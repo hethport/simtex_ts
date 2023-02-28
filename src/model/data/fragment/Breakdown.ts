@@ -26,7 +26,7 @@ export abstract class Breakdown extends Fragment {
   /**
    * The deleri ('*' / erased / Rasur) position.
    */
-  private deleriPosition:  MetadataPosition;
+  private readonly deleriPosition:  MetadataPosition;
 
   /**
    * Creates a breakdown.
@@ -35,7 +35,7 @@ export abstract class Breakdown extends Fragment {
    * @param text           The text. If null, do not normalize.
    * @since 11
    */
-  public constructor(deleriPosition: MetadataPosition, text: string| null) {
+  protected constructor(deleriPosition: MetadataPosition, text: string| null) {
     super(text);
 
     if (text !== null) {

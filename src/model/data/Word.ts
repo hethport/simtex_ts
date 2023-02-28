@@ -9,7 +9,6 @@
 import {AkkadianPreposition} from './AkkadianPreposition';
 import {Akkadogram} from './Akkadogram';
 import {Basic} from './Basic';
-import {Data} from './Data';
 import {DegreeSign} from './DegreeSign';
 import {Delimiter} from './Delimiter';
 import {Determinative} from './Determinative';
@@ -33,6 +32,7 @@ import {MetadataPosition} from './fragment/MetadataPosition';
 import {Number} from './Number';
 import {XmlElementNode, xmlElementNode, XmlNode} from 'simple_xml';
 import {ParagraphLanguageType , defaultParagraphLanguage} from '../metadata/ParagraphLanguageType';
+import {WordConstants} from './WordConstants';
 
 /**
  * Defines words.
@@ -43,62 +43,6 @@ import {ParagraphLanguageType , defaultParagraphLanguage} from '../metadata/Para
  */
 export class Word implements LineEntity {
   static readonly xmlTag: string = 'w';
-  /**
-   * The hyphen escape character.
-   */
-  private static readonly hyphenEscapeCharacter: string = Data.spaceEscapeCharacter;
-
-  /**
-   * The alphabet in lower case.
-   */
-  static readonly alphabetLowerCase: string = 'a-záàéèíìúùṣṭšḫ';
-
-  /**
-   * The alphabet in upper case.
-   */
-  static readonly alphabetUpperCase: string = 'A-ZÁÀÉÈÍÌÚÙṢṬŠḪ';
-
-  /**
-   * The alphabet.
-   */
-  public static readonly alphabet: string = Word.alphabetLowerCase + Word.alphabetUpperCase;
-
-  /**
-   * The index digits.
-   */
-  static readonly indexDigits: string | null = '₀₁₂₃₄₅₆₇₈₉ₓ';
-
-  /**
-   * The deleri (erased / Rasur).
-   */
-  public static readonly deleri: string | null = '*';
-
-  /**
-   * The delimiter alphabet.
-   */
-  public static readonly delimiterAlphabet: string = '\\[\\]⸢⸣〉〈\\' + Word.deleri;
-
-  /**
-   * The subscript.
-   */
-  public static readonly subscript: string = '|';
-
-  /**
-   * The subscript regular expression.
-   */
-  static readonly subscriptRegularExpression: string = '(|' + '\\' + Word.subscript + '[\\' + Word.subscript + Word.alphabet
-    + '\\d' + Word.indexDigits + Word.delimiterAlphabet + ']*' + ')';
-
-  /**
-   * The pattern for Gods names.
-   */
-  protected static readonly godsNamepattern: RegExp = new RegExp('(°D°)(10|30)');
-
-  /**
-   * The pattern for text with hyphens and escaped hyphens.
-   */
-  private static readonly patternHyphenAndEscape: RegExp = new RegExp('([\\-' + Word.hyphenEscapeCharacter + ']{1})' + '([^\\-' + Word.hyphenEscapeCharacter + ']*)');
-
   /**
    * The status.
    */
@@ -350,13 +294,13 @@ export class Word implements LineEntity {
     // The text parts after hyphens
     if (hyphenFirstIndex >= 0) {
       // escape required hyphens
-      text = text.replace('--', Word.hyphenEscapeCharacter);
+      text = text.replace('--', WordConstants.hyphenEscapeCharacter);
 
       const parseText = hyphenFirstIndex == 0 ? text : text.substring(hyphenFirstIndex);
-      const matches = parseText.matchAll(Word.patternHyphenAndEscape);
+      const matches = parseText.matchAll(WordConstants.patternHyphenAndEscape);
 
       for (const match of matches) {
-        if (Word.hyphenEscapeCharacter == match[1]) {
+        if (WordConstants.hyphenEscapeCharacter == match[1]) {
           if (Word.isSumerogramType(match[2])) {
             if (type !== null && FragmentBreakdownType.Sumerogram != type) {
               fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -490,6 +434,10 @@ export class Word implements LineEntity {
    * @since 11
    */
   private getFragment(type: FragmentBreakdownType, segment: string | null, text: string): Fragment {
+
+    console.log('Fragmenttype: ' + FragmentBreakdownType[type]);
+    console.log('\tsegment:\t' + segment);
+    console.log('\ttext:\t' + text);
     let fragment: Breakdown;
 
     switch (type) {
