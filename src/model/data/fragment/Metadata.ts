@@ -24,8 +24,8 @@ import {WordConstants} from '../WordConstants';
 export  class Metadata implements Slice {
 
   /**
-	 * The symbol.
-	 */
+	* The symbol.
+	*/
   private readonly symbol:  string | null;
 
   /**
@@ -37,6 +37,7 @@ export  class Metadata implements Slice {
    * The position.
    */
   private readonly position:  MetadataPosition;
+  
   /**
    * Creates a metadata.
    *
@@ -60,13 +61,13 @@ export  class Metadata implements Slice {
     } else {
       this.type = MetadataType.undefined;
     }
-
+    
     if ('[' == this.symbol || '⸢' == this.symbol)
       this.position = MetadataPosition.initial;
     else if (']' == this.symbol || '⸣' == this.symbol)
       this.position = MetadataPosition.end;
     else
-      this.position = position == null ? MetadataPosition.unknown : position;
+      this.position = position == null ? MetadataPosition.unknown : position; 
   }
 
 
@@ -76,8 +77,8 @@ export  class Metadata implements Slice {
    * @return The symbol.
    * @since 11
    */
-  public getSymbol():  string | null {
-    return this.symbol;
+  public getSymbol():  string {
+    return this.symbol == null ? '' : this.symbol;
   }
 
   /**
@@ -117,6 +118,7 @@ export  class Metadata implements Slice {
       // is checked in Split.ts
       break;
     }
+
     return xmlElementNode(tag, {}, []);
   }
 }

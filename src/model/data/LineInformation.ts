@@ -47,12 +47,12 @@ export  class LineInformation {
    */
   public static normalizeNumber(number: string | null):  string {
 
-    return number == null ? '' : number.replace('\'', '′')
-      .replace('’', '′')
-      .replace('ʹʹʹʹ', '⁗')
-      .replace('ʹʹʹ', '‴')
-      .replace('ʹʹ', '″')
-      .replace('ʹ', '′')
+    return number == null ? '' : number.replace(/'/g, '′')
+      .replace(/’/g, '′')
+      .replace(/ʹʹʹʹ/g, '⁗')
+      .replace(/ʹʹʹ/g, '‴')
+      .replace(/ʹʹ/g, '″')
+      .replace(/ʹ/g, '′')
       .trim();
   }
 

@@ -19,6 +19,11 @@ export class WordConstants {
   static readonly alphabet: string = WordConstants.alphabetLowerCase + WordConstants.alphabetUpperCase;
 
   /**
+   * The brackets.
+   */
+  static readonly brackets: string = '〉〈';
+
+  /**
    * The index digits.
    */
   static readonly indexDigits: string | null = '₀₁₂₃₄₅₆₇₈₉ₓ';
@@ -31,7 +36,7 @@ export class WordConstants {
   /**
    * The delimiter alphabet.
    */
-  static readonly delimiterAlphabet: string = '\\[\\]⸢⸣〉〈\\' + WordConstants.deleri;
+  static readonly delimiterAlphabet: string = '\\[\\]⸢⸣\\' + WordConstants.deleri;
 
   /**
    * The subscript.

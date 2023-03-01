@@ -127,15 +127,15 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return text.replace('=', '⸗')
+        return text.replace(/=/g, '⸗')
 
-          .replace('h', 'ḫ').replace('H', 'Ḫ')
+          .replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
-          .replace('<', '〈').replace('>', '〉').replace('〈-', '-〈').replace('-〉', '〉-')
+          .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
-          .replace(';', '\u12039').replace(':', '\u12471')
+          .replace(/;/g, '\u12039').replace(/:/g, '\u12471')
 
-          .replace('§§', '===').replace('§', '¬¬¬');
+          .replace(/§§/g, '===').replace(/§/g, '¬¬¬');
     }
   }
 
@@ -157,7 +157,8 @@ export class Word implements LineEntity {
         // test for fraction numbers
         const match = text.match(FractionNumber.pattern);
         if (match) {
-          fragments.push(new FractionNumber(text, match[1], match[2]));
+          const split: string[] = text.split('/');
+          fragments.push(new FractionNumber(text, split[0], split[1]));
         } else {
           /*
 		   * extract the determinative and glossing, and recursively the remainder
@@ -294,7 +295,7 @@ export class Word implements LineEntity {
     // The text parts after hyphens
     if (hyphenFirstIndex >= 0) {
       // escape required hyphens
-      text = text.replace('--', WordConstants.hyphenEscapeCharacter);
+      text = text.replace(/--/g, WordConstants.hyphenEscapeCharacter);
 
       const parseText = hyphenFirstIndex == 0 ? text : text.substring(hyphenFirstIndex);
       const matches = parseText.matchAll(WordConstants.patternHyphenAndEscape);

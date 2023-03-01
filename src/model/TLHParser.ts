@@ -73,7 +73,7 @@ export class TLHParser {
     this.sourceText = sourceText;
 
     if (sourceText !== null)
-      sourceText.replace('\r', '').split('\n').forEach(line => this.addLine(line));
+      sourceText.replace(/\r/g, '').split('\n').forEach(line => this.addLine(line));
 
     for (const line of this.lines)
       this.status.addLevel(line.getStatus());

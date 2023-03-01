@@ -8,6 +8,7 @@ import { Status } from '../model/Status';
 import { Data } from '../model/data/Data';
 import { DataContent } from '../model/data/DataContent';
 import { ParagraphLanguage } from '../model/metadata/ParagraphLanguage';
+import { Marker } from '../model/metadata/Marker';
 
 
 export function test_run(file_name: string) {
@@ -29,6 +30,8 @@ export function test_run(file_name: string) {
     const parserLine = line.getParserLine();
     if (parserLine instanceof Identifier)
       logStatus('identifier', parserLine.getStatus());
+    else if (parserLine instanceof Marker)
+      logStatus('marker', parserLine.getStatus());
     else if (parserLine instanceof ParagraphLanguage)
       logStatus('paragraph language', parserLine.getStatus());
     else if (parserLine instanceof Data) {

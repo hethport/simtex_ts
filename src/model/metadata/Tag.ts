@@ -20,7 +20,7 @@ import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
  * @since 11
  */
 export class Tag implements LineEntity {
-  static readonly unknownTag: string = 'NO_TAG';
+  static readonly xmlTag: string = 'TAG_';
 
   /**
    * The type.
@@ -33,6 +33,11 @@ export class Tag implements LineEntity {
   private readonly content: string | null;
 
   /**
+    * The segment.
+    */
+  private readonly segment: string;
+    
+  /**
    * Creates a tag.
    *
    * @param segment The segment.
@@ -40,14 +45,9 @@ export class Tag implements LineEntity {
    * @param content The content.
    * @since 11
    */
-  public constructor(
-    /**
-     * The segment.
-     */
-    private readonly segment: string,
-    type: string,
-    content: string | null
-  ) {
+  public constructor(segment: string, type: string, content: string | null) {
+    this.segment = segment;
+    
     switch (type) {
     case 'M':
       this.type = TagType.Mbegin;
@@ -61,7 +61,7 @@ export class Tag implements LineEntity {
       this.type = TagType[type as keyof typeof TagType];
       break;
     }
-
+	
     this.content = content === null || content.trim().length == 0 ? null : content.trim();
   }
 
@@ -130,12 +130,9 @@ export class Tag implements LineEntity {
       attributes['c'] = content;
       break;
     case TagType.Mbegin:
-      //TODO: unknown tag
-      xmlTag = Tag.unknownTag;
-      break;
     case TagType.Mend:
-      //TODO: unknown tag
-      xmlTag = Tag.unknownTag;
+      //TODO: not defined tag
+      xmlTag = Tag.xmlTag + TagType[this.type];
       break;
     }
 

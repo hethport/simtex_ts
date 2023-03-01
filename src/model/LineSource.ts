@@ -42,22 +42,32 @@ export class LineSource {
   }
 
   /**
-   * Normalizes the text.
+   * Normalizes the text, but does not trim it.
+   *
+   * @param text The text to normalize.
+   * @return The normalized source text.
+   * @since 11
+   */
+  public static normalizeNotTrimmed(text: string): string {
+    return text
+      .replace(/ŝ/g, 'š')
+      .replace(/Ŝ/g, 'Š')
+      .replace(/┌/g, '⸢')
+      .replace(/┐/g, '⸣')
+      .replace(/⌈/g, '⸢')
+      .replace(/⌉/g, '⸣')
+      .replace(/ĸ/g, '{K:}');
+  }
+
+  /**
+   * Normalizes the text and trim it.
    *
    * @param text The text to normalize.
    * @return The normalized source text.
    * @since 11
    */
   public static normalize(text: string): string {
-    return text
-      .replace('ŝ', 'š')
-      .replace('Ŝ', 'Š')
-      .replace('┌', '⸢')
-      .replace('┐', '⸣')
-      .replace('⌈', '⸢')
-      .replace('⌉', '⸣')
-      .replace('ĸ', '{K:}')
-      .trim();
+    return this.normalizeNotTrimmed(text).trim();
   }
 
   /**

@@ -70,7 +70,7 @@ export  class Split {
   public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
     this.deleriPosition = deleriPosition;
 
-    const  split: string[] = text.split('\\' + WordConstants.subscript, 2);
+    const  split: string[] = text.split(WordConstants.subscript, 2);
     
     this.mainPart = this.normalize(split[0]);
     

@@ -36,10 +36,12 @@ export  class LinePrefix extends Metadata {
 	 */
   public constructor(source: LineSource) {
     super(source);
+    
+    const normalized: string = LineSource.normalizeNotTrimmed(source.getText()).trimStart();
 
-    const  characters: string = source.getTextNormalized().trim().length == 0 ? '' : source.getTextNormalized().substring(1);
+    const  characters: string = normalized.length == 0 ? '' : normalized.substring(1);
 
-    this.prefix = characters.trim().length == 0 ? null : characters.trim();
+    this.prefix = characters.trimStart().length == 0 ? null : characters.trimStart();
   }
 
   /**

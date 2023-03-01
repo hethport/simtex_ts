@@ -27,11 +27,11 @@ export interface ExportXML {
  */
 export function encodeXML(element: string): string {
   return element
-    .replace('&', '&amp;')
-    .replace('"', '&quot;')
-    .replace('\'', '&apos;')
-    .replace('<', '&lt;')
-    .replace('>', '&gt;');
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 /**
@@ -42,6 +42,6 @@ export function encodeXML(element: string): string {
  * @return The encoded attribute
  */
 export function encodeAttributeXML(attribute: string): string {
-  return attribute.replace('"', '&quot;');
+  return attribute.replace(/"/g, '&quot;');
 }
 

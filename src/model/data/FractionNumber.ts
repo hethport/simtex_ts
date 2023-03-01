@@ -9,7 +9,7 @@
 
 import { Fragment } from './fragment/Fragment';
 import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
-
+import { matchesFullStringRegularExpression } from './WordConstants';
 
 /**
  * Defines fraction numbers.
@@ -29,7 +29,7 @@ export  class FractionNumber extends Fragment {
   /**
    * The pattern for numbers.
    */
-  static readonly pattern:  RegExp = new RegExp('(' + FractionNumber.alphabet + ')/(' + FractionNumber.alphabet + ')', 'g');
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression(FractionNumber.alphabet + '/' + FractionNumber.alphabet), 'g');
 
   /**
    * The available glyphs.
@@ -60,7 +60,6 @@ export  class FractionNumber extends Fragment {
     this.numerator = parseInt(numerator);
     this.denominator = parseInt(denominator);
   }
-  /* eslint-enable constructor-super, @typescript-eslint/no-unsafe-call */
 
   /**
 

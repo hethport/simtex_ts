@@ -25,7 +25,7 @@ export  class Basic extends Breakdown {
   /**
 	 * The alphabet.
 	 */
-  private static readonly alphabet:  string = WordConstants.alphabetLowerCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
+  private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.brackets + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
 			+ '\\+';
 
   /**

@@ -43,6 +43,11 @@ export  class Data extends Line {
   static readonly spaceEscapeCharacter:  string = '⊕';
 
   /**
+   * The space escape character.
+   */
+  static readonly spaceEscapeCharacterPattern:  RegExp = new RegExp(this.spaceEscapeCharacter, 'g');
+
+  /**
    * The space pattern.
    */
   private static readonly spacePattern:  RegExp = new RegExp('([ ]+)', 'g');
@@ -181,7 +186,7 @@ export  class Data extends Line {
         if (match.index && index < match.index) {
           buffer.push(segment.substring(index, match.index));
         }
-        buffer.push(match[0].replace(' ', Data.spaceEscapeCharacter));
+        buffer.push(match[0].replace(/ /g, Data.spaceEscapeCharacter));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
@@ -197,7 +202,7 @@ export  class Data extends Line {
         if (match.index && index < match.index) {
           buffer.push(segment.substring(index, match.index));
         }
-        buffer.push(match[0].replace(' ', Data.spaceEscapeCharacter));
+        buffer.push(match[0].replace(/ /g, Data.spaceEscapeCharacter));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
@@ -239,7 +244,7 @@ export  class Data extends Line {
    * @since 11
    */
   private static getSegmentEntity(paragraphLanguage: ParagraphLanguageType, text: string):  LineEntity {
-    return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacter, ' '));
+    return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' '));
   }
 
   /**

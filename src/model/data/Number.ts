@@ -9,7 +9,7 @@
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
+import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 /**
  * Defines numbers.
@@ -41,7 +41,7 @@ export  class Number extends Breakdown {
    * The pattern for numbers.
    */
   static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression('[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + WordConstants.subscriptRegularExpression) +')|(' + matchesFullStringRegularExpression(+ '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
+			+ ']*' + WordConstants.subscriptRegularExpression) +')|(' + matchesFullStringRegularExpression('[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
 			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression) + ')');
 
   /**
@@ -78,6 +78,6 @@ export  class Number extends Breakdown {
   }
 
   public exportXml(): XmlElementNode {
-    return xmlElementNode(Number.xmlTag, {}, [xmlTextNode(this.getPlainText())]);
+    return xmlElementNode(Number.xmlTag, {}, this.exportNodes());
   }
 }

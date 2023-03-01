@@ -12,7 +12,7 @@ import { LineSource } from '../LineSource';
 import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
-import {xmlElementNode, XmlNode} from 'simple_xml';
+import {XmlNode} from 'simple_xml';
 
 /**
  * Define markers.
@@ -22,8 +22,6 @@ import {xmlElementNode, XmlNode} from 'simple_xml';
  * @since 11
  */
 export  class Marker extends Metadata {
-  // TODO: implement correct export
-  static readonly xmlTag: string = 'MARKER';
   /**
    * Defines the depth for nested curly braces in the tag pattern.
    */
@@ -32,13 +30,11 @@ export  class Marker extends Metadata {
   /**
    * Defines a regular expression that does not match curly brackets.
    */
-  // TODO: fix regex
-  public static readonly notCurlyBracketPattern:  RegExp = new RegExp('[^\\{\\}]*', 'g');
+  public static readonly notCurlyBracketPattern:  string = '[^\\{\\}]*';
 
   /**
    * The tag pattern.
    */
-  // TODO: fix regex
   public static readonly tagPattern:  RegExp = new RegExp('\\{(/M|[MSGFK]{1}):' + Marker.getNestedCurlyBracketDepthPattern(Marker.curlyBracketTagDepth) + '\\}', 'g');
 
   /**
@@ -74,7 +70,9 @@ export  class Marker extends Metadata {
     let index = 0;
     for (const match of matches) {
       this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index, match.index));
+      
       this.tags.push(new Tag(match[0], match[1], match[2]));
+      
       if (match.index != null) {  index = match.index + match[0].length;  }
     }
 
@@ -110,7 +108,7 @@ export  class Marker extends Metadata {
     for (const tag of this.tags) {
       nodes.push(tag.exportXml());
     }
-    // TODO: group data
-    return [xmlElementNode(Marker.xmlTag, {}, nodes)];
+
+    return nodes;
   }
 }
