@@ -25,17 +25,18 @@ export abstract class Line {
   private readonly status: Status = new Status();
 
   /**
+    * The line source.
+    */
+  private readonly source: LineSource;
+  
+  /**
    * Creates a TLH dig parser line.
    *
    * @param source The line source.
    * @since 11
    */
-  public constructor(
-    /**
-     * The line source.
-     */
-    private readonly source: LineSource
-  ) {
+  public constructor(source: LineSource) {
+    this.source = source;
   }
 
   /**

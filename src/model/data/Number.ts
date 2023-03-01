@@ -1,29 +1,27 @@
 /**
- * File:     Number.java
+ * File:     Number.ts
  * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     21.12.2022
  */
 
-
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
 
-
-
-
 /**
  * Defines numbers.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
- * @version 1.0
- * @since 11
  */
 export  class Number extends Breakdown {
+  /**
+   * The xml tag.
+   */
   static readonly xmlTag: string = 'num';
+  
   /**
    * The unknown number.
    */
@@ -42,9 +40,9 @@ export  class Number extends Breakdown {
   /**
    * The pattern for numbers.
    */
-  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('([' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + WordConstants.subscriptRegularExpression + ')|(' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
-			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression + ')'));
+  static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression('[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
+			+ ']*' + WordConstants.subscriptRegularExpression) +')|(' + matchesFullStringRegularExpression(+ '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
+			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression) + ')');
 
   /**
    * The integer. Null if unknown.
@@ -56,7 +54,6 @@ export  class Number extends Breakdown {
    *
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
-   * @since 11
    */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
@@ -75,7 +72,6 @@ export  class Number extends Breakdown {
    * Returns the integer.
    *
    * @return The integer. Null if unknown.
-   * @since 11
    */
   public getInteger(): number| null {
     return this.integer;

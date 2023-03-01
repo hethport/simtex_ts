@@ -8,6 +8,7 @@
 
 
 import { LineEntity } from '../LineEntity';
+import { Word } from './Word';
 
 
 /**
@@ -61,4 +62,20 @@ export  class DataContent {
   public getEntities():  LineEntity[] {
     return this.entities;
   }
+  
+  /**
+   * Returns the words.
+   *
+   * @return The words.
+   * @since 11
+   */
+  public getWords(): Word[] {
+    const words : Word[] = [];
+    for (const entity of this.entities)
+      if (entity instanceof Word)
+        words.push(entity);
+			
+    return words;
+  }
+
 }

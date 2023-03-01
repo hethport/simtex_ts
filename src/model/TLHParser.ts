@@ -275,14 +275,9 @@ export class OXTED {
  */
 export class OXTEDLine {
   /**
-   * The status.
+   * The parser line.
    */
-  private readonly status: Status = new Status();
-  
-  /**
-   * The text.
-   */
-  private readonly text: string;
+  private readonly line: Line;
 
   /**
    * The status.
@@ -292,23 +287,32 @@ export class OXTEDLine {
   /**
    * Creates an interfaces to OXTED.
    *
-   * @param line The line.
+   * @param line The parser line.
    * @since 11
    */
   public constructor(line: Line) {
-    this.status = line.getStatus();
-    this.text = line.getSource().getText();
+    this.line = line;
     this.nodes = line.exportXml();
+  }
+  
+  /**
+   * Returns the parser line.
+   *
+   * @return The parser line.
+   * @since 11
+   */
+  public getParserLine(): Line {
+    return this.line;
   }
 
   /**
-   * Returns the status.
+   * Returns the status level.
    *
-   * @return The status.
+   * @return The status level.
    * @since 11
    */
-  public getStatus(): Status {
-    return this.status;
+  public getStatusLevel(): StatusLevel {
+    return this.line.getStatus().getLevel();
   }
 
   /**
@@ -318,7 +322,7 @@ export class OXTEDLine {
    * @since 11
    */
   public getText(): string {
-    return this.text;
+    return this.line.getSource().getText();
   }
 
   /**

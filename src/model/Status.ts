@@ -72,6 +72,8 @@ export class Status {
    * @since 11
    */
   public addLevel(status: Status): StatusLevel {
-    return maxStatusLevel(status.getLevel(), this.level);
+    this.level = maxStatusLevel(status.getLevel(), this.level);
+
+    return this.level;
   }
 }

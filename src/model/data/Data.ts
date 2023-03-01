@@ -61,7 +61,7 @@ export  class Data extends Line {
    * Creates a data line for the TLH dig parser.
    *
    * @param source            The line source.
-	 * @param inventoryNumber   The inventory number.
+   * @param inventoryNumber   The inventory number.
    * @param paragraphLanguage The paragraph language. If null, use default
    *                          language.
    * @param linePrefix        The line prefix.
@@ -97,16 +97,10 @@ export  class Data extends Line {
       }
     }
     
-    console.log('Data text: ' + source.getText() + ' -> normalized: ' + source.getTextNormalized() + ' -> source: ' + lineSource);
-
     this.information = new  DataInformation(inventoryNumber, paragraphLanguage, linePrefix, lineNumber);
     this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(paragraphLanguage, lineSource))
       : new  DataContent(lineSource, null);
 
-    for (const entity of this.content.getEntities())
-      if (entity instanceof Word)
-        this.getStatus().addLevel(( entity as Word).getStatus());
-        
     /*
      * Updates word entities status and language change.
 	 */
@@ -135,7 +129,6 @@ export  class Data extends Line {
    * @since 11
    */
   private static parse(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
-    console.log('Data: ' + text);
     if (text == null || text.trim().length == 0)
       return [];
     else {
@@ -150,7 +143,6 @@ export  class Data extends Line {
       let index = 0;
       for (const match of matches) {
         if (match.index && index < match.index) {
-          console.log('Data match subs: ' + text.substring(index, match.index));
           entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
         }
         entities.push(new Tag(match[0], match[1], match[2]));
@@ -158,7 +150,6 @@ export  class Data extends Line {
       }
 
       if(index < text.length) {
-        console.log('Data match remainder: ' + text.substring(index));
         entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index)));
       }
 
@@ -175,7 +166,6 @@ export  class Data extends Line {
    * @since 11
    */
   private static parseSegment(paragraphLanguage: ParagraphLanguageType, segment: string):  LineEntity[] {
-    console.log('Data segment: ' + segment);
     if (segment.trim().length == 0)
       return [new  Empty(segment)];
     else {
@@ -223,8 +213,6 @@ export  class Data extends Line {
       const wordBuffer = buffer.join('');
       matches = wordBuffer.matchAll(Data.spacePattern);
       index = 0;
-      
-      console.log('Data word: ' + wordBuffer);
       
       for (const match of matches) {
         if (match.index && index < match.index) {

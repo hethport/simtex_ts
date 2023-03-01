@@ -16,7 +16,7 @@ import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
 import { WordConstants } from '../WordConstants';
-import {xmlElementNode, xmlTextNode, XmlNode, writeNode} from 'simple_xml';
+import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 
 
 
@@ -68,13 +68,12 @@ export  class Split {
    * @since 11
    */
   public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
-    
     this.deleriPosition = deleriPosition;
 
     const  split: string[] = text.split('\\' + WordConstants.subscript, 2);
-
+    
     this.mainPart = this.normalize(split[0]);
-
+    
     if (split.length === 1)
       this.subscript = [];
     else {
@@ -83,7 +82,6 @@ export  class Split {
           'multiple suffix characters \'' + WordConstants.subscript + '\' available in split \'' + text + '\'.'));
 
       this.subscript = this.normalize(split[1]);
-
       for (const slice of this.subscript) {
         if (slice instanceof Metadata) {
           status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
@@ -109,8 +107,9 @@ export  class Split {
 	  * convert index digits and unknown reading (the delimiters are removed)
 	  */
 
-      let plainText = text.replace('[' + WordConstants.delimiterAlphabet + ']+', '');
-      let  matches = plainText.matchAll(Split.indexPattern);
+      let plainText = text.replace(new RegExp('[' + WordConstants.delimiterAlphabet + ']', 'g'), '');
+      
+      let matches = plainText.matchAll(Split.indexPattern);
       let index = 0;
       const buffer: string[] = [];
       for (const match of matches) {
@@ -118,8 +117,8 @@ export  class Split {
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 
-      if(index < text.length) {
-        buffer.push(text.substring(index));
+      if(index < plainText.length) {
+        buffer.push(plainText.substring(index));
       }
 
       /*
@@ -127,14 +126,13 @@ export  class Split {
 	  */
       plainText = buffer.join('');
 
-
       matches = text.matchAll(Split.delimiterPattern);
       let indexBegin = 0;
       index = 0;
       for (const match of matches) {
         if (match.index && indexBegin < match.index) {
           const indexEnd =  indexBegin + (match.index - indexBegin);
-
+          
           slice.push(new Content(plainText.substring(indexBegin, indexEnd)));
 
           indexBegin = indexEnd;
@@ -153,7 +151,7 @@ export  class Split {
       }
 
       if(index < text.length) {
-        slice.push(plainText.substring(indexBegin, indexBegin + (text.length - index)));
+        slice.push(new Content(plainText.substring(indexBegin, indexBegin + (text.length - index))));
       }
     }
 
@@ -309,6 +307,7 @@ export  class Split {
         nodes.push((slice as Metadata).exportXml());
       }
     }
+    
     if (buffer.length > 0) {
       nodes.push(xmlElementNode('subscr', {'c': buffer.join('')}, []));
     }

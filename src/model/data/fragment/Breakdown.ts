@@ -39,7 +39,6 @@ export abstract class Breakdown extends Fragment {
     super(text);
 
     if (text !== null) {
-
       const  matches = text.matchAll(Split.pattern);
       for (const match of matches) {
         if(match[1].length > 0) {
@@ -91,6 +90,7 @@ export abstract class Breakdown extends Fragment {
 
   protected exportNodes(): XmlNode[] {
     let nodes: XmlNode[] = [];
+    
     for (const split of this.splits) {
       nodes = nodes.concat(split.exportNodes());
     }

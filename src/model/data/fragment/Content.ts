@@ -17,7 +17,7 @@ import { Slice } from './Slice';
  * @version 1.0
  * @since 11
  */
-export  class Content implements Slice {
+export class Content implements Slice {
   /**
 	 * The text.
 	 */
