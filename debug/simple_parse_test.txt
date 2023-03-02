@@ -1,4 +1,5 @@
-$KBo 24.31 {€1} + KBo 29.103 {€2} + KBo 29.162 {€3}
+&Bo 3228 + Bo 1234 # Invnr. Test
+$KBo 24.31 {€1} + KBo 29.103 {€2} + KBo 29.162 {€3} # Publikationsnr. Test
 %Vs.
 1' # m]e-ma-x
 2' # -n]a-aMš DINGIR°MEŠ°-aš {S:tag of type S} píd-da-a-i

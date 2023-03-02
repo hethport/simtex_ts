@@ -12,6 +12,7 @@ import { LineSource } from '../LineSource';
 import { StatusEvent } from '../StatusEvent';
 import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
+import { Attributes, xmlElementNode, XmlNode, xmlTextNode } from 'simple_xml';
 
 
 /**
@@ -22,6 +23,9 @@ import { StatusLevel } from '../StatusLevel';
  * @since 11
  */
 export abstract class Identifier extends Metadata {
+  // TODO: implement correct export
+  static readonly xmlTag: string = 'IDENTIFIER';
+  
   /**
 	 * The identifiers.
 	 */
@@ -55,7 +59,7 @@ export abstract class Identifier extends Metadata {
     }
 
     const  identifiers: string = textNormalized.length === 1 ? '' : textNormalized.substring(1).trim();
-    for (const identifier of identifiers.split('\\+'))
+    for (const identifier of identifiers.split('+'))
       if (identifier.trim().length > 0)
         this.identifiers.push(identifier.trim());
 
@@ -85,6 +89,25 @@ export abstract class Identifier extends Metadata {
   }
 
   public concatIdentifier(): string {
-    return this.identifiers.join('+');
+    return this.identifiers.join(' + ');
+  }
+   
+  protected xmlNodes() : XmlNode[] {
+    const identifiers: XmlNode[] = [];
+    
+    for (const identifier of this.identifiers) {
+      identifiers.push(xmlElementNode(Identifier.xmlTag, {}, [xmlTextNode(identifier)]));
+    }
+	
+    return identifiers;
+  }
+ 
+  protected xmlAttributes() : Attributes {
+    const attributes: Attributes = {};
+
+    if (this.comment != null)
+      attributes['COMMENT'] = this.comment;
+
+    return attributes;
   }
 }

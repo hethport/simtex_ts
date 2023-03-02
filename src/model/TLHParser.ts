@@ -158,7 +158,7 @@ export class TLHParser {
         this.lines.push(new Data(source, this.inventoryNumber, this.paragraphLanguage, this.linePrefix));
 
         break;
-      }
+      }      
     }
   }
 
@@ -303,6 +303,16 @@ export class OXTEDLine {
    */
   public getParserLine(): Line {
     return this.line;
+  }
+
+  /**
+   * Returns the number.
+   *
+   * @return The number.
+   * @since 11
+   */
+  public getNumber(): number {
+    return this.line.getSource().getNumber();
   }
 
   /**

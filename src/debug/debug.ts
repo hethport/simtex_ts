@@ -21,11 +21,8 @@ export function test_run(file_name: string) {
 
   console.log('Parser status: ' + StatusLevel[oxted.getStatusLevel()]);
 
-  let int = 0;
-
   for (const line of oxted.getLines()) {
-    int = int + 1;
-    console.log(int.toString() + ' (status ' + StatusLevel[line.getStatusLevel()] + '): ' + line.getText());
+    console.log(line.getNumber() + ' (status ' + StatusLevel[line.getStatusLevel()] + '): ' + line.getText());
 
     const parserLine = line.getParserLine();
     if (parserLine instanceof Identifier)

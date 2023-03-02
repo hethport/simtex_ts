@@ -9,7 +9,7 @@
 
 import { Identifier } from './Identifier';
 import { LineSource } from '../LineSource';
-import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
+import {xmlElementNode, XmlNode} from 'simple_xml';
 
 
 /**
@@ -33,6 +33,6 @@ export  class PublicationNumber extends Identifier {
   }
 
   public exportXml(): XmlNode[] {
-    return [xmlElementNode(PublicationNumber.xmlTag, {}, [xmlTextNode(this.concatIdentifier())])];
+    return [xmlElementNode(PublicationNumber.xmlTag, this.xmlAttributes(), this.xmlNodes())];
   }
 }
