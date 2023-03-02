@@ -319,7 +319,7 @@ export  class Data extends Line {
 
     const inventoryNumber: InventoryNumber| null = this.information.getInventoryNumber();
     if (inventoryNumber != null && inventoryNumber.getIdentifiers().length > 0) {
-      attributes['txtid'] = inventoryNumber.getIdentifiers()[0];
+      attributes['txtid'] = inventoryNumber.getIdentifiers()[0] + (inventoryNumber.getIdentifiers().length == 1 ? '' : '+');
     }
     attributes['lnr'] = this.information.getLine().getFormatted();
     attributes['lg'] = ParagraphLanguageType[this.information.getParagraphLanguage()];
