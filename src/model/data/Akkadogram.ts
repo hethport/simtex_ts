@@ -28,7 +28,7 @@ export  class Akkadogram extends Breakdown {
   /**
    * The pattern for Akkadograms starting with an underscore.
    */
-  static readonly patternStartingUnderscore:  RegExp = new RegExp('^[' + Akkadogram.alphabet + ']*_');
+  static readonly patternStartingUnderscore:  RegExp = new RegExp('^[' + WordConstants.delimiterAlphabet + ']*_');
 
   /**
    * The pattern for Akkadograms.
