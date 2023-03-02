@@ -3,6 +3,12 @@ export class WordConstants {
    * The hyphen escape character.
    */
   static readonly hyphenEscapeCharacter: string = '⊕';
+  
+  /**
+   * The ligatures.
+   */
+  static readonly ligature: string = '˽+';
+  
   /**
    * The alphabet in lower case.
    */
@@ -52,7 +58,7 @@ export class WordConstants {
   /**
    * The pattern for Gods names.
    */
-  static readonly godsNamepattern: RegExp = new RegExp('(°D°)(10|30)', 'g');
+  static readonly godsNamepattern: RegExp = new RegExp('(°D°)(10|15|20|30|50)', 'g');
 
   /**
    * The pattern for text with hyphens and escaped hyphens.
