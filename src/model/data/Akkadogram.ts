@@ -26,6 +26,11 @@ export  class Akkadogram extends Breakdown {
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet;
 
   /**
+   * The pattern for Akkadograms starting with an underscore.
+   */
+  static readonly patternStartingUnderscore:  RegExp = new RegExp('^[' + Akkadogram.alphabet + ']*_');
+
+  /**
    * The pattern for Akkadograms.
    */
   static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'

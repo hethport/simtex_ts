@@ -269,11 +269,13 @@ export class Word implements LineEntity {
     if (hyphenFirstIndex != 0) {
       const part: string = hyphenFirstIndex === -1 ? text : text.substring(0, hyphenFirstIndex);
       
-      if (part.startsWith('_')) {
-        if (Word.isAkkadogramType(part.substring(1))) {
+      if (part.match(Akkadogram.patternStartingUnderscore)) {
+        const akkadogram: string = part.replace('_', '');
+		
+        if (Word.isAkkadogramType(akkadogram)) {
           type = FragmentBreakdownType.Akkadogram;
 
-          buffer.push(part.substring(1));
+          buffer.push(akkadogram);
         } else
           fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, part));
       } else if (Word.isDelimiterType(part))
