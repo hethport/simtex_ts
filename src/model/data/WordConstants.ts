@@ -5,9 +5,15 @@ export class WordConstants {
   static readonly hyphenEscapeCharacter: string = '⊕';
   
   /**
-   * The ligatures.
+   * The brackets.
    */
-  static readonly ligature: string = '˽+';
+  static readonly brackets: string = '〉〈';
+  
+  /**
+   * The alphabet symbols. Unicodes 12039 and 12471.
+   */
+  static readonly alphabetSymbols: string = '𒀹𒑱';
+
   
   /**
    * The alphabet in lower case.
@@ -22,12 +28,7 @@ export class WordConstants {
   /**
    * The alphabet.
    */
-  static readonly alphabet: string = WordConstants.alphabetLowerCase + WordConstants.alphabetUpperCase;
-
-  /**
-   * The brackets.
-   */
-  static readonly brackets: string = '〉〈';
+  static readonly alphabet: string = WordConstants.alphabetLowerCase + WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols;
 
   /**
    * The index digits.

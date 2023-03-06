@@ -135,6 +135,8 @@ export class Word implements LineEntity {
 
           // Unicodes 12039 and 12471
           .replace(/;/g, '𒀹').replace(/:/g, '𒑱')
+          
+          .replace(/\+_/g, '+')
 
           .replace(/§§/g, '===').replace(/§/g, '¬¬¬');
     }

@@ -25,8 +25,8 @@ export  class Determinative extends DegreeSign {
   /**
    * The alphabet.
    */
-  private static readonly alphabet:  string = WordConstants.alphabetUpperCase + '\\.' + '\\d' + WordConstants.indexDigits
-			+ WordConstants.delimiterAlphabet;
+  private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\.' + '\\d' + WordConstants.indexDigits
+			+ WordConstants.delimiterAlphabet + '\\+';
 
   /**
    * The pattern for determinative.
