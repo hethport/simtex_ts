@@ -26,6 +26,7 @@ import { Tag } from '../metadata/Tag';
 import {LanguageChangeType} from './LanguageChangeType';
 import {Attributes, xmlElementNode, XmlNode} from 'simple_xml';
 import { InventoryNumber } from '../metadata/InventoryNumber';
+import { ParagraphSeparator } from './ParagraphSeparator';
 
 
 /**
@@ -103,7 +104,7 @@ export  class Data extends Line {
     }
     
     this.information = new  DataInformation(inventoryNumber, paragraphLanguage, linePrefix, lineNumber);
-    this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parse(paragraphLanguage, lineSource))
+    this.content = StatusLevel.ok == this.getStatus().getLevel() ? new  DataContent(lineSource, Data.parseParagraph(paragraphLanguage, lineSource))
       : new  DataContent(lineSource, null);
 
     /*
@@ -122,6 +123,47 @@ export  class Data extends Line {
           languageChange = null;
         }			
       }
+  }
+
+  /**
+   * Parses the line take into consideration paragraphs.
+   *
+   * @param paragraphLanguage The paragraph language. If null, use default
+   *                          language.
+   * @param text The text to parse.
+   * @return The entities.
+   * @since 11
+   */
+  private static parseParagraph(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
+    if (text == null || text.trim().length == 0)
+      return [];
+    else {
+      let paragraph: ParagraphSeparator | null = null;
+
+      for (const pattern of ParagraphSeparator.patternDoubles) {
+        if (text.endsWith(pattern)) {
+          paragraph = new ParagraphSeparator(false);
+          text = text.substring(0, text.length - pattern.length);
+          break;
+        }
+      }
+    
+      if (paragraph == null)
+        for (const pattern of ParagraphSeparator.patternSingles) {
+          if (text.endsWith(pattern)) {
+            paragraph = new ParagraphSeparator(true);
+            text = text.substring(0, text.length - pattern.length);
+            break;
+          }
+        }
+
+      const entities: LineEntity[] = Data.parse(paragraphLanguage, text);
+      
+      if (paragraph != null)
+        entities.push(paragraph);
+	
+      return entities;
+    }
   }
 
   /**
