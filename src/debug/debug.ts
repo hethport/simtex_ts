@@ -9,6 +9,7 @@ import { Data } from '../model/data/Data';
 import { DataContent } from '../model/data/DataContent';
 import { ParagraphLanguage } from '../model/metadata/ParagraphLanguage';
 import { Marker } from '../model/metadata/Marker';
+import { Word } from '../model/data/Word';
 
 
 export function test_run(file_name: string) {
@@ -26,17 +27,17 @@ export function test_run(file_name: string) {
 
     const parserLine = line.getParserLine();
     if (parserLine instanceof Identifier)
-      logStatus('identifier', parserLine.getStatus());
+      logStatus('identifier', parserLine.getStatus(), null);
     else if (parserLine instanceof Marker)
-      logStatus('marker', parserLine.getStatus());
+      logStatus('marker', parserLine.getStatus(), null);
     else if (parserLine instanceof ParagraphLanguage)
-      logStatus('paragraph language', parserLine.getStatus());
+      logStatus('paragraph language', parserLine.getStatus(), null);
     else if (parserLine instanceof Data) {
       const content: DataContent | null = parserLine.getContent();
       if (content != null) {
         let index = 0;
         for (const word of content.getWords()) {
-          logStatus('word[' + (++index) + ']=' + word.getText(), word.getStatus());
+          logStatus('word[' + (++index) + ']=' + word.getText(), word.getStatus(), word);
         }
       }
       
@@ -50,10 +51,17 @@ export function test_run(file_name: string) {
   }
 }
 
-function logStatus(message: string, status: Status) {
+function logStatus(message: string, status: Status, word:  Word | null) {
   if (status.getEvents().length > 0 || status.getLevel() != StatusLevel.ok) {
     console.log('\t#Status ' + StatusLevel[status.getLevel()] + ': ' + message);
-    for (const event of status.getEvents())
-      console.log('\t\t' + StatusLevel[event.getLevel()] + '/' + StatusEventCode[event.getCode()] + ': ' + event.getMessage());
+    
+    if (word != null) {
+      for (const fragment of word.getFragments()) 
+        if (StatusLevel.ok != fragment.getStatus().getLevel()){
+          console.log('\t\tFragment ' + StatusLevel[fragment.getStatus().getLevel()] + ': ' + fragment.getText());
+          for (const event of fragment.getStatus().getEvents())
+            console.log('\t\t\t' + StatusLevel[event.getLevel()] + ' / ' + StatusEventCode[event.getCode()] + ': ' + event.getMessage());
+        }
+    }
   }
 }

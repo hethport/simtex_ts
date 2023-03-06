@@ -27,10 +27,11 @@ export  class UndefinedDegreeSign extends DegreeSign {
    *
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
+   * @param text           The text.
    * @since 11
    */
-  public constructor(deleriPosition: MetadataPosition, segment: string) {
-    super(deleriPosition, segment, null);
+  public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
+    super(deleriPosition, segment, text);
   }
 
   public exportXml(): XmlElementNode {

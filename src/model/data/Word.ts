@@ -30,9 +30,10 @@ import {Fragment} from './fragment/Fragment';
 import {FragmentBreakdownType} from './fragment/FragmentBreakdownType';
 import {MetadataPosition} from './fragment/MetadataPosition';
 import {Number} from './Number';
-import {XmlElementNode, xmlElementNode, XmlNode} from 'simple_xml';
+import {XmlElementNode, xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 import {ParagraphLanguageType , defaultParagraphLanguage} from '../metadata/ParagraphLanguageType';
 import {WordConstants} from './WordConstants';
+import { Ligature } from './Ligature';
 
 /**
  * Defines words.
@@ -199,7 +200,7 @@ export class Word implements LineEntity {
     let fragment: Fragment;
 
     if (content.trim().length == 0 || content.includes(' ')) {
-      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, null, segment);
+      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus()
         .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
@@ -210,7 +211,7 @@ export class Word implements LineEntity {
     else if (content.match(Glossing.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Glossing, segment, content);
     else {
-      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, null, segment);
+      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,
         'degree sign segment \'' + segment + '\' is malformed.'));
@@ -236,21 +237,57 @@ export class Word implements LineEntity {
     let index = 0;
     for (const match of matches) {
       if (match.index && index < match.index) {
-        fragments = fragments.concat(this.parseText(segment.substring(index, match.index)));
+        fragments = fragments.concat(this.parseLigature(segment.substring(index, match.index)));
       }
+      
       fragments.push(new AkkadianPreposition(match[0]));
+      
       if (match.index != null) {
         index = match.index + match[0].length;
       }
     }
 
     if (index < segment.length) {
-      fragments = fragments.concat(this.parseText(segment.substring(index)));
+      fragments = fragments.concat(this.parseLigature(segment.substring(index)));
     }
 
     return fragments;
   }
 
+  /**
+   * Parses the ligature.
+   *
+   * @param text The text to parse.
+   * @return The fragments.
+   * @since 11
+   */
+  private parseLigature(text: string): Fragment[] {
+    let fragments: Fragment[] = [];
+
+    /*
+	 * extract the prepositions, and recursively the remainder fragments
+	 */
+    const matches = text.matchAll(Ligature.pattern);
+    let index = 0;
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        fragments = fragments.concat(this.parseText(text.substring(index, match.index)));
+      }
+      
+      fragments.push(new Ligature(match[0]));
+      
+      if (match.index != null) {
+        index = match.index + match[0].length;
+      }
+    }
+
+    if (index < text.length) {
+      fragments = fragments.concat(this.parseText(text.substring(index)));
+    }
+    
+    return fragments;
+  }
+  
   /**
    * Parses the text.
    *
@@ -450,7 +487,7 @@ export class Word implements LineEntity {
       break;
 
     case FragmentBreakdownType.UndefinedDegreeSign:
-      fragment = new UndefinedDegreeSign(this.deleriPosition, text);
+      fragment = new UndefinedDegreeSign(this.deleriPosition, segment, text);
       break;
 
     case FragmentBreakdownType.Delimiter:
@@ -606,8 +643,8 @@ export class Word implements LineEntity {
       case Basic.xmlTag:
         children = children.concat(element.children);
         break;
-      case UndefinedDegreeSign.xmlTag:
-        // ignore tag
+      case Ligature.xmlTag:
+        children.push(xmlTextNode(Ligature.ligature));
         break;
       default:
         children.push(element);
