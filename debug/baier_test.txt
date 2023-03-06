@@ -10,5 +10,8 @@
 10' # ANA >< EN 〉〈 LUGAL 𒉽 _A-NA
 11' # _I+_NA LU;GA:L ka𒀹t+t;a
 12' # Ì.DU10.GA-ia I-ÌDU10.GA-ia I-Ì.DU10.GA-ia ÌD.U10.GA-ia
-13' # DINGIR]-LIM
-14' # D-ING.IR123]-LIM
+13' # DINGIR]-LIM===
+14' # D-ING.IR123]-LIM §
+15' # kax-anx-na °NINDA°ta-pár-wa|a-šu-ú-i
+16' # SILA4.SÍG+MUNUS °L[Ú°AZU-i]a
+17' # zi-ip-l]a-〈an〉-ti

@@ -43,7 +43,7 @@ export class WordConstants {
   /**
    * The delimiter alphabet.
    */
-  static readonly delimiterAlphabet: string = '\\[\\]⸢⸣\\' + WordConstants.deleri;
+  static readonly delimiterAlphabet: string = '\\[\\]⸢⸣\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
    * The subscript.

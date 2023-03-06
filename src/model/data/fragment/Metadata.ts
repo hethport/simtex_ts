@@ -54,6 +54,8 @@ export  class Metadata implements Slice {
         this.type = MetadataType.deletum;
       else if ('⸢' == text || '⸣' == text)
         this.type = MetadataType.laedi;
+      else if ('〈' == text || '〉' == text)
+        this.type = MetadataType.add;
       else if (WordConstants.deleri == text)
         this.type = MetadataType.deleri;
       else
@@ -62,9 +64,9 @@ export  class Metadata implements Slice {
       this.type = MetadataType.undefined;
     }
     
-    if ('[' == this.symbol || '⸢' == this.symbol)
+    if ('[' == this.symbol || '⸢' == this.symbol || '〈' == this.symbol)
       this.position = MetadataPosition.initial;
-    else if (']' == this.symbol || '⸣' == this.symbol)
+    else if (']' == this.symbol || '⸣' == this.symbol || '〉' == this.symbol)
       this.position = MetadataPosition.end;
     else
       this.position = position == null ? MetadataPosition.unknown : position; 
@@ -106,12 +108,19 @@ export  class Metadata implements Slice {
     switch (this.type) {
     case MetadataType.deletum:
       tag = this.position == MetadataPosition.initial ? 'del_in' : 'del_fin';
+      
       break;
     case MetadataType.laedi:
       tag = this.position == MetadataPosition.initial ? 'laes_in' : 'laes_fin';
+      
       break;
     case MetadataType.deleri:
       tag = this.position == MetadataPosition.initial ? 'ras_in' : 'ras_fin';
+      
+      break;
+    case MetadataType.add:
+      tag = this.position == MetadataPosition.initial ? 'add_in' : 'add_fin';
+      
       break;
     default:
       // Tag undefined/MetadataType unknown

@@ -10,5 +10,6 @@ export enum MetadataType {
   deletum,
   laedi,
   deleri,
+  add,
   undefined,
 }
