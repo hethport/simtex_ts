@@ -34,6 +34,7 @@ import {XmlElementNode, xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 import {ParagraphLanguageType , defaultParagraphLanguage} from '../metadata/ParagraphLanguageType';
 import {WordConstants} from './WordConstants';
 import { Ligature } from './Ligature';
+import { Gap } from './Gap';
 
 /**
  * Defines words.
@@ -117,8 +118,6 @@ export class Word implements LineEntity {
     else {
       text = text.trim();
 
-      if ('><' == text)
-        return '\u12270';
       if (text.match('^[' + FractionNumber.availableGlyphs + ']{1}$')) {
         const fractionNumber = FractionNumber.getFractionNumber(text);
         // the parser does not expect glyphs for fractions
@@ -134,7 +133,8 @@ export class Word implements LineEntity {
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
-          .replace(/;/g, '\u12039').replace(/:/g, '\u12471')
+          // Unicodes 12039 and 12471
+          .replace(/;/g, '𒀹').replace(/:/g, '𒑱')
 
           .replace(/§§/g, '===').replace(/§/g, '¬¬¬');
     }
@@ -154,6 +154,8 @@ export class Word implements LineEntity {
       // test for language changes
       if (text.startsWith('@'))
         fragments.push(new LanguageChange(text));
+      else if (text.match(Gap.pattern))
+        fragments.push(new Gap(text));
       else {
         // test for fraction numbers
         const match = text.match(FractionNumber.pattern);
@@ -642,12 +644,19 @@ export class Word implements LineEntity {
       case Delimiter.xmlTag:
       case Basic.xmlTag:
         children = children.concat(element.children);
+        
         break;
       case Ligature.xmlTag:
         children.push(xmlTextNode(Ligature.ligature));
+        
+        break;
+      case Gap.xmlTag:
+        children.push(xmlTextNode(Gap.gap));
+        
         break;
       default:
         children.push(element);
+        
         break;
       }
     }
