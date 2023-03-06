@@ -113,7 +113,12 @@ export  class Split {
       let index = 0;
       const buffer: string[] = [];
       for (const match of matches) {
+        if (match.index && index < match.index) {
+          buffer.push(plainText.substring(index, match.index));
+        }
+        
         buffer.push(match[1] + Split.convertToIndex(match[2]) + match[3]);
+        
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 

@@ -53,12 +53,14 @@ export function test_run(file_name: string) {
 
 function logStatus(message: string, status: Status, word:  Word | null) {
   if (status.getEvents().length > 0 || status.getLevel() != StatusLevel.ok) {
-    console.log('\t#Status ' + StatusLevel[status.getLevel()] + ': ' + message);
-    
+    console.log('\t# Status ' + StatusLevel[status.getLevel()] + ': ' + message);
+    for (const event of status.getEvents())
+      console.log('\t\t' + StatusLevel[event.getLevel()] + ' / ' + StatusEventCode[event.getCode()] + ': ' + event.getMessage());
+  
     if (word != null) {
       for (const fragment of word.getFragments()) 
         if (StatusLevel.ok != fragment.getStatus().getLevel()){
-          console.log('\t\tFragment ' + StatusLevel[fragment.getStatus().getLevel()] + ': ' + fragment.getText());
+          console.log('\t\t# Fragment ' + StatusLevel[fragment.getStatus().getLevel()] + ': ' + fragment.getText());
           for (const event of fragment.getStatus().getEvents())
             console.log('\t\t\t' + StatusLevel[event.getLevel()] + ' / ' + StatusEventCode[event.getCode()] + ': ' + event.getMessage());
         }

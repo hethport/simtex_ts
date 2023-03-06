@@ -1,5 +1,14 @@
 1' # [_A-NA _[A-NA _ME-E]
 2' # [MUN-ia-aš-ša-an
-3' # [°GIŠ°EREN
+3' # [°GIŠ°EREN°abcA°
 4' # [_IN-BI°ḪI.A°-ia-aš-ša-a]n
 5' # [NINDA.SIG°ḪI.A°-ia
+6' # _A-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš
+7' # _I-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš
+8' # _I-NA˽_PA-NI °GIŠ°ti-im-ma-ḫi-la-aš
+9' # _IŠ-TU˽_ŠA LUGAL
+10' # ANA >< EN 〉〈 LUGAL 𒉽 _A-NA
+11' # _I+_NA LU;GA:L ka𒀹t+t;a
+12' # Ì.DU10.GA-ia I-ÌDU10.GA-ia I-Ì.DU10.GA-ia ÌD.U10.GA-ia
+13' # DINGIR]-LIM
+14' # D-ING.IR123]-LIM

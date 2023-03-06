@@ -24,7 +24,7 @@ export  class Akkadogram extends Breakdown {
 	 * The alphabet.
 	 */
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
-            + WordConstants.delimiterAlphabet + '\\+';
+            + WordConstants.delimiterAlphabet + '\\+' + '\\.';
 
   /**
    * The pattern for Akkadograms starting with an underscore.
