@@ -10,7 +10,7 @@
 import { DegreeSign } from './DegreeSign';
 import { matchesFullStringRegularExpression, WordConstants } from './WordConstants';
 import { MetadataPosition } from './fragment/MetadataPosition';
-import {XmlElementNode, xmlElementNode} from 'simple_xml';
+import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
 
 
 /**
@@ -47,8 +47,12 @@ export  class Glossing extends DegreeSign {
   }
 
   public exportXml(): XmlElementNode {
-    // TODO: šaṭ-rat°at]|abc° => <w>šaṭ-rat<materlect c="at"/></w>?
-    //
-    return xmlElementNode(Glossing.xmlTag, {}, this.exportNodes());
+    const text: string | null = this.getText();
+    const attributes: Attributes = {};
+    
+    if (text != null)
+      attributes['c'] = text;
+    
+    return xmlElementNode(Glossing.xmlTag, attributes, []);
   }
 }
