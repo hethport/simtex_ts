@@ -18,6 +18,7 @@ import { StatusLevel } from '../../StatusLevel';
 import { WordConstants } from '../WordConstants';
 import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 import { TextEvaluation } from './TextEvaluation';
+import { Surplus } from './Surplus';
 
 
 
@@ -85,6 +86,7 @@ export  class Split {
       this.subscript = this.normalize(split[1]);
       let isMetadataWarn = false;
       let isTextEvaluationWarn = false;
+      let isSurplusWarn = false;
       for (const slice of this.subscript) {
         if (!isMetadataWarn && slice instanceof Metadata) {
           status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
@@ -96,7 +98,12 @@ export  class Split {
             'Text evaluation \'' + split[1] + '\' are not allowed in subscript.'));
           
           isTextEvaluationWarn = true;
-        } 
+        } else if (!isSurplusWarn && slice instanceof Surplus) {
+          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+            'Surplus \'' + split[1] + '\' are not allowed in subscript.'));
+          
+          isSurplusWarn = true;
+        }
       }
     }
   }
@@ -148,8 +155,9 @@ export  class Split {
       let indexBegin = 0;
       index = 0;
       for (const match of matches) {
-        if (match.index && indexBegin < match.index) {
-          const indexEnd =  indexBegin + (match.index - indexBegin);
+        if (match.index && index < match.index) {
+          const indexEnd =  indexBegin + (match.index - index);
+          
           lastContent = new Content(plainText.substring(indexBegin, indexEnd));
           lastContentIndex = slice.length;
           
@@ -167,11 +175,11 @@ export  class Split {
         } else
           slice.push(new  Metadata(delimiter, null));
 
-        if (match.index != null) {  index = match.index + match[0].length;  }
+        if (match.index != null) {  index = match.index + match[0].length; }
       }
 
-      if(index < text.length) {
-        lastContent = new Content(plainText.substring(indexBegin, indexBegin + (text.length - index)));
+      if(indexBegin < plainText.length) {
+        lastContent = new Content(plainText.substring(indexBegin));
         lastContentIndex = slice.length;
         
         slice.push(lastContent);
@@ -202,9 +210,65 @@ export  class Split {
       }
        
       /*
-       * Search for surplus 〈〈text〉〉
+       * Search for surplus: 〈〈text〉〉
        */
+      const surplus: number[][] = [];
        
+      for (index = 0; index < slice.length - 4; index++) {
+        let part = slice[index];
+  
+        if (part instanceof Metadata) {
+          if (part.getSymbol() == '〈') {
+            part = slice[index + 1];
+            
+            if (part instanceof Metadata) {
+              if (part.getSymbol() == '〈') {
+                part = slice[index + 2];
+                
+                const content: number = (part instanceof Content) ? 1 : 0;
+                
+                if (index < slice.length - (4 + content)) {
+                  part = slice[index + 2 + content];
+                
+                  if (part instanceof Metadata) {
+                    if (part.getSymbol() == '〉') {
+                      part = slice[index + 3 + content];
+                      
+                      if (part instanceof Metadata) {
+                        if (part.getSymbol() == '〉') {
+                          surplus.push([index, index + 3 + content]);
+                          index += 4 + content;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          }
+        } 
+      }
+      
+      if (surplus.length > 0) {
+        const  tmpSlice: Slice[] = slice;
+        slice = [];
+        
+        index = 0;
+        for (const tuple of surplus) {
+          console.log('-> [' + tuple[0] + '..' + tuple[1] + ']');
+          for (; index < tuple[0]; index++)
+            slice.push(tmpSlice[index]);
+          
+          const part = tmpSlice[tuple[0] + 2];
+          
+          slice.push(new Surplus(part instanceof Content ? part.getText() : ''));
+            
+          index = tuple[1] + 1;
+        }
+        
+        for (; index < tmpSlice.length; index++)
+          slice.push(tmpSlice[index]);
+      }      
     }
 
     return slice;
@@ -351,6 +415,8 @@ export  class Split {
         nodes.push((slice as Metadata).exportXml());
       } else if (slice instanceof TextEvaluation) {
         nodes.push((slice as TextEvaluation).exportXml());
+      } else if (slice instanceof Surplus) {
+        nodes.push((slice as Surplus).exportXml());
       }
 
     const  buffer: string[] = [];
@@ -361,6 +427,8 @@ export  class Split {
         nodes.push((slice as Metadata).exportXml());
       } else if (slice instanceof TextEvaluation) {
         nodes.push((slice as TextEvaluation).exportXml());
+      } else if (slice instanceof Surplus) {
+        nodes.push((slice as Surplus).exportXml());
       }
     }
     

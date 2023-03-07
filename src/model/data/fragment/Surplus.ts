@@ -7,20 +7,23 @@
  */
 
 
+import { xmlElementNode, XmlElementNode } from 'simple_xml';
 import { Slice } from './Slice';
 
 
 /**
- * Content is an immutable class that defines surplus.
+ * Content is an immutable class that defines surplus: 〈〈text〉〉.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
  * @since 11
  */
 export class Surplus implements Slice {
+  static readonly xmlTag: string = 'surpl';
+  
   /**
-	 * The text.
-	 */
+	* The text.
+	*/
   private readonly text:  string;
 
   /**
@@ -41,5 +44,9 @@ export class Surplus implements Slice {
    */
   public getText():  string {
     return this.text;
+  }
+
+  public exportXml(): XmlElementNode {
+    return xmlElementNode(Surplus.xmlTag, {'c': this.text}, []);
   }
 }
