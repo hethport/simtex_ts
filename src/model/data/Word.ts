@@ -35,6 +35,7 @@ import {ParagraphLanguageType , defaultParagraphLanguage} from '../metadata/Para
 import {WordConstants} from './WordConstants';
 import { Ligature } from './Ligature';
 import { Gap } from './Gap';
+import { TextEvaluation } from './fragment/TextEvaluation';
 
 /**
  * Defines words.
@@ -156,6 +157,8 @@ export class Word implements LineEntity {
         fragments.push(new LanguageChange(text));
       else if (text.match(Gap.pattern))
         fragments.push(new Gap(text));
+      else  if (text.match(TextEvaluation.patternWord))
+        fragments.push(this.getFragment(FragmentBreakdownType.Basic, null, text));
       else {
         // test for fraction numbers
         const match = text.match(FractionNumber.pattern);
@@ -329,7 +332,7 @@ export class Word implements LineEntity {
         type = FragmentBreakdownType.Basic;
 
         buffer.push(part);
-      } else
+      } else 
         fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, part));
     }
 
@@ -391,6 +394,11 @@ export class Word implements LineEntity {
 
           buffer.push('-' + match[2]);
         } else {
+          if (type != null) {
+            fragments.push(this.getFragment(type, null, buffer.join('')));
+            buffer = [];
+          }
+          
           fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, '-' + match[2]));
         }
       }

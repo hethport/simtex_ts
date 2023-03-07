@@ -17,6 +17,7 @@ import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
 import { WordConstants } from '../WordConstants';
 import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
+import { TextEvaluation } from './TextEvaluation';
 
 
 
@@ -82,12 +83,20 @@ export  class Split {
           'multiple suffix characters \'' + WordConstants.subscript + '\' available in split \'' + text + '\'.'));
 
       this.subscript = this.normalize(split[1]);
+      let isMetadataWarn = false;
+      let isTextEvaluationWarn = false;
       for (const slice of this.subscript) {
-        if (slice instanceof Metadata) {
+        if (!isMetadataWarn && slice instanceof Metadata) {
           status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
-            'Mark \'' + split[1] + '\' is not allowed in subscript.'));
-          break;
-        }
+            'Marks \'' + split[1] + '\' are not allowed in subscript.'));
+          
+          isMetadataWarn = true;
+        } else if (!isTextEvaluationWarn && slice instanceof TextEvaluation) {
+          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+            'Text evaluation \'' + split[1] + '\' are not allowed in subscript.'));
+          
+          isTextEvaluationWarn = true;
+        } 
       }
     }
   }
@@ -100,7 +109,7 @@ export  class Split {
    * @since 11
    */
   private normalize(/* final */  text: string): Slice[] {
-    const  slice: Slice[] = [];
+    let  slice: Slice[] = [];
 
     if (text.length > 0) {
       /*
@@ -127,18 +136,24 @@ export  class Split {
       }
 
       /*
-	  * create the slices take into account the delimiters
-	  */
+	   * create the slices take into account the delimiters
+	   */
       plainText = buffer.join('');
 
+      let lastContentIndex = -1;
+      let lastContent : Content | null = null;
+      
       matches = text.matchAll(Split.delimiterPattern);
+      
       let indexBegin = 0;
       index = 0;
       for (const match of matches) {
         if (match.index && indexBegin < match.index) {
           const indexEnd =  indexBegin + (match.index - indexBegin);
+          lastContent = new Content(plainText.substring(indexBegin, indexEnd));
+          lastContentIndex = slice.length;
           
-          slice.push(new Content(plainText.substring(indexBegin, indexEnd)));
+          slice.push(lastContent);
 
           indexBegin = indexEnd;
         }
@@ -156,8 +171,40 @@ export  class Split {
       }
 
       if(index < text.length) {
-        slice.push(new Content(plainText.substring(indexBegin, indexBegin + (text.length - index))));
+        lastContent = new Content(plainText.substring(indexBegin, indexBegin + (text.length - index)));
+        lastContentIndex = slice.length;
+        
+        slice.push(lastContent);
       }
+      
+      /*
+       * Search for text evaluation
+       */
+      if (lastContent != null && lastContent.getText().match(TextEvaluation.pattern)) {
+        const  tmpSlice: Slice[] = slice;
+        slice = [];
+        
+        index = 0;
+        for (const part of tmpSlice) {
+          if (index == lastContentIndex) {
+            matches = text.matchAll(TextEvaluation.pattern);
+            for (const match of matches) {
+              if (match.index && match.index > 0) {
+                slice.push(new Content(plainText.substring(0, match.index)));
+              }
+              
+              slice.push(new TextEvaluation(match[1]));
+            }
+          } else
+            slice.push(part);
+          index++;
+        }
+      }
+       
+      /*
+       * Search for surplus 〈〈text〉〉
+       */
+       
     }
 
     return slice;
@@ -302,6 +349,8 @@ export  class Split {
         nodes.push(xmlTextNode((slice as Content).getText()));
       } else if (slice instanceof Metadata) {
         nodes.push((slice as Metadata).exportXml());
+      } else if (slice instanceof TextEvaluation) {
+        nodes.push((slice as TextEvaluation).exportXml());
       }
 
     const  buffer: string[] = [];
@@ -310,6 +359,8 @@ export  class Split {
         buffer.push((slice as Content).getText());
       } else if (slice instanceof Metadata) {
         nodes.push((slice as Metadata).exportXml());
+      } else if (slice instanceof TextEvaluation) {
+        nodes.push((slice as TextEvaluation).exportXml());
       }
     }
     

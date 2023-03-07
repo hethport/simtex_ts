@@ -41,8 +41,9 @@ export  class Number extends Breakdown {
    * The pattern for numbers.
    */
   static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression('[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + WordConstants.subscriptRegularExpression) +')|(' + matchesFullStringRegularExpression('[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
-			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression) + ')');
+			+ ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression)
+			+ ')|(' + matchesFullStringRegularExpression('[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
+			+ Number.alphabetUnknown + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression) + ')');
 
   /**
    * The integer. Null if unknown.

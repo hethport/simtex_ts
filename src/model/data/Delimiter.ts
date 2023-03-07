@@ -30,7 +30,7 @@ export  class Delimiter extends Breakdown {
   /**
    * The pattern for delimiters.
    */
-  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Delimiter.alphabet + ']+' + WordConstants.subscriptRegularExpression));
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Delimiter.alphabet + ']+' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a delimiter.

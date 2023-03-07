@@ -34,7 +34,7 @@ export  class Sumerogram extends Breakdown {
    * The pattern for Sumerograms.
    */
   static readonly pattern :  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Sumerogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
-			+ '[' + Sumerogram.alphabet + ']*' + WordConstants.subscriptRegularExpression));
+			+ '[' + Sumerogram.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
 
   /**
    * The symbol for inscribed characters.

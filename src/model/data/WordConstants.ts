@@ -14,7 +14,6 @@ export class WordConstants {
    */
   static readonly alphabetSymbols: string = '𒀹𒑱';
 
-  
   /**
    * The alphabet in lower case.
    */
@@ -46,6 +45,16 @@ export class WordConstants {
   static readonly delimiterAlphabet: string = '\\[\\]⸢⸣\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
+   * The text evaluation alphabet.
+   */
+  static readonly alphabetTextEvaluation: string = '!|\\?|\\(\\?\\)|sic';
+            
+  /**
+   * The text evaluation regular expression.
+   */
+  static readonly textEvaluationRegularExpression: string = '(|' + WordConstants.alphabetTextEvaluation + ')';
+            
+  /**
    * The subscript.
    */
   static readonly subscript: string = '|';
@@ -54,12 +63,13 @@ export class WordConstants {
    * The subscript regular expression.
    */
   static readonly subscriptRegularExpression: string = '(|' + '\\' + WordConstants.subscript + '[\\' + WordConstants.subscript + WordConstants.alphabet
-    + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + ']*' + ')';
+    + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + ']*'  +
+    WordConstants.textEvaluationRegularExpression + ')';
 
   /**
    * The pattern for Gods names.
    */
-  static readonly godsNamepattern: RegExp = new RegExp('(°D°)(10|15|20|30|50)', 'g');
+  static readonly patternGodName: RegExp = new RegExp('(°D°)(10|15|20|30|50)', 'g');
 
   /**
    * The pattern for text with hyphens and escaped hyphens.

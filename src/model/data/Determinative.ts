@@ -32,7 +32,7 @@ export  class Determinative extends DegreeSign {
    * The pattern for determinative.
    */
   public static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Determinative.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase
-			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + WordConstants.subscriptRegularExpression), 'g');
+			+ '\\.' + ']+' + '[' + Determinative.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression), 'g');
 
   /**
    * Creates a determinative.

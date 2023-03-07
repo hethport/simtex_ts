@@ -35,7 +35,7 @@ export  class Akkadogram extends Breakdown {
    * The pattern for Akkadograms.
    */
   static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
-			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.subscriptRegularExpression));
+			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates an Akkadogram.
