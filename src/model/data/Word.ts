@@ -69,7 +69,7 @@ export class Word implements LineEntity {
   /**
    * The fragments.
    */
-  private readonly fragments: Fragment[];
+  private readonly fragments: Fragment[] = [];
 
   /**
    * The deleri ('*' / erased / Rasur) position.
@@ -96,14 +96,34 @@ export class Word implements LineEntity {
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
       : paragraphLanguage;
 					
-    this.fragments = this.parse(this.normalizedText);
+    const fragments = this.parse(this.normalizedText);
+
+    for (let index = 0; index < fragments.length; index++) {
+      const fragment = fragments[index];
+      
+      this.fragments.push(fragment);
+      
+      if (index < fragments.length - 1 && fragment instanceof Determinative && fragment.isGodName()) {
+        const godNumber = fragments[index + 1];
+        
+        if (godNumber instanceof Number && Determinative.isGodNumber(godNumber.getInteger())) {
+          index++;
+          
+          // text is never null, since it is a god number
+          const text = godNumber.getText();
+          this.fragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+        }
+      }
+    }
 
     for (const fragment of this.fragments)
       this.status.addLevel(fragment.getStatus());
-
+      
     if (MetadataPosition.initial != this.deleriPosition)
       this.status.add(new StatusEvent(StatusLevel.moderate, StatusEventCode.required,
         'missed final deleri (\'*\' / erased / Rasur).'));
+        
+     
   }
 
   /**
@@ -137,7 +157,9 @@ export class Word implements LineEntity {
           // Unicodes 12039 and 12471
           .replace(/;/g, '𒀹').replace(/:/g, '𒑱')
           
-          .replace(/\+_/g, '+');
+          .replace(/\+_/g, '+')
+          
+          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°');
     }
   }
 
@@ -210,8 +232,7 @@ export class Word implements LineEntity {
       fragment.getStatus()
         .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
           + segment + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
-    } else if (content == 'm' || content == 'm.D' || content == 'f' || content == 'f.D'
-      || content.match(Determinative.pattern))
+    } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
     else if (content.match(Glossing.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Glossing, segment, content);

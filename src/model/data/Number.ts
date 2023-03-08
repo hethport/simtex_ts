@@ -60,7 +60,7 @@ export  class Number extends Breakdown {
     super(deleriPosition, text);
 
     try {
-      this.integer = Math.abs(parseInt(this.getPlainText()));
+      this.integer = parseInt(this.getPlainText());
     } catch (e) {
       this.integer = null;
     }
@@ -74,6 +74,15 @@ export  class Number extends Breakdown {
    */
   public getInteger(): number| null {
     return this.integer;
+  }
+
+  /**
+   * Returns the absolute value of the integer.
+   *
+   * @return The absolute value of the integer. Null if unknown.
+   */
+  public getIntegerAbs(): number| null {
+    return this.integer == null ? null : Math.abs(this.integer);
   }
 
   public exportXml(): XmlElementNode {
