@@ -345,7 +345,12 @@ export class Word implements LineEntity {
       const matches = parseText.matchAll(WordConstants.patternHyphenAndEscape);
 
       for (const match of matches) {
-        if (WordConstants.hyphenEscapeCharacter == match[1]) {
+        if (match[2] == '') {
+          if (type == null)
+            type = FragmentBreakdownType.Basic;
+
+          buffer.push('-');
+        } else if (WordConstants.hyphenEscapeCharacter == match[1]) {
           if (Word.isSumerogramType(match[2])) {
             if (type !== null && FragmentBreakdownType.Sumerogram != type) {
               fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -522,7 +527,7 @@ export class Word implements LineEntity {
 
     case FragmentBreakdownType.NotImplemented:
     default:
-      this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word \'' + text + '\' can not be parsed.'));
+      this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word part \'' + text + '\' cannot be parsed.'));
 
       return new NotImplemented(text);
     }

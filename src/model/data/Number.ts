@@ -59,14 +59,12 @@ export  class Number extends Breakdown {
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);
 
-    let  integer: number| null;
     try {
-      integer = Math.abs(parseInt(this.getPlainText()));
+      this.integer = Math.abs(parseInt(this.getPlainText()));
     } catch (e) {
-      integer = null;
+      this.integer = null;
     }
 
-    this.integer = integer;
   }
 
   /**
