@@ -7,11 +7,6 @@ src/**.js
 src/**.js.map
 
 #
-# SimTex tools target
-#
-tools/tgt/
-
-#
 # Eclipse
 #
 /.project
