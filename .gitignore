@@ -9,7 +9,7 @@ src/**.js.map
 #
 # SimTex tools target
 #
-tools/tgt
+tools/tgt/
 
 #
 # Eclipse
