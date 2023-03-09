@@ -11,16 +11,54 @@ import { ParagraphLanguage } from '../model/metadata/ParagraphLanguage';
 import { Marker } from '../model/metadata/Marker';
 import { Word } from '../model/data/Word';
 
+/**
+  * The tools folder.
+  */
+const toolsFolder = './tools/';
 
-export function main(file_name: string) {
-  console.log(fs.readFileSync('./debug/' + file_name,'utf8'));
+/**
+  * The source folder.
+  */
+const sourceFolder = toolsFolder + 'src/';
 
-  const parserText: string = fs.readFileSync('./debug/' + file_name,'utf8');
+/**
+  * The target folder.
+  */
+const targetFolder = toolsFolder + 'tgt/';
+
+export function csv(transliterationFileName: string, outputFileName: string) {
+  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName,'utf8');
+  
   const parser: TLHParser = new TLHParser(parserText);
-
   const oxted: OXTED = parser.exportOXTED();
 
-  console.log('Parser status: ' + StatusLevel[oxted.getStatusLevel()]);
+  console.log('Parser Status: ' + StatusLevel[oxted.getStatusLevel()]);
+
+  const buffer: string[] = [];
+  for (const line of oxted.getLines()) {
+	
+    const line_list: string[] = [];
+    for (const node of line.getNodes()) {
+      line_list.push(writeNode(node, undefined, true).join(''));
+    }
+    
+    buffer.push(line.getText() + '\t' + line_list.join('') + '\n');
+  }
+  
+  fs.writeFileSync(targetFolder + outputFileName, buffer.join(''), 'utf8');
+}
+
+export function debug(transliterationFileName: string) {
+  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName,'utf8');
+  
+  console.log(parserText);
+
+  const parser: TLHParser = new TLHParser(parserText);
+  const oxted: OXTED = parser.exportOXTED();
+
+  console.log('\n*-*-* Parser *-*-*');
+
+  console.log('\nStatus: ' + StatusLevel[oxted.getStatusLevel()]);
 
   for (const line of oxted.getLines()) {
     console.log(line.getNumber() + ' (status ' + StatusLevel[line.getStatusLevel()] + '): ' + line.getText());
