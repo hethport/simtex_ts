@@ -12,7 +12,7 @@ import { Marker } from '../model/metadata/Marker';
 import { Word } from '../model/data/Word';
 
 
-export function test_run(file_name: string) {
+export function main(file_name: string) {
   console.log(fs.readFileSync('./debug/' + file_name,'utf8'));
 
   const parserText: string = fs.readFileSync('./debug/' + file_name,'utf8');

@@ -33,3 +33,5 @@
 11 # °m°°.°°D°IŠKUR-šar-ru-um-ma
 12 # °m°°.°°D°10-IŠKUR-šar-ru-um-ma
 13 # °m°30-°f.D°-20
+14 # °m.D°]2[0 °f.<D]°]2[0-SUR
+
