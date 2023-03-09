@@ -20,13 +20,13 @@ cd simtex_ts
 npm i
 ```
 
-# Running the tests
+## Running the tests
 
 ```bash
 npm run test
 ```
 
-# Tools
+## Tools
 
 Tools for debugging and testing the application can be found in the `src/tools` folder.
 For more information, please read the README in this folder.
