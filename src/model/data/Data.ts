@@ -7,7 +7,6 @@
  */
 
 
-import { AkkadianPreposition } from './AkkadianPreposition';
 import { Column } from './Column';
 import { DataContent } from './DataContent';
 import { DataInformation } from './DataInformation';
@@ -27,6 +26,7 @@ import {LanguageChangeType} from './LanguageChangeType';
 import {Attributes, xmlElementNode, XmlNode} from 'simple_xml';
 import { InventoryNumber } from '../metadata/InventoryNumber';
 import { ParagraphSeparator } from './ParagraphSeparator';
+import { Akkadogram } from './Akkadogram';
 
 
 /**
@@ -236,20 +236,23 @@ export  class Data extends Line {
         buffer.push(segment.substring(index));
       }
 
-      // escape spaces after Akkadian prepositions
-      matches = buffer.join('').matchAll(AkkadianPreposition.pattern);
-      index = 0;
-      buffer = [];
-      for (const match of matches) {
-        if (match.index && index < match.index) {
-          buffer.push(segment.substring(index, match.index));
+      // escape spaces after Akkadian prepositions if paragraph language is Hethitisch
+      if (ParagraphLanguageType.Hit == paragraphLanguage ) {
+        matches = buffer.join('').matchAll(Akkadogram.patternPreposition);
+        index = 0;
+        buffer = [];
+        for (const match of matches) {
+          if (match.index && index < match.index) {
+            buffer.push(segment.substring(index, match.index));
+          }
+          
+          buffer.push(match[0].replace(/ /g, Data.spaceEscapeCharacter));
+          if (match.index != null) {  index = match.index + match[0].length;  }
         }
-        buffer.push(match[0].replace(/ /g, Data.spaceEscapeCharacter));
-        if (match.index != null) {  index = match.index + match[0].length;  }
-      }
 
-      if(index < segment.length) {
-        buffer.push(segment.substring(index));
+        if(index < segment.length) {
+          buffer.push(segment.substring(index));
+        }
       }
 
       /*

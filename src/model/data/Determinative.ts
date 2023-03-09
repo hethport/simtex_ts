@@ -22,6 +22,7 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  */
 export  class Determinative extends DegreeSign {
   static readonly xmlTag: string = 'd';
+
   /**
    * The god names.
    */

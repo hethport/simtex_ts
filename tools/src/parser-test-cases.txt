@@ -1,0 +1,120 @@
+1 # _I-NA
+2 # [_A-NA
+3 # _[A-NA
+4 # _ME-E]
+5 # _UŠ-K]É-⸢EN⸣
+6 # _BE-⸢EL⸣
+7 # _I+_NA
+8 # _IŠsic-TU
+9 # [_IN-BI°ḪI.A°-ia-aš-ša-a]n
+10 # _ANA °D°⸢10?⸣
+11 # _A-DI EN-KA4
+12 # _A+_NA EN-KA4
+13 # _AŠ-ŠUM DINGIR°MEŠ°
+14 # _QA-DU DINGIR°MEŠ°
+15 # _QA-DU4 DINGIR°MEŠ°
+16 # _ŠA-PAL °LÚ.MEŠ°NAR
+17 # _IŠ-TU 7
+18 # _A-NA É.GAL
+19 # _I-NA °GIŠ°MA.SÁ.AB
+20 # _I+_NA °GIŠ°MA.SÁ.AB
+21 # _INA °GIŠ°MA.SÁ.AB
+22 # _IT-TI _BE-LÍ-KA4
+23 # _A-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš
+24 # _I-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš
+25 # _I-NA˽_PA-NI °GIŠ°ti-im-ma-ḫi-la-aš
+26 # _IŠ-TU˽_ŠA LUGAL
+27 # _ŠA É
+28 # _ŠA-A É
+29 # _ŠÁ É
+30 # _ŠA 2.ÀM!
+31 # _ŠA °m°ḫa-at-tu-ši-li
+32 # _ŠA °D°ti-ti-[wa]-⸢at⸣-t[i
+33 # _PA-NI °D°ti-ti-[wa]-⸢at⸣-t[i
+34 # ap!-pa-an
+35 # pé-ra-an
+36 # [ma-a-an
+37 # [wa-ar-nu-zi]
+38 # a]r-ḫa
+39 # d]a-a-*i*
+40 # lu-u]k?-⸢ka?-ta⸣
+41 # z]u-⸢uz-zu⸣-ma-k[i-ip
+42 # an-⸢da⸣
+43 # ⸢ar⸣-r[a-an-zi]
+44 # ḫur⸣-l[i-li
+45 # pé-ḫu-t]e-⸢ez⸣-zi
+46 # kat+ta
+47 # ka4-a-ša
+48 # °LÚ.MEŠ°MUḪALDIM
+49 # °m°°.°°D°IŠKUR-šar-ru-um-ma
+50 # °m.D°IŠKUR-šar-ru-um-ma
+51 # °NA4°ḫu-wa-ši-ia
+52 # °DUG°ḫal-wa-ni-uš
+53 # °DU]G°ḫu-u-up-ru-uš-ḫi
+54 # °DUG°a-aḫ-⸢ru-uš⸣-[ḫi-ia-az
+55 # °*GIŠ*°lu-u-e-eš-ša
+56 # °m°mur-ši--DINGIR-LIM
+57 # °D°30
+58 # °D°10
+59 # °LÚ°AZU
+60 # [°GIŠ°EREN
+61 # °GI]Š°EREN-ia-kán
+62 # °DUG°GAL°ḪI.A°
+63 # ap-pa-an?
+64 # ap-pa-an(?)
+65 # ap-p;
+66 # ap-p:
+67 # pa-<a>-i 
+68 # pa-〈a〉-i
+69 # SPACE         space-9
+70 # SPACE                                space-32
+71 # >< 
+72 # §
+73 # §§
+74 # °MUNUS°kat°at°-re-eš
+75 # kar-°di°dim-mi-ia-az
+76 # pa-*a*-i
+77 # *ap-pa-an*
+78 # apsic-pa-an
+79 # UD
+80 # [SÍSKUR
+81 # SÍSK]UR
+82 # NINDA.GUR4.RA
+83 # KAxU
+84 # DUMU°MEŠ°.É.GAL
+85 # GIŠ.°D°INANNA
+86 # TU7˽BA.BA.ZA
+87 # DINGIR-LIM
+88 # EN-ŠU
+89 # DINGIR]-LIM
+90 # DIN]GIR-⸢LIM⸣
+91 # GÙB-la-az
+92 # [MUN-ia-aš-ša-an
+93 # É-er]
+94 # Ì.DU10.GA-ia
+95 # LÚ°MEŠ°-aš
+96 # [NINDA.SIG°ḪI.A°-ia
+97 # °L[Ú°AZU-i]a
+98 # pa-a-<<a>>-i 
+99 # pa-a-〈〈a〉〉-i
+100 # kax-anx-na
+101 # 1
+102 # 1/2
+103 # 1/3
+104 # 2/3
+105 # 5/6
+106 # 1-ŠU
+107 # 8]-ŠU
+108 # 1-aš
+109 # 2°KAM°
+110 # °NINDA°ta-pár-wa|a-šu-ú-i
+111 # wi|i-i-en
+112 # SILA4.SÍG+MUNUS
+113 # ⅓
+114 # ⅓
+115 # ⅔
+116 # ⅚
+117 # ⅙
+118 # 1/6
+119 # ¼
+120 # 1/4

@@ -40,10 +40,10 @@ The arguments provide the names of the transliteration file and the name of the 
 For example:
 
 ```bash
-npx run-func dist/tools/tools.js csv simple_transliteration.txt simple_transliteration.csv
+npx run-func dist/tools/tools.js csv parser-test-cases.txt parser-test-cases.csv
 ```
 
-The csv output file is `tools/tgt/simple_transliteration.csv`.
+The csv output file is `tools/tgt/parser-test-cases.csv`.
 
 #### debug
 Debugs the parser.
@@ -51,7 +51,7 @@ The Argument is the transliteration filename.
 For example:
 
 ```bash
-npx run-func dist/tools/tools.js debug simple_transliteration.txt
+npx run-func dist/tools/tools.js debug parser-test-cases.txt
 ```
 
 The debug results are printed on the standard output.

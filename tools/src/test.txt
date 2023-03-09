@@ -14,12 +14,6 @@
 14' # D-ING.IR123]-LIM §
 15' # kax-anx-na °NINDA°ta-pár-wa|a-šu-ú-i
 16' # SILA4.SÍG+MUNUS °L[Ú°AZU-i]a
-17' # zi-ip-l]a-〈an〉-ti
-18' # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)
-19' # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?
-20' # GIŠ<<AC>>ST
-21' # GIŠ<[AC]><<<RT>>S]T
-22' # GIŠ<<AC>>ST
 23' # kar-°di°dim-mi-ia-az
 24' # °MUNUS°kat°at°-re-eš
 25' # [_IN-BI°ḪI.A°-ia-aš-ša-a]n
@@ -34,4 +28,21 @@
 12 # °m°°.°°D°10-IŠKUR-šar-ru-um-ma
 13 # °m°30-°f.D°-20
 14 # °m.D°]2[0 °f.<D]°]2[0-SUR
-
+1' # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)
+2' # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?
+3' # (?)] [(?) ⸢10? [(?)] ⸢?⸣ 10?⸣   ⸢SUM10?
+4' # ⸢10?⸣ ⸢SUMx(?)⸣
+1 # _ANA  °D°⸢10?⸣
+2 # _A-DI EN-KA4
+3 # _A+_NA EN-KA4
+4 # _INA °GIŠ°MA.SÁ.AB
+4 # _IT-TI _BE-LÍ-KA4
+5 # _A-NA˽˽_ŠA-PAL   °GIŠ°ti-im-ma-ḫi-la-aš
+1' # zi-ip-l]a-〈an〉-ti
+2' # GIŠ<<AC>>ST
+3' # GIŠ<[AC]><<<RT>>S]T
+4' # GIŠ<<AC>>ST
+99 # pa-a-〈〈a〉〉-i
+98 # pa-a-<<a>>-i
+98 # pa-a-<<a>><<b>>-i
+55 # °*GIŠ*°lu-u-e-eš-ša

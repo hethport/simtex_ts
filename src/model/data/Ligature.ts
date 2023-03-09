@@ -7,8 +7,9 @@
  */
 
 
-import {XmlElementNode, xmlElementNode} from 'simple_xml';
+import {XmlElementNode, xmlElementNode, xmlTextNode} from 'simple_xml';
 import { Fragment } from './fragment/Fragment';
+import { WordConstants } from './WordConstants';
 
 
 /**
@@ -22,14 +23,9 @@ export class Ligature extends Fragment {
   static readonly xmlTag: string = 'ligature';
   
   /**
-   * The ligature.
-   */
-  static readonly ligature: string = '˽';
-
-  /**
    * The pattern for ligatures.
    */
-  static readonly pattern: RegExp = new RegExp('(' + Ligature.ligature + ')', 'g');
+  static readonly pattern: RegExp = new RegExp('( +|' + WordConstants.ligature + '+)', 'g');
 
   /**
    * Creates a ligature.
@@ -42,6 +38,7 @@ export class Ligature extends Fragment {
   }
 
   public exportXml(): XmlElementNode {
-    return xmlElementNode(Ligature.xmlTag, {}, []);
+    const text: string | null = this.getText();
+    return xmlElementNode(Ligature.xmlTag, {}, [xmlTextNode(text == null ? '' : text)]);
   }
 }

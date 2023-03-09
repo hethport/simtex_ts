@@ -5,6 +5,11 @@ export class WordConstants {
   static readonly hyphenEscapeCharacter: string = '⊕';
   
   /**
+   * The ligature.
+   */
+  static readonly ligature: string = '˽';
+
+  /**
    * The brackets.
    */
   static readonly brackets: string = '〉〈';
@@ -32,12 +37,12 @@ export class WordConstants {
   /**
    * The index digits.
    */
-  static readonly indexDigits: string | null = '₀₁₂₃₄₅₆₇₈₉ₓ';
+  static readonly indexDigits: string = '₀₁₂₃₄₅₆₇₈₉ₓ';
 
   /**
    * The deleri (erased / Rasur).
    */
-  static readonly deleri: string | null = '*';
+  static readonly deleri: string = '*';
 
   /**
    * The delimiter alphabet.
@@ -52,7 +57,7 @@ export class WordConstants {
   /**
    * The text evaluation regular expression.
    */
-  static readonly textEvaluationRegularExpression: string = '(|' + WordConstants.alphabetTextEvaluation + ')';
+  static readonly textEvaluationRegularExpression: string = '(|(' + WordConstants.alphabetTextEvaluation + ')[' + WordConstants.delimiterAlphabet + ']*)';
             
   /**
    * The subscript.

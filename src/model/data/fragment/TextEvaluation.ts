@@ -25,7 +25,7 @@ export class TextEvaluation implements Slice {
   /**
    * The pattern for a word of type text evaluation.
    */
-  static readonly patternWord: RegExp = new RegExp(matchesFullStringRegularExpression('(' + WordConstants.alphabetTextEvaluation + WordConstants.subscriptRegularExpression + ')'), 'g');
+  static readonly patternWord: RegExp = new RegExp(matchesFullStringRegularExpression('(['+ WordConstants.delimiterAlphabet + ']*(' + WordConstants.alphabetTextEvaluation + ')[' + WordConstants.delimiterAlphabet + ']*' + WordConstants.subscriptRegularExpression + ')'), 'g');
   
   /**
    * The pattern for text evaluation.

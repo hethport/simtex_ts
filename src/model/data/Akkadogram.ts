@@ -20,9 +20,10 @@ import {xmlElementNode, XmlElementNode} from 'simple_xml';
  */
 export  class Akkadogram extends Breakdown {
   static readonly xmlTag: string = 'aGr';
+  
   /**
-	 * The alphabet.
-	 */
+	* The alphabet.
+	*/
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
             + WordConstants.delimiterAlphabet + '\\+' + '\\.';
 
@@ -36,6 +37,81 @@ export  class Akkadogram extends Breakdown {
    */
   static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
 			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
+
+  /**
+   * The prepositions.
+   */
+  private static readonly prepositions:  string[][] = [
+    ['_', 'A', 'N', 'A'],
+    
+    ['_', 'A', '\\-', 'N', 'A'],
+    ['_', 'A', '\\+', '_', 'N', 'A'],
+    
+    ['_', 'A', '\\-', 'D', 'I'],
+    ['_', 'A', '\\+', '_', 'D', 'I'],
+    
+    ['_', 'I', '\\-', 'N', 'A'],
+    ['_', 'I', '\\+', '_', 'N', 'A'],
+    
+    ['_', 'A', 'Š', '\\-', 'Š', 'U', 'M'],
+    ['_', 'A', 'Š', '\\+', '_', 'Š', 'U', 'M'],
+   
+    ['_', 'I', 'Š', '\\-', 'T', 'U'],
+    ['_', 'I', 'Š', '\\+', '_', 'T', 'U'],
+
+    ['_', 'I', 'T', '\\-', 'T', 'I'],
+    ['_', 'I', 'T', '\\+', '_', 'T', 'I'],
+
+    ['_', 'P', 'A', '\\-', 'N', 'I'],
+    ['_', 'P', 'A', '\\+', '_', 'N', 'I'],
+ 
+    ['_', 'Q', 'A', '\\-', 'D', 'U'],
+    ['_', 'Q', 'A', '\\+', '_', 'D', 'U'],
+  
+    ['_', 'Š', 'A'],
+  
+    ['_', 'Š', 'A', '\\-', 'A'],
+    ['_', 'Š', 'A', '\\+', '_', 'A'],
+  
+    ['_', 'Š', 'A', '\\-', 'P', 'A', 'L'],
+    ['_', 'Š', 'A', '\\+', '_', 'P', 'A', 'L']
+  ];
+
+  /**
+	 * The pattern for prepositions.
+	 */
+  public static readonly patternPreposition:  RegExp = new RegExp(
+    '((' + Akkadogram.getPrepositionRegularExpression() + ')'
+	+ WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression
+	+ '(|' + WordConstants.ligature + '*[^ ]*))[ ]+', 'g');
+
+  /**
+   * Returns the regular expression that matches prepositions.
+   *
+   * @return The regular expression that matches prepositions.
+   * @since 11
+   */
+  private static getPrepositionRegularExpression() {
+    const buffer: string[] = [];
+    let isFisrt = true;
+	
+    for (const name of this.prepositions) {
+      if (isFisrt) 
+        isFisrt = false;
+      else
+        buffer.push('|');
+
+      buffer.push('(');
+      
+      for (const part of name) {
+        buffer.push('[' + WordConstants.delimiterAlphabet + ']*' + part);
+      }
+      
+      buffer.push('[' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + ']*' + ')');
+    }
+	
+    return buffer.join('');
+  }
 
   /**
    * Creates an Akkadogram.

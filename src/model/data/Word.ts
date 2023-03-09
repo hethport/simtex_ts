@@ -6,7 +6,6 @@
  * Date:     19.12.2022
  */
 
-import {AkkadianPreposition} from './AkkadianPreposition';
 import {Akkadogram} from './Akkadogram';
 import {Basic} from './Basic';
 import {DegreeSign} from './DegreeSign';
@@ -196,7 +195,7 @@ export class Word implements LineEntity {
           let index = 0;
           for (const match of matches) {
             if (match.index && index < match.index) {
-              fragments = fragments.concat(this.parseSegment(text.substring(index, match.index)));
+              fragments = fragments.concat(this.parseLigature(text.substring(index, match.index)));
             }
             fragments.push(this.getDeterminativeGlossing(match[0], match[1]));
             if (match.index != null) {
@@ -205,7 +204,7 @@ export class Word implements LineEntity {
           }
 	
           if (index < text.length) {
-            fragments = fragments.concat(this.parseSegment(text.substring(index)));
+            fragments = fragments.concat(this.parseLigature(text.substring(index)));
           }
         }
       }
@@ -247,40 +246,6 @@ export class Word implements LineEntity {
   }
 
   /**
-   * Parses the segment.
-   *
-   * @param segment The segment to parse.
-   * @return The fragments.
-   * @since 11
-   */
-  private parseSegment(segment: string): Fragment[] {
-    let fragments: Fragment[] = [];
-
-    /*
-	 * extract the prepositions, and recursively the remainder fragments
-	 */
-    const matches = segment.matchAll(AkkadianPreposition.pattern);
-    let index = 0;
-    for (const match of matches) {
-      if (match.index && index < match.index) {
-        fragments = fragments.concat(this.parseLigature(segment.substring(index, match.index)));
-      }
-      
-      fragments.push(new AkkadianPreposition(match[0]));
-      
-      if (match.index != null) {
-        index = match.index + match[0].length;
-      }
-    }
-
-    if (index < segment.length) {
-      fragments = fragments.concat(this.parseLigature(segment.substring(index)));
-    }
-
-    return fragments;
-  }
-
-  /**
    * Parses the ligature.
    *
    * @param text The text to parse.
@@ -291,7 +256,7 @@ export class Word implements LineEntity {
     let fragments: Fragment[] = [];
 
     /*
-	 * extract the prepositions, and recursively the remainder fragments
+	 * extract the ligatures, and recursively the remainder fragments
 	 */
     const matches = text.matchAll(Ligature.pattern);
     let index = 0;
@@ -677,11 +642,8 @@ export class Word implements LineEntity {
       switch (element.tagName) {
       case Delimiter.xmlTag:
       case Basic.xmlTag:
-        children = children.concat(element.children);
-        
-        break;
       case Ligature.xmlTag:
-        children.push(xmlTextNode(Ligature.ligature));
+        children = children.concat(element.children);
         
         break;
       case Gap.xmlTag:

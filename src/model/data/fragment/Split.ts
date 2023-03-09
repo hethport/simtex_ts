@@ -15,7 +15,7 @@ import { Status } from '../../Status';
 import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
-import { WordConstants } from '../WordConstants';
+import { matchesFullStringRegularExpression, WordConstants } from '../WordConstants';
 import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 import { TextEvaluation } from './TextEvaluation';
 import { Surplus } from './Surplus';
@@ -40,6 +40,11 @@ export  class Split {
    * The pattern for index.
    */
   private static indexPattern = new RegExp('([' + WordConstants.alphabet + ']+)(\\d+|x)($|\\.)', 'g');
+
+  /**
+   * The pattern for index ends of a text.
+   */
+  private static indexPatternEndText = new RegExp(matchesFullStringRegularExpression('(.*\\D)(\\d+|x)'), 'g');
 
   /**
    * The pattern for delimiter.
@@ -168,7 +173,7 @@ export  class Split {
 
         const  delimiter: string = match[1];
         if (WordConstants.deleri == delimiter) {
-          slice.push(new Metadata(null, this.deleriPosition));
+          slice.push(new Metadata(delimiter, this.deleriPosition));
 
           this.deleriPosition = MetadataPosition.initial == this.deleriPosition ? MetadataPosition.end
             : MetadataPosition.initial;
@@ -195,10 +200,10 @@ export  class Split {
         index = 0;
         for (const part of tmpSlice) {
           if (index == lastContentIndex) {
-            matches = text.matchAll(TextEvaluation.pattern);
+            matches = lastContent.getText().matchAll(TextEvaluation.pattern);
             for (const match of matches) {
               if (match.index && match.index > 0) {
-                slice.push(new Content(plainText.substring(0, match.index)));
+                slice.push(new Content(Split.convertToIndexEndText(lastContent.getText().substring(0, match.index))));
               }
               
               slice.push(new TextEvaluation(match[1]));
@@ -227,7 +232,7 @@ export  class Split {
                 
                 const content: number = (part instanceof Content) ? 1 : 0;
                 
-                if (index < slice.length - (4 + content)) {
+                if (index < slice.length - (3 + content)) {
                   part = slice[index + 2 + content];
                 
                   if (part instanceof Metadata) {
@@ -237,7 +242,7 @@ export  class Split {
                       if (part instanceof Metadata) {
                         if (part.getSymbol() == '〉') {
                           surplus.push([index, index + 3 + content]);
-                          index += 4 + content;
+                          index += 3 + content;
                         }
                       }
                     }
@@ -255,7 +260,6 @@ export  class Split {
         
         index = 0;
         for (const tuple of surplus) {
-          console.log('-> [' + tuple[0] + '..' + tuple[1] + ']');
           for (; index < tuple[0]; index++)
             slice.push(tmpSlice[index]);
           
@@ -273,6 +277,34 @@ export  class Split {
 
     return slice;
   }
+  
+  /**
+   * Converts the end of the text to indexes if required.
+   *
+   * @param text The text to convert to index.
+   * @return The text with index digits.
+   * @since 11
+   */
+  private static convertToIndexEndText(text: string): string {
+    const matches = text.matchAll(Split.indexPatternEndText);
+    let index = 0;
+    const buffer: string[] = [];
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        buffer.push(text.substring(index, match.index));
+      }
+        
+      buffer.push(match[1] + Split.convertToIndex(match[2]));
+        
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
+
+    if(index < text.length) {
+      buffer.push(text.substring(index));
+    }
+	
+    return buffer.join('');
+  } 
 
   /**
    * Converts to index.
