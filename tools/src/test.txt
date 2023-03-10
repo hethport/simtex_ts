@@ -45,4 +45,5 @@
 99 # pa-a-〈〈a〉〉-i
 98 # pa-a-<<a>>-i
 98 # pa-a-<<a>><<b>>-i
-55 # °*GIŠ*°lu-u-e-eš-ša
+54 # °*GIŠ*°lu-u-e-eš-ša
+55 # °*GIŠ°lu-u-e-eš-ša ti-im*
