@@ -1,0 +1,120 @@
+1 # _I-NA	<lb lnr="1" lg="Hit"/><w><aGr>I-NA</aGr></w>
+2 # [_A-NA	<lb lnr="2" lg="Hit"/><w><aGr><del_in/>A-NA</aGr></w>
+3 # _[A-NA	<lb lnr="3" lg="Hit"/><w><aGr><del_in/>A-NA</aGr></w>
+4 # _ME-E]	<lb lnr="4" lg="Hit"/><w><aGr>ME-E<del_fin/></aGr></w>
+5 # _UŠ-K]É-⸢EN⸣	<lb lnr="5" lg="Hit"/><w><aGr>UŠ-K<del_fin/>É-<laes_in/>EN<laes_fin/></aGr></w>
+6 # _BE-⸢EL⸣	<lb lnr="6" lg="Hit"/><w><aGr>BE-<laes_in/>EL<laes_fin/></aGr></w>
+7 # _I+_NA	<lb lnr="7" lg="Hit"/><w><aGr>I+NA</aGr></w>
+8 # _IŠsic-TU	<lb lnr="8" lg="Hit"/><w><aGr>IŠ<corr c="sic"/>-TU</aGr></w>
+9 # [_IN-BI°ḪI.A°-ia-aš-ša-a]n	<lb lnr="9" lg="Hit"/><w><aGr><del_in/>IN-BI</aGr><d>ḪI.A</d>-ia-aš-ša-a<del_fin/>n</w>
+10 # _ANA °D°⸢10?⸣	<lb lnr="10" lg="Hit"/><w><aGr>ANA</aGr> <d>D</d><sGr><laes_in/>10<corr c="?"/><laes_fin/></sGr></w>
+11 # _A-DI EN-KA4	<lb lnr="11" lg="Hit"/><w><aGr>A-DI</aGr> <sGr>EN</sGr><aGr>-KA₄</aGr></w>
+12 # _A+_NA EN-KA4	<lb lnr="12" lg="Hit"/><w><aGr>A+NA</aGr> <sGr>EN</sGr><aGr>-KA₄</aGr></w>
+13 # _AŠ-ŠUM DINGIR°MEŠ°	<lb lnr="13" lg="Hit"/><w><aGr>AŠ-ŠUM</aGr> <sGr>DINGIR</sGr><d>MEŠ</d></w>
+14 # _QA-DU DINGIR°MEŠ°	<lb lnr="14" lg="Hit"/><w><aGr>QA-DU</aGr> <sGr>DINGIR</sGr><d>MEŠ</d></w>
+15 # _QA-DU4 DINGIR°MEŠ°	<lb lnr="15" lg="Hit"/><w><aGr>QA-DU₄</aGr> <sGr>DINGIR</sGr><d>MEŠ</d></w>
+16 # _ŠA-PAL °LÚ.MEŠ°NAR	<lb lnr="16" lg="Hit"/><w><aGr>ŠA-PAL</aGr> <d>LÚ.MEŠ</d><sGr>NAR</sGr></w>
+17 # _IŠ-TU 7	<lb lnr="17" lg="Hit"/><w><aGr>IŠ-TU</aGr> <num>7</num></w>
+18 # _A-NA É.GAL	<lb lnr="18" lg="Hit"/><w><aGr>A-NA</aGr> <sGr>É.GAL</sGr></w>
+19 # _I-NA °GIŠ°MA.SÁ.AB	<lb lnr="19" lg="Hit"/><w><aGr>I-NA</aGr> <d>GIŠ</d><sGr>MA.SÁ.AB</sGr></w>
+20 # _I+_NA °GIŠ°MA.SÁ.AB	<lb lnr="20" lg="Hit"/><w><aGr>I+NA</aGr> <d>GIŠ</d><sGr>MA.SÁ.AB</sGr></w>
+21 # _INA °GIŠ°MA.SÁ.AB	<lb lnr="21" lg="Hit"/><w><aGr>INA</aGr></w><space c="1"/><w><d>GIŠ</d><sGr>MA.SÁ.AB</sGr></w>
+22 # _IT-TI _BE-LÍ-KA4	<lb lnr="22" lg="Hit"/><w><aGr>IT-TI</aGr> <aGr>BE-LÍ-KA₄</aGr></w>
+23 # _A-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš	<lb lnr="23" lg="Hit"/><w><aGr>A-NA</aGr>˽<aGr>ŠA-PAL</aGr> <d>GIŠ</d>ti-im-ma-ḫi-la-aš</w>
+24 # _I-NA˽_ŠA-PAL °GIŠ°ti-im-ma-ḫi-la-aš	<lb lnr="24" lg="Hit"/><w><aGr>I-NA</aGr>˽<aGr>ŠA-PAL</aGr> <d>GIŠ</d>ti-im-ma-ḫi-la-aš</w>
+25 # _I-NA˽_PA-NI °GIŠ°ti-im-ma-ḫi-la-aš	<lb lnr="25" lg="Hit"/><w><aGr>I-NA</aGr>˽<aGr>PA-NI</aGr> <d>GIŠ</d>ti-im-ma-ḫi-la-aš</w>
+26 # _IŠ-TU˽_ŠA LUGAL	<lb lnr="26" lg="Hit"/><w><aGr>IŠ-TU</aGr>˽<aGr>ŠA</aGr> <sGr>LUGAL</sGr></w>
+27 # _ŠA É	<lb lnr="27" lg="Hit"/><w><aGr>ŠA</aGr> <sGr>É</sGr></w>
+28 # _ŠA-A É	<lb lnr="28" lg="Hit"/><w><aGr>ŠA-A</aGr> <sGr>É</sGr></w>
+29 # _ŠÁ É	<lb lnr="29" lg="Hit"/><w><aGr>ŠÁ</aGr></w><space c="1"/><w><sGr>É</sGr></w>
+30 # _ŠA 2.ÀM!	<lb lnr="30" lg="Hit"/><w><aGr>ŠA</aGr> <sGr>2.ÀM<corr c="!"/></sGr></w>
+31 # _ŠA °m°ḫa-at-tu-ši-li	<lb lnr="31" lg="Hit"/><w><aGr>ŠA</aGr> <d>m</d>ḫa-at-tu-ši-li</w>
+32 # _ŠA °D°ti-ti-[wa]-⸢at⸣-t[i	<lb lnr="32" lg="Hit"/><w><aGr>ŠA</aGr> <d>D</d>ti-ti-<del_in/>wa<del_fin/>-<laes_in/>at<laes_fin/>-t<del_in/>i</w>
+33 # _PA-NI °D°ti-ti-[wa]-⸢at⸣-t[i	<lb lnr="33" lg="Hit"/><w><aGr>PA-NI</aGr> <d>D</d>ti-ti-<del_in/>wa<del_fin/>-<laes_in/>at<laes_fin/>-t<del_in/>i</w>
+34 # ap!-pa-an	<lb lnr="34" lg="Hit"/><w>ap<corr c="!"/>-pa-an</w>
+35 # pé-ra-an	<lb lnr="35" lg="Hit"/><w>pé-ra-an</w>
+36 # [ma-a-an	<lb lnr="36" lg="Hit"/><w><del_in/>ma-a-an</w>
+37 # [wa-ar-nu-zi]	<lb lnr="37" lg="Hit"/><w><del_in/>wa-ar-nu-zi<del_fin/></w>
+38 # a]r-ḫa	<lb lnr="38" lg="Hit"/><w>a<del_fin/>r-ḫa</w>
+39 # d]a-a-*i*	<lb lnr="39" lg="Hit"/><w>d<del_fin/>a-a-<ras_in/>i<ras_fin/></w>
+40 # lu-u]k?-⸢ka?-ta⸣	<lb lnr="40" lg="Hit"/><w>lu-u<del_fin/>k<corr c="?"/>-<laes_in/>ka<corr c="?"/>-ta<laes_fin/></w>
+41 # z]u-⸢uz-zu⸣-ma-k[i-ip	<lb lnr="41" lg="Hit"/><w>z<del_fin/>u-<laes_in/>uz-zu<laes_fin/>-ma-k<del_in/>i-ip</w>
+42 # an-⸢da⸣	<lb lnr="42" lg="Hit"/><w>an-<laes_in/>da<laes_fin/></w>
+43 # ⸢ar⸣-r[a-an-zi]	<lb lnr="43" lg="Hit"/><w><laes_in/>ar<laes_fin/>-r<del_in/>a-an-zi<del_fin/></w>
+44 # ḫur⸣-l[i-li	<lb lnr="44" lg="Hit"/><w>ḫur<laes_fin/>-l<del_in/>i-li</w>
+45 # pé-ḫu-t]e-⸢ez⸣-zi	<lb lnr="45" lg="Hit"/><w>pé-ḫu-t<del_fin/>e-<laes_in/>ez<laes_fin/>-zi</w>
+46 # kat+ta	<lb lnr="46" lg="Hit"/><w>kat+ta</w>
+47 # ka4-a-ša	<lb lnr="47" lg="Hit"/><w>ka₄-a-ša</w>
+48 # °LÚ.MEŠ°MUḪALDIM	<lb lnr="48" lg="Hit"/><w><d>LÚ.MEŠ</d><sGr>MUḪALDIM</sGr></w>
+49 # °m°°.°°D°IŠKUR-šar-ru-um-ma	<lb lnr="49" lg="Hit"/><w><d>m.D</d><sGr>IŠKUR</sGr>-šar-ru-um-ma</w>
+50 # °m.D°IŠKUR-šar-ru-um-ma	<lb lnr="50" lg="Hit"/><w><d>m.D</d><sGr>IŠKUR</sGr>-šar-ru-um-ma</w>
+51 # °NA4°ḫu-wa-ši-ia	<lb lnr="51" lg="Hit"/><w><d>NA₄</d>ḫu-wa-ši-ia</w>
+52 # °DUG°ḫal-wa-ni-uš	<lb lnr="52" lg="Hit"/><w><d>DUG</d>ḫal-wa-ni-uš</w>
+53 # °DU]G°ḫu-u-up-ru-uš-ḫi	<lb lnr="53" lg="Hit"/><w><d>DU<del_fin/>G</d>ḫu-u-up-ru-uš-ḫi</w>
+54 # °DUG°a-aḫ-⸢ru-uš⸣-[ḫi-ia-az	<lb lnr="54" lg="Hit"/><w><d>DUG</d>a-aḫ-<laes_in/>ru-uš<laes_fin/>-<del_in/>ḫi-ia-az</w>
+55 # °*GIŠ*°lu-u-e-eš-ša	<lb lnr="55" lg="Hit"/><w><d><ras_in/>GIŠ<ras_fin/></d>lu-u-e-eš-ša</w>
+56 # °m°mur-ši--DINGIR-LIM	<lb lnr="56" lg="Hit"/><w><d>m</d>mur-ši<sGr>-DINGIR</sGr><aGr>-LIM</aGr></w>
+57 # °D°30	<lb lnr="57" lg="Hit"/><w><d>D</d><sGr>30</sGr></w>
+58 # °D°10	<lb lnr="58" lg="Hit"/><w><d>D</d><sGr>10</sGr></w>
+59 # °LÚ°AZU	<lb lnr="59" lg="Hit"/><w><d>LÚ</d><sGr>AZU</sGr></w>
+60 # [°GIŠ°EREN	<lb lnr="60" lg="Hit"/><w><del_in/><d>GIŠ</d><sGr>EREN</sGr></w>
+61 # °GI]Š°EREN-ia-kán	<lb lnr="61" lg="Hit"/><w><d>GI<del_fin/>Š</d><sGr>EREN</sGr>-ia-kán</w>
+62 # °DUG°GAL°ḪI.A°	<lb lnr="62" lg="Hit"/><w><d>DUG</d><sGr>GAL</sGr><d>ḪI.A</d></w>
+63 # ap-pa-an?	<lb lnr="63" lg="Hit"/><w>ap-pa-an<corr c="?"/></w>
+64 # ap-pa-an(?)	<lb lnr="64" lg="Hit"/><w>ap-pa-an<corr c="(?)"/></w>
+65 # ap-p;	<lb lnr="65" lg="Hit"/><w>ap-p𒀹</w>
+66 # ap-p:	<lb lnr="66" lg="Hit"/><w>ap-p𒑱</w>
+67 # pa-<a>-i 	<lb lnr="67" lg="Hit"/><w>pa-<add_in/>a<add_fin/>-i</w>
+68 # pa-〈a〉-i	<lb lnr="68" lg="Hit"/><w>pa-<add_in/>a<add_fin/>-i</w>
+69 # SPACE         space-9	<lb lnr="69" lg="Hit"/><w><sGr>SPACE</sGr></w><space c="9"/><w>space<num>-9</num></w>
+70 # SPACE                                space-32	<lb lnr="70" lg="Hit"/><w><sGr>SPACE</sGr></w><space c="32"/><w>space<num>-32</num></w>
+71 # >< 	<lb lnr="71" lg="Hit"/><w>𒉽</w>
+72 # §	<lb lnr="72" lg="Hit"/><parsep/>
+73 # §§	<lb lnr="73" lg="Hit"/><parsep_dbl/>
+74 # °MUNUS°kat°at°-re-eš	<lb lnr="74" lg="Hit"/><w><d>MUNUS</d>kat<materlect c="at"/>-re-eš</w>
+75 # kar-°di°dim-mi-ia-az	<lb lnr="75" lg="Hit"/><w>kar-<materlect c="di"/>dim-mi-ia-az</w>
+76 # pa-*a*-i	<lb lnr="76" lg="Hit"/><w>pa-<ras_in/>a<ras_fin/>-i</w>
+77 # *ap-pa-an*	<lb lnr="77" lg="Hit"/><w><ras_in/>ap-pa-an<ras_fin/></w>
+78 # apsic-pa-an	<lb lnr="78" lg="Hit"/><w>ap<corr c="sic"/>-pa-an</w>
+79 # UD	<lb lnr="79" lg="Hit"/><w><sGr>UD</sGr></w>
+80 # [SÍSKUR	<lb lnr="80" lg="Hit"/><w><sGr><del_in/>SÍSKUR</sGr></w>
+81 # SÍSK]UR	<lb lnr="81" lg="Hit"/><w><sGr>SÍSK<del_fin/>UR</sGr></w>
+82 # NINDA.GUR4.RA	<lb lnr="82" lg="Hit"/><w><sGr>NINDA.GUR₄.RA</sGr></w>
+83 # KAxU	<lb lnr="83" lg="Hit"/><w><sGr>KA×U</sGr></w>
+84 # DUMU°MEŠ°.É.GAL	<lb lnr="84" lg="Hit"/><w><sGr>DUMU</sGr><d>MEŠ</d><sGr>.É.GAL</sGr></w>
+85 # GIŠ.°D°INANNA	<lb lnr="85" lg="Hit"/><w><sGr>GIŠ.</sGr><d>D</d><sGr>INANNA</sGr></w>
+86 # TU7˽BA.BA.ZA	<lb lnr="86" lg="Hit"/><w><sGr>TU₇</sGr>˽<sGr>BA.BA.ZA</sGr></w>
+87 # DINGIR-LIM	<lb lnr="87" lg="Hit"/><w><sGr>DINGIR</sGr><aGr>-LIM</aGr></w>
+88 # EN-ŠU	<lb lnr="88" lg="Hit"/><w><sGr>EN</sGr><aGr>-ŠU</aGr></w>
+89 # DINGIR]-LIM	<lb lnr="89" lg="Hit"/><w><sGr>DINGIR<del_fin/></sGr><aGr>-LIM</aGr></w>
+90 # DIN]GIR-⸢LIM⸣	<lb lnr="90" lg="Hit"/><w><sGr>DIN<del_fin/>GIR</sGr><aGr>-<laes_in/>LIM<laes_fin/></aGr></w>
+91 # GÙB-la-az	<lb lnr="91" lg="Hit"/><w><sGr>GÙB</sGr>-la-az</w>
+92 # [MUN-ia-aš-ša-an	<lb lnr="92" lg="Hit"/><w><sGr><del_in/>MUN</sGr>-ia-aš-ša-an</w>
+93 # É-er]	<lb lnr="93" lg="Hit"/><w><sGr>É</sGr>-er<del_fin/></w>
+94 # Ì.DU10.GA-ia	<lb lnr="94" lg="Hit"/><w><sGr>Ì.DU₁₀.GA</sGr>-ia</w>
+95 # LÚ°MEŠ°-aš	<lb lnr="95" lg="Hit"/><w><sGr>LÚ</sGr><d>MEŠ</d>-aš</w>
+96 # [NINDA.SIG°ḪI.A°-ia	<lb lnr="96" lg="Hit"/><w><sGr><del_in/>NINDA.SIG</sGr><d>ḪI.A</d>-ia</w>
+97 # °L[Ú°AZU-i]a	<lb lnr="97" lg="Hit"/><w><d>L<del_in/>Ú</d><sGr>AZU</sGr>-i<del_fin/>a</w>
+98 # pa-a-<<a>>-i 	<lb lnr="98" lg="Hit"/><w>pa-a-<surpl c="a"/>-i</w>
+99 # pa-a-〈〈a〉〉-i	<lb lnr="99" lg="Hit"/><w>pa-a-<surpl c="a"/>-i</w>
+100 # kax-anx-na	<lb lnr="100" lg="Hit"/><w>kaₓ-anₓ-na</w>
+101 # 1	<lb lnr="101" lg="Hit"/><w><num>1</num></w>
+102 # 1/2	<lb lnr="102" lg="Hit"/><w><num>½</num></w>
+103 # 1/3	<lb lnr="103" lg="Hit"/><w><num>⅓</num></w>
+104 # 2/3	<lb lnr="104" lg="Hit"/><w><num>⅔</num></w>
+105 # 5/6	<lb lnr="105" lg="Hit"/><w><num>⅚</num></w>
+106 # 1-ŠU	<lb lnr="106" lg="Hit"/><w><num>1</num><aGr>-ŠU</aGr></w>
+107 # 8]-ŠU	<lb lnr="107" lg="Hit"/><w><num>8<del_fin/></num><aGr>-ŠU</aGr></w>
+108 # 1-aš	<lb lnr="108" lg="Hit"/><w><num>1</num>-aš</w>
+109 # 2°KAM°	<lb lnr="109" lg="Hit"/><w><num>2</num><d>KAM</d></w>
+110 # °NINDA°ta-pár-wa|a-šu-ú-i	<lb lnr="110" lg="Hit"/><w><d>NINDA</d>ta-pár-wa<subscr c="a"/>-šu-ú-i</w>
+111 # wi|i-i-en	<lb lnr="111" lg="Hit"/><w>wi<subscr c="i"/>-i-en</w>
+112 # SILA4.SÍG+MUNUS	<lb lnr="112" lg="Hit"/><w><sGr>SILA₄.SÍG+MUNUS</sGr></w>
+113 # ⅓	<lb lnr="113" lg="Hit"/><w><num>⅓</num></w>
+114 # ⅓	<lb lnr="114" lg="Hit"/><w><num>⅓</num></w>
+115 # ⅔	<lb lnr="115" lg="Hit"/><w><num>⅔</num></w>
+116 # ⅚	<lb lnr="116" lg="Hit"/><w><num>⅚</num></w>
+117 # ⅙	<lb lnr="117" lg="Hit"/><w><num>⅙</num></w>
+118 # 1/6	<lb lnr="118" lg="Hit"/><w><num>⅙</num></w>
+119 # ¼	<lb lnr="119" lg="Hit"/><w><num>¼</num></w>
+120 # 1/4	<lb lnr="120" lg="Hit"/><w><num>¼</num></w>

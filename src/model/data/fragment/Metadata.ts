@@ -22,6 +22,7 @@ import {WordConstants} from '../WordConstants';
  * @since 11
  */
 export  class Metadata implements Slice {
+  public static readonly xmlTag: string = 'METADATA';
 
   /**
 	* The symbol.
@@ -123,8 +124,8 @@ export  class Metadata implements Slice {
       
       break;
     default:
-      // Tag undefined/MetadataType unknown
-      // is checked in Split.ts
+      // Tag undefined/MetadataType unknown is checked in Split.ts
+      tag = Metadata.xmlTag;
       break;
     }
 

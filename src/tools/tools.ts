@@ -27,7 +27,7 @@ const sourceFolder = toolsFolder + 'src/';
 const targetFolder = toolsFolder + 'tgt/';
 
 export function csv(transliterationFileName: string, outputFileName: string) {
-  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName,'utf8');
+  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName, 'utf8');
   
   const parser: TLHParser = new TLHParser(parserText);
   const oxted: OXTED = parser.exportOXTED();
@@ -49,7 +49,7 @@ export function csv(transliterationFileName: string, outputFileName: string) {
 }
 
 export function debug(transliterationFileName: string) {
-  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName,'utf8');
+  const parserText: string = fs.readFileSync(sourceFolder + transliterationFileName, 'utf8');
   
   console.log(parserText);
 
