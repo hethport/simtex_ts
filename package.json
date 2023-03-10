@@ -2,7 +2,7 @@
   "name": "simtex",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/model/TLHParser.js",
   "scripts": {
     "postbuild": "eslint src",
     "build": "tsc",
