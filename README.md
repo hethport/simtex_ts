@@ -20,11 +20,9 @@ cd simtex_ts
 npm i
 ```
 
-## Running the tests
+## Tests
 
-```bash
-npm run test
-```
+Please read the README in the folder `src/unitTest`.
 
 ## Tools
 
