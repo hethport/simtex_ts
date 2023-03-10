@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/model/TLHParser.js",
   "scripts": {
+    "postinstall": "npx tsc",
     "postbuild": "eslint src",
     "build": "tsc",
     "lint": "eslint src",
