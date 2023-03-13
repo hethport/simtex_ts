@@ -78,15 +78,14 @@ export  class Data extends Line {
 
     let  lineNumber: string| null;
     let  lineSource: string;
-    if (source == null || source.getTextNormalized() == null) {
+    if (source == null) {
       lineNumber = null;
       lineSource = '';
 
       this.getStatus().add(
         new  StatusEvent(StatusLevel.maximal, StatusEventCode.required, 'line source is not available'));
     } else {
-
-      const  split: string[] = source.getTextNormalized().split('#', 2);
+      const  split: string[] = source.getTextNormalizedNotTrimmed().split('#', 2);
 
       if (split.length === 1) {
         lineNumber = null;
@@ -134,35 +133,58 @@ export  class Data extends Line {
    * @return The entities.
    * @since 11
    */
-  private static parseParagraph(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
-    if (text == null || text.trim().length == 0)
+  private static parseParagraph(paragraphLanguage: ParagraphLanguageType | null, text: string | null):  LineEntity[] {
+    if (text == null || text.length == 0)
       return [];
     else {
-      let paragraph: ParagraphSeparator | null = null;
-
-      for (const pattern of ParagraphSeparator.patternDoubles) {
-        if (text.endsWith(pattern)) {
-          paragraph = new ParagraphSeparator(false);
-          text = text.substring(0, text.length - pattern.length);
-          break;
-        }
-      }
-    
-      if (paragraph == null)
-        for (const pattern of ParagraphSeparator.patternSingles) {
+      let textTrim = text.trim();
+      if (textTrim.length == 0)
+        return text.length <= 2 ? [] : [new Empty(text.length - 2)];
+      else {
+        let entities: LineEntity[] = [];
+        
+        textTrim = text.trimStart();
+        if (textTrim.length + 1 < text.length)
+          entities.push(new Empty(text.length - (textTrim.length + 1)));
+        
+        textTrim = text.trimEnd();
+        const emptyEnd: LineEntity | null = textTrim.length + 1 < text.length ? new Empty(text.length - (textTrim.length + 1)) : null;
+     
+        let paragraph: ParagraphSeparator | null = null;
+        text = text.trim();
+        for (const pattern of ParagraphSeparator.patternDoubles) {
           if (text.endsWith(pattern)) {
-            paragraph = new ParagraphSeparator(true);
+            paragraph = new ParagraphSeparator(false);
             text = text.substring(0, text.length - pattern.length);
+            
             break;
           }
         }
-
-      const entities: LineEntity[] = Data.parse(paragraphLanguage, text);
+    
+        if (paragraph == null)
+          for (const pattern of ParagraphSeparator.patternSingles) {
+            if (text.endsWith(pattern)) {
+              paragraph = new ParagraphSeparator(true);
+              text = text.substring(0, text.length - pattern.length);
+              
+              break;
+            }
+          }
+            
+        entities = entities.concat(Data.parse(paragraphLanguage, text));
       
-      if (paragraph != null)
-        entities.push(paragraph);
+        textTrim = text.trimEnd();
+        if (textTrim.length < text.length)
+          entities.push(new Empty(text.length - textTrim.length));
+          
+        if (paragraph != null)
+          entities.push(paragraph);
+          
+        if (emptyEnd != null)
+          entities.push(emptyEnd);
 	
-      return entities;
+        return entities;
+      }
     }
   }
 
@@ -214,7 +236,7 @@ export  class Data extends Line {
    */
   private static parseSegment(paragraphLanguage: ParagraphLanguageType, segment: string):  LineEntity[] {
     if (segment.trim().length == 0)
-      return [new  Empty(segment)];
+      return [new Empty(segment.length)];
     else {
       /*
 	   * escape required spaces to extract words
@@ -268,7 +290,7 @@ export  class Data extends Line {
         if (match.index && index < match.index) {
           entities.push(this.getSegmentEntity(paragraphLanguage, wordBuffer.substring(index, match.index)));
         }
-        entities.push(new Empty(match[1]));
+        entities.push(new Empty(match[1].length));
         if (match.index != null) {  index = match.index + match[0].length;  }
       }
 

@@ -17,9 +17,14 @@
 export class LineSource {
 
   /**
-   * The normalized text.
+   * The trimmed normalized text.
    */
   private readonly textNormalized: string;
+
+  /**
+   * The non trimmed normalized text
+   */
+  private readonly textNormalizedNotTrimmed: string;
 
   /**
    * Creates a source for a line.
@@ -38,7 +43,8 @@ export class LineSource {
      */
     private readonly text: string
   ) {
-    this.textNormalized = LineSource.normalize(text);
+    this.textNormalizedNotTrimmed = LineSource.normalizeNotTrimmed(text);
+    this.textNormalized = this.textNormalizedNotTrimmed.trim();
   }
 
   /**
@@ -91,9 +97,19 @@ export class LineSource {
   }
 
   /**
-   * Returns the normalized text.
+   * Returns the non trimmed normalized text.
    *
-   * @return The normalized text.
+   * @return The non trimmed normalized text.
+   * @since 11
+   */
+  public getTextNormalizedNotTrimmed(): string {
+    return this.textNormalizedNotTrimmed;
+  }
+
+  /**
+   * Returns the trimmed normalized text.
+   *
+   * @return The trimmed normalized text.
    * @since 11
    */
   public getTextNormalized(): string {

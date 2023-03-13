@@ -1,6 +1,6 @@
-$KBo 111111.33333
+$KBo 11.33
 %Vs.?
-2' # ]-šu-uš-ša-aš
+2' #    ]-šu-uš-ša-aš
 3' # ] °D°UTU-šum-mi-in
 4' # ]
 5' # ]-kán pa-iz-zi §§
@@ -12,6 +12,6 @@ $KBo 111111.33333
 1' # ] _EM-ṢA GE6 LUGAL-i pa-a-i
 2' # x NINDA.GUR4.RA e-ep-zi
 3' # °GIŠ°BAN]ŠUR pa-a-i na-an-ša-an-x[
-4' # x ḫu-u-wa-ap[- §
-5' # x-az °GIŠ°BANŠU[R
+4' #    x ḫu-u-wa-ap[- §
+5' #    x-az °GIŠ°BANŠU[R
 {G:Rs. bricht ab}

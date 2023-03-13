@@ -46,4 +46,12 @@
 98 # pa-a-<<a>>-i
 98 # pa-a-<<a>><<b>>-i
 54 # °*GIŠ*°lu-u-e-eš-ša
-55 # °*GIŠ°lu-u-e-eš-ša ti-im*
+55 # °*GIŠ°lu-u-e-eš-ša    ti-im*
+0' # D-ING§
+1' # D-ING §
+2' # D-ING     §
+3' # D-ING §   
+4' #   D-ING § 
+5' #     D-ING     
+6' #   D-ING §   
+7' #      

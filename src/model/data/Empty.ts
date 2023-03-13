@@ -19,7 +19,7 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  * @since 11
  */
 export class Empty implements LineEntity {
-  static readonly xmlTag: string = 'space';
+  static readonly xmlTag: string = 'SPACE';
   /**
    * The length of the code points containing only spaces. 0 if the string is
    * empty.
@@ -29,11 +29,11 @@ export class Empty implements LineEntity {
   /**
    * Creates an empty string or a code point containing only spaces.
    *
-   * @param text The text.
+   * @param length The text length.
    * @since 11
    */
-  public constructor(text: string) {
-    this.length = text.length;
+  public constructor(length: number) {
+    this.length = length;
   }
 
   /**
