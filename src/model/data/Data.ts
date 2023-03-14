@@ -401,6 +401,8 @@ export  class Data extends Line {
         if (!word.isLanguageChangeType()) {
           entities.push(word.exportXml());
         }
+      } else if (entity instanceof Empty) {
+        entities.push(xmlElementNode(Word.xmlTag, {}, [entity.exportXml()]));
       } else {
         entities.push(entity.exportXml());
       }
