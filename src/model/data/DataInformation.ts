@@ -1,11 +1,9 @@
 /**
- * File:     DataInformation.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     DataInformation.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 import { LineInformation } from './LineInformation';
 import { ParagraphLanguageType, defaultParagraphLanguage } from '../metadata/ParagraphLanguageType';
@@ -16,7 +14,6 @@ import { InventoryNumber } from '../metadata/InventoryNumber';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class DataInformation {
   /**
@@ -41,7 +38,6 @@ export  class DataInformation {
    * @param paragraphLanguage The paragraph language.
    * @param linePrefix        The line prefix.
    * @param lineNumber        The line number.
-   * @since 11
    */
   public constructor(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType| null, linePrefix: string| null, lineNumber: string| null) {
     this.inventoryNumber = inventoryNumber;
@@ -54,7 +50,6 @@ export  class DataInformation {
    * Returns the inventory number.
    *
    * @return The inventory number.
-   * @since 11
    */
   public getInventoryNumber(): InventoryNumber | null {
     return this.inventoryNumber;
@@ -64,7 +59,6 @@ export  class DataInformation {
    * Returns the paragraph language.
    *
    * @return The paragraph language.
-   * @since 11
    */
   public getParagraphLanguage():  ParagraphLanguageType {
     return this.paragraphLanguage;
@@ -74,7 +68,6 @@ export  class DataInformation {
    * Returns the line.
    *
    * @return The line.
-   * @since 11
    */
   public getLine():  LineInformation {
     return this.line;

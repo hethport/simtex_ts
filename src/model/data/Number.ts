@@ -1,6 +1,5 @@
 /**
  * File:     Number.ts
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     21.12.2022

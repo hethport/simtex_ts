@@ -1,6 +1,5 @@
 /**
- * File:     StatusEvent.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core
+ * File:     StatusEvent.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
@@ -9,13 +8,11 @@
 import {StatusEventCode} from './StatusEventCode';
 import {StatusLevel} from './StatusLevel';
 
-
 /**
  * Event is an immutable class that defines events for line statuses.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class StatusEvent {
 
@@ -25,7 +22,6 @@ export class StatusEvent {
    * @param level   The level.
    * @param code    The code.
    * @param message The message.
-   * @since 11
    */
   public constructor(
     /**
@@ -47,7 +43,6 @@ export class StatusEvent {
    * Returns the level.
    *
    * @return The level.
-   * @since 11
    */
   public getLevel(): StatusLevel {
     return this.level;
@@ -57,7 +52,6 @@ export class StatusEvent {
    * Returns the code.
    *
    * @return The code.
-   * @since 11
    */
   public getCode(): StatusEventCode {
     return this.code;
@@ -67,7 +61,6 @@ export class StatusEvent {
    * Returns the message.
    *
    * @return The message.
-   * @since 11
    */
   public getMessage(): string {
     return this.message;

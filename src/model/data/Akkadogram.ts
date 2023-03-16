@@ -1,6 +1,5 @@
 /**
- * File:     Akkadogram.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Akkadogram.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     31.01.2023
@@ -16,14 +15,13 @@ import {xmlElementNode, XmlElementNode} from 'simple_xml';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Akkadogram extends Breakdown {
   static readonly xmlTag: string = 'aGr';
   
   /**
-	* The alphabet.
-	*/
+   * The alphabet.
+   */
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
             + WordConstants.delimiterAlphabet + '\\+' + '\\.';
 
@@ -78,8 +76,8 @@ export  class Akkadogram extends Breakdown {
   ];
 
   /**
-	 * The pattern for prepositions.
-	 */
+   * The pattern for prepositions.
+   */
   public static readonly patternPreposition:  RegExp = new RegExp(
     '((' + Akkadogram.getPrepositionRegularExpression() + ')'
 	+ WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression
@@ -89,7 +87,6 @@ export  class Akkadogram extends Breakdown {
    * Returns the regular expression that matches prepositions.
    *
    * @return The regular expression that matches prepositions.
-   * @since 11
    */
   private static getPrepositionRegularExpression() {
     const buffer: string[] = [];
@@ -118,7 +115,6 @@ export  class Akkadogram extends Breakdown {
    *
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
-   * @since 11
    */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, text);

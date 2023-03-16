@@ -1,6 +1,5 @@
 /**
- * File:     LanguageChange.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     LanguageChange.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     20.12.2022
@@ -18,7 +17,6 @@ import {xmlElementNode, XmlElementNode} from 'simple_xml';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class LanguageChange extends Fragment {
   // TODO: implement correct export
@@ -33,7 +31,6 @@ export  class LanguageChange extends Fragment {
    * Creates a language change.
    *
    * @param text The text.
-   * @since 11
    */
   public constructor(text: string) {
     super(text);
@@ -59,7 +56,6 @@ export  class LanguageChange extends Fragment {
    * Returns true if the language is set.
    *
    * @return True if the language is set.
-   * @since 11
    */
   public isLanguageSet():  boolean {
     return this.language !== null;
@@ -69,7 +65,6 @@ export  class LanguageChange extends Fragment {
    * Returns the language. Null if not set.
    *
    * @return The language.
-   * @since 11
    */
   public getLanguage():  LanguageChangeType | null {
     return this.language;

@@ -1,6 +1,5 @@
 /**
- * File:     Marker.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     Marker.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     06.12.2022
@@ -19,7 +18,6 @@ import {XmlNode} from 'simple_xml';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Marker extends Metadata {
   /**
@@ -44,7 +42,6 @@ export  class Marker extends Metadata {
    * @param depth The depth for matching with nested curly brackets.
    * @return The regular expression that matches nested curly braces of the given
    *         depth.
-   * @since 11
    */
   private static getNestedCurlyBracketDepthPattern(depth: number):  string | null {
     return depth === 1 ? ''
@@ -61,7 +58,6 @@ export  class Marker extends Metadata {
    * Creates a marker.
    *
    * @param source The line source.
-   * @since 11
    */
   public constructor(source: LineSource) {
     super(source);
@@ -85,7 +81,6 @@ export  class Marker extends Metadata {
    * Adds an unexpected status event if the segment is not empty.
    *
    * @param buffer The buffer that contains the segment.
-   * @since 11
    */
   private addUnexpectedStatusEvent(segment: string):  void {
     if (segment.trim().length > 0)
@@ -97,7 +92,6 @@ export  class Marker extends Metadata {
    * Returns the tags.
    *
    * @return The tags.
-   * @since 11
    */
   public getTags():  Tag[] {
     return this.tags;

@@ -1,18 +1,15 @@
 /**
- * File:     LineSource.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core
+ * File:     LineSource.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 /**
  * Defines source for lines.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class LineSource {
 
@@ -31,7 +28,6 @@ export class LineSource {
    *
    * @param number The number.
    * @param text   The text.
-   * @since 11
    */
   public constructor(
     /**
@@ -52,7 +48,6 @@ export class LineSource {
    *
    * @param text The text to normalize.
    * @return The normalized source text.
-   * @since 11
    */
   public static normalizeNotTrimmed(text: string): string {
     return text
@@ -70,7 +65,6 @@ export class LineSource {
    *
    * @param text The text to normalize.
    * @return The normalized source text.
-   * @since 11
    */
   public static normalize(text: string): string {
     return this.normalizeNotTrimmed(text).trim();
@@ -80,7 +74,6 @@ export class LineSource {
    * Returns the number.
    *
    * @return The number.
-   * @since 11
    */
   public getNumber(): number {
     return this.number;
@@ -90,7 +83,6 @@ export class LineSource {
    * Returns the text.
    *
    * @return The text.
-   * @since 11
    */
   public getText(): string {
     return this.text;
@@ -100,7 +92,6 @@ export class LineSource {
    * Returns the non trimmed normalized text.
    *
    * @return The non trimmed normalized text.
-   * @since 11
    */
   public getTextNormalizedNotTrimmed(): string {
     return this.textNormalizedNotTrimmed;
@@ -110,7 +101,6 @@ export class LineSource {
    * Returns the trimmed normalized text.
    *
    * @return The trimmed normalized text.
-   * @since 11
    */
   public getTextNormalized(): string {
     return this.textNormalized;

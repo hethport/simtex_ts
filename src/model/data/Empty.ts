@@ -1,22 +1,18 @@
 /**
- * File:     Empty.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Empty.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     12.12.2022
  */
 
-
 import {LineEntity} from '../LineEntity';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
-
 
 /**
  * Defines empty strings or code points containing only spaces.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class Empty implements LineEntity {
   static readonly xmlTag: string = 'space';
@@ -30,7 +26,6 @@ export class Empty implements LineEntity {
    * Creates an empty string or a code point containing only spaces.
    *
    * @param length The text length.
-   * @since 11
    */
   public constructor(length: number) {
     this.length = length;
@@ -40,7 +35,6 @@ export class Empty implements LineEntity {
    * Returns the length.
    *
    * @return The length.
-   * @since 11
    */
   public getLength(): number {
     return this.length;

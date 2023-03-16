@@ -1,6 +1,5 @@
 /**
- * File:     TLHParser.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core
+ * File:     TLHParser.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     05.12.2022
@@ -24,7 +23,6 @@ import {StatusLevel} from './StatusLevel';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class TLHParser {
   /**
@@ -66,7 +64,6 @@ export class TLHParser {
    * Creates a TLH dig parser.
    *
    * @param sourceText The source text.
-   * @since 11
    */
   public constructor(sourceText: string) {
 
@@ -83,7 +80,6 @@ export class TLHParser {
    * Add the source text line.
    *
    * @param line The source text line to add.
-   * @since 11
    */
   private addLine(line: string): void {
     if (line.trim().length == 0)
@@ -166,7 +162,6 @@ export class TLHParser {
    * Returns the status.
    *
    * @return The status.
-   * @since 11
    */
   public getStatus(): Status {
     return this.status;
@@ -176,7 +171,6 @@ export class TLHParser {
    * Returns the source text.
    *
    * @return The source text.
-   * @since 11
    */
   public getSourceText(): string | null {
     return this.sourceText;
@@ -186,7 +180,6 @@ export class TLHParser {
    * Returns the lines.
    *
    * @return The lines.
-   * @since 11
    */
   public getLines(): Line[] {
     return this.lines;
@@ -206,7 +199,6 @@ export class TLHParser {
    * Exports the TLH dig parser to OXTED.
    *
    * @return The OXTED interface.
-   * @since 11
    */
   public exportOXTED(): OXTED {
     return new OXTED(this);
@@ -218,7 +210,6 @@ export class TLHParser {
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class OXTED {
   /**
@@ -235,7 +226,6 @@ export class OXTED {
    * Creates an interfaces to OXTED.
    *
    * @param parser The TLH dig parser.
-   * @since 11
    */
   public constructor(parser: TLHParser) {
     this.statusLevel = parser.getStatus().getLevel();
@@ -248,7 +238,6 @@ export class OXTED {
    * Returns the status level.
    *
    * @return The status level.
-   * @since 11
    */
   public getStatusLevel(): StatusLevel {
     return this.statusLevel;
@@ -258,7 +247,6 @@ export class OXTED {
    * Returns the lines.
    *
    * @return The lines.
-   * @since 11
    */
   public getLines(): OXTEDLine[] {
     return this.lines;
@@ -271,7 +259,6 @@ export class OXTED {
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class OXTEDLine {
   /**
@@ -288,7 +275,6 @@ export class OXTEDLine {
    * Creates an interfaces to OXTED.
    *
    * @param line The parser line.
-   * @since 11
    */
   public constructor(line: Line) {
     this.line = line;
@@ -299,7 +285,6 @@ export class OXTEDLine {
    * Returns the parser line.
    *
    * @return The parser line.
-   * @since 11
    */
   public getParserLine(): Line {
     return this.line;
@@ -309,7 +294,6 @@ export class OXTEDLine {
    * Returns the number.
    *
    * @return The number.
-   * @since 11
    */
   public getNumber(): number {
     return this.line.getSource().getNumber();
@@ -319,7 +303,6 @@ export class OXTEDLine {
    * Returns the status level.
    *
    * @return The status level.
-   * @since 11
    */
   public getStatusLevel(): StatusLevel {
     return this.line.getStatus().getLevel();
@@ -329,7 +312,6 @@ export class OXTEDLine {
    * Returns the text.
    *
    * @return The text.
-   * @since 11
    */
   public getText(): string {
     return this.line.getSource().getText();
@@ -339,12 +321,9 @@ export class OXTEDLine {
    * Returns the nodes.
    *
    * @return The nodes.
-   * @since 11
    */
   public getNodes(): XmlNode[] {
     return this.nodes;
   }
 
-
 }
-

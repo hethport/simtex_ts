@@ -1,24 +1,20 @@
 /**
- * File:     Determinative.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Determinative.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     13.12.2022
  */
-
 
 import { DegreeSign } from './DegreeSign';
 import { matchesFullStringRegularExpression, WordConstants } from './WordConstants';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
-
 /**
  * Defines determinative.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Determinative extends DegreeSign {
   static readonly xmlTag: string = 'd';
@@ -52,7 +48,6 @@ export  class Determinative extends DegreeSign {
    * Returns the regular expression that matches god names.
    *
    * @return The regular expression that matches god names.
-   * @since 11
    */
   private static getGodNamesRegularExpression() {
     const buffer: string[] = [];
@@ -108,7 +103,6 @@ export  class Determinative extends DegreeSign {
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
    * @param text           The text.
-   * @since 11
    */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
     super(deleriPosition, segment, text);

@@ -1,6 +1,5 @@
 /**
- * File:     Word.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Word.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     19.12.2022
@@ -41,7 +40,6 @@ import { TextEvaluation } from './fragment/TextEvaluation';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class Word implements LineEntity {
   static readonly xmlTag: string = 'w';
@@ -76,8 +74,8 @@ export class Word implements LineEntity {
   private deleriPosition: MetadataPosition = MetadataPosition.initial;
 
   /**
-	 * The language change.
-	 */
+   * The language change.
+   */
   private languageChange: LanguageChangeType | null = null;
 	
   /**
@@ -86,7 +84,6 @@ export class Word implements LineEntity {
    * @param paragraphLanguage The paragraph language. If null, use default
    *                          language.
    * @param word The word.
-   * @since 11
    */
   public constructor(paragraphLanguage: ParagraphLanguageType | null, word: string) {
     this.text = word;
@@ -130,7 +127,6 @@ export class Word implements LineEntity {
    *
    * @param text The text to normalize.
    * @return The normalized text.
-   * @since 11
    */
   private static normalize(text: string): string {
     if (text.trim().length == 0)
@@ -167,7 +163,6 @@ export class Word implements LineEntity {
    *
    * @param text The text to parse.
    * @return The fragments.
-   * @since 11
    */
   private parse(text: string): Fragment[] {
     let fragments: Fragment[] = [];
@@ -220,7 +215,6 @@ export class Word implements LineEntity {
    * @param segment The segment.
    * @param content The content.
    * @return The fragment.
-   * @since 11
    */
   private getDeterminativeGlossing(segment: string, content: string): Fragment {
     let fragment: Fragment;
@@ -250,14 +244,13 @@ export class Word implements LineEntity {
    *
    * @param text The text to parse.
    * @return The fragments.
-   * @since 11
    */
   private parseLigature(text: string): Fragment[] {
     let fragments: Fragment[] = [];
 
     /*
-	 * extract the ligatures, and recursively the remainder fragments
-	 */
+     * extract the ligatures, and recursively the remainder fragments
+     */
     const matches = text.matchAll(Ligature.pattern);
     let index = 0;
     for (const match of matches) {
@@ -284,7 +277,6 @@ export class Word implements LineEntity {
    *
    * @param text The text to parse.
    * @return The fragments.
-   * @since 11
    */
   private parseText(text: string): Fragment[] {
     const fragments: Fragment[] = [];
@@ -406,28 +398,25 @@ export class Word implements LineEntity {
    * Returns the paragraph language.
    *
    * @return The paragraph language.
-   * @since 11
    */
   public getParagraphLanguage():  ParagraphLanguageType {
     return this.paragraphLanguage;
   }
 
   /**
-	 * Returns true if the word is of type language change.
-	 * 
-	 * @return True if the word is of type language change.
-	 * @since 11
-	 */
+   * Returns true if the word is of type language change.
+   * 
+   * @return True if the word is of type language change.
+   */
   public isLanguageChangeType(): boolean {
     return this.fragments.length == 1 && (this.fragments[0] instanceof LanguageChange);
   }
 
   /**
-	 * Returns the language change.
-	 *
-	 * @return The language change.
-	 * @since 11
-	 */
+   * Returns the language change.
+   *
+   * @return The language change.
+   */
   public getLanguageChangeType() : LanguageChangeType | null {
     const languageChange: LanguageChange | null = (this.fragments[0] instanceof LanguageChange) ?
 		this.fragments[0] as LanguageChange : null;
@@ -436,31 +425,28 @@ export class Word implements LineEntity {
   }
 
   /**
-	 * Returns true if the language change is set.
-	 *
-	 * @return True if the language change is set.
-	 * @since 11
-	 */
+   * Returns true if the language change is set.
+   *
+   * @return True if the language change is set.
+   */
   public  isLanguageChangeSet() : boolean {
     return this.languageChange != null;
   }
 
   /**
-	 * Returns the language change.
-	 *
-	 * @return The language change.
-	 * @since 11
-	 */
+   * Returns the language change.
+   *
+   * @return The language change.
+   */
   public getLanguageChange(): LanguageChangeType | null {
     return this.languageChange;
   }
 
   /**
-	 * Set the language change.
-	 *
-	 * @param language The language to set.
-	 * @since 11
-	 */
+   * Set the language change.
+   *
+   * @param language The language to set.
+   */
   public setLanguageChange(language: LanguageChangeType | null) {
     this.languageChange = language;
   }
@@ -472,10 +458,8 @@ export class Word implements LineEntity {
    * @param segment The Segment.
    * @param buffer The text.
    * @return The fragment.
-   * @since 11
    */
   private getFragment(type: FragmentBreakdownType, segment: string | null, text: string): Fragment {
-
     let fragment: Breakdown;
 
     switch (type) {
@@ -523,13 +507,11 @@ export class Word implements LineEntity {
     return fragment;
   }
 
-
   /**
    * Returns true if the given text is of type number.
    *
    * @param text The text.
    * @return True if the given text is of type number.
-   * @since 11
    */
   private static isNumberType(text: string): boolean {
     return text.match(Number.pattern) ? true : false;
@@ -540,7 +522,6 @@ export class Word implements LineEntity {
    *
    * @param text The text.
    * @return True if the given text is of type delimiter.
-   * @since 11
    */
   private static isDelimiterType(text: string): boolean {
     return text.match(Delimiter.pattern) ? true : false;
@@ -551,7 +532,6 @@ export class Word implements LineEntity {
    *
    * @param text The text.
    * @return True if the given text is of type basic.
-   * @since 11
    */
   private static isBasicType(text: string): boolean {
     return text.match(Basic.pattern) ? true : false;
@@ -562,7 +542,6 @@ export class Word implements LineEntity {
    *
    * @param text The text.
    * @return True if the given text is of type Akkadogram.
-   * @since 11
    */
   private static isAkkadogramType(text: string): boolean {
     return text.match(Akkadogram.pattern) ? true : false;
@@ -573,7 +552,6 @@ export class Word implements LineEntity {
    *
    * @param text The text.
    * @return True if the given text is of type Sumerogram.
-   * @since 11
    */
   private static isSumerogramType(text: string): boolean {
     return text.match(Sumerogram.pattern) ? true : false;
@@ -586,7 +564,6 @@ export class Word implements LineEntity {
    *                          language.
    * @param text The text to parse.
    * @return The word.
-   * @since 11
    */
   public static parseWord(paragraphLanguage: ParagraphLanguageType | null, text: string): Word {
     const normalized: string = LineSource.normalize(text);
@@ -598,7 +575,6 @@ export class Word implements LineEntity {
    * Returns the status.
    *
    * @return The status.
-   * @since 11
    */
   public getStatus(): Status {
     return this.status;
@@ -608,7 +584,6 @@ export class Word implements LineEntity {
    * Returns the text.
    *
    * @return The text.
-   * @since 11
    */
   public getText(): string {
     return this.text;
@@ -618,7 +593,6 @@ export class Word implements LineEntity {
    * Returns the normalized text.
    *
    * @return The normalized text.
-   * @since 11
    */
   public getNormalizedText(): string {
     return this.normalizedText;
@@ -628,7 +602,6 @@ export class Word implements LineEntity {
    * Returns the fragments.
    *
    * @return The fragments.
-   * @since 11
    */
   public getFragments(): Fragment[] {
     return this.fragments;

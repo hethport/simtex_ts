@@ -1,10 +1,10 @@
 /**
- * File:     Breakdown.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data.fragment
+ * File:     Breakdown.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
+ 
 import { Fragment } from './Fragment';
 import { MetadataPosition } from './MetadataPosition';
 import { Split } from './Split';
@@ -15,7 +15,6 @@ import {XmlNode} from 'simple_xml';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export abstract class Breakdown extends Fragment {
   /**
@@ -33,7 +32,6 @@ export abstract class Breakdown extends Fragment {
    *
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text. If null, do not normalize.
-   * @since 11
    */
   protected constructor(deleriPosition: MetadataPosition, text: string| null) {
     super(text);
@@ -57,7 +55,6 @@ export abstract class Breakdown extends Fragment {
    * Returns the deleri ('*' / erased / Rasur) position.
    *
    * @return The deleri ('*' / erased / Rasur) position.
-   * @since 11
    */
   public getDeleriPosition():  MetadataPosition {
     return this.deleriPosition;
@@ -67,7 +64,6 @@ export abstract class Breakdown extends Fragment {
    * Returns the splits.
    *
    * @return The splits.
-   * @since 11
    */
   public getSplits(): Split[] {
     return this.splits;
@@ -77,7 +73,6 @@ export abstract class Breakdown extends Fragment {
    * Returns the plain text.
    *
    * @return The plain text.
-   * @since 11
    */
   public getPlainText():  string {
     const  buffer: string[] = [];

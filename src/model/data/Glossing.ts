@@ -1,24 +1,20 @@
 /**
- * File:     Glossing.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Glossing.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     13.12.2022
  */
-
 
 import { DegreeSign } from './DegreeSign';
 import { matchesFullStringRegularExpression, WordConstants } from './WordConstants';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
 
-
 /**
  * Defines glossing.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Glossing extends DegreeSign {
   static readonly xmlTag: string = 'materlect';
@@ -40,7 +36,6 @@ export  class Glossing extends DegreeSign {
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
    * @param text           The text.
-   * @since 11
    */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
     super(deleriPosition, segment, text);

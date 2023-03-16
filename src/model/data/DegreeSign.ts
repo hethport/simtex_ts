@@ -1,15 +1,12 @@
 /**
- * File:     DegreeSignSegmentResponse.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     DegreeSignSegmentResponse.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     13.12.2022
  */
 
-
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
-
 
 /**
  * DegreeSign is an immutable class that defines word fragments between degree
@@ -17,7 +14,6 @@ import { MetadataPosition } from './fragment/MetadataPosition';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export abstract class DegreeSign extends Breakdown {
   /**
@@ -36,7 +32,6 @@ export abstract class DegreeSign extends Breakdown {
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
    * @param content        The content. Null on troubles.
-   * @since 11
    */
   public constructor(deleriPosition: MetadataPosition, segment: string| null, content: string| null) {
     super(deleriPosition, content);
@@ -48,7 +43,6 @@ export abstract class DegreeSign extends Breakdown {
    * Returns the segment.
    *
    * @return The segment.
-   * @since 11
    */
   public getSegment():  string | null {
     return this.segment;

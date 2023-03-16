@@ -1,23 +1,19 @@
 /**
- * File:     Tag.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     Tag.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     12.12.2022
  */
 
-
 import {TagType} from './TagType';
 import {LineEntity} from '../LineEntity';
 import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
-
 
 /**
  * Defines tags.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export class Tag implements LineEntity {
   static readonly xmlTag: string = 'TAG_';
@@ -43,7 +39,6 @@ export class Tag implements LineEntity {
    * @param segment The segment.
    * @param type    The type.
    * @param content The content.
-   * @since 11
    */
   public constructor(segment: string, type: string, content: string | null) {
     this.segment = segment;
@@ -69,7 +64,6 @@ export class Tag implements LineEntity {
    * Returns the segment.
    *
    * @return The segment.
-   * @since 11
    */
   public getSegment(): string | null {
     return this.segment;
@@ -79,7 +73,6 @@ export class Tag implements LineEntity {
    * Returns the type.
    *
    * @return The type.
-   * @since 11
    */
   public getType(): TagType | null {
     return this.type;
@@ -89,7 +82,6 @@ export class Tag implements LineEntity {
    * Returns true if the content is set.
    *
    * @return True if the content is set.
-   * @since 11
    */
   public isContentSet(): boolean {
     return this.content !== null;
@@ -99,7 +91,6 @@ export class Tag implements LineEntity {
    * Returns the content.
    *
    * @return The content.
-   * @since 11
    */
   public getContent(): string | null {
     return this.content;

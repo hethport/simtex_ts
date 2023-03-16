@@ -1,11 +1,9 @@
 /**
- * File:     Data.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Data.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     06.12.2022
  */
-
 
 import { Column } from './Column';
 import { DataContent } from './DataContent';
@@ -28,13 +26,11 @@ import { InventoryNumber } from '../metadata/InventoryNumber';
 import { ParagraphSeparator } from './ParagraphSeparator';
 import { Akkadogram } from './Akkadogram';
 
-
 /**
  * Define data lines for the TLH dig parser.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Data extends Line {
   static readonly xmlTag: string = 'lb';
@@ -71,7 +67,6 @@ export  class Data extends Line {
    * @param paragraphLanguage The paragraph language. If null, use default
    *                          language.
    * @param linePrefix        The line prefix.
-   * @since 11
    */
   public constructor(source: LineSource, inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null, linePrefix: string| null) {
     super(source);
@@ -108,7 +103,7 @@ export  class Data extends Line {
 
     /*
      * Updates word entities status and language change.
-	 */
+     */
     let languageChange: LanguageChangeType | null = null;
     for (const entity of this.content.getEntities())
       if (entity instanceof Word) {
@@ -131,7 +126,6 @@ export  class Data extends Line {
    *                          language.
    * @param text The text to parse.
    * @return The entities.
-   * @since 11
    */
   private static parseParagraph(paragraphLanguage: ParagraphLanguageType | null, text: string | null):  LineEntity[] {
     if (text == null || text.length == 0)
@@ -195,7 +189,6 @@ export  class Data extends Line {
    *                          language.
    * @param text The text to parse.
    * @return The entities.
-   * @since 11
    */
   private static parse(paragraphLanguage: ParagraphLanguageType | null, text: string| null):  LineEntity[] {
     if (text == null || text.trim().length == 0)
@@ -232,7 +225,6 @@ export  class Data extends Line {
    * @param paragraphLanguage The paragraph language.
    * @param segment The segment to parse.
    * @return The entities.
-   * @since 11
    */
   private static parseSegment(paragraphLanguage: ParagraphLanguageType, segment: string):  LineEntity[] {
     if (segment.trim().length == 0)
@@ -308,24 +300,22 @@ export  class Data extends Line {
    * @param paragraphLanguage The paragraph language.
    * @param text The buffer containing the text.
    * @return The segment entity.
-   * @since 11
    */
   private static getSegmentEntity(paragraphLanguage: ParagraphLanguageType, text: string):  LineEntity {
     return '\\' == text ? new  Column() : new  Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' '));
   }
 
   /**
-	 * Parses the data.
-	 * 
-	 * @param inventoryNumber   The inventory number.
-	 * @param paragraphLanguage The paragraph language. If null, use default
-	 *                          language.
-	 * @param linePrefix        The line prefix.
-	 * @param lineNumber        The line number.
-	 * @param text              The text.
-	 * @return
-	 * @since 11
-	 */
+   * Parses the data.
+   * 
+   * @param inventoryNumber   The inventory number.
+   * @param paragraphLanguage The paragraph language. If null, use default
+   *                          language.
+   * @param linePrefix        The line prefix.
+   * @param lineNumber        The line number.
+   * @param text              The text.
+   * @return
+   */
   public static parseData(inventoryNumber: InventoryNumber | null, paragraphLanguage: ParagraphLanguageType | null,
     linePrefix: string, lineNumber: string, text: string): Data {
     const  buffer: string[] = [];
@@ -345,7 +335,6 @@ export  class Data extends Line {
    *                          language.
    * @param text The text to parse.
    * @return The content.
-   * @since 11
    */
   public static parseContent(paragraphLanguage: ParagraphLanguageType | null, text: string):  DataContent {
     const  normalized: string = LineSource.normalize(text);
@@ -358,7 +347,6 @@ export  class Data extends Line {
    * Returns the information.
    *
    * @return The information.
-   * @since 11
    */
   public getInformation():  DataInformation | null {
     return this.information;
@@ -368,7 +356,6 @@ export  class Data extends Line {
    * Returns the content.
    *
    * @return The content.
-   * @since 11
    */
   public getContent():  DataContent | null {
     return this.content;

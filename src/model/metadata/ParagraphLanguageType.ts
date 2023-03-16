@@ -1,11 +1,9 @@
 /**
- * File:     ParagraphLanguageType.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     ParagraphLanguageType.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 export enum  ParagraphLanguageType {
     Akk,

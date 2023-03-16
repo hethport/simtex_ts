@@ -1,11 +1,9 @@
 /**
- * File:     ParagraphLanguage.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     ParagraphLanguage.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     06.12.2022
  */
-
 
 import { Metadata } from './Metadata';
 import {defaultParagraphLanguage, ParagraphLanguageType} from './ParagraphLanguageType';
@@ -15,29 +13,26 @@ import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
 import {xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
-
 /**
  * Define paragraph languages.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class ParagraphLanguage extends Metadata {
   // TODO: implement correct export
   static readonly xmlTag: string = 'PARAGRAPH_LANGUAGE';
 
   /**
-	 * The language.
-	 */
+   * The language.
+   */
   private readonly language:  ParagraphLanguageType | null;
 
   /**
-	 * Creates a paragraph language.
-	 * 
-	 * @param source The line source.
-	 * @since 11
-	 */
+   * Creates a paragraph language.
+   * 
+   * @param source The line source.
+   */
   public constructor(source: LineSource) {
     super(source);
 
@@ -58,21 +53,19 @@ export  class ParagraphLanguage extends Metadata {
   }
 
   /**
-	 * Returns true if the language is set.
-	 *
-	 * @return True if the language is set.
-	 * @since 11
-	 */
+   * Returns true if the language is set.
+   *
+   * @return True if the language is set.
+   */
   public isLanguageSet():  boolean {
     return this.language !== null;
   }
 
   /**
-	 * Returns the language. Null if not set.
-	 *
-	 * @return The language.
-	 * @since 11
-	 */
+   * Returns the language. Null if not set.
+   *
+   * @return The language.
+   */
   public getLanguage():  ParagraphLanguageType | null {
     return this.language;
   }

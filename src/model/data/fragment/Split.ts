@@ -1,11 +1,9 @@
 /**
- * File:     Split.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data.fragment
+ * File:     Split.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 import { Content } from './Content';
 import { Metadata } from './Metadata';
@@ -20,15 +18,11 @@ import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 import { TextEvaluation } from './TextEvaluation';
 import { Surplus } from './Surplus';
 
-
-
-
 /**
  * Defines splits.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Split {
   /**
@@ -72,7 +66,6 @@ export  class Split {
    * @param status         The status.
    * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
-   * @since 11
    */
   public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
     this.deleriPosition = deleriPosition;
@@ -118,7 +111,6 @@ export  class Split {
    *
    * @param text The text to normalize.
    * @return The normalized text.
-   * @since 11
    */
   private normalize(/* final */  text: string): Slice[] {
     let  slice: Slice[] = [];
@@ -283,7 +275,6 @@ export  class Split {
    *
    * @param text The text to convert to index.
    * @return The text with index digits.
-   * @since 11
    */
   private static convertToIndexEndText(text: string): string {
     const matches = text.matchAll(Split.indexPatternEndText);
@@ -311,7 +302,6 @@ export  class Split {
    *
    * @param text The text to convert to index.
    * @return The index digits.
-   * @since 11
    */
   private static convertToIndex(text: string): string {
     const  buffer: string[] = [];
@@ -374,7 +364,6 @@ export  class Split {
    * Returns the deleri ('*' / erased / Rasur) position.
    *
    * @return The deleri ('*' / erased / Rasur) position.
-   * @since 11
    */
   public getDeleriPosition(): MetadataPosition {
     return this.deleriPosition;
@@ -384,7 +373,6 @@ export  class Split {
    * Returns the main part.
    *
    * @return The main part.
-   * @since 11
    */
   public getMainPart():  Slice[] {
     return this.mainPart;
@@ -394,7 +382,6 @@ export  class Split {
    * Returns the main part plain text.
    *
    * @return The main part plain text.
-   * @since 11
    */
   public getMainPartPlainText():  string {
     return Split.getPlainText(this.mainPart);
@@ -404,7 +391,6 @@ export  class Split {
    * Returns the subscript.
    *
    * @return The subscript.
-   * @since 11
    */
   public getSubscript(): Slice[] {
     return this.subscript;
@@ -414,7 +400,6 @@ export  class Split {
    * Returns the subscript plain text.
    *
    * @return The subscript plain text.
-   * @since 11
    */
   public getSubscriptPlainText(): string | null {
     return Split.getPlainText(this.subscript);
@@ -425,7 +410,6 @@ export  class Split {
    *
    * @param slices The slices.
    * @return The plain text.
-   * @since 11
    */
   private static getPlainText(slices: Slice[]): string {
     const  buffer: string[] = [];

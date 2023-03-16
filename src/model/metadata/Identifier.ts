@@ -1,11 +1,9 @@
 /**
- * File:     Identifier.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.metadata
+ * File:     Identifier.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     06.12.2022
  */
-
 
 import { Metadata } from './Metadata';
 import { LineSource } from '../LineSource';
@@ -14,34 +12,31 @@ import { StatusEventCode } from '../StatusEventCode';
 import { StatusLevel } from '../StatusLevel';
 import { Attributes, xmlElementNode, XmlNode, xmlTextNode } from 'simple_xml';
 
-
 /**
  * Define identifiers.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export abstract class Identifier extends Metadata {
   // TODO: implement correct export
   static readonly xmlTag: string = 'IDENTIFIER';
   
   /**
-	 * The identifiers.
-	 */
+   * The identifiers.
+   */
   private readonly identifiers:  string[] = [];
 
   /**
-	 * The comment.
-	 */
+   * The comment.
+   */
   private readonly comment:  string | null;
 
   /**
-	 * Creates an identifier.
-	 * 
-	 * @param source The line source.
-	 * @since 11
-	 */
+   * Creates an identifier.
+   * 
+   * @param source The line source.
+   */
   protected constructor(source: LineSource) {
     super(source);
 
@@ -69,25 +64,28 @@ export abstract class Identifier extends Metadata {
   }
 
   /**
-	 * Returns the identifiers.
-	 *
-	 * @return The identifiers.
-	 * @since 11
-	 */
+   * Returns the identifiers.
+   *
+   * @return The identifiers.
+   */
   public getIdentifiers():  string[] {
     return this.identifiers;
   }
 
   /**
-	 * Returns the comment.
-	 *
-	 * @return The comment.
-	 * @since 11
-	 */
+   * Returns the comment.
+   *
+   * @return The comment.
+   */
   public getComment():  string | null {
     return this.comment;
   }
 
+  /**
+   * Returns the identifiers concatenated with +.
+   *
+   * @return The comment.
+   */
   public concatIdentifier(): string {
     return this.identifiers.join(' + ');
   }

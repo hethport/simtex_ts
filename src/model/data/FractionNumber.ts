@@ -1,11 +1,9 @@
 /**
- * File:     FractionNumber.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     FractionNumber.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     21.12.2022
  */
-
 
 import { Fragment } from './fragment/Fragment';
 import {xmlElementNode, XmlElementNode, xmlTextNode} from 'simple_xml';
@@ -16,7 +14,6 @@ import { matchesFullStringRegularExpression } from './WordConstants';
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class FractionNumber extends Fragment {
   static readonly xmlTag: string = 'num';
@@ -52,7 +49,6 @@ export  class FractionNumber extends Fragment {
    * @param text        The text.
    * @param numerator   The numerator.
    * @param denominator The denominator.
-   * @since 11
    */
   constructor(text: string, numerator: string, denominator: string) {
     super(text);
@@ -66,7 +62,6 @@ export  class FractionNumber extends Fragment {
    * Returns the numerator.
    *
    * @return The numerator.
-   * @since 11
    */
   public getNumerator():  number {
     return this.numerator;
@@ -76,7 +71,6 @@ export  class FractionNumber extends Fragment {
    * Returns the denominator.
    *
    * @return The denominator.
-   * @since 11
    */
   public getDenominator():  number {
     return this.denominator;
@@ -86,7 +80,6 @@ export  class FractionNumber extends Fragment {
    * Returns the glyph.
    *
    * @return The glyph. Null if not available.
-   * @since 11
    */
   public getGlyph():  string | null {
     switch (this.denominator) {
@@ -176,7 +169,6 @@ export  class FractionNumber extends Fragment {
    *
    * @param glyph The glyph.
    * @return The fraction number for given glyph. Null if not available.
-   * @since 11
    */
   public static getFractionNumber(glyph: string):  FractionNumber | null {
     if (glyph.length != 1)

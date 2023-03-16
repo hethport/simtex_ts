@@ -1,11 +1,9 @@
 /**
- * File:     Metadata.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data.fragment
+ * File:     Metadata.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 import {MetadataPosition} from './MetadataPosition';
 import {Slice} from './Slice';
@@ -13,20 +11,18 @@ import {MetadataType} from './MetadataType';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 import {WordConstants} from '../WordConstants';
 
-
 /**
  * Metadata is an immutable class that defines metadata.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Metadata implements Slice {
   public static readonly xmlTag: string = 'METADATA';
 
   /**
-	* The symbol.
-	*/
+   * The symbol.
+   */
   private readonly symbol:  string | null;
 
   /**
@@ -44,7 +40,6 @@ export  class Metadata implements Slice {
    *
    * @param text     The text.
    * @param position The position.
-   * @since 11
    */
   public constructor(text: string | null, position: MetadataPosition | null) {
     this.symbol = text;
@@ -78,7 +73,6 @@ export  class Metadata implements Slice {
    * Returns the symbol.
    *
    * @return The symbol.
-   * @since 11
    */
   public getSymbol():  string {
     return this.symbol == null ? '' : this.symbol;
@@ -88,7 +82,6 @@ export  class Metadata implements Slice {
    * Returns the type.
    *
    * @return The type.
-   * @since 11
    */
   public getType():  MetadataType | null {
     return this.type;
@@ -98,7 +91,6 @@ export  class Metadata implements Slice {
    * Returns the position.
    *
    * @return The position.
-   * @since 11
    */
   public getPosition():  MetadataPosition | null {
     return this.position;

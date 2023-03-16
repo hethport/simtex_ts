@@ -1,26 +1,20 @@
 /**
- * File:     Sumerogram.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     Sumerogram.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     31.01.2023
  */
-
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
-
-
-
 /**
  * Defines Sumerograms.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class Sumerogram extends Breakdown {
   static readonly xmlTag: string = 'sGr';
@@ -47,12 +41,11 @@ export  class Sumerogram extends Breakdown {
   private static inscribedCharacterPattern = new RegExp('([' + WordConstants.alphabetUpperCase + '\\d]{1})(x)([' + WordConstants.alphabetUpperCase + '\\d]{1})', 'g');
 
   /**
-	 * Creates a Sumerogram.
-	 * 
-	 * @param deleriPosition The deleri ('*' / erased / Rasur) position.
-	 * @param text           The text.
-	 * @since 11
-	 */
+   * Creates a Sumerogram.
+   * 
+   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
+   * @param text           The text.
+   */
   public constructor(deleriPosition: MetadataPosition, text: string) {
     super(deleriPosition, Sumerogram.resolveInscribedCharacter(text));
   }
@@ -62,7 +55,6 @@ export  class Sumerogram extends Breakdown {
    *
    * @param text The text.
    * @return The text with resolved inscribed characters.
-   * @since 11
    */
   private static resolveInscribedCharacter(text: string):  string {
 

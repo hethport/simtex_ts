@@ -1,11 +1,9 @@
 /**
- * File:     LineInformation.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     LineInformation.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
-
 
 /**
  * LineInformation is an immutable class that defines line information for data
@@ -13,7 +11,6 @@
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class LineInformation {
   /**
@@ -31,7 +28,6 @@ export  class LineInformation {
    *
    * @param prefix The prefix.
    * @param number The number.
-   * @since 11
    */
   public constructor(prefix: string| null, number: string | null) {
     this.prefix = prefix;
@@ -43,7 +39,6 @@ export  class LineInformation {
    *
    * @param number The line number to normalize.
    * @return The normalized line number.
-   * @since 11
    */
   public static normalizeNumber(number: string | null):  string {
 
@@ -60,7 +55,6 @@ export  class LineInformation {
    * Returns true if the prefix is set.
    *
    * @return True if the prefix is set.
-   * @since 11
    */
   public isPrefixSet():  boolean {
     return this.prefix !== null;
@@ -70,7 +64,6 @@ export  class LineInformation {
    * Returns the prefix.
    *
    * @return The prefix.
-   * @since 11
    */
   public getPrefix():  string | null {
     return this.prefix;
@@ -80,7 +73,6 @@ export  class LineInformation {
    * Returns true if the number is set.
    *
    * @return True if the number is set.
-   * @since 11
    */
   public isNumberSet():  boolean {
     return this.number !== null;
@@ -90,7 +82,6 @@ export  class LineInformation {
    * Returns the number.
    *
    * @return The number.
-   * @since 11
    */
   public getNumber():  string | null {
     return this.number;

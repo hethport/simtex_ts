@@ -1,22 +1,18 @@
 /**
- * File:     DataContent.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core.data
+ * File:     DataContent.ts
  * 
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023
  */
 
-
 import { LineEntity } from '../LineEntity';
 import { Word } from './Word';
-
 
 /**
  * Content is an immutable class that defines content for data lines.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export  class DataContent {
   /**
@@ -33,7 +29,6 @@ export  class DataContent {
    * Creates a content for a data line without entities.
    *
    * @param source The source.
-   * @since 11
    */
 
   public constructor(source: string | null, entities: LineEntity[] | null) {
@@ -47,7 +42,6 @@ export  class DataContent {
    * Returns the source.
    *
    * @return The source.
-   * @since 11
    */
   public getSource():  string | null{
     return this.source;
@@ -57,7 +51,6 @@ export  class DataContent {
    * Returns the entities.
    *
    * @return The entities.
-   * @since 11
    */
   public getEntities():  LineEntity[] {
     return this.entities;
@@ -67,7 +60,6 @@ export  class DataContent {
    * Returns the words.
    *
    * @return The words.
-   * @since 11
    */
   public getWords(): Word[] {
     const words : Word[] = [];

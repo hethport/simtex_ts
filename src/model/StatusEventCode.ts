@@ -1,6 +1,5 @@
 /**
- * File:     StatusEventCode.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core
+ * File:     StatusEventCode.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     16.02.2023

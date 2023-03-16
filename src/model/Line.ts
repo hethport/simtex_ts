@@ -1,6 +1,5 @@
 /**
- * File:     Line.java
- * Package:  de.uniwuerzburg.zpd.tlh.parser.core
+ * File:     Line.ts
  *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     05.12.2022
@@ -10,13 +9,11 @@ import {LineSource} from './LineSource';
 import {Status} from './Status';
 import {XmlNode} from 'simple_xml';
 
-
 /**
  * Defines TLH dig parser lines.
  *
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
- * @since 11
  */
 export abstract class Line {
   /**
@@ -25,15 +22,14 @@ export abstract class Line {
   private readonly status: Status = new Status();
 
   /**
-    * The line source.
-    */
+   * The line source.
+   */
   private readonly source: LineSource;
   
   /**
    * Creates a TLH dig parser line.
    *
    * @param source The line source.
-   * @since 11
    */
   public constructor(source: LineSource) {
     this.source = source;
@@ -43,7 +39,6 @@ export abstract class Line {
    * Returns the line status.
    *
    * @return The line status.
-   * @since 11
    */
   public getStatus(): Status {
     return this.status;
@@ -53,7 +48,6 @@ export abstract class Line {
    * Returns the line source.
    *
    * @return The line source.
-   * @since 11
    */
   public getSource(): LineSource {
     return this.source;
