@@ -21,6 +21,7 @@ import {Metadata} from './metadata/Metadata';
 import {Identifier} from './metadata/Identifier';
 import {Word} from './data/Word';
 import {StatusEvent} from './StatusEvent';
+import {StatusEventCode} from './StatusEventCode';
 
 export {
   Line,
@@ -38,6 +39,7 @@ export {
   LinePrefix,
   InventoryNumber,
   PublicationNumber,
+  StatusEventCode,
   StatusEvent,
   Word
 };
