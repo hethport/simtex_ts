@@ -17,6 +17,30 @@ import {LinePrefix} from './metadata/LinePrefix';
 import {Marker} from './metadata/Marker';
 import {XmlNode} from 'simple_xml';
 import {StatusLevel} from './StatusLevel';
+import {Metadata} from './metadata/Metadata';
+import {Identifier} from './metadata/Identifier';
+import {Word} from './data/Word';
+import {StatusEvent} from './StatusEvent';
+
+export {
+  Line,
+  LineSource,
+  Status,
+  Data,
+  ParagraphLanguageType,
+  ParagraphLanguage,
+  defaultParagraphLanguage,
+  StatusLevel,
+  Identifier,
+  XmlNode,
+  Marker,
+  Metadata,
+  LinePrefix,
+  InventoryNumber,
+  PublicationNumber,
+  StatusEvent,
+  Word
+};
 
 /**
  * Defines TLH dig parsers.
@@ -41,8 +65,8 @@ export class TLHParser {
   private readonly status: Status = new Status();
 
   /**
-	 * The current inventory number.
-	 */
+   * The current inventory number.
+   */
   private inventoryNumber: InventoryNumber | null = null;
 
   /**
@@ -91,70 +115,70 @@ export class TLHParser {
       let language: ParagraphLanguage;
       let marker: Marker;
       switch (source.getTextNormalized().substring(0, 1)) {
-      case '&':
-        /*
-         * inventory number
-         */
-        this.inventoryNumber = new InventoryNumber(source);
-        this.lines.push(this.inventoryNumber);
+        case '&':
+          /*
+           * inventory number
+           */
+          this.inventoryNumber = new InventoryNumber(source);
+          this.lines.push(this.inventoryNumber);
 
-        this.linePrefix = null;
+          this.linePrefix = null;
 
-        break;
+          break;
 
-      case '$':
-        /*
-         * publication number
-         */
-        this.lines.push(new PublicationNumber(source));
+        case '$':
+          /*
+           * publication number
+           */
+          this.lines.push(new PublicationNumber(source));
 
-        this.linePrefix = null;
+          this.linePrefix = null;
 
-        break;
+          break;
 
-      case '%':
-        /*
-         * line prefix
-         */
+        case '%':
+          /*
+           * line prefix
+           */
 
-        prefix = new LinePrefix(source);
-        this.lines.push(prefix);
+          prefix = new LinePrefix(source);
+          this.lines.push(prefix);
 
-        this.linePrefix = prefix.getPrefix();
+          this.linePrefix = prefix.getPrefix();
 
-        break;
+          break;
 
-      case '@':
-        /*
-         * paragraph language
-         */
-        language = new ParagraphLanguage(source);
-        this.lines.push(language);
+        case '@':
+          /*
+           * paragraph language
+           */
+          language = new ParagraphLanguage(source);
+          this.lines.push(language);
 
-        // eslint-disable-next-line no-case-declarations
-        const planguage = language.getLanguage();
-        if (planguage != null)
-          this.paragraphLanguage = planguage;
+          // eslint-disable-next-line no-case-declarations
+          const planguage = language.getLanguage();
+          if (planguage != null)
+            this.paragraphLanguage = planguage;
 
-        break;
+          break;
 
-      case '{':
-        /*
-         * marker
-         */
-        marker = new Marker(source);
-        this.lines.push(marker);
+        case '{':
+          /*
+           * marker
+           */
+          marker = new Marker(source);
+          this.lines.push(marker);
 
-        break;
+          break;
 
-      default:
-        /*
-         * data
-         */
-        this.lines.push(new Data(source, this.inventoryNumber, this.paragraphLanguage, this.linePrefix));
+        default:
+          /*
+           * data
+           */
+          this.lines.push(new Data(source, this.inventoryNumber, this.paragraphLanguage, this.linePrefix));
 
-        break;
-      }      
+          break;
+      }
     }
   }
 
@@ -194,7 +218,7 @@ export class TLHParser {
 
     return nodes;
   }
-  
+
   /**
    * Exports the TLH dig parser to OXTED.
    *
@@ -280,7 +304,7 @@ export class OXTEDLine {
     this.line = line;
     this.nodes = line.exportXml();
   }
-  
+
   /**
    * Returns the parser line.
    *

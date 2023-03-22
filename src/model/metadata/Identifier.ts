@@ -1,16 +1,16 @@
 /**
  * File:     Identifier.ts
- * 
+ *
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     06.12.2022
  */
 
-import { Metadata } from './Metadata';
-import { LineSource } from '../LineSource';
-import { StatusEvent } from '../StatusEvent';
-import { StatusEventCode } from '../StatusEventCode';
-import { StatusLevel } from '../StatusLevel';
-import { Attributes, xmlElementNode, XmlNode, xmlTextNode } from 'simple_xml';
+import {Metadata} from './Metadata';
+import {LineSource} from '../LineSource';
+import {StatusEvent} from '../StatusEvent';
+import {StatusEventCode} from '../StatusEventCode';
+import {StatusLevel} from '../StatusLevel';
+import {Attributes, xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 
 /**
  * Define identifiers.
@@ -19,32 +19,33 @@ import { Attributes, xmlElementNode, XmlNode, xmlTextNode } from 'simple_xml';
  * @version 1.0
  */
 export abstract class Identifier extends Metadata {
+
   // TODO: implement correct export
   static readonly xmlTag: string = 'IDENTIFIER';
-  
+
   /**
    * The identifiers.
    */
-  private readonly identifiers:  string[] = [];
+  private readonly identifiers: string[] = [];
 
   /**
    * The comment.
    */
-  private readonly comment:  string | null;
+  private readonly comment: string | null;
 
   /**
    * Creates an identifier.
-   * 
+   *
    * @param source The line source.
    */
-  protected constructor(source: LineSource) {
+  constructor(source: LineSource) {
     super(source);
 
-    let  comment = '';
+    let comment = '';
 
-    let  textNormalized: string = source.getTextNormalized();
+    let textNormalized: string = source.getTextNormalized();
     if (textNormalized.includes('#')) {
-      const  index: number = textNormalized.indexOf('#');
+      const index: number = textNormalized.indexOf('#');
       comment = index + 1 < textNormalized.length ? textNormalized.substring(index + 1) : '';
       textNormalized = textNormalized.substring(0, index);
     }
@@ -53,14 +54,16 @@ export abstract class Identifier extends Metadata {
       this.comment = null;
     }
 
-    const  identifiers: string = textNormalized.length === 1 ? '' : textNormalized.substring(1).trim();
-    for (const identifier of identifiers.split('+'))
-      if (identifier.trim().length > 0)
+    const identifiers: string = textNormalized.length === 1 ? '' : textNormalized.substring(1).trim();
+    for (const identifier of identifiers.split('+')) {
+      if (identifier.trim().length > 0) {
         this.identifiers.push(identifier.trim());
+      }
+    }
 
-    if (this.identifiers.length == 0)
-      this.getStatus()
-        .add(new  StatusEvent(StatusLevel.severe, StatusEventCode.undefined, 'identification is undefined'));
+    if (this.identifiers.length == 0) {
+      this.getStatus().add(new StatusEvent(StatusLevel.severe, StatusEventCode.undefined, 'identification is undefined'));
+    }
   }
 
   /**
@@ -68,7 +71,7 @@ export abstract class Identifier extends Metadata {
    *
    * @return The identifiers.
    */
-  public getIdentifiers():  string[] {
+  public getIdentifiers(): string[] {
     return this.identifiers;
   }
 
@@ -77,7 +80,7 @@ export abstract class Identifier extends Metadata {
    *
    * @return The comment.
    */
-  public getComment():  string | null {
+  public getComment(): string | null {
     return this.comment;
   }
 
@@ -89,18 +92,18 @@ export abstract class Identifier extends Metadata {
   public concatIdentifier(): string {
     return this.identifiers.join(' + ');
   }
-   
-  protected xmlNodes() : XmlNode[] {
+
+  protected xmlNodes(): XmlNode[] {
     const identifiers: XmlNode[] = [];
-    
+
     for (const identifier of this.identifiers) {
       identifiers.push(xmlElementNode(Identifier.xmlTag, {}, [xmlTextNode(identifier)]));
     }
-	
+
     return identifiers;
   }
- 
-  protected xmlAttributes() : Attributes {
+
+  protected xmlAttributes(): Attributes {
     const attributes: Attributes = {};
 
     if (this.comment != null)
