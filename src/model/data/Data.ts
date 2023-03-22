@@ -392,6 +392,7 @@ export class Data extends Line {
     entities.push(xmlElementNode(Data.xmlTag, attributes, []));
 
     // add lineEntities after <lb> node
+    let index = 0;   
     for (const entity of this.content.getEntities()) {
       if (entity instanceof Word) {
         const word: Word = entity as Word;
@@ -399,10 +400,14 @@ export class Data extends Line {
           entities.push(word.exportXml());
         }
       } else if (entity instanceof Empty) {
-        entities.push(xmlElementNode(Word.xmlTag, {}, [entity.exportXml()]));
+        // spaces of length 1 between words should not be inserted
+        if (index == 0 || index == this.content.getEntities().length - 1 || entity.getLength() > 1)
+          entities.push(xmlElementNode(Word.xmlTag, {}, [entity.exportXml()]));
       } else {
         entities.push(entity.exportXml());
       }
+      
+      index++;
     }
 
     return entities;
