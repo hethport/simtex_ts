@@ -1,17 +1,17 @@
 $KBo 11.33	<PUBLICATION_NUMBER><IDENTIFIER>KBo 11.33</IDENTIFIER></PUBLICATION_NUMBER>
 %Vs.?	<LINE_PREFIX>Vs.?</LINE_PREFIX>
 2' #    ]-šu-uš-ša-aš	<lb lnr="Vs.?2′" lg="Hit"/><w><space c="3"/></w><w><del_fin/>-šu-uš-ša-aš</w>
-3' # ] °D°UTU-šum-mi-in	<lb lnr="Vs.?3′" lg="Hit"/><w><del_fin/></w><w><space c="1"/></w><w><d>D</d><sGr>UTU</sGr>-šum-mi-in</w>
+3' # ] °D°UTU-šum-mi-in	<lb lnr="Vs.?3′" lg="Hit"/><w><del_fin/></w><w><d>D</d><sGr>UTU</sGr>-šum-mi-in</w>
 4' # ]	<lb lnr="Vs.?4′" lg="Hit"/><w><del_fin/></w>
-5' # ]-kán pa-iz-zi §§	<lb lnr="Vs.?5′" lg="Hit"/><w><del_fin/>-kán</w><w><space c="1"/></w><w>pa-iz-zi</w><w><space c="1"/></w><parsep_dbl/>
+5' # ]-kán pa-iz-zi §§	<lb lnr="Vs.?5′" lg="Hit"/><w><del_fin/>-kán</w><w>pa-iz-zi</w><parsep_dbl/>
 6' # m]e-ma-x	<lb lnr="Vs.?6′" lg="Hit"/><w>m<del_fin/>e-ma-x</w>
-7' # -n]a-aš DINGIR°MEŠ°-aš píd-da-a-i	<lb lnr="Vs.?7′" lg="Hit"/><w>-n<del_fin/>a-aš</w><w><space c="1"/></w><w><sGr>DINGIR</sGr><d>MEŠ</d>-aš</w><w><space c="1"/></w><w>píd-da-a-i</w>
+7' # -n]a-aš DINGIR°MEŠ°-aš píd-da-a-i	<lb lnr="Vs.?7′" lg="Hit"/><w>-n<del_fin/>a-aš</w><w><sGr>DINGIR</sGr><d>MEŠ</d>-aš</w><w>píd-da-a-i</w>
 8' # -n]a-an-na-i	<lb lnr="Vs.?8′" lg="Hit"/><w>-n<del_fin/>a-an-na-i</w>
 {G:Vs. bricht ab}	<gap c="Vs. bricht ab"/>
 %Rs.?	<LINE_PREFIX>Rs.?</LINE_PREFIX>
-1' # ] _EM-ṢA GE6 LUGAL-i pa-a-i	<lb lnr="Rs.?1′" lg="Hit"/><w><del_fin/></w><w><space c="1"/></w><w><aGr>EM-ṢA</aGr></w><w><space c="1"/></w><w><sGr>GE₆</sGr></w><w><space c="1"/></w><w><sGr>LUGAL</sGr>-i</w><w><space c="1"/></w><w>pa-a-i</w>
-2' # x NINDA.GUR4.RA e-ep-zi	<lb lnr="Rs.?2′" lg="Hit"/><w>x</w><w><space c="1"/></w><w><sGr>NINDA.GUR₄.RA</sGr></w><w><space c="1"/></w><w>e-ep-zi</w>
-3' # °GIŠ°BAN]ŠUR pa-a-i na-an-ša-an-x[	<lb lnr="Rs.?3′" lg="Hit"/><w><d>GIŠ</d><sGr>BAN<del_fin/>ŠUR</sGr></w><w><space c="1"/></w><w>pa-a-i</w><w><space c="1"/></w><w>na-an-ša-an-x<del_in/></w>
-4' #    x ḫu-u-wa-ap[- §	<lb lnr="Rs.?4′" lg="Hit"/><w><space c="3"/></w><w>x</w><w><space c="1"/></w><w>ḫu-u-wa-ap<del_in/>-</w><w><space c="1"/></w><parsep/>
-5' #    x-az °GIŠ°BANŠU[R	<lb lnr="Rs.?5′" lg="Hit"/><w><space c="3"/></w><w>x-az</w><w><space c="1"/></w><w><d>GIŠ</d><sGr>BANŠU<del_in/>R</sGr></w>
+1' # ] _EM-ṢA GE6 LUGAL-i pa-a-i	<lb lnr="Rs.?1′" lg="Hit"/><w><del_fin/></w><w><aGr>EM-ṢA</aGr></w><w><sGr>GE₆</sGr></w><w><sGr>LUGAL</sGr>-i</w><w>pa-a-i</w>
+2' # x NINDA.GUR4.RA e-ep-zi	<lb lnr="Rs.?2′" lg="Hit"/><w>x</w><w><sGr>NINDA.GUR₄.RA</sGr></w><w>e-ep-zi</w>
+3' # °GIŠ°BAN]ŠUR pa-a-i na-an-ša-an-x[	<lb lnr="Rs.?3′" lg="Hit"/><w><d>GIŠ</d><sGr>BAN<del_fin/>ŠUR</sGr></w><w>pa-a-i</w><w>na-an-ša-an-x<del_in/></w>
+4' #    x ḫu-u-wa-ap[- §	<lb lnr="Rs.?4′" lg="Hit"/><w><space c="3"/></w><w>x</w><w>ḫu-u-wa-ap<del_in/>-</w><parsep/>
+5' #    x-az °GIŠ°BANŠU[R	<lb lnr="Rs.?5′" lg="Hit"/><w><space c="3"/></w><w>x-az</w><w><d>GIŠ</d><sGr>BANŠU<del_in/>R</sGr></w>
 {G:Rs. bricht ab}	<gap c="Rs. bricht ab"/>
