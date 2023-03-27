@@ -8,6 +8,7 @@
     "postbuild": "eslint src",
     "build": "tsc",
     "lint": "eslint src",
+    "pretest": "tsc",
     "test": "jest"
   },
   "author": "",
