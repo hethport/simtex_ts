@@ -22,9 +22,9 @@ npm i
 
 ## Tests
 
-Please read the README in the folder `src/unitTest`.
+Please read the [README](./src/unitTest/README.md) in the folder `src/unitTest`.
 
 ## Tools
 
 Tools for debugging and testing the application can be found in the `src/tools` folder.
-For more information, please read the README in this folder.
+For more information, please read the [README](./src/tools/README.md) in this folder.
