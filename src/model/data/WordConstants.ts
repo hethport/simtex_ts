@@ -29,12 +29,12 @@ export class WordConstants {
   /**
    * The alphabet in lower case.
    */
-  static readonly alphabetLowerCase: string = 'a-záàéèíìúùṣṭšḫ';
+  static readonly alphabetLowerCase: string = 'a-zāáàēéèīíìūúùṣṭšḫ';
 
   /**
    * The alphabet in upper case.
    */
-  static readonly alphabetUpperCase: string = 'A-ZÁÀÉÈÍÌÚÙṢṬŠḪ';
+  static readonly alphabetUpperCase: string = 'A-ZĀÁÀĒÉÈĪÍÌŪÚÙṢṬŠḪ';
 
   /**
    * The alphabet.

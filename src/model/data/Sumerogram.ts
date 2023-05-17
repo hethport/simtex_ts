@@ -22,7 +22,7 @@ export  class Sumerogram extends Breakdown {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase  + WordConstants.alphabetSymbols+ '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\.' + '\\+' + 'x';
+			+ '\\.' + '\\+' + '"' + 'x';
 
   /**
    * The pattern for Sumerograms.
