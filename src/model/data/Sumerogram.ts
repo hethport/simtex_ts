@@ -21,8 +21,8 @@ export  class Sumerogram extends Breakdown {
   /**
    * The alphabet.
    */
-  private static readonly alphabet:  string = WordConstants.alphabetUpperCase  + WordConstants.alphabetSymbols+ '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\.' + '\\+' + '"' + 'x';
+  private static readonly alphabet: string = WordConstants.alphabetUpperCase  + WordConstants.alphabetSymbols+ '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
+			+ '\\.' + '\\+' + '"' + '“' + '”' + 'x';
 
   /**
    * The pattern for Sumerograms.
@@ -33,7 +33,7 @@ export  class Sumerogram extends Breakdown {
   /**
    * The symbol for inscribed characters.
    */
-  protected static readonly inscribedCharacter:  string = '×';
+  protected static readonly inscribedCharacter: string = '×';
 
   /**
    * The pattern for inscribed character.
@@ -47,7 +47,7 @@ export  class Sumerogram extends Breakdown {
    * @param text           The text.
    */
   public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, Sumerogram.resolveInscribedCharacter(text));
+    super(deleriPosition, Sumerogram.resolveInscribedCharacter(text.replace(/“/g, '"').replace(/”/g, '"')));
   }
 
   /**

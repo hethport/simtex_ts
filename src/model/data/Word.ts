@@ -143,9 +143,7 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return text.replace(/=/g, '⸗')
-
-          .replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
+        return text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
@@ -281,13 +279,15 @@ export class Word implements LineEntity {
   private parseText(text: string): Fragment[] {
     const fragments: Fragment[] = [];
     const hyphenFirstIndex: number = text.indexOf('-');
+    const equalFirstIndex: number = text.indexOf('=');
+    const tagFirstIndex = hyphenFirstIndex < 0 ? equalFirstIndex : (equalFirstIndex < 0 ? hyphenFirstIndex : Math.min(hyphenFirstIndex, equalFirstIndex));
 
     let type: FragmentBreakdownType | null = null;
     let buffer: string [] = [];
     
-    // The text does not start with hyphen
-    if (hyphenFirstIndex != 0) {
-      const part: string = hyphenFirstIndex === -1 ? text : text.substring(0, hyphenFirstIndex);
+    // The text does not start with hyphen/equal
+    if (tagFirstIndex != 0) {
+      const part: string = tagFirstIndex === -1 ? text : text.substring(0, tagFirstIndex);
       
       if (part.match(Akkadogram.patternStartingUnderscore)) {
         const akkadogram: string = part.replace('_', '');
@@ -314,12 +314,12 @@ export class Word implements LineEntity {
         fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, part));
     }
 
-    // The text parts after hyphens
-    if (hyphenFirstIndex >= 0) {
+    // The text parts after hyphens/equals
+    if (tagFirstIndex >= 0) {
       // escape required hyphens
-      text = text.replace(/--/g, WordConstants.hyphenEscapeCharacter);
+      text = text.replace(/--/g, WordConstants.hyphenEscapeCharacter).replace(/==/g, WordConstants.equalEscapeCharacter);
 
-      const parseText = hyphenFirstIndex == 0 ? text : text.substring(hyphenFirstIndex);
+      const parseText = tagFirstIndex == 0 ? text : text.substring(tagFirstIndex);
       const matches = parseText.matchAll(WordConstants.patternHyphenAndEscape);
 
       for (const match of matches) {
@@ -327,8 +327,8 @@ export class Word implements LineEntity {
           if (type == null)
             type = FragmentBreakdownType.Basic;
 
-          buffer.push('-');
-        } else if (WordConstants.hyphenEscapeCharacter == match[1]) {
+          buffer.push(match[1] == '-' || WordConstants.hyphenEscapeCharacter == match[1] ? '-' : '=');
+        } else if (WordConstants.hyphenEscapeCharacter == match[1] || WordConstants.equalEscapeCharacter == match[1]) {
           if (Word.isSumerogramType(match[2])) {
             if (type !== null && FragmentBreakdownType.Sumerogram != type) {
               fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -337,9 +337,9 @@ export class Word implements LineEntity {
 
             type = FragmentBreakdownType.Sumerogram;
 
-            buffer.push('-' + match[2]);
+            buffer.push((WordConstants.hyphenEscapeCharacter == match[1] ? '-' : '=') + match[2]);
           } else {
-            fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, '--' + match[2]));
+            fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, (WordConstants.hyphenEscapeCharacter == match[1] ? '--' : '==') + match[2]));
           }
         } else if (Word.isDelimiterType(match[2])) {
           if (type != null) {
@@ -348,7 +348,7 @@ export class Word implements LineEntity {
             buffer = [];
           }
 
-          fragments.push(this.getFragment(FragmentBreakdownType.Delimiter, null, '-' + match[2]));
+          fragments.push(this.getFragment(FragmentBreakdownType.Delimiter, null, match[1] + match[2]));
         } else if (Word.isNumberType(match[2])) {
           if (type != null) {
             fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -357,7 +357,7 @@ export class Word implements LineEntity {
             buffer = [];
           }
 
-          fragments.push(this.getFragment(FragmentBreakdownType.Number, null, '-' + match[2]));
+          fragments.push(this.getFragment(FragmentBreakdownType.Number, null, match[1] + match[2]));
         } else if (Word.isAkkadogramType(match[2])) {
           if (type != null && FragmentBreakdownType.Akkadogram != type) {
             fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -366,7 +366,7 @@ export class Word implements LineEntity {
 
           type = FragmentBreakdownType.Akkadogram;
 
-          buffer.push('-' + match[2]);
+          buffer.push(match[1] + match[2]);
         } else if (Word.isBasicType(match[2])) {
           if (type != null && FragmentBreakdownType.Basic != type) {
             fragments.push(this.getFragment(type, null, buffer.join('')));
@@ -375,17 +375,16 @@ export class Word implements LineEntity {
 
           type = FragmentBreakdownType.Basic;
 
-          buffer.push('-' + match[2]);
+          buffer.push(match[1] + match[2]);
         } else {
           if (type != null) {
             fragments.push(this.getFragment(type, null, buffer.join('')));
             buffer = [];
           }
           
-          fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, '-' + match[2]));
+          fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, match[1] + match[2]));
         }
       }
-
     }
 
     if (type !== null)

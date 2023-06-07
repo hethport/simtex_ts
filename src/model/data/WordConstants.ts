@@ -9,7 +9,12 @@ export class WordConstants {
   /**
    * The hyphen escape character.
    */
-  static readonly hyphenEscapeCharacter: string = '⊕';
+  static readonly hyphenEscapeCharacter: string = '⨬';
+  
+  /**
+   * The equal escape character.
+   */
+  static readonly equalEscapeCharacter: string = '≑';
   
   /**
    * The ligature.
@@ -29,12 +34,12 @@ export class WordConstants {
   /**
    * The alphabet in lower case.
    */
-  static readonly alphabetLowerCase: string = 'a-zāáàēéèīíìūúùṣṭšḫ';
+  static readonly alphabetLowerCase: string = 'a-zāáàâēéèêīíìîōôūúùûḫṣšṭġž';
 
   /**
    * The alphabet in upper case.
    */
-  static readonly alphabetUpperCase: string = 'A-ZĀÁÀĒÉÈĪÍÌŪÚÙṢṬŠḪ';
+  static readonly alphabetUpperCase: string = 'A-ZĀÁÀÂĒÉÈÊĪÍÌÎŌÔŪÚÙÛḪṢŠṬĠŽ';
 
   /**
    * The alphabet.
@@ -86,7 +91,7 @@ export class WordConstants {
   /**
    * The pattern for text with hyphens and escaped hyphens.
    */
-  static readonly patternHyphenAndEscape: RegExp = new RegExp('([\\-' + WordConstants.hyphenEscapeCharacter + ']{1})' + '([^\\-' + WordConstants.hyphenEscapeCharacter + ']*)', 'g');
+  static readonly patternHyphenAndEscape: RegExp = new RegExp('([\\-=' + WordConstants.hyphenEscapeCharacter + WordConstants.equalEscapeCharacter + ']{1})' + '([^\\-=' + WordConstants.hyphenEscapeCharacter + WordConstants.equalEscapeCharacter + ']*)', 'g');
 
 }
 

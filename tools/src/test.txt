@@ -72,4 +72,6 @@
 3a # ābc-ŪXYZ
 4a # UDU."SÍG+MUNUS"
 4b # UDU.“SÍG+MUNUS”
-4a # LUGAL-uš=ma=ššan
+5a # LUGAL-uš=ma=ššan
+5b # LUGAL--QA==DU4
+5c # LUGAL-uš=ma=DU4

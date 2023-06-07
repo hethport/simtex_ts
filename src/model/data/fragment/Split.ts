@@ -28,7 +28,7 @@ export  class Split {
   /**
    * The pattern.
    */
-  public static pattern = new RegExp('([\\-]*[^\\-]*)', 'g');
+  public static pattern = new RegExp('([\\-=]*[^\\-=]*)', 'g');
 
   /**
    * The pattern for index.
