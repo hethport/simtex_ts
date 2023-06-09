@@ -25,6 +25,7 @@ import {Attributes, xmlElementNode, XmlNode} from 'simple_xml';
 import {InventoryNumber} from '../metadata/InventoryNumber';
 import {ParagraphSeparator} from './ParagraphSeparator';
 import {Akkadogram} from './Akkadogram';
+import {WordSeparator} from './WordSeparator';
 
 /**
  * Define data lines for the TLH dig parser.
@@ -312,7 +313,11 @@ export class Data extends Line {
    * @return The segment entity.
    */
   private static getSegmentEntity(paragraphLanguage: ParagraphLanguageType, text: string): LineEntity {
-    return '\\' == text ? new Column() : new Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' '));
+	if ('\\' == text)
+      return new Column();
+    else if (':' == text || ';' == text || '|' == text)
+      return new WordSeparator(text);
+    else return new Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' '));
   }
 
   /**

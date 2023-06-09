@@ -63,15 +63,21 @@
 7 #  _QA-DU4 DINGIR°MES°    akku  
 1 # kar-°D[I°dim-mi-az
 2 # kar-°d[i°dim-mi-az
-1a # AN-e{F:Das ist eine Fußnote}
-1b # {F:Das ist eine Fußnote}
-2a # AN-e¬¬¬
-2b # AN-e §
-2c # AN-e ===
-2d # AN-e §§
-3a # ābc-ŪXYZ
-4a # UDU."SÍG+MUNUS"
-4b # UDU.“SÍG+MUNUS”
-5a # LUGAL-uš=ma=ššan
-5b # LUGAL--QA==DU4
-5c # LUGAL-uš=ma=DU4
+F1a # AN-e{F:Das ist eine Fußnote}
+F1b # {F:Das ist eine Fußnote}
+F2a # AN-e¬¬¬
+F2b # AN-e §
+F2c # AN-e ===
+F2d # AN-e §§
+1a # ābîc-ŪXÂYZ
+2a # UDU."SÍG+MUNUS"
+2b # UDU.“SÍG+MUNUS”
+3a # LUGAL-uš=ma=ššan
+3b # LUGAL--QA==DU4
+3c # LUGAL-uš=ma=DU4
+4a # : nu
+4b # ; nu
+4c # ki-ma | i-a-tí
+4d # :ku-la-na-aš
+4e # ;du-ši-in
+
