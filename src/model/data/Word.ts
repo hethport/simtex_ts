@@ -34,6 +34,7 @@ import {WordConstants} from './WordConstants';
 import { Ligature } from './Ligature';
 import { Gap } from './Gap';
 import { TextEvaluation } from './fragment/TextEvaluation';
+import { PrefixSuffix } from './PrefixSuffix';
 
 /**
  * Defines words.
@@ -186,18 +187,34 @@ export class Word implements LineEntity {
 		   */
           const matches = text.matchAll(DegreeSign.pattern);
           let index = 0;
+          let suffixGlossing = '';
           for (const match of matches) {
+            let prefixText = '';
             if (match.index && index < match.index) {
-              fragments = fragments.concat(this.parseLigature(text.substring(index, match.index)));
+              prefixText = text.substring(index, match.index);
             }
-            fragments.push(this.getDeterminativeGlossing(match[0], match[1]));
+            const prefixSuffix : PrefixSuffix = new PrefixSuffix();
+            const fragment = this.getDeterminativeGlossing(match[0], match[1], prefixSuffix);
+            
+            prefixText = suffixGlossing.concat(prefixText, prefixSuffix.getPrefix().join(''));           
+            if (prefixText != '')
+              fragments = fragments.concat(this.parseLigature(prefixText));
+            
+            fragments.push(fragment);
+            
+            suffixGlossing = prefixSuffix.getSuffix().join('');
+               
             if (match.index != null) {
               index = match.index + match[0].length;
             }
           }
-	
+          
           if (index < text.length) {
-            fragments = fragments.concat(this.parseLigature(text.substring(index)));
+            suffixGlossing = suffixGlossing.concat(text.substring(index));
+          }
+	
+          if (suffixGlossing != '') {
+            fragments = fragments.concat(this.parseLigature(suffixGlossing));
           }
         }
       }
@@ -214,7 +231,7 @@ export class Word implements LineEntity {
    * @param content The content.
    * @return The fragment.
    */
-  private getDeterminativeGlossing(segment: string, content: string): Fragment {
+  private getDeterminativeGlossing(segment: string, content: string, prefixSuffix: PrefixSuffix): Fragment {
     let fragment: Fragment;
 
     if (content.trim().length == 0 || content.includes(' ')) {
@@ -225,9 +242,59 @@ export class Word implements LineEntity {
           + segment + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
-    else if (content.match(Glossing.pattern))
+    else if (content.match(Glossing.pattern)) {
+      const bufferContent: string [] = [];     
+      const bufferDotLesionDelete: string [] = [];
+           
+      const matches = content.matchAll(Glossing.patternDotLesionDelete);
+      for (const match of matches) {
+        if (match[1] != '')
+           bufferContent.push(match[1]);
+        if (match[2] != '')
+           bufferDotLesionDelete.push(match[2]);
+      }
+      
+      if (bufferDotLesionDelete.length > 0) {
+         content = bufferContent.join('');
+         
+         const isDi = content == 'di';
+         let isLesionInFin = false;
+         
+         for(let i=0; i<bufferDotLesionDelete.length; i++){
+           if ('.' == bufferDotLesionDelete[i])
+              prefixSuffix.addSuffix('.');
+           else {
+             if (isDi) {
+               if ('[' == bufferDotLesionDelete[i] || '⸣' == bufferDotLesionDelete[i])
+                 prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
+               else
+                 prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+             } else {
+               if ('[' == bufferDotLesionDelete[i] || ']' == bufferDotLesionDelete[i]) {
+                 isLesionInFin = true;
+                 
+                 if ('[' == bufferDotLesionDelete[i])
+                   prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
+                 else
+                   prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+               } else {
+                 if ('⸢' == bufferDotLesionDelete[i])
+                   prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+                 else
+                   prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
+               }
+             }
+           }
+         }
+         
+         if (isLesionInFin) {
+           prefixSuffix.addPrefix('⸢');
+           prefixSuffix.getSuffix().unshift('⸣');
+         }
+      }
+
       fragment = this.getFragment(FragmentBreakdownType.Glossing, segment, content);
-    else {
+    } else {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,

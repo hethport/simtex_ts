@@ -22,13 +22,18 @@ export  class Glossing extends DegreeSign {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
-            + '\\+' + '\\.';
+            + '\\+' + '\\.' + WordConstants.lesionDeleteAlphabet;
 
   /**
    * The pattern for Glossings.
    */
   public static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Glossing.alphabet + ']*' + '[' + WordConstants.alphabetLowerCase + ']+'
 			+ '[' + Glossing.alphabet + ']*'), 'g');
+
+  /**
+   * The pattern for text with dot, lesion and delete.
+   */
+  static readonly patternDotLesionDelete: RegExp = new RegExp('([^\\.' + WordConstants.lesionDeleteAlphabet + ']*)' + '([\\.' + WordConstants.lesionDeleteAlphabet + ']?)', 'g');
 
   /**
    * Creates a glossing.

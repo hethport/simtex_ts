@@ -57,9 +57,14 @@ export class WordConstants {
   static readonly deleri: string = '*';
 
   /**
+   * The lesion and delete alphabet.
+   */
+  static readonly lesionDeleteAlphabet: string = '\\[\\]⸢⸣';
+
+  /**
    * The delimiter alphabet.
    */
-  static readonly delimiterAlphabet: string = '\\[\\]⸢⸣\\' + WordConstants.deleri + WordConstants.brackets;
+  static readonly delimiterAlphabet: string = WordConstants.lesionDeleteAlphabet + '\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
    * The text evaluation alphabet.
