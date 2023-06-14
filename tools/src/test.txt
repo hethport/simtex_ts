@@ -80,4 +80,13 @@ F2d # AN-e §§
 4c # ki-ma | i-a-tí
 4d # :ku-la-na-aš
 4e # ;du-ši-in
-
+5a # °a[bc°
+5b # °a]bc°
+5c # °a⸢b⸣c°
+5d # °a⸢b°
+5e # °a⸣b°
+5f # °di[°
+5g # °[di°
+5h # °d⸢i°
+5i # °d⸣i°
+6a # AN.DAḪ°aḫ.°ŠUM
