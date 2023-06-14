@@ -39,7 +39,7 @@ export function csv(transliterationFileName: string, outputFileName: string) {
 	
     const line_list: string[] = [];
     for (const node of line.getNodes()) {
-      line_list.push(writeNode(node, undefined, true).join(''));
+      line_list.push(writeNode(node, {}, true).join(''));
     }
     
     buffer.push(line.getText() + '\t' + line_list.join('') + '\n');
@@ -83,7 +83,7 @@ export function debug(transliterationFileName: string) {
 
     const line_list: string[] = [];
     for (const node of line.getNodes()) {
-      line_list.push(writeNode(node, undefined, true).join(''));
+      line_list.push(writeNode(node, {}, true).join(''));
     }
     console.log('\t' + line_list.join(''));
   }

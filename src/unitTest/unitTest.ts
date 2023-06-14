@@ -91,7 +91,7 @@ function testParser(type: Type, filename: string, parserText: string, targetLine
     const line_list: string[] = [];
     
     for (const node of line.getNodes())
-      line_list.push(writeNode(node, undefined, true).join(''));
+      line_list.push(writeNode(node, {}, true).join(''));
       
     testData.push({filename: filename, line: (index + 1), source: line.getText(), awaitedResult: targetLines[index], parserResult: line_list.join('')});
     
