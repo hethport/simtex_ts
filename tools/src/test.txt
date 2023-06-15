@@ -85,8 +85,12 @@ F2d # AN-e §§
 5c # °a⸢b⸣c°
 5d # °a⸢b°
 5e # °a⸣b°
-5f # °di[°
-5g # °[di°
-5h # °d⸢i°
-5i # °d⸣i°
+5f # °d⸢i°
+5g # °d⸣i°
+5h # °[di°
+5i # °]di°
+5j # °d[i°
+5k # °d]i°
+5l # °di[°
+5m # °di]°
 6a # AN.DAḪ°aḫ.°ŠUM

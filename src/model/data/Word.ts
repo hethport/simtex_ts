@@ -244,14 +244,14 @@ export class Word implements LineEntity {
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
     else if (content.match(Glossing.pattern)) {
       const bufferContent: string [] = [];     
-      const bufferDotLesionDelete: string [] = [];
+      const bufferDotLesionDelete: string [][] = [];
            
       const matches = content.matchAll(Glossing.patternDotLesionDelete);
       for (const match of matches) {
         if (match[1] != '')
            bufferContent.push(match[1]);
         if (match[2] != '')
-           bufferDotLesionDelete.push(match[2]);
+           bufferDotLesionDelete.push([match[2],bufferContent.join('')]);
       }
       
       if (bufferDotLesionDelete.length > 0) {
@@ -261,27 +261,43 @@ export class Word implements LineEntity {
          let isLesionInFin = false;
          
          for(let i=0; i<bufferDotLesionDelete.length; i++){
-           if ('.' == bufferDotLesionDelete[i])
+           if ('.' == bufferDotLesionDelete[i][0])
               prefixSuffix.addSuffix('.');
            else {
              if (isDi) {
-               if ('[' == bufferDotLesionDelete[i] || '⸣' == bufferDotLesionDelete[i])
-                 prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
-               else
-                 prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+               if ('⸢' == bufferDotLesionDelete[i][0])
+                 prefixSuffix.addPrefix(bufferDotLesionDelete[i][0]);
+               else if ('⸣' == bufferDotLesionDelete[i][0])
+                 prefixSuffix.addSuffix(bufferDotLesionDelete[i][0]);
+               else {
+                 // Case [ and ]
+                 if ('' == bufferDotLesionDelete[i][1])
+                   prefixSuffix.addPrefix(bufferDotLesionDelete[i][0]);
+                 else if ('di' == bufferDotLesionDelete[i][1])
+                   prefixSuffix.addSuffix(bufferDotLesionDelete[i][0]);
+                 else {
+                   // Case between d and i
+                   if ('[' == bufferDotLesionDelete[i][0])
+                     prefixSuffix.addSuffix(bufferDotLesionDelete[i][0]);
+                   else
+                     prefixSuffix.addPrefix(bufferDotLesionDelete[i][0]);
+                     
+                   isLesionInFin = true;
+                 }
+               }
              } else {
-               if ('[' == bufferDotLesionDelete[i] || ']' == bufferDotLesionDelete[i]) {
+               if ('[' == bufferDotLesionDelete[i][0] || ']' == bufferDotLesionDelete[i][0]) {
                  isLesionInFin = true;
                  
-                 if ('[' == bufferDotLesionDelete[i])
-                   prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
+                 if ('[' == bufferDotLesionDelete[i][0])
+                   prefixSuffix.addSuffix(bufferDotLesionDelete[i][0]);
                  else
-                   prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+                   prefixSuffix.addPrefix(bufferDotLesionDelete[i][0]);
                } else {
-                 if ('⸢' == bufferDotLesionDelete[i])
-                   prefixSuffix.addPrefix(bufferDotLesionDelete[i]);
+                 if ('⸢' == bufferDotLesionDelete[i][0])
+                   prefixSuffix.addPrefix(bufferDotLesionDelete[i][0]);
                  else
-                   prefixSuffix.addSuffix(bufferDotLesionDelete[i]);
+                   prefixSuffix.addSuffix(bufferDotLesionDelete[i][0]);
                }
              }
            }
