@@ -6,8 +6,8 @@
  */
 
 import {TagType} from './TagType';
-import {LineEntity} from '../LineEntity';
 import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
+import { Fragment } from '../data/fragment/Fragment';
 
 /**
  * Defines tags.
@@ -15,8 +15,13 @@ import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
  */
-export class Tag implements LineEntity {
+export class Tag extends Fragment {
   static readonly xmlTag: string = 'TAG_';
+
+  /**
+   * True if is a line tag.
+   */
+  private readonly isLine: boolean;
 
   /**
    * The type.
@@ -29,19 +34,16 @@ export class Tag implements LineEntity {
   private readonly content: string | null;
 
   /**
-    * The segment.
-    */
-  private readonly segment: string;
-    
-  /**
    * Creates a tag.
    *
    * @param segment The segment.
    * @param type    The type.
    * @param content The content.
    */
-  public constructor(segment: string, type: string, content: string | null) {
-    this.segment = segment;
+  public constructor(isLine: boolean, segment: string, type: string, content: string | null) {
+    super(segment);
+    
+    this.isLine = isLine;
     
     switch (type) {
     case 'M':
@@ -61,21 +63,21 @@ export class Tag implements LineEntity {
   }
 
   /**
-   * Returns the segment.
-   *
-   * @return The segment.
-   */
-  public getSegment(): string | null {
-    return this.segment;
-  }
-
-  /**
    * Returns the type.
    *
    * @return The type.
    */
   public getType(): TagType | null {
     return this.type;
+  }
+
+  /**
+   * Returns true if the type is S.
+   *
+   * @return True if the type is S.
+   */
+  public isTypeS(): boolean {
+    return this.type != null && this.type == TagType.S;
   }
 
   /**
@@ -118,6 +120,8 @@ export class Tag implements LineEntity {
       break;
     case TagType.G:
       xmlTag = 'gap';
+      if (this.isLine)
+       attributes['t'] = 'line';
       attributes['c'] = content;
       break;
     case TagType.Mbegin:

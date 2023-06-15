@@ -19,7 +19,6 @@ import {StatusEventCode} from '../StatusEventCode';
 import {StatusLevel} from '../StatusLevel';
 import {Marker} from '../metadata/Marker';
 import {defaultParagraphLanguage, ParagraphLanguageType} from '../metadata/ParagraphLanguageType';
-import {Tag} from '../metadata/Tag';
 import {LanguageChangeType} from './LanguageChangeType';
 import {Attributes, xmlElementNode, XmlNode} from 'simple_xml';
 import {InventoryNumber} from '../metadata/InventoryNumber';
@@ -200,27 +199,28 @@ export class Data extends Line {
       if (paragraphLanguage == null)
         paragraphLanguage = defaultParagraphLanguage();
 
-      // extract the tags and segments
-      let entities: LineEntity[] = [];
-
+      // escape the tags
       text = text.trim();
       const matches = text.matchAll(Marker.tagPattern);
       let index = 0;
+      const buffer: string[] = [];
       for (const match of matches) {
         if (match.index && index < match.index) {
-          entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index, match.index)));
+          buffer.push(text.substring(index, match.index));
         }
-        entities.push(new Tag(match[0], match[1], match[2]));
+        
+        buffer.push(match[0].replace(/ /g, Data.spaceEscapeCharacter));
+        
         if (match.index != null) {
           index = match.index + match[0].length;
         }
       }
 
       if (index < text.length) {
-        entities = entities.concat(Data.parseSegment(paragraphLanguage, text.substring(index)));
+        buffer.push(text.substring(index));
       }
 
-      return entities;
+      return Data.parseSegment(paragraphLanguage, buffer.join(''));
     }
   }
 
@@ -317,7 +317,8 @@ export class Data extends Line {
       return new Column();
     else if (':' == text || ';' == text || '|' == text)
       return new WordSeparator(text);
-    else return new Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' '));
+    else
+      return Word.normalizeWord(new Word(paragraphLanguage, text.replace(Data.spaceEscapeCharacterPattern, ' ')));
   }
 
   /**

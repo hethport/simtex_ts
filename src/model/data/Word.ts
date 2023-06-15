@@ -35,6 +35,9 @@ import { Ligature } from './Ligature';
 import { Gap } from './Gap';
 import { TextEvaluation } from './fragment/TextEvaluation';
 import { PrefixSuffix } from './PrefixSuffix';
+import { Marker } from '../metadata/Marker';
+import { Tag } from '../metadata/Tag';
+import { TagType } from '../metadata/TagType';
 
 /**
  * Defines words.
@@ -113,13 +116,9 @@ export class Word implements LineEntity {
       }
     }
 
-    for (const fragment of this.fragments)
-      this.status.addLevel(fragment.getStatus());
-      
     if (MetadataPosition.initial != this.deleriPosition)
       this.status.add(new StatusEvent(StatusLevel.moderate, StatusEventCode.required,
         'missed final deleri (\'*\' / erased / Rasur).'));
-        
      
   }
 
@@ -148,8 +147,8 @@ export class Word implements LineEntity {
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
-          // Unicodes 12039 and 12471
-          .replace(/;/g, '𒀹').replace(/:/g, '𒑱')
+          // Unicodes 12039
+          .replace(/;/g, '𒀹')
           
           .replace(/\+_/g, '+')
           
@@ -182,39 +181,24 @@ export class Word implements LineEntity {
           fragments.push(new FractionNumber(text, split[0], split[1]));
         } else {
           /*
-		   * extract the determinative and glossing, and recursively the remainder
-		   * fragments
-		   */
-          const matches = text.matchAll(DegreeSign.pattern);
+           * extract the tags, and recursively the remainder fragments
+           */
+          const matches = text.matchAll(Marker.tagPattern);
           let index = 0;
-          let suffixGlossing = '';
           for (const match of matches) {
-            let prefixText = '';
             if (match.index && index < match.index) {
-              prefixText = text.substring(index, match.index);
+              // Unicodes 12471
+              fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index, match.index).replace(/:/g, '𒑱')));
             }
-            const prefixSuffix : PrefixSuffix = new PrefixSuffix();
-            const fragment = this.getDeterminativeGlossing(match[0], match[1], prefixSuffix);
-            
-            prefixText = suffixGlossing.concat(prefixText, prefixSuffix.getPrefix().join(''));           
-            if (prefixText != '')
-              fragments = fragments.concat(this.parseLigature(prefixText));
-            
-            fragments.push(fragment);
-            
-            suffixGlossing = prefixSuffix.getSuffix().join('');
-               
+            fragments.push(new Tag(false, match[0], match[1], match[2]));
             if (match.index != null) {
               index = match.index + match[0].length;
             }
           }
-          
+
           if (index < text.length) {
-            suffixGlossing = suffixGlossing.concat(text.substring(index));
-          }
-	
-          if (suffixGlossing != '') {
-            fragments = fragments.concat(this.parseLigature(suffixGlossing));
+           // Unicodes 12471
+           fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index).replace(/:/g, '𒑱')));
           }
         }
       }
@@ -223,6 +207,54 @@ export class Word implements LineEntity {
     return fragments;
   }
 
+  /**
+   * Parses the determinative/glossing.
+   *
+   * @param text The text to parse.
+   * @return The fragments.
+   */
+  private parseDeterminativeGlossing(text: string): Fragment[] {
+    let fragments: Fragment[] = [];
+
+    /*
+     * extract the determinative and glossing, and recursively the remainder
+     * fragments
+     */
+    const matches = text.matchAll(DegreeSign.pattern);
+    let index = 0;
+    let suffixGlossing = '';
+    for (const match of matches) {
+      let prefixText = '';
+      if (match.index && index < match.index) {
+        prefixText = text.substring(index, match.index);
+      }
+      const prefixSuffix : PrefixSuffix = new PrefixSuffix();
+      const fragment = this.getDeterminativeGlossing(match[0], match[1], prefixSuffix);
+      
+      prefixText = suffixGlossing.concat(prefixText, prefixSuffix.getPrefix().join(''));     
+      if (prefixText != '')
+        fragments = fragments.concat(this.parseLigature(prefixText));
+      
+      fragments.push(fragment);
+      
+      suffixGlossing = prefixSuffix.getSuffix().join('');
+         
+      if (match.index != null) {
+        index = match.index + match[0].length;
+      }
+    }
+    
+    if (index < text.length) {
+      suffixGlossing = suffixGlossing.concat(text.substring(index));
+    }
+	
+    if (suffixGlossing != '') {
+      fragments = fragments.concat(this.parseLigature(suffixGlossing));
+    }
+    
+    return fragments;
+  }
+  
   /**
    * Returns the determinative/glossing fragment depending on the content. On
    * troubles returns an
@@ -638,6 +670,41 @@ export class Word implements LineEntity {
   private static isSumerogramType(text: string): boolean {
     return text.match(Sumerogram.pattern) ? true : false;
   }
+  
+  /**
+   * Returns the normalized word.
+   *
+   * @param word The word to normalize.
+   * @return The normalized word.
+   */
+  public static normalizeWord(word: Word): LineEntity {
+      if (word.getFragments().length == 1 && word.getFragments()[0] instanceof Tag) {
+        const tag = word.getFragments()[0] as Tag;
+        
+        return tag.isTypeS() ? word : tag;
+      }
+      
+      for (const fragment of word.getFragments()) {
+        if (fragment instanceof Tag) {
+          const tag = fragment as Tag;
+        
+          if (tag.getType() != null)
+            switch(tag.getType()) {
+              case TagType.K:
+              case TagType.Mbegin:
+              case TagType.Mend:
+               tag.getStatus()
+                 .add(new StatusEvent(StatusLevel.serious, StatusEventCode.unexpected, 'marker \''
+                   + tag.getText() + '\' is not allowed in a word.'));
+            }
+        }
+      }
+      
+     for (const fragment of word.getFragments())
+      word.getStatus().addLevel(fragment.getStatus());
+      
+     return word;
+  }
 
   /**
    * Parses the word.
@@ -647,10 +714,10 @@ export class Word implements LineEntity {
    * @param text The text to parse.
    * @return The word.
    */
-  public static parseWord(paragraphLanguage: ParagraphLanguageType | null, text: string): Word {
+  public static parseWord(paragraphLanguage: ParagraphLanguageType | null, text: string): LineEntity {
     const normalized: string = LineSource.normalize(text);
     
-    return new Word(paragraphLanguage, normalized);
+    return Word.normalizeWord(new Word(paragraphLanguage, normalized));
   }
 
   /**

@@ -68,7 +68,13 @@ export class Marker extends Metadata {
     for (const match of matches) {
       this.addUnexpectedStatusEvent(source.getTextNormalized().substring(index, match.index));
 
-      this.tags.push(new Tag(match[0], match[1], match[2]));
+      const tag = new Tag(true, match[0], match[1], match[2]);
+      
+      if (tag.isTypeS())
+        this.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
+          'the marker S is not allowed in line mode \'' + match[0] + '\'.'));
+      else
+        this.tags.push(tag);
 
       if (match.index != null) {
         index = match.index + match[0].length;

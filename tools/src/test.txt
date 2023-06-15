@@ -94,3 +94,10 @@ F2d # AN-e §§
 5l # °di[°
 5m # °di]°
 6a # AN.DAḪ°aḫ.°ŠUM
+7a # {G:word test} {F:foot test} {S:s test ok}
+7b # {G:word test} {F:foot test}asd{S:s test ok}
+7c # {G:word test}abc{F:foot test}-def{S:s test ok}
+7c # {G:word test}abc{K:k test trouble}{M:m test trouble}-def{S:s test ok}
+{G:line test} {F:foot test}
+{G:line test} {S:s test trouble}
+
