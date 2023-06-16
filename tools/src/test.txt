@@ -100,4 +100,17 @@ F2d # AN-e §§
 7c # {G:word test}abc{K:k test trouble}{M:m test trouble}-def{S:s test ok}
 {G:line test} {F:foot test}
 {G:line test} {S:s test trouble}
+8a # °D°?iš-ta-nu
+8b # °D?°iš-ta-nu
+8c # °LÚ?.MEŠ°SANGA
+8d # °LÚ.?MEŠ°SANGA
+8e # zi-pár-wa?|a 
+8f # zi-pár-wa|?a 
+8g # zi-pár-wa|a?
+8h # AN.DAḪ°aḫ?°.ŠUM
+8i # AN.DAḪ°aḫ°?.ŠUM
+8j # túḫ°uḫ?°-ša
+8k # túḫ°uḫ°?-ša
+8l # AN.DAḪ?°aḫ°.ŠUM
+8m # túḫ?°uḫ°-ša
 
