@@ -29,20 +29,20 @@ export  class Number extends Breakdown {
   /**
    * The alphabet for known numbers.
    */
-  private static readonly alphabetKnown:  string = '\\d' + WordConstants.delimiterAlphabet;
+  private static readonly alphabetKnown:  string = '\\d' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
 
   /**
    * The alphabet for unknown numbers.
    */
-  private static readonly alphabetUnknown:  string = WordConstants.delimiterAlphabet;
+  private static readonly alphabetUnknown:  string = WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for numbers.
    */
   static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression('[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression)
+			+ ']*' + WordConstants.subscriptRegularExpression)
 			+ ')|(' + matchesFullStringRegularExpression('[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
-			+ Number.alphabetUnknown + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression) + ')');
+			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression) + ')');
 
   /**
    * The integer. Null if unknown.

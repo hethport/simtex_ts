@@ -67,14 +67,9 @@ export class WordConstants {
   static readonly delimiterAlphabet: string = WordConstants.lesionDeleteAlphabet + '\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
-   * The text evaluation alphabet.
+   * The text evaluation escaped alphabet.
    */
-  static readonly alphabetTextEvaluation: string = '!|\\?|\\(\\?\\)|sic';
-            
-  /**
-   * The text evaluation regular expression.
-   */
-  static readonly textEvaluationRegularExpression: string = '(|(' + WordConstants.alphabetTextEvaluation + ')[' + WordConstants.delimiterAlphabet + ']*)';
+  static readonly textEvaluationAlphabet: string = '⓵⓶⓷⓸';
             
   /**
    * The subscript.
@@ -85,8 +80,7 @@ export class WordConstants {
    * The subscript regular expression.
    */
   static readonly subscriptRegularExpression: string = '(|' + '\\' + WordConstants.subscript + '[\\' + WordConstants.subscript + WordConstants.alphabet
-    + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + ']*'  +
-    WordConstants.textEvaluationRegularExpression + ')';
+    + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']*'+ ')';
 
   /**
    * The pattern for Gods names.

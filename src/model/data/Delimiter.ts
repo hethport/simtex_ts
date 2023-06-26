@@ -21,12 +21,12 @@ export  class Delimiter extends Breakdown {
   /**
    * The alphabet.
    */
-  private static readonly alphabet: string = WordConstants.delimiterAlphabet;
+  private static readonly alphabet: string = WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for delimiters.
    */
-  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Delimiter.alphabet + ']+' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Delimiter.alphabet + ']+' + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a delimiter.

@@ -123,7 +123,7 @@ export class Word implements LineEntity {
   }
 
   /**
-   * Returns the normalized text.
+   * Returns the normalized text. Furthermore, it is escaped for text evaluation.
    *
    * @param text The text to normalize.
    * @return The normalized text.
@@ -143,7 +143,7 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
+        return TextEvaluation.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
@@ -152,7 +152,7 @@ export class Word implements LineEntity {
           
           .replace(/\+_/g, '+')
           
-          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°');
+          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°'));
     }
   }
 

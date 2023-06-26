@@ -23,7 +23,7 @@ export  class Akkadogram extends Breakdown {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
-            + WordConstants.delimiterAlphabet + '\\+' + '\\.';
+            + WordConstants.delimiterAlphabet + '\\+' + '\\.' + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for Akkadograms starting with an underscore.
@@ -34,7 +34,7 @@ export  class Akkadogram extends Breakdown {
    * The pattern for Akkadograms.
    */
   static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Akkadogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
-			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
+			+ '[' + Akkadogram.alphabet + ']*' + WordConstants.subscriptRegularExpression));
 
   /**
    * The prepositions.
@@ -79,9 +79,7 @@ export  class Akkadogram extends Breakdown {
    * The pattern for prepositions.
    */
   public static readonly patternPreposition:  RegExp = new RegExp(
-    '((' + Akkadogram.getPrepositionRegularExpression() + ')'
-	+ WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression
-	+ '(|' + WordConstants.ligature + '*[^ ]*))[ ]+', 'g');
+    '((' + Akkadogram.getPrepositionRegularExpression() + ')' + WordConstants.subscriptRegularExpression + '(|' + WordConstants.ligature + '*[^ ]*))[ ]+', 'g');
 
   /**
    * Returns the regular expression that matches prepositions.
@@ -104,7 +102,7 @@ export  class Akkadogram extends Breakdown {
         buffer.push('[' + WordConstants.delimiterAlphabet + ']*' + part);
       }
       
-      buffer.push('[' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + ']*' + ')');
+      buffer.push('[' + WordConstants.indexDigits + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']*' + ')');
     }
 	
     return buffer.join('');

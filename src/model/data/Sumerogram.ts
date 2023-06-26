@@ -22,13 +22,13 @@ export  class Sumerogram extends Breakdown {
    * The alphabet.
    */
   private static readonly alphabet: string = WordConstants.alphabetUpperCase  + WordConstants.alphabetSymbols+ '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\.' + '\\+' + '"' + '“' + '”' + 'x';
+			+ '\\.' + '\\+' + '"' + '“' + '”' + 'x' + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for Sumerograms.
    */
   static readonly pattern :  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Sumerogram.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + ']+'
-			+ '[' + Sumerogram.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
+			+ '[' + Sumerogram.alphabet + ']*' + WordConstants.subscriptRegularExpression));
 
   /**
    * The symbol for inscribed characters.

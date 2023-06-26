@@ -19,14 +19,24 @@ export class TextEvaluation implements Slice {
   static readonly xmlTag: string = 'corr';
   
   /**
+   * The text evaluation alphabet.
+   */
+  private static readonly alphabet: string = '!|\\?|\\(\\?\\)|sic';
+            
+  /**
+   * The escape pattern for text evaluation.
+   */
+  private static readonly patternEscape: RegExp = new RegExp('([\\.]?)' + '(' + TextEvaluation.alphabet + ')', 'g');
+
+  /**
    * The pattern for a word of type text evaluation.
    */
-  static readonly patternWord: RegExp = new RegExp(matchesFullStringRegularExpression('(['+ WordConstants.delimiterAlphabet + ']*(' + WordConstants.alphabetTextEvaluation + ')[' + WordConstants.delimiterAlphabet + ']*' + WordConstants.subscriptRegularExpression + ')'), 'g');
+  static readonly patternWord: RegExp = new RegExp(matchesFullStringRegularExpression('(['+ WordConstants.delimiterAlphabet + ']*(' + WordConstants.textEvaluationAlphabet + ')[' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']*' + WordConstants.subscriptRegularExpression + ')'), 'g');
   
   /**
    * The pattern for text evaluation.
    */
-  static readonly pattern: RegExp = new RegExp('(' + WordConstants.alphabetTextEvaluation + ')$', 'g');
+  static readonly pattern: RegExp = new RegExp('(' + WordConstants.textEvaluationAlphabet + ')', 'g');
 
   /**
 	* The text.
@@ -36,10 +46,79 @@ export class TextEvaluation implements Slice {
   /**
    * Creates a text evaluation.
    *
-   * @param text The text.
+   * @param text The escaped text.
    */
   public constructor(text: string) {
-    this.text = text;
+    switch (text) {
+    case '⓵':
+      this.text = '?';
+      break;
+
+    case '⓶':
+      this.text = '(?)';
+      break;
+
+    case '⓷':
+      this.text = '!';
+      break;
+
+    case '⓸':
+      this.text = 'sic';
+      break;
+
+    default:
+     this.text = text;
+    }
+  }
+  
+  /**
+   * Returns the escaped text.
+   *
+   * @param text The text to escape.
+   * @return The escaped text.
+   */
+  public static escape(text: string): string {
+    const matches = text.matchAll(TextEvaluation.patternEscape);
+    let index = 0;
+    const buffer: string[] = [];
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        buffer.push(text.substring(index, match.index));
+      }
+      
+      switch (match[2]) {
+      case '?':
+        buffer.push('⓵');
+        break;
+
+      case '(?)':
+        buffer.push('⓶');
+        break;
+
+      case '!':
+        buffer.push('⓷');
+        break;
+
+      case 'sic':
+        buffer.push('⓸');
+        break;
+
+      default:
+        buffer.push(match[2]);
+      }
+      
+      // .? -> ?.
+      if (match[1] == '.')
+        buffer.push('.');
+      
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
+
+    if(index < text.length) {
+      buffer.push(text.substring(index));
+    }
+    
+    return buffer.join('');
   }
 
   /**

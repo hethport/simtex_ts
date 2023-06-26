@@ -22,13 +22,13 @@ export  class Basic extends Breakdown {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.alphabetSymbols + WordConstants.brackets + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\+';
+			+ '\\+' + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for basics.
    */
   static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + ']+['
-			+ Basic.alphabet + ']*' + WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression));
+			+ Basic.alphabet + ']*' + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a basic.

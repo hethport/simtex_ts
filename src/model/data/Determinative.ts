@@ -75,7 +75,7 @@ export  class Determinative extends DegreeSign {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetUpperCase + WordConstants.alphabetSymbols + '\\.' + '\\d' + WordConstants.indexDigits
-			+ WordConstants.delimiterAlphabet + '\\+';
+			+ WordConstants.delimiterAlphabet + '\\+' + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for determinative.
@@ -83,14 +83,14 @@ export  class Determinative extends DegreeSign {
   public static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression(
     '((' + Determinative.getGodNamesRegularExpression() + ')'
     +'|(' + '[' + Determinative.alphabet + ']*' + '[' + WordConstants.alphabetUpperCase + '\\.' + ']+' + '[' + Determinative.alphabet + ']*))'
-	+ WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression), 'g');
+	+ WordConstants.subscriptRegularExpression), 'g');
 
   /**
    * The pattern for god name.
    */
   public static readonly patternGodName:  RegExp = new RegExp(matchesFullStringRegularExpression(
     '(' + Determinative.getGodNamesRegularExpression() + ')'
-	+ WordConstants.textEvaluationRegularExpression + WordConstants.subscriptRegularExpression), 'g');
+	+ WordConstants.subscriptRegularExpression), 'g');
 
   /**
    * True if the determinative is a god name.

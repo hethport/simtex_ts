@@ -41,9 +41,9 @@ export  class Split {
   private static indexPatternEndText = new RegExp(matchesFullStringRegularExpression('(.*\\D)(\\d+|x)'), 'g');
 
   /**
-   * The pattern for delimiter.
+   * The pattern for metadata.
    */
-  private static delimiterPattern = new RegExp('([' + WordConstants.delimiterAlphabet + ']{1})', 'g');
+  private static metadataPattern = new RegExp('([' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']{1})', 'g');
 
   /**
    * The deleri ('*' / erased / Rasur) position.
@@ -117,10 +117,10 @@ export  class Split {
 
     if (text.length > 0) {
       /*
-	  * convert index digits and unknown reading (the delimiters are removed)
+	  * convert index digits and unknown reading (the delimiters and text evaluations are removed)
 	  */
 
-      let plainText = text.replace(new RegExp('[' + WordConstants.delimiterAlphabet + ']', 'g'), '');
+      let plainText = text.replace(new RegExp('[' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']', 'g'), '');
       
       let matches = plainText.matchAll(Split.indexPattern);
       let index = 0;
@@ -140,14 +140,14 @@ export  class Split {
       }
 
       /*
-	   * create the slices take into account the delimiters
+	   * create the slices take into account the delimiters and text evaluations (metadata)
 	   */
       plainText = buffer.join('');
 
       let lastContentIndex = -1;
       let lastContent : Content | null = null;
       
-      matches = text.matchAll(Split.delimiterPattern);
+      matches = text.matchAll(Split.metadataPattern);
       
       let indexBegin = 0;
       index = 0;
@@ -163,6 +163,7 @@ export  class Split {
           indexBegin = indexEnd;
         }
 
+        // TODO: add text evaluation
         const  delimiter: string = match[1];
         if (WordConstants.deleri == delimiter) {
           slice.push(new Metadata(delimiter, this.deleriPosition));
