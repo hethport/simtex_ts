@@ -9,6 +9,7 @@ import { Fragment } from './Fragment';
 import { MetadataPosition } from './MetadataPosition';
 import { Split } from './Split';
 import {XmlNode} from 'simple_xml';
+import { TextEvaluation } from './TextEvaluation';
 
 /**
  * Defines breakdowns. The delimiters are removed.
@@ -68,7 +69,59 @@ export abstract class Breakdown extends Fragment {
   public getSplits(): Split[] {
     return this.splits;
   }
+  
+    
+  /**
+   * Extracts the text evaluations and return them.
+   *
+   * @return The extracted text evaluations.
+   */
+  public extractTextEvaluations(): TextEvaluation[] {
+    let textEvaluations: TextEvaluation[] = [];
+    
+    for (const split of this.splits)
+      textEvaluations = textEvaluations.concat(split.extractTextEvaluations());
+      
+    return textEvaluations;
+  }
 
+  /**
+   * Inserts the text evaluations to the beginning of the first split (main part).
+   *
+   * @param textEvaluations The text evaluations to insert.
+   */
+  public insertTextEvaluations(textEvaluations: TextEvaluation[]) {
+    if (this.splits.length > 0)
+       this.splits[0].insertTextEvaluations(textEvaluations);
+  }
+
+  /**
+   * Removes the text evaluation from the beginning if available an returns it.
+   *
+   * @return The text evaluation from the beginning if available. Otherwise null.
+   */
+  public removeBeginTextEvaluation(): TextEvaluation | null {
+    return this.splits.length == 0 ? null : this.splits[0].removeBeginTextEvaluation();
+  }
+  
+  /**
+   * Adds the text evaluations to the end of the text evaluations.
+   *
+   * @param textEvaluation The text evaluations to add.
+   */
+  public addTextEvaluation(textEvaluation: TextEvaluation) {
+    if (this.splits.length > 0)
+      this.splits[this.splits.length -1].addTextEvaluation(textEvaluation);
+  }
+  
+  /**
+   * Normalize the text evaluations.
+   */
+  public normalizeTextEvaluations() {
+   for (const split of this.splits)
+     split.normalizeTextEvaluations();
+  }
+  
   /**
    * Returns the plain text.
    *

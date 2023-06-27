@@ -22,7 +22,7 @@ export  class Glossing extends DegreeSign {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.alphabetSymbols + '\\d' + WordConstants.indexDigits
-            + '\\+' + '\\.' + WordConstants.lesionDeleteAlphabet;
+            + '\\+' + '\\.' + WordConstants.lesionDeleteAlphabet + WordConstants.textEvaluationAlphabet;
 
   /**
    * The pattern for Glossings.

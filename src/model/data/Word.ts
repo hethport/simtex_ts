@@ -97,11 +97,12 @@ export class Word implements LineEntity {
       : paragraphLanguage;
 					
     const fragments = this.parse(this.normalizedText);
+    const processedFragments: Fragment[] = [];
 
     for (let index = 0; index < fragments.length; index++) {
       const fragment = fragments[index];
       
-      this.fragments.push(fragment);
+      processedFragments.push(fragment);
       
       if (index < fragments.length - 1 && fragment instanceof Determinative && fragment.isGodName()) {
         const godNumber = fragments[index + 1];
@@ -111,7 +112,50 @@ export class Word implements LineEntity {
           
           // text is never null, since it is a god number
           const text = godNumber.getText();
-          this.fragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+          processedFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+        }
+      }
+    }
+    
+    // Text evaluation
+    for (let index = 0; index < processedFragments.length; index++) {
+      const fragment = processedFragments[index];
+
+      this.fragments.push(fragment);
+
+      if (fragment instanceof Breakdown) {
+        const breakdown = fragment as Breakdown;
+        
+        if (breakdown instanceof Glossing) {
+          const textEvaluations = breakdown.extractTextEvaluations();
+          
+          if (textEvaluations.length > 0) {
+            if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+              
+              moveTextEvaluations.insertTextEvaluations(textEvaluations);
+			} else {
+              const  buffer: string[] = [];
+              for (const textEvaluation of textEvaluations)
+                buffer.push(textEvaluation.getText());
+              
+              this.fragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
+			}
+          }
+        } else {
+          fragment.normalizeTextEvaluations();
+          
+          if (breakdown instanceof Determinative) {
+			if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+              
+              const textEvaluation = moveTextEvaluations.removeBeginTextEvaluation();
+				
+              if (textEvaluation != null) {
+                fragment.addTextEvaluation(textEvaluation);
+              }
+			}
+          }
         }
       }
     }

@@ -53,12 +53,17 @@ export  class Split {
   /**
    * The main part.
    */
-  private readonly mainPart: Slice[];
+  private mainPart: Slice[];
 
   /**
    * The subscript.
    */
-  private readonly subscript: Slice[] = [];
+  private subscript: Slice[] = [];
+
+  /**
+   * The suffix with text evaluations.
+   */
+  private suffixTextEvaluations: TextEvaluation[] = [];
 
   /**
    * Creates a split.
@@ -83,19 +88,13 @@ export  class Split {
 
       this.subscript = this.normalize(split[1]);
       let isMetadataWarn = false;
-      let isTextEvaluationWarn = false;
-      let isSurplusWarn = false;
+       let isSurplusWarn = false;
       for (const slice of this.subscript) {
         if (!isMetadataWarn && slice instanceof Metadata) {
           status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
             'Marks \'' + split[1] + '\' are not allowed in subscript.'));
           
           isMetadataWarn = true;
-        } else if (!isTextEvaluationWarn && slice instanceof TextEvaluation) {
-          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
-            'Text evaluation \'' + split[1] + '\' are not allowed in subscript.'));
-          
-          isTextEvaluationWarn = true;
         } else if (!isSurplusWarn && slice instanceof Surplus) {
           status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
             'Surplus \'' + split[1] + '\' are not allowed in subscript.'));
@@ -144,9 +143,6 @@ export  class Split {
 	   */
       plainText = buffer.join('');
 
-      let lastContentIndex = -1;
-      let lastContent : Content | null = null;
-      
       matches = text.matchAll(Split.metadataPattern);
       
       let indexBegin = 0;
@@ -155,58 +151,39 @@ export  class Split {
         if (match.index && index < match.index) {
           const indexEnd =  indexBegin + (match.index - index);
           
-          lastContent = new Content(plainText.substring(indexBegin, indexEnd));
-          lastContentIndex = slice.length;
-          
-          slice.push(lastContent);
+          slice.push(new Content(plainText.substring(indexBegin, indexEnd)));
 
           indexBegin = indexEnd;
         }
 
-        // TODO: add text evaluation
-        const  delimiter: string = match[1];
-        if (WordConstants.deleri == delimiter) {
-          slice.push(new Metadata(delimiter, this.deleriPosition));
+        switch (match[1]) {
+        case WordConstants.deleri:
+          slice.push(new Metadata(match[1], this.deleriPosition));
 
           this.deleriPosition = MetadataPosition.initial == this.deleriPosition ? MetadataPosition.end
             : MetadataPosition.initial;
-        } else
-          slice.push(new  Metadata(delimiter, null));
+
+          break;
+          
+        case '⓵':
+        case '⓶':
+        case '⓷':
+        case '⓸':
+          slice.push(new TextEvaluation(match[1]));
+
+          break;
+          
+        default:
+            slice.push(new Metadata(match[1], null));
+        }
 
         if (match.index != null) {  index = match.index + match[0].length; }
       }
 
       if(indexBegin < plainText.length) {
-        lastContent = new Content(plainText.substring(indexBegin));
-        lastContentIndex = slice.length;
-        
-        slice.push(lastContent);
+        slice.push(new Content(plainText.substring(indexBegin)));
       }
       
-      /*
-       * Search for text evaluation
-       */
-      if (lastContent != null && lastContent.getText().match(TextEvaluation.pattern)) {
-        const  tmpSlice: Slice[] = slice;
-        slice = [];
-        
-        index = 0;
-        for (const part of tmpSlice) {
-          if (index == lastContentIndex) {
-            matches = lastContent.getText().matchAll(TextEvaluation.pattern);
-            for (const match of matches) {
-              if (match.index && match.index > 0) {
-                slice.push(new Content(Split.convertToIndexEndText(lastContent.getText().substring(0, match.index))));
-              }
-              
-              slice.push(new TextEvaluation(match[1]));
-            }
-          } else
-            slice.push(part);
-          index++;
-        }
-      }
-       
       /*
        * Search for surplus: 〈〈text〉〉
        */
@@ -405,7 +382,95 @@ export  class Split {
   public getSubscriptPlainText(): string | null {
     return Split.getPlainText(this.subscript);
   }
+  
+  /**
+   * Extracts the text evaluations and return them
+   *
+   * @return The extracted text evaluations.
+   */
+  public extractTextEvaluations(): TextEvaluation[] {
+    const textEvaluations: TextEvaluation[] = [];
+    
+    let splits = this.mainPart;
+    this.mainPart = [];
+    
+    for (const split of splits) {
+      if (split instanceof TextEvaluation)
+        textEvaluations.push(split);
+      else
+        this.mainPart.push(split);
+    }
+    
+    splits = this.subscript;
+    this.subscript = [];
+    
+    for (const split of splits) {
+      if (split instanceof TextEvaluation)
+        textEvaluations.push(split);
+      else
+        this.subscript.push(split);
+    }
+    
+    return textEvaluations;
+  }
 
+  /**
+   * Inserts the text evaluations to the begin of the main part.
+   *
+   * @param textEvaluations The text evaluations to insert.
+   */
+  public insertTextEvaluations(textEvaluations: TextEvaluation[]) {
+    for (let i = textEvaluations.length -1; i > 0; i--)
+      this.mainPart.unshift(textEvaluations[i]);
+  }
+  
+  /**
+   * Removes the text evaluation from the beginning of the main part if available an returns it.
+   *
+   * @return The text evaluation from the beginning of the main part if available. Otherwise null.
+   */
+  public removeBeginTextEvaluation(): TextEvaluation | null {
+    if (this.mainPart.length > 0 && this.mainPart[0] instanceof TextEvaluation) {
+      const textEvaluation = this.mainPart[0] as TextEvaluation;
+      
+      this.mainPart.shift();
+      
+      return textEvaluation;
+	} else return null;
+  }
+
+  /**
+   * Adds the text evaluations to the suffix text evaluations.
+   *
+   * @param textEvaluation The text evaluations to add.
+   */
+  public addTextEvaluation(textEvaluation: TextEvaluation) {
+    this.suffixTextEvaluations.push(textEvaluation);
+  }
+  
+  /**
+   * Normalize the text evaluations.
+   */
+  public normalizeTextEvaluations() {
+    if (this.subscript.length > 0) {
+      while (this.mainPart.length > 0 && this.mainPart[this.mainPart.length -1] instanceof TextEvaluation) {
+        const last = this.mainPart.pop() as TextEvaluation;
+        
+        this.suffixTextEvaluations.unshift(last);
+      }
+      
+      const splits = this.subscript;
+      this.subscript = [];
+    
+      for (const split of splits) {
+        if (split instanceof TextEvaluation)
+          this.suffixTextEvaluations.push(split);
+        else
+          this.subscript.push(split);
+      }
+	}
+  }
+  
   /**
    * Returns the plain text of given slices.
    *
@@ -442,9 +507,7 @@ export  class Split {
         buffer.push((slice as Content).getText());
       } else if (slice instanceof Metadata) {
         nodes.push((slice as Metadata).exportXml());
-      } else if (slice instanceof TextEvaluation) {
-        nodes.push((slice as TextEvaluation).exportXml());
-      } else if (slice instanceof Surplus) {
+      }else if (slice instanceof Surplus) {
         nodes.push((slice as Surplus).exportXml());
       }
     }
@@ -452,6 +515,16 @@ export  class Split {
     if (buffer.length > 0) {
       nodes.push(xmlElementNode('subscr', {'c': buffer.join('')}, []));
     }
+    
+    for (const slice of this.subscript) {
+      if (slice instanceof TextEvaluation) {
+        nodes.push((slice as TextEvaluation).exportXml());
+      }
+    }
+    
+    for (const textEvaluations of this.suffixTextEvaluations)
+      nodes.push(textEvaluations.exportXml());
+    
     return nodes;
   }
 }
