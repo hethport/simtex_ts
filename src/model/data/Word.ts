@@ -316,7 +316,7 @@ export class Word implements LineEntity {
 
       fragment.getStatus()
         .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
-          + segment + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
+          + TextEvaluation.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
     else if (content.match(Glossing.pattern)) {
@@ -391,7 +391,7 @@ export class Word implements LineEntity {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,
-        'degree sign segment \'' + segment + '\' is malformed.'));
+        'degree sign segment \'' + TextEvaluation.unescape(segment) + '\' is malformed.'));
     }
 
     return fragment;
