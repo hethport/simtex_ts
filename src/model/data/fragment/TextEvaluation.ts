@@ -49,26 +49,7 @@ export class TextEvaluation implements Slice {
    * @param text The escaped text.
    */
   public constructor(text: string) {
-    switch (text) {
-    case '⓵':
-      this.text = '?';
-      break;
-
-    case '⓶':
-      this.text = '(?)';
-      break;
-
-    case '⓷':
-      this.text = '!';
-      break;
-
-    case '⓸':
-      this.text = 'sic';
-      break;
-
-    default:
-     this.text = text;
-    }
+    this.text = TextEvaluation.unescape(text);
   }
   
   /**
@@ -121,7 +102,18 @@ export class TextEvaluation implements Slice {
     return buffer.join('');
   }
 
+   
   /**
+   * Returns the unescaped text.
+   *
+   * @param text The text to unescape.
+   * @return The unescaped text.
+   */
+  public static unescape(text: string): string {
+    return text.replace(/⓵/g, '?').replace(/⓶/g, '(?)').replace(/⓷/g, '!').replace(/⓸/g, 'sic');
+  }
+
+ /**
    * Returns the text.
    *
    * @return The text.

@@ -47,7 +47,7 @@ export  class Glossing extends DegreeSign {
   }
 
   public exportXml(): XmlElementNode {
-    const text: string | null = this.getText();
+    const text: string | null = this.getPlainText();
     const attributes: Attributes = {};
     
     if (text != null)

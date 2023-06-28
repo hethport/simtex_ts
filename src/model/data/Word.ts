@@ -126,7 +126,8 @@ export class Word implements LineEntity {
       if (fragment instanceof Breakdown) {
         const breakdown = fragment as Breakdown;
         
-        if (breakdown instanceof Glossing) {
+       console.log('\t--> HB type Glossing ' + (breakdown instanceof Glossing));
+       if (breakdown instanceof Glossing) {
           const textEvaluations = breakdown.extractTextEvaluations();
           
           if (textEvaluations.length > 0) {
@@ -655,6 +656,8 @@ export class Word implements LineEntity {
 
     case FragmentBreakdownType.NotImplemented:
     default:
+      text = TextEvaluation.unescape(text);
+      
       this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word part \'' + text + '\' cannot be parsed.'));
 
       return new NotImplemented(text);

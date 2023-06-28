@@ -64,6 +64,8 @@ export  class Split {
    * The suffix with text evaluations.
    */
   private suffixTextEvaluations: TextEvaluation[] = [];
+  
+  private status: Status;
 
   /**
    * Creates a split.
@@ -103,6 +105,8 @@ export  class Split {
         }
       }
     }
+    
+    this.status = status;
   }
 
   /**
@@ -420,7 +424,7 @@ export  class Split {
    * @param textEvaluations The text evaluations to insert.
    */
   public insertTextEvaluations(textEvaluations: TextEvaluation[]) {
-    for (let i = textEvaluations.length -1; i > 0; i--)
+    for (let i = textEvaluations.length -1; i >= 0; i--)
       this.mainPart.unshift(textEvaluations[i]);
   }
   
