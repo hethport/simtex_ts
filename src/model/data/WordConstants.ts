@@ -27,9 +27,14 @@ export class WordConstants {
   static readonly brackets: string = '〉〈';
   
   /**
-   * The alphabet symbols. Unicodes 12039 and 12471.
+   * The horizontal ellipsis.
    */
-  static readonly alphabetSymbols: string = '𒀹𒑱';
+  static readonly horizontalEllipsis: string = '…';
+
+  /**
+   * The alphabet symbols. Unicodes 12039 and 12471, add ….
+   */
+  static readonly alphabetSymbols: string = '𒀹𒑱' + WordConstants.horizontalEllipsis;
 
   /**
    * The alphabet in lower case.

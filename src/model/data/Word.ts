@@ -195,6 +195,8 @@ export class Word implements LineEntity {
           // Unicodes 12039
           .replace(/;/g, '𒀹')
           
+          .replace(/\.\.\./g, '…')
+          
           .replace(/\+_/g, '+')
           
           .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°'));

@@ -27,8 +27,8 @@ export  class Basic extends Breakdown {
   /**
    * The pattern for basics.
    */
-  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + ']+['
-			+ Basic.alphabet + ']*' + WordConstants.subscriptRegularExpression));
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + WordConstants.horizontalEllipsis + ']+[' + Basic.alphabet + ']*'
+    + WordConstants.subscriptRegularExpression));
 
   /**
    * Creates a basic.
