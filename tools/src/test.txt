@@ -113,22 +113,9 @@ F2d # AN-e §§
 8k # túḫ°uḫ°?-ša
 8l # AN.DAḪ?°aḫ°.ŠUM
 8m # túḫ?°uḫ°-ša
-9a # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)
-9b # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?
-9c # (?)] [(?) ⸢10? [(?)] ⸢?⸣ 10?⸣   ⸢SUM10?
-9d # ⸢10?⸣ ⸢SUMx(?)⸣
-9e # ap-pa-an|a?n ap-pa-an? ap-pa-an(?)|ac
-9f # °D°?iš-ta-nu
-9g # °D?°iš-ta-nu
-9h # °LÚ?.MEŠ°SANGA
-9i # °LÚ.?MEŠ°SANGA
-9j # zi-pár-wa?|a 
-9k # zi-pár-wa|?a 
-9l # zi-pár-wa|a?
-9m # AN.DAḪ°aḫ?°.ŠUM
-9n # AN.DAḪ°aḫ°?.ŠUM
-9o # túḫ°uḫ?°-ša
-9p # túḫ°uḫ°?-ša
-9q # AN.DAḪ?°aḫ°.ŠUM
-9r # túḫ?°uḫ°-ša
+8n # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)
+8o # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?
+8p # (?)] [(?) ⸢10? [(?)] ⸢?⸣ 10?⸣   ⸢SUM10?
+8q # ⸢10?⸣ ⸢SUMx(?)⸣
+8r # ap-pa-an|a?n ap-pa-an? ap-pa-an(?)|ac
 
