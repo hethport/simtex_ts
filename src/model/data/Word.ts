@@ -126,7 +126,6 @@ export class Word implements LineEntity {
       if (fragment instanceof Breakdown) {
         const breakdown = fragment as Breakdown;
         
-       console.log('\t--> HB type Glossing ' + (breakdown instanceof Glossing));
        if (breakdown instanceof Glossing) {
           const textEvaluations = breakdown.extractTextEvaluations();
           
