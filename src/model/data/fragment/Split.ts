@@ -65,8 +65,6 @@ export  class Split {
    */
   private suffixTextEvaluations: TextEvaluation[] = [];
   
-  private status: Status;
-
   /**
    * Creates a split.
    *
@@ -105,8 +103,6 @@ export  class Split {
         }
       }
     }
-    
-    this.status = status;
   }
 
   /**
@@ -252,33 +248,6 @@ export  class Split {
     return slice;
   }
   
-  /**
-   * Converts the end of the text to indexes if required.
-   *
-   * @param text The text to convert to index.
-   * @return The text with index digits.
-   */
-  private static convertToIndexEndText(text: string): string {
-    const matches = text.matchAll(Split.indexPatternEndText);
-    let index = 0;
-    const buffer: string[] = [];
-    for (const match of matches) {
-      if (match.index && index < match.index) {
-        buffer.push(text.substring(index, match.index));
-      }
-        
-      buffer.push(match[1] + Split.convertToIndex(match[2]));
-        
-      if (match.index != null) {  index = match.index + match[0].length;  }
-    }
-
-    if(index < text.length) {
-      buffer.push(text.substring(index));
-    }
-	
-    return buffer.join('');
-  } 
-
   /**
    * Converts to index.
    *

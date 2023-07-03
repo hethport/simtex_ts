@@ -29,12 +29,17 @@ export  class Number extends Breakdown {
   /**
    * The alphabet for known numbers.
    */
-  private static readonly alphabetKnown:  string = '\\d' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
+  private static readonly alphabetKnown:  string = '\\d' + WordConstants.delimiterAlphabet + WordConstants.escapedAlphabet;
 
   /**
    * The alphabet for unknown numbers.
    */
-  private static readonly alphabetUnknown:  string = WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
+  private static readonly alphabetUnknown:  string = WordConstants.delimiterAlphabet + WordConstants.escapedAlphabet;
+
+  /**
+   * The pattern to extract numbers.
+   */
+  private static readonly patternExtractNumbers: RegExp = new RegExp('([\\-\\d]+)', 'g');
 
   /**
    * The pattern for numbers.
@@ -59,11 +64,27 @@ export  class Number extends Breakdown {
     super(deleriPosition, text);
 
     try {
-      this.integer = parseInt(this.getPlainText());
+      this.integer = parseInt(Number.extractNumber(this.getPlainText()));
     } catch (e) {
       this.integer = null;
     }
 
+  }
+  
+  /**
+   * Returns the number from given text.
+   *
+   * @param text The text to extract the number.
+   * @return The number.
+   */
+  private static extractNumber(text: string): string {
+    const buffer: string [] = [];     
+
+    const matches = text.matchAll(Number.patternExtractNumbers);
+    for (const match of matches)
+      buffer.push(match[1]);
+    
+    return buffer.join('');
   }
 
   /**

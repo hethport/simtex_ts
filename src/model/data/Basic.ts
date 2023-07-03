@@ -22,7 +22,7 @@ export  class Basic extends Breakdown {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.alphabetSymbols + WordConstants.brackets + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\+' + WordConstants.textEvaluationAlphabet;
+			+ '\\+' + WordConstants.escapedAlphabet;
 
   /**
    * The pattern for basics.

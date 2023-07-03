@@ -21,7 +21,7 @@ export  class Delimiter extends Breakdown {
   /**
    * The alphabet.
    */
-  private static readonly alphabet: string = WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet;
+  private static readonly alphabet: string = WordConstants.delimiterAlphabet + WordConstants.escapedAlphabet;
 
   /**
    * The pattern for delimiters.

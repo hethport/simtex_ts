@@ -198,7 +198,11 @@ export class Word implements LineEntity {
           
           .replace(/\+_/g, '+')
           
-          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°'));
+          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°')
+          
+          .replace(/\+\(n\)/g, '⑴').replace(/\(\+n\)/g, '⑴').replace(/\(n\)\+/g, '⑵').replace(/\(n\+\)/g, '⑵').replace(/\(n\)/g, '⒩')
+          .replace(/\(x\)/g, '⒳')
+          .replace(/\(-\)/g, '⒣').replace(/\(=\)/g, '⒠'));
     }
   }
 
