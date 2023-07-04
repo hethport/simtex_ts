@@ -27,7 +27,21 @@ export class WordSeparator implements LineEntity {
    * @param charachter The text charachter.
    */
   public constructor(charachter:  string) {
-    this.charachter = charachter;
+    switch (charachter) {
+    case ';':
+      // U+12039
+      this.charachter = '𒀹';
+      break;
+
+    case ':':
+     // U+12471
+      this.charachter = '𒑱';
+      break;
+
+    default:
+      this.charachter = charachter;
+    }
+ 
   }
 
   /**
