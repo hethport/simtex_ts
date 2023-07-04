@@ -101,7 +101,6 @@ export class TextEvaluation implements Slice {
     
     return buffer.join('');
   }
-
    
   /**
    * Returns the unescaped text.

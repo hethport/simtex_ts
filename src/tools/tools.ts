@@ -11,6 +11,7 @@ import { ParagraphLanguage } from '../model/metadata/ParagraphLanguage';
 import { Marker } from '../model/metadata/Marker';
 import { Word } from '../model/data/Word';
 import { TextEvaluation } from '../model/data/fragment/TextEvaluation';
+import { Content } from '../model/data/fragment/Content';
 
 /**
   * The tools folder.
@@ -100,7 +101,7 @@ function logStatus(message: string, status: Status, word:  Word | null) {
       for (const fragment of word.getFragments()) 
         if (StatusLevel.ok != fragment.getStatus().getLevel()){
           const text = fragment.getText();
-          console.log('\t\t# Fragment ' + StatusLevel[fragment.getStatus().getLevel()] + ': ' + (text == null ? '<<EMPTY>>' : TextEvaluation.unescape(text)));
+          console.log('\t\t# Fragment ' + StatusLevel[fragment.getStatus().getLevel()] + ': ' + (text == null ? '<<EMPTY>>' : TextEvaluation.unescape(Content.unescape(text))));
           for (const event of fragment.getStatus().getEvents())
             console.log('\t\t\t' + StatusLevel[event.getLevel()] + ' / ' + StatusEventCode[event.getCode()] + ': ' + event.getMessage());
         }

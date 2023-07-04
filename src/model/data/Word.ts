@@ -38,6 +38,7 @@ import { PrefixSuffix } from './PrefixSuffix';
 import { Marker } from '../metadata/Marker';
 import { Tag } from '../metadata/Tag';
 import { TagType } from '../metadata/TagType';
+import { Content } from './fragment/Content';
 
 /**
  * Defines words.
@@ -187,7 +188,7 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return TextEvaluation.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
+        return TextEvaluation.escape(Content.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
@@ -198,14 +199,20 @@ export class Word implements LineEntity {
           
           .replace(/\+_/g, '+')
           
-          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°')
-          
-          .replace(/\+\(n\)/g, '⑴').replace(/\(\+n\)/g, '⑴').replace(/\(n\)\+/g, '⑵').replace(/\(n\+\)/g, '⑵').replace(/\(n\)/g, '⒩')
-          .replace(/\(x\)/g, '⒳')
-          .replace(/\(-\)/g, '⒣').replace(/\(=\)/g, '⒠'));
+          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°')));
     }
   }
 
+  /**
+   * Returns the unescaped text.
+   *
+   * @param text The text to unescape.
+   * @return The unescaped text.
+   */
+  private static unescape(text: string): string {
+    return TextEvaluation.unescape(Content.unescape(text));
+  }
+  
   /**
    * Parses the text and returns the fragments.
    *
@@ -321,7 +328,7 @@ export class Word implements LineEntity {
 
       fragment.getStatus()
         .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
-          + TextEvaluation.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
+          + Word.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
     else if (content.match(Glossing.pattern)) {
@@ -396,7 +403,7 @@ export class Word implements LineEntity {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,
-        'degree sign segment \'' + TextEvaluation.unescape(segment) + '\' is malformed.'));
+        'degree sign segment \'' + Word.unescape(segment) + '\' is malformed.'));
     }
 
     return fragment;
@@ -661,7 +668,7 @@ export class Word implements LineEntity {
 
     case FragmentBreakdownType.NotImplemented:
     default:
-      text = TextEvaluation.unescape(text);
+      text = Word.unescape(text);
       
       this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word part \'' + text + '\' cannot be parsed.'));
 

@@ -79,8 +79,9 @@ export class WordConstants {
    * ⒳ -> (x)
    * ⒠ -> (=) / equal
    * ⒣ -> (-) / hyphen
+   * ⒪ -> (?) / another alphabet charachter
    */
-  static readonly parenthesisAlphabet: string = '⒩⑴⑵⒳⒠⒣';
+  static readonly parenthesisAlphabet: string = '⒩⑴⑵⒳⒠⒣⒪';
 
   /**
    * The text evaluation escaped alphabet.
