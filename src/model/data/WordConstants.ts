@@ -72,9 +72,29 @@ export class WordConstants {
   static readonly delimiterAlphabet: string = WordConstants.lesionDeleteAlphabet + '\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
+   * The parenthesis escaped alphabet.
+   * ⒩ -> (n)
+   * ⑴ -> (+n)
+   * ⑵ -> (n+)
+   * ⒳ -> (x)
+   * ⒠ -> (=) / equal
+   * ⒣ -> (-) / hyphen
+   */
+  static readonly parenthesisAlphabet: string = '⒩⑴⑵⒳⒠⒣';
+
+  /**
    * The text evaluation escaped alphabet.
+   * ⓵ -> ?
+   * ⓶ -> (?)
+   * ⓷ -> !
+   * ⓸ -> sic
    */
   static readonly textEvaluationAlphabet: string = '⓵⓶⓷⓸';
+            
+  /**
+   * The escaped alphabet.
+   */
+  static readonly escapedAlphabet: string = WordConstants.parenthesisAlphabet + WordConstants.textEvaluationAlphabet;
             
   /**
    * The subscript.

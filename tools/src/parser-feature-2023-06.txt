@@ -1,0 +1,54 @@
+1 # ābîc-ŪXÂYZ
+2 # UDU."SÍG+MUNUS"
+3 # UDU.“SÍG+MUNUS”
+4 # LUGAL-uš=ma=ššan
+5 # LUGAL--QA==DU4
+6 # LUGAL-uš=ma=DU4
+7 # : nu
+8 # ; nu
+9 # ki-ma | i-a-tí
+10 # :ku-la-na-aš
+11 # ;du-ši-in
+12 # °a[bc°
+13 # °a]bc°
+14 # °a⸢b⸣c°
+15 # °a⸢b°
+16 # °a⸣b°
+17 # °d⸢i°
+18 # °d⸣i°
+19 # °[di°
+20 # °]di°
+21 # °d[i°
+22 # °d]i°
+23 # °di[°
+24 # °di]°
+25 # AN.DAḪ°aḫ.°ŠUM
+26 # {G:word test} {F:foot test} {S:s test ok}
+27 # {G:word test} {F:foot test}asd{S:s test ok}
+28 # {G:word test}abc{F:foot test}-def{S:s test ok}
+{G:line test} {F:foot test}
+30 # °D°?iš-ta-nu
+31 # °D?°iš-ta-nu
+32 # °LÚ?.MEŠ°SANGA
+33 # °LÚ.?MEŠ°SANGA
+34 # zi-pár-wa?|a 
+35 # zi-pár-wa|?a 
+36 # zi-pár-wa|a?
+37 # AN.DAḪ°aḫ?°.ŠUM
+38 # AN.DAḪ°aḫ°?.ŠUM
+39 # túḫ°uḫ?°-ša
+40 # túḫ°uḫ°?-ša
+41 # AN.DAḪ?°aḫ°.ŠUM
+42 # túḫ?°uḫ°-ša
+43 # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)
+44 # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?
+45 # ⸢10?⸣ ⸢SUMx(?)⸣
+46 # ap-pa-an|a?n ap-pa-an? ap-pa-an(?)|ac
+47 # …]-ta-aš
+48 # ...]-ta-aš
+49 # …] ta-aš
+50 # ...] ta-aš
+51 # LUGAL-uš-(x) ](x) aš-šu-uš
+52 # ]x(-)aš-šu-uš ]x(=)aš-šu-uš
+53 # zi(n) zi+(n) zi(+n) LUG(n)+AL LUG(n+)L
+ 

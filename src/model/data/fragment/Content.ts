@@ -25,7 +25,7 @@ export class Content implements Slice {
    * @param text The text.
    */
   public constructor(text: string) {
-    this.text = text;
+    this.text = Content.unescape(text);
   }
 
   /**
@@ -36,4 +36,15 @@ export class Content implements Slice {
   public getText():  string {
     return this.text;
   }
+  
+  /**
+   * Returns the unescaped text.
+   *
+   * @param text The text to unescape.
+   * @return The unescaped text.
+   */
+  private static unescape(text: string): string {
+    return text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
+  }
+
 }
