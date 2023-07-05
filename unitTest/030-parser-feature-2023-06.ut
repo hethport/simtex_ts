@@ -23,9 +23,9 @@
 23 # °di[°	<lb lnr="23" lg="Hit"/><w><materlect c="di"/><del_in/></w>
 24 # °di]°	<lb lnr="24" lg="Hit"/><w><materlect c="di"/><del_fin/></w>
 25 # AN.DAḪ°aḫ.°ŠUM	<lb lnr="25" lg="Hit"/><w><sGr>AN.DAḪ<materlect c="aḫ"/>.ŠUM</sGr></w>
-26 # {G:word test} {F:foot test} {S:s test ok}	<lb lnr="26" lg="Hit"/><gap c="word test"/><note c="foot test"/><w><c sign="s test ok"/></w>
-27 # {G:word test} {F:foot test}asd{S:s test ok}	<lb lnr="27" lg="Hit"/><gap c="word test"/><w><note c="foot test"/>asd<c sign="s test ok"/></w>
-28 # {G:word test}abc{F:foot test}-def{S:s test ok}	<lb lnr="28" lg="Hit"/><w><gap c="word test"/>abc<note c="foot test"/>-def<c sign="s test ok"/></w>
+26 # {G:word test} {F:foot test} {S:s}	<lb lnr="26" lg="Hit"/><gap c="word test"/><note c="foot test"/><w><c type="sign">s</c></w>
+27 # {G:word test} {F:foot test}asd{S:  s split  } 	<lb lnr="27" lg="Hit"/><gap c="word test"/><w><note c="foot test"/>asd<c type="sign">s</c><c type="sign">split</c></w>
+28 # {G:word test}abc{F:foot test}-def{S:test} remove-tag-s{S:}	<lb lnr="28" lg="Hit"/><w><gap c="word test"/>abc<note c="foot test"/>-def<c type="sign">test</c></w><w>remove-tag-s</w>
 {G:line test} {F:foot test}	<gap t="line" c="line test"/><note c="foot test"/>
 30 # °D°?iš-ta-nu	<lb lnr="30" lg="Hit"/><w><d>D<corr c="?"/></d>iš-ta-nu</w>
 31 # °D?°iš-ta-nu	<lb lnr="31" lg="Hit"/><w><d>D<corr c="?"/></d>iš-ta-nu</w>

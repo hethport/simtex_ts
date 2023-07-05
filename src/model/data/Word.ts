@@ -277,7 +277,30 @@ export class Word implements LineEntity {
               // Unicodes 12471
               fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index, match.index).replace(/:/g, '𒑱')));
             }
-            fragments.push(new Tag(false, match[0], match[1], match[2]));
+            
+            // tag S can not be empty and can not contain spaces
+            const tag = new Tag(false, match[0], match[1], match[2]);
+            
+            if (tag.isTypeS()) {
+              const content = tag.getContent();
+              
+              if (content != null) {
+                 const split: string[] = content.split(' ');
+                 
+                if (split.length < 2)
+                  fragments.push(tag);
+                else {
+                  for (let part of split) {
+                    part = part.trim();
+                    
+                    if (part.length > 0)
+                      fragments.push(new Tag(false, match[0], match[1], part));
+                  }
+                }
+              }
+            } else
+              fragments.push(tag);
+              
             if (match.index != null) {
               index = match.index + match[0].length;
             }
