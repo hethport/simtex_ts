@@ -39,6 +39,7 @@ import { Marker } from '../metadata/Marker';
 import { Tag } from '../metadata/Tag';
 import { TagType } from '../metadata/TagType';
 import { Content } from './fragment/Content';
+import { Collection } from './fragment/Collection';
 
 /**
  * Defines words.
@@ -96,14 +97,15 @@ export class Word implements LineEntity {
     
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
       : paragraphLanguage;
-					
+	
     const fragments = this.parse(this.normalizedText);
-    const processedFragments: Fragment[] = [];
-
+    
+    // God determinative
+    const godFragments: Fragment[] = [];
     for (let index = 0; index < fragments.length; index++) {
       const fragment = fragments[index];
       
-      processedFragments.push(fragment);
+      godFragments.push(fragment);
       
       if (index < fragments.length - 1 && fragment instanceof Determinative && fragment.isGodName()) {
         const godNumber = fragments[index + 1];
@@ -113,16 +115,17 @@ export class Word implements LineEntity {
           
           // text is never null, since it is a god number
           const text = godNumber.getText();
-          processedFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+          godFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
         }
       }
     }
     
     // Text evaluation
-    for (let index = 0; index < processedFragments.length; index++) {
-      const fragment = processedFragments[index];
+    const textEvaluationFragments: Fragment[] = [];
+    for (let index = 0; index < godFragments.length; index++) {
+      const fragment = godFragments[index];
 
-      this.fragments.push(fragment);
+      textEvaluationFragments.push(fragment);
 
       if (fragment instanceof Breakdown) {
         const breakdown = fragment as Breakdown;
@@ -131,8 +134,8 @@ export class Word implements LineEntity {
           const textEvaluations = breakdown.extractTextEvaluations();
           
           if (textEvaluations.length > 0) {
-            if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
-              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+            if (index + 1 < godFragments.length && godFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = godFragments[index + 1] as Breakdown;
               
               moveTextEvaluations.insertTextEvaluations(textEvaluations);
 			} else {
@@ -140,15 +143,15 @@ export class Word implements LineEntity {
               for (const textEvaluation of textEvaluations)
                 buffer.push(textEvaluation.getText());
               
-              this.fragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
+              textEvaluationFragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
 			}
           }
         } else {
           fragment.normalizeTextEvaluations();
           
           if (breakdown instanceof Determinative) {
-			if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
-              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+			if (index + 1 < godFragments.length && godFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = godFragments[index + 1] as Breakdown;
               
               const textEvaluation = moveTextEvaluations.removeBeginTextEvaluation();
 				
@@ -157,6 +160,33 @@ export class Word implements LineEntity {
               }
 			}
           }
+        }
+      }
+    }
+    
+    // Collections
+    let collection: Collection | null = null;
+    for (let index = 0; index < textEvaluationFragments.length; index++) {
+      const fragment = textEvaluationFragments[index];
+      
+      if (collection == null) {
+        this.fragments.push(fragment);
+        
+        if (fragment instanceof Collection)
+          collection = fragment;
+      } else {
+        if (fragment instanceof Glossing)
+          collection.addElement(fragment);
+        else if (fragment instanceof Collection) {
+          if (collection.isSameType(fragment))
+            collection.addElement(fragment);
+          else {
+            this.fragments.push(fragment);
+            collection = fragment;
+          }
+        } else {
+          this.fragments.push(fragment);
+          collection = null;
         }
       }
     }

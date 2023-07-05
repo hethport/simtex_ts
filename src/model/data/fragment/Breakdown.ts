@@ -136,12 +136,13 @@ export abstract class Breakdown extends Fragment {
     return buffer.join('');
   }
 
-  protected exportNodes(): XmlNode[] {
+  public exportNodes(): XmlNode[] {
     let nodes: XmlNode[] = [];
     
     for (const split of this.splits) {
       nodes = nodes.concat(split.exportNodes());
     }
+    
     return nodes;
   }
 }

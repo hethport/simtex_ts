@@ -6,9 +6,9 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
+import { Collection } from './fragment/Collection';
 
 /**
  * Defines Sumerograms.
@@ -16,7 +16,7 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
  */
-export  class Sumerogram extends Breakdown {
+export  class Sumerogram extends Collection {
   static readonly xmlTag: string = 'sGr';
   /**
    * The alphabet.
@@ -75,5 +75,14 @@ export  class Sumerogram extends Breakdown {
 
   public exportXml(): XmlElementNode {
     return xmlElementNode(Sumerogram.xmlTag, {}, this.exportNodes());
+  }
+  
+  /**
+   * Returns true if the given object is of same type.
+   *
+   * @return True if the given object is of same type.
+   */
+  public isSameType(object : Collection): boolean {
+    return object instanceof Sumerogram;
   }
 }
