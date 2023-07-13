@@ -38,6 +38,8 @@ import { PrefixSuffix } from './PrefixSuffix';
 import { Marker } from '../metadata/Marker';
 import { Tag } from '../metadata/Tag';
 import { TagType } from '../metadata/TagType';
+import { Content } from './fragment/Content';
+import { Collection } from './fragment/Collection';
 
 /**
  * Defines words.
@@ -95,14 +97,15 @@ export class Word implements LineEntity {
     
     this.paragraphLanguage = paragraphLanguage == null ? defaultParagraphLanguage()
       : paragraphLanguage;
-					
+	
     const fragments = this.parse(this.normalizedText);
-    const processedFragments: Fragment[] = [];
-
+    
+    // God determinative
+    const godFragments: Fragment[] = [];
     for (let index = 0; index < fragments.length; index++) {
       const fragment = fragments[index];
       
-      processedFragments.push(fragment);
+      godFragments.push(fragment);
       
       if (index < fragments.length - 1 && fragment instanceof Determinative && fragment.isGodName()) {
         const godNumber = fragments[index + 1];
@@ -112,16 +115,17 @@ export class Word implements LineEntity {
           
           // text is never null, since it is a god number
           const text = godNumber.getText();
-          processedFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+          godFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
         }
       }
     }
     
     // Text evaluation
-    for (let index = 0; index < processedFragments.length; index++) {
-      const fragment = processedFragments[index];
+    const textEvaluationFragments: Fragment[] = [];
+    for (let index = 0; index < godFragments.length; index++) {
+      const fragment = godFragments[index];
 
-      this.fragments.push(fragment);
+      textEvaluationFragments.push(fragment);
 
       if (fragment instanceof Breakdown) {
         const breakdown = fragment as Breakdown;
@@ -130,8 +134,8 @@ export class Word implements LineEntity {
           const textEvaluations = breakdown.extractTextEvaluations();
           
           if (textEvaluations.length > 0) {
-            if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
-              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+            if (index + 1 < godFragments.length && godFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = godFragments[index + 1] as Breakdown;
               
               moveTextEvaluations.insertTextEvaluations(textEvaluations);
 			} else {
@@ -139,15 +143,15 @@ export class Word implements LineEntity {
               for (const textEvaluation of textEvaluations)
                 buffer.push(textEvaluation.getText());
               
-              this.fragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
+              textEvaluationFragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
 			}
           }
         } else {
           fragment.normalizeTextEvaluations();
           
           if (breakdown instanceof Determinative) {
-			if (index + 1 < processedFragments.length && processedFragments[index + 1] instanceof Breakdown) {
-              const moveTextEvaluations = processedFragments[index + 1] as Breakdown;
+			if (index + 1 < godFragments.length && godFragments[index + 1] instanceof Breakdown) {
+              const moveTextEvaluations = godFragments[index + 1] as Breakdown;
               
               const textEvaluation = moveTextEvaluations.removeBeginTextEvaluation();
 				
@@ -156,6 +160,33 @@ export class Word implements LineEntity {
               }
 			}
           }
+        }
+      }
+    }
+    
+    // Collections
+    let collection: Collection | null = null;
+    for (let index = 0; index < textEvaluationFragments.length; index++) {
+      const fragment = textEvaluationFragments[index];
+      
+      if (collection == null) {
+        this.fragments.push(fragment);
+        
+        if (fragment instanceof Collection)
+          collection = fragment;
+      } else {
+        if (fragment instanceof Glossing)
+          collection.addElement(fragment);
+        else if (fragment instanceof Collection) {
+          if (collection.isSameType(fragment))
+            collection.addElement(fragment);
+          else {
+            this.fragments.push(fragment);
+            collection = fragment;
+          }
+        } else {
+          this.fragments.push(fragment);
+          collection = null;
         }
       }
     }
@@ -187,7 +218,7 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return TextEvaluation.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
+        return TextEvaluation.escape(Content.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
@@ -198,14 +229,20 @@ export class Word implements LineEntity {
           
           .replace(/\+_/g, '+')
           
-          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°')
-          
-          .replace(/\+\(n\)/g, '⑴').replace(/\(\+n\)/g, '⑴').replace(/\(n\)\+/g, '⑵').replace(/\(n\+\)/g, '⑵').replace(/\(n\)/g, '⒩')
-          .replace(/\(x\)/g, '⒳')
-          .replace(/\(-\)/g, '⒣').replace(/\(=\)/g, '⒠'));
+          .replace(/°m°°\.°°D°/g, '°m.D°').replace(/°f°°\.°°D°/g, '°f.D°')));
     }
   }
 
+  /**
+   * Returns the unescaped text.
+   *
+   * @param text The text to unescape.
+   * @return The unescaped text.
+   */
+  private static unescape(text: string): string {
+    return TextEvaluation.unescape(Content.unescape(text));
+  }
+  
   /**
    * Parses the text and returns the fragments.
    *
@@ -240,7 +277,30 @@ export class Word implements LineEntity {
               // Unicodes 12471
               fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index, match.index).replace(/:/g, '𒑱')));
             }
-            fragments.push(new Tag(false, match[0], match[1], match[2]));
+            
+            // tag S can not be empty and can not contain spaces
+            const tag = new Tag(false, match[0], match[1], match[2]);
+            
+            if (tag.isTypeS()) {
+              const content = tag.getContent();
+              
+              if (content != null) {
+                 const split: string[] = content.split(' ');
+                 
+                if (split.length < 2)
+                  fragments.push(tag);
+                else {
+                  for (let part of split) {
+                    part = part.trim();
+                    
+                    if (part.length > 0)
+                      fragments.push(new Tag(false, match[0], match[1], part));
+                  }
+                }
+              }
+            } else
+              fragments.push(tag);
+              
             if (match.index != null) {
               index = match.index + match[0].length;
             }
@@ -321,7 +381,7 @@ export class Word implements LineEntity {
 
       fragment.getStatus()
         .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
-          + TextEvaluation.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
+          + Word.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
     else if (content.match(Glossing.pattern)) {
@@ -396,7 +456,7 @@ export class Word implements LineEntity {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,
-        'degree sign segment \'' + TextEvaluation.unescape(segment) + '\' is malformed.'));
+        'degree sign segment \'' + Word.unescape(segment) + '\' is malformed.'));
     }
 
     return fragment;
@@ -661,7 +721,7 @@ export class Word implements LineEntity {
 
     case FragmentBreakdownType.NotImplemented:
     default:
-      text = TextEvaluation.unescape(text);
+      text = Word.unescape(text);
       
       this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word part \'' + text + '\' cannot be parsed.'));
 

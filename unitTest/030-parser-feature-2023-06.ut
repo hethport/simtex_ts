@@ -1,0 +1,54 @@
+1 # ābîc-ŪXÂYZ	<lb lnr="1" lg="Hit"/><w>ābîc<aGr>-ŪXÂYZ</aGr></w>
+2 # UDU."SÍG+MUNUS"	<lb lnr="2" lg="Hit"/><w><sGr>UDU."SÍG+MUNUS"</sGr></w>
+3 # UDU.“SÍG+MUNUS”	<lb lnr="3" lg="Hit"/><w><sGr>UDU."SÍG+MUNUS"</sGr></w>
+4 # LUGAL-uš=ma=ššan	<lb lnr="4" lg="Hit"/><w><sGr>LUGAL</sGr>-uš=ma=ššan</w>
+5 # LUGAL--QA==DU4	<lb lnr="5" lg="Hit"/><w><sGr>LUGAL-QA=DU₄</sGr></w>
+6 # LUGAL-uš=ma=DU4	<lb lnr="6" lg="Hit"/><w><sGr>LUGAL</sGr>-uš=ma<aGr>=DU₄</aGr></w>
+7 # : nu	<lb lnr="7" lg="Hit"/><wsep c="𒑱"/><w>nu</w>
+8 # ; nu	<lb lnr="8" lg="Hit"/><wsep c="𒀹"/><w>nu</w>
+9 # ki-ma | i-a-tí	<lb lnr="9" lg="Hit"/><w>ki-ma</w><wsep c="|"/><w>i-a-tí</w>
+10 # :ku-la-na-aš	<lb lnr="10" lg="Hit"/><w>𒑱ku-la-na-aš</w>
+11 # ;du-ši-in	<lb lnr="11" lg="Hit"/><w>𒀹du-ši-in</w>
+12 # °a[bc°	<lb lnr="12" lg="Hit"/><w><laes_in/><materlect c="abc"/><laes_fin/><del_in/></w>
+13 # °a]bc°	<lb lnr="13" lg="Hit"/><w><del_fin/><laes_in/><materlect c="abc"/><laes_fin/></w>
+14 # °a⸢b⸣c°	<lb lnr="14" lg="Hit"/><w><laes_in/><materlect c="abc"/><laes_fin/></w>
+15 # °a⸢b°	<lb lnr="15" lg="Hit"/><w><laes_in/><materlect c="ab"/></w>
+16 # °a⸣b°	<lb lnr="16" lg="Hit"/><w><materlect c="ab"/><laes_fin/></w>
+17 # °d⸢i°	<lb lnr="17" lg="Hit"/><w><laes_in/><materlect c="di"/></w>
+18 # °d⸣i°	<lb lnr="18" lg="Hit"/><w><materlect c="di"/><laes_fin/></w>
+19 # °[di°	<lb lnr="19" lg="Hit"/><w><del_in/><materlect c="di"/></w>
+20 # °]di°	<lb lnr="20" lg="Hit"/><w><del_fin/><materlect c="di"/></w>
+21 # °d[i°	<lb lnr="21" lg="Hit"/><w><laes_in/><materlect c="di"/><laes_fin/><del_in/></w>
+22 # °d]i°	<lb lnr="22" lg="Hit"/><w><del_fin/><laes_in/><materlect c="di"/><laes_fin/></w>
+23 # °di[°	<lb lnr="23" lg="Hit"/><w><materlect c="di"/><del_in/></w>
+24 # °di]°	<lb lnr="24" lg="Hit"/><w><materlect c="di"/><del_fin/></w>
+25 # AN.DAḪ°aḫ.°ŠUM	<lb lnr="25" lg="Hit"/><w><sGr>AN.DAḪ<materlect c="aḫ"/>.ŠUM</sGr></w>
+26 # {G:word test} {F:foot test} {S:s}	<lb lnr="26" lg="Hit"/><gap c="word test"/><note c="foot test"/><w><c type="sign">s</c></w>
+27 # {G:word test} {F:foot test}asd{S:  s split  } 	<lb lnr="27" lg="Hit"/><gap c="word test"/><w><note c="foot test"/>asd<c type="sign">s</c><c type="sign">split</c></w>
+28 # {G:word test}abc{F:foot test}-def{S:test} remove-tag-s{S:}	<lb lnr="28" lg="Hit"/><w><gap c="word test"/>abc<note c="foot test"/>-def<c type="sign">test</c></w><w>remove-tag-s</w>
+{G:line test} {F:foot test}	<gap t="line" c="line test"/><note c="foot test"/>
+30 # °D°?iš-ta-nu	<lb lnr="30" lg="Hit"/><w><d>D<corr c="?"/></d>iš-ta-nu</w>
+31 # °D?°iš-ta-nu	<lb lnr="31" lg="Hit"/><w><d>D<corr c="?"/></d>iš-ta-nu</w>
+32 # °LÚ?.MEŠ°SANGA	<lb lnr="32" lg="Hit"/><w><d>LÚ<corr c="?"/>.MEŠ</d><sGr>SANGA</sGr></w>
+33 # °LÚ.?MEŠ°SANGA	<lb lnr="33" lg="Hit"/><w><d>LÚ<corr c="?"/>.MEŠ</d><sGr>SANGA</sGr></w>
+34 # zi-pár-wa?|a 	<lb lnr="34" lg="Hit"/><w>zi-pár-wa<subscr c="a"/><corr c="?"/></w>
+35 # zi-pár-wa|?a 	<lb lnr="35" lg="Hit"/><w>zi-pár-wa<subscr c="a"/><corr c="?"/></w>
+36 # zi-pár-wa|a?	<lb lnr="36" lg="Hit"/><w>zi-pár-wa<subscr c="a"/><corr c="?"/></w>
+37 # AN.DAḪ°aḫ?°.ŠUM	<lb lnr="37" lg="Hit"/><w><sGr>AN.DAḪ<materlect c="aḫ"/><corr c="?"/>.ŠUM</sGr></w>
+38 # AN.DAḪ°aḫ°?.ŠUM	<lb lnr="38" lg="Hit"/><w><sGr>AN.DAḪ<materlect c="aḫ"/><corr c="?"/>.ŠUM</sGr></w>
+39 # túḫ°uḫ?°-ša	<lb lnr="39" lg="Hit"/><w>túḫ<materlect c="uḫ"/><corr c="?"/>-ša</w>
+40 # túḫ°uḫ°?-ša	<lb lnr="40" lg="Hit"/><w>túḫ<materlect c="uḫ"/><corr c="?"/>-ša</w>
+41 # AN.DAḪ?°aḫ°.ŠUM	<lb lnr="41" lg="Hit"/><w><sGr>AN.DAḪ<corr c="?"/><materlect c="aḫ"/>.ŠUM</sGr></w>
+42 # túḫ?°uḫ°-ša	<lb lnr="42" lg="Hit"/><w>túḫ<corr c="?"/><materlect c="uḫ"/>-ša</w>
+43 # ap-pa-a?n ap-pa-an? ap-pa-an(?) ap!-pasic-an? (?)	<lb lnr="43" lg="Hit"/><w>ap-pa-a<corr c="?"/>n</w><w>ap-pa-an<corr c="?"/></w><w>ap-pa-an<corr c="(?)"/></w><w>ap<corr c="!"/>-pa<corr c="sic"/>-an<corr c="?"/></w><w><corr c="(?)"/></w>
+44 # °GIŠ?°ti(?)-im EREN!-SUM? EREN|abc!-SUM|def?	<lb lnr="44" lg="Hit"/><w><d>GIŠ<corr c="?"/></d>ti<corr c="(?)"/>-im</w><w><sGr>EREN<corr c="!"/></sGr><aGr>-SUM<corr c="?"/></aGr></w><w><sGr>EREN<subscr c="abc"/><corr c="!"/></sGr><aGr>-SUM<subscr c="def"/><corr c="?"/></aGr></w>
+45 # ⸢10?⸣ ⸢SUMx(?)⸣	<lb lnr="45" lg="Hit"/><w><num><laes_in/>10<corr c="?"/><laes_fin/></num></w><w><sGr><laes_in/>SUMₓ<corr c="(?)"/><laes_fin/></sGr></w>
+46 # ap-pa-an|a?n ap-pa-an? ap-pa-an(?)|ac	<lb lnr="46" lg="Hit"/><w>ap-pa-an<subscr c="an"/><corr c="?"/></w><w>ap-pa-an<corr c="?"/></w><w>ap-pa-an<subscr c="ac"/><corr c="(?)"/></w>
+47 # …]-ta-aš	<lb lnr="47" lg="Hit"/><w>…<del_fin/>-ta-aš</w>
+48 # ...]-ta-aš	<lb lnr="48" lg="Hit"/><w>…<del_fin/>-ta-aš</w>
+49 # …] ta-aš	<lb lnr="49" lg="Hit"/><w>…<del_fin/></w><w>ta-aš</w>
+50 # ...] ta-aš	<lb lnr="50" lg="Hit"/><w>…<del_fin/></w><w>ta-aš</w>
+51 # LUGAL-uš-(x) ](x) aš-šu-uš	<lb lnr="51" lg="Hit"/><w><sGr>LUGAL</sGr>-uš-(x)</w><w><del_fin/>(x)</w><w>aš-šu-uš</w>
+52 # ]x(-)aš-šu-uš ]x(=)aš-šu-uš	<lb lnr="52" lg="Hit"/><w><del_fin/>x(-)aš-šu-uš</w><w><del_fin/>x(=)aš-šu-uš</w>
+53 # zi(n) zi+(n) zi(+n) LUG(n)+AL LUG(n+)L	<lb lnr="53" lg="Hit"/><w>zi(n)</w><w>zi(+n)</w><w>zi(+n)</w><w><sGr>LUG(n+)AL</sGr></w><w><sGr>LUG(n+)L</sGr></w>
+54 # zi(š)-pár-wa (B)LUGAL(Ṭ)	<lb lnr="54" lg="Hit"/><w>zi(š)-pár-wa</w><w><sGr>(B)LUGAL(Ṭ)</sGr></w>

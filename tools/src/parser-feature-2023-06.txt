@@ -23,9 +23,9 @@
 23 # °di[°
 24 # °di]°
 25 # AN.DAḪ°aḫ.°ŠUM
-26 # {G:word test} {F:foot test} {S:s test ok}
-27 # {G:word test} {F:foot test}asd{S:s test ok}
-28 # {G:word test}abc{F:foot test}-def{S:s test ok}
+26 # {G:word test} {F:foot test} {S:s}
+27 # {G:word test} {F:foot test}asd{S:  s split  } 
+28 # {G:word test}abc{F:foot test}-def{S:test} remove-tag-s{S:}
 {G:line test} {F:foot test}
 30 # °D°?iš-ta-nu
 31 # °D?°iš-ta-nu
@@ -51,4 +51,4 @@
 51 # LUGAL-uš-(x) ](x) aš-šu-uš
 52 # ]x(-)aš-šu-uš ]x(=)aš-šu-uš
 53 # zi(n) zi+(n) zi(+n) LUG(n)+AL LUG(n+)L
- 
+54 # zi(š)-pár-wa (B)LUGAL(Ṭ)

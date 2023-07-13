@@ -5,6 +5,7 @@
  * Date:     16.02.2023
  */
 
+import { WordConstants } from '../WordConstants';
 import { Slice } from './Slice';
 
 /**
@@ -14,6 +15,21 @@ import { Slice } from './Slice';
  * @version 1.0
  */
 export class Content implements Slice {
+  /**
+   * The parenthesis charachter for escape.
+   */
+  static readonly escapeCharacter: string = '⒪';
+  
+  /**
+   * The escape pattern.
+   */
+  private static readonly patternEscape: RegExp = new RegExp('\\(([' + WordConstants.alphabet + '])\\)', 'g');
+
+  /**
+   * The unescape pattern.
+   */
+  private static readonly patternUnescape: RegExp = new RegExp(Content.escapeCharacter + '([' + WordConstants.alphabet + '])', 'g');
+
   /**
    * The text.
    */
@@ -38,13 +54,63 @@ export class Content implements Slice {
   }
   
   /**
+   * Returns the escaped text.
+   *
+   * @param text The text to escape.
+   * @return The escaped text.
+   */
+  public static escape(text: string): string {
+    text = text.replace(/\+\(n\)/g, '⑴').replace(/\(\+n\)/g, '⑴').replace(/\(n\)\+/g, '⑵').replace(/\(n\+\)/g, '⑵').replace(/\(n\)/g, '⒩')
+          .replace(/\(x\)/g, '⒳')
+          .replace(/\(-\)/g, '⒣').replace(/\(=\)/g, '⒠');
+    
+    const matches = text.matchAll(Content.patternEscape);
+    let index = 0;
+    const buffer: string[] = [];
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        buffer.push(text.substring(index, match.index));
+      }
+      
+      buffer.push(Content.escapeCharacter + match[1]);
+      
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
+
+    if(index < text.length) {
+      buffer.push(text.substring(index));
+    }
+    
+    return buffer.join('');
+  }
+  
+  /**
    * Returns the unescaped text.
    *
    * @param text The text to unescape.
    * @return The unescaped text.
    */
-  private static unescape(text: string): string {
-    return text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
+  public static unescape(text: string): string {
+    text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
+    
+    const matches = text.matchAll(Content.patternUnescape);
+    let index = 0;
+    const buffer: string[] = [];
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        buffer.push(text.substring(index, match.index));
+      }
+      
+      buffer.push('(' + match[1] + ')');
+      
+      if (match.index != null) {  index = match.index + match[0].length;  }
+    }
+
+    if(index < text.length) {
+      buffer.push(text.substring(index));
+    }
+    
+    return buffer.join('');
   }
 
 }

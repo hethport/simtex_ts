@@ -6,9 +6,9 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
+import { Collection } from './fragment/Collection';
 
 /**
  * Defines basics.
@@ -16,7 +16,7 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
  */
-export  class Basic extends Breakdown {
+export  class Basic extends Collection {
   public static readonly xmlTag: string = 'BASIC';
   /**
    * The alphabet.
@@ -42,5 +42,14 @@ export  class Basic extends Breakdown {
 
   public exportXml(): XmlElementNode {
     return xmlElementNode(Basic.xmlTag, {}, this.exportNodes());
+  }
+  
+  /**
+   * Returns true if the given object is of same type.
+   *
+   * @return True if the given object is of same type.
+   */
+  public isSameType(object : Collection): boolean {
+    return object instanceof Basic;
   }
 }

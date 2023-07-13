@@ -6,7 +6,7 @@
  */
 
 import {TagType} from './TagType';
-import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
+import {Attributes, XmlElementNode, xmlElementNode, XmlNode, xmlTextNode} from 'simple_xml';
 import { Fragment } from '../data/fragment/Fragment';
 
 /**
@@ -100,13 +100,17 @@ export class Tag extends Fragment {
 
   public exportXml(): XmlElementNode {
     const content: string| undefined = this.content == null ? undefined : this.content;
+    
+    const nodes: XmlNode[] = [];
     const attributes: Attributes = {};
     let xmlTag: string;
 
     switch (this.type) {
     case TagType.S:
       xmlTag = 'c';
-      attributes['sign'] = content;
+      attributes['type'] = 'sign';
+      if (this.content != null)
+        nodes.push(xmlTextNode(this.content));
       break;
     case TagType.F:
       xmlTag = 'note';
@@ -131,6 +135,6 @@ export class Tag extends Fragment {
       break;
     }
 
-    return xmlElementNode(xmlTag, attributes, []);
+    return xmlElementNode(xmlTag, attributes, nodes);
   }
 }

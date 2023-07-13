@@ -6,9 +6,9 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { Breakdown } from './fragment/Breakdown';
 import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode} from 'simple_xml';
+import { Collection } from './fragment/Collection';
 
 /**
  * Defines Akkadograms.
@@ -16,7 +16,7 @@ import {xmlElementNode, XmlElementNode} from 'simple_xml';
  * @author <a href="mailto:herbert.baier@uni-wuerzburg.de">Herbert Baier</a>
  * @version 1.0
  */
-export  class Akkadogram extends Breakdown {
+export  class Akkadogram extends Collection {
   static readonly xmlTag: string = 'aGr';
   
   /**
@@ -121,4 +121,14 @@ export  class Akkadogram extends Breakdown {
   public exportXml(): XmlElementNode {
     return xmlElementNode(Akkadogram.xmlTag, {}, this.exportNodes());
   }
+  
+  /**
+   * Returns true if the given object is of same type.
+   *
+   * @return True if the given object is of same type.
+   */
+  public isSameType(object : Collection): boolean {
+    return object instanceof Akkadogram;
+  }
+  
 }

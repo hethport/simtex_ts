@@ -53,5 +53,5 @@ export abstract class Fragment implements ExportXML{
     return this.text;
   }
 
-  abstract exportXml(): XmlElementNode
+  abstract exportXml(): XmlElementNode;
 }
