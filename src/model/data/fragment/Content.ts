@@ -61,7 +61,7 @@ export class Content implements Slice {
    */
   public static escape(text: string): string {
     text = text.replace(/\+\(n\)/g, '⑴').replace(/\(\+n\)/g, '⑴').replace(/\(n\)\+/g, '⑵').replace(/\(n\+\)/g, '⑵').replace(/\(n\)/g, '⒩')
-          .replace(/\(x\)/g, '⒳')
+          .replace(/\(x\)/g, '⒳').replace(/\(\.\)/g, '⒫')
           .replace(/\(-\)/g, '⒣').replace(/\(=\)/g, '⒠');
     
     const matches = text.matchAll(Content.patternEscape);
@@ -91,7 +91,7 @@ export class Content implements Slice {
    * @return The unescaped text.
    */
   public static unescape(text: string): string {
-    text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
+    text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒫/g, '(.)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
     
     const matches = text.matchAll(Content.patternUnescape);
     let index = 0;
