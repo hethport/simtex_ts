@@ -48,7 +48,14 @@ import { Collection } from './fragment/Collection';
  * @version 1.0
  */
 export class Word implements LineEntity {
+	
   static readonly xmlTag: string = 'w';
+  
+  /**
+   * The pattern for fragments between degree signs.
+   */
+  private static readonly surplusPattern:  RegExp = new RegExp('〈〈([^〈]*)〉〉', 'g');
+  
   /**
    * The status.
    */
@@ -496,12 +503,41 @@ export class Word implements LineEntity {
   }
   
   /**
+   * Returns the text with escaped special characters for surplus.
+   *
+   * @param text The text to escape.
+   * @return The text with escaped special characters for surplus.
+   */
+  private escapeSurplus(text: string): string {
+    const matches = text.matchAll(Word.surplusPattern);
+    
+    let index = 0;
+    const buffer: string[] = [];
+      for (const match of matches) {
+        if (match.index && index < match.index) {
+          buffer.push(text.substring(index, match.index));
+        }
+        
+        buffer.push(match[0].replace(/-/g, WordConstants.surplusEscapeHyphen));
+        
+        if (match.index != null) {  index = match.index + match[0].length;  }
+      }
+
+      if(index < text.length) {
+        buffer.push(text.substring(index));
+      }
+    
+    return buffer.join('');
+  }
+  /**
    * Parses the text.
    *
    * @param text The text to parse.
    * @return The fragments.
    */
   private parseText(text: string): Fragment[] {
+    text = this.escapeSurplus(text);
+    
     const fragments: Fragment[] = [];
     const hyphenFirstIndex: number = text.indexOf('-');
     const equalFirstIndex: number = text.indexOf('=');
