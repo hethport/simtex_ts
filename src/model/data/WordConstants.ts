@@ -72,6 +72,11 @@ export class WordConstants {
   static readonly delimiterAlphabet: string = WordConstants.lesionDeleteAlphabet + '\\' + WordConstants.deleri + WordConstants.brackets;
 
   /**
+   * The surplus hyphen escape character.
+   */
+  static readonly surplusEscapeHyphen: string = 'Ⓗ';
+
+ /**
    * The parenthesis escaped alphabet.
    * ⒩ -> (n)
    * ⑴ -> (+n)
@@ -96,7 +101,7 @@ export class WordConstants {
   /**
    * The escaped alphabet.
    */
-  static readonly escapedAlphabet: string = WordConstants.parenthesisAlphabet + WordConstants.textEvaluationAlphabet;
+  static readonly escapedAlphabet: string = WordConstants.surplusEscapeHyphen + WordConstants.parenthesisAlphabet + WordConstants.textEvaluationAlphabet;
             
   /**
    * The subscript.

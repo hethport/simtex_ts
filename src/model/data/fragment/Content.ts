@@ -91,7 +91,10 @@ export class Content implements Slice {
    * @return The unescaped text.
    */
   public static unescape(text: string): string {
-    text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒫/g, '(.)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)');
+    text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒫/g, '(.)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)')
+    
+    // WordConstants.surplusEscapeHyphen -> Ⓗ
+    .replace(/Ⓗ/g, '-');
     
     const matches = text.matchAll(Content.patternUnescape);
     let index = 0;
