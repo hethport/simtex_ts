@@ -83,7 +83,7 @@ export  class Split {
       this.subscript = [];
     else {
       if (split[1].includes(WordConstants.subscript))
-        status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+        status.add(new  StatusEvent(StatusLevel.info, StatusEventCode.malformed,
           'multiple suffix characters \'' + WordConstants.subscript + '\' available in split \'' + text + '\'.'));
 
       this.subscript = this.normalize(split[1]);
@@ -91,12 +91,12 @@ export  class Split {
        let isSurplusWarn = false;
       for (const slice of this.subscript) {
         if (!isMetadataWarn && slice instanceof Metadata) {
-          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+          status.add(new  StatusEvent(StatusLevel.info, StatusEventCode.malformed,
             'Marks \'' + split[1] + '\' are not allowed in subscript.'));
           
           isMetadataWarn = true;
         } else if (!isSurplusWarn && slice instanceof Surplus) {
-          status.add(new  StatusEvent(StatusLevel.minor, StatusEventCode.malformed,
+          status.add(new  StatusEvent(StatusLevel.info, StatusEventCode.malformed,
             'Surplus \'' + split[1] + '\' are not allowed in subscript.'));
           
           isSurplusWarn = true;

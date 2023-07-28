@@ -80,7 +80,7 @@ export class Data extends Line {
       lineSource = '';
 
       this.getStatus().add(
-        new StatusEvent(StatusLevel.maximal, StatusEventCode.required, 'line source is not available'));
+        new StatusEvent(StatusLevel.critical, StatusEventCode.required, 'line source is not available'));
     } else {
       const split: string[] = source.getTextNormalizedNotTrimmed().split('#', 2);
 
@@ -95,7 +95,7 @@ export class Data extends Line {
         lineSource = split[1];
 
         if (lineNumber.trim().length == 0)
-          this.getStatus().add(new StatusEvent(StatusLevel.minor, StatusEventCode.empty, 'line number is empty'));
+          this.getStatus().add(new StatusEvent(StatusLevel.info, StatusEventCode.empty, 'line number is empty'));
       }
     }
 
