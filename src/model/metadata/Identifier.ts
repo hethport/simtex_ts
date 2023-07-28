@@ -62,7 +62,7 @@ export abstract class Identifier extends Metadata {
     }
 
     if (this.identifiers.length == 0) {
-      this.getStatus().add(new StatusEvent(StatusLevel.severe, StatusEventCode.undefined, 'identification is undefined'));
+      this.getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.undefined, 'identification is undefined'));
     }
   }
 

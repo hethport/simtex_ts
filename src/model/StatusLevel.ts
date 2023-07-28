@@ -6,7 +6,7 @@
  */
 
 export enum StatusLevel {
-  ok, minor, moderate, serious, severe, critical, maximal,
+  ok, info, error, critical,
 }
 
 /**

@@ -40,7 +40,7 @@ export  class LanguageChange extends Fragment {
     const  name: string = text.length === 1 ? '' : text.substring(1);
     if (name.trim().length == 0)
       this.getStatus().add(
-        new  StatusEvent(StatusLevel.moderate, StatusEventCode.undefined, 'no language change defined'));
+        new  StatusEvent(StatusLevel.info, StatusEventCode.undefined, 'no language change defined'));
     else
       try {
         language = LanguageChangeType[name as keyof typeof LanguageChangeType];

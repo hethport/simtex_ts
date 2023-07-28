@@ -42,7 +42,7 @@ export class ParagraphLanguage extends Metadata {
     const name: string = source.getTextNormalized().length == 1 ? '' : source.getTextNormalized().substring(1);
     if (name.trim().length == 0)
       this.getStatus().add(
-        new StatusEvent(StatusLevel.moderate, StatusEventCode.undefined, 'no paragraph language defined'));
+        new StatusEvent(StatusLevel.info, StatusEventCode.undefined, 'no paragraph language defined'));
     else
       try {
         language = ParagraphLanguageType[name as keyof typeof ParagraphLanguageType];

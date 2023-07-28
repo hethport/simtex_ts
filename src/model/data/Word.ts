@@ -199,7 +199,7 @@ export class Word implements LineEntity {
     }
 
     if (MetadataPosition.initial != this.deleriPosition)
-      this.status.add(new StatusEvent(StatusLevel.moderate, StatusEventCode.required,
+      this.status.add(new StatusEvent(StatusLevel.info, StatusEventCode.required,
         'missed final deleri (\'*\' / erased / Rasur).'));
      
   }
@@ -387,7 +387,7 @@ export class Word implements LineEntity {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
       fragment.getStatus()
-        .add(new StatusEvent(StatusLevel.serious, StatusEventCode.undefined, 'degree sign segment \''
+        .add(new StatusEvent(StatusLevel.error, StatusEventCode.undefined, 'degree sign segment \''
           + Word.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
       fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
@@ -462,7 +462,7 @@ export class Word implements LineEntity {
     } else {
       fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
 
-      fragment.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.malformed,
+      fragment.getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.malformed,
         'degree sign segment \'' + Word.unescape(segment) + '\' is malformed.'));
     }
 
@@ -842,7 +842,7 @@ export class Word implements LineEntity {
               case TagType.Mbegin:
               case TagType.Mend:
                tag.getStatus()
-                 .add(new StatusEvent(StatusLevel.serious, StatusEventCode.unexpected, 'marker \''
+                 .add(new StatusEvent(StatusLevel.error, StatusEventCode.unexpected, 'marker \''
                    + tag.getText() + '\' is not allowed in a word.'));
             }
         }

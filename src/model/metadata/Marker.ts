@@ -71,7 +71,7 @@ export class Marker extends Metadata {
       const tag = new Tag(true, match[0], match[1], match[2]);
       
       if (tag.isTypeS())
-        this.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
+        this.getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.unexpected,
           'the marker S is not allowed in line mode \'' + match[0] + '\'.'));
       else
         this.tags.push(tag);
@@ -93,7 +93,7 @@ export class Marker extends Metadata {
    */
   private addUnexpectedStatusEvent(segment: string): void {
     if (segment.trim().length > 0)
-      this.getStatus().add(new StatusEvent(StatusLevel.serious, StatusEventCode.unexpected,
+      this.getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.unexpected,
         'the segment \'' + segment.trim() + '\' is not a marker.'));
   }
 
