@@ -13,7 +13,7 @@ import { Status } from '../../Status';
 import { StatusEvent } from '../../StatusEvent';
 import { StatusEventCode } from '../../StatusEventCode';
 import { StatusLevel } from '../../StatusLevel';
-import { matchesFullStringRegularExpression, WordConstants } from '../WordConstants';
+import { WordConstants } from '../WordConstants';
 import {xmlElementNode, xmlTextNode, XmlNode} from 'simple_xml';
 import { TextEvaluation } from './TextEvaluation';
 import { Surplus } from './Surplus';
@@ -34,11 +34,6 @@ export  class Split {
    * The pattern for index.
    */
   private static indexPattern = new RegExp('([' + WordConstants.alphabet + ']+)(\\d+|x)($|\\.)', 'g');
-
-  /**
-   * The pattern for index ends of a text.
-   */
-  private static indexPatternEndText = new RegExp(matchesFullStringRegularExpression('(.*\\D)(\\d+|x)'), 'g');
 
   /**
    * The pattern for metadata.

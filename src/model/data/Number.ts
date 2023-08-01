@@ -41,11 +41,14 @@ export  class Number extends Breakdown {
    */
   private static readonly patternExtractNumbers: RegExp = new RegExp('([\\-\\d]+)', 'g');
 
-  /**
+ /**
    * The pattern for numbers.
    */
-  static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression('[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown
-			+ ']*' + WordConstants.subscriptRegularExpression)
+  static readonly pattern:  RegExp = new RegExp('(' + matchesFullStringRegularExpression(
+            '(|' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '[' + Number.alphabetUnknown + ']*' + '\\+)'
+            +'[' + Number.alphabetKnown + ']*' + '\\d' + '[' + Number.alphabetKnown + ']*' 
+			+ '(|\\+' + '[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '[' + Number.alphabetUnknown + ']*' + ')'
+			+ WordConstants.subscriptRegularExpression)
 			+ ')|(' + matchesFullStringRegularExpression('[' + Number.alphabetUnknown + ']*' + Number.unknownNumber + '['
 			+ Number.alphabetUnknown + ']*' + WordConstants.subscriptRegularExpression) + ')');
 

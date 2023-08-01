@@ -3,12 +3,12 @@
 3 # nu-uš-šan na-an-kán
 4 # n-ŠU n-el n-e n-uš
 5 # n
-6 # [n+]5-ŠU [n+]7°KAM° n+7°KAM°
+6 # [n+]5-ŠU [n+5-ŠU ⸢n⸣+99-ŠU [n+]7°KAM° 7+n°KAM° [n+5+]n-ŠU
 7 # n°KAM°
-8 # DUB.n-PU
+8 # DUB.n-PU DUB.51+n-PU DUB.3-PU.n+78-KAM 
 9 # n.TA.ÀM
 10 # a-ni-ia-an<<ni-ia>>-zi a-ni-ia-an〈〈ni-ia〉〉-zi
 %Vs.
 12 # na-an-kán
 13 # an-kán
-15 # kán{F:with h and ;}-SU
+14 # kán{F:with h and ;}-SU

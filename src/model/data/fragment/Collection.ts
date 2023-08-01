@@ -21,7 +21,6 @@ export abstract class Collection extends Breakdown {
    */
   private readonly elements:  Breakdown[] = [];
 
-
   /**
    * Creates a collection.
    *

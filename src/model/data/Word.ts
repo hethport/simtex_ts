@@ -786,6 +786,44 @@ export class Word implements LineEntity {
     return fragment;
   }
 
+  static readonly patternSplitDot: RegExp = new RegExp('\\.', 'g');
+  
+  /**
+   * Etracts the text between dots.
+   *
+   * @param text The text.
+   * @return True if the given text is of type number.
+   */
+  private static extractNumberBetweenDots(text: string): string {
+    const buffer: string [] = [];
+    
+    const matches = text.matchAll(Word.patternSplitDot);
+    let index = 0;
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        const part = text.substring(index, match.index);
+        
+        if (!Word.isNumberType(part))
+          buffer.push(part);
+      }
+      
+      buffer.push('.');
+      
+      if (match.index != null) {
+        index = match.index + match[0].length;
+      }
+    }
+
+    if (index < text.length) {
+        const part = text.substring(index);
+        
+        if (!Word.isNumberType(part))
+          buffer.push(part);
+    }
+
+    return buffer.join('');
+  }
+
   /**
    * Returns true if the given text is of type number.
    *
@@ -823,7 +861,7 @@ export class Word implements LineEntity {
    * @return True if the given text is of type Akkadogram.
    */
   private static isAkkadogramType(text: string): boolean {
-    return text.match(Akkadogram.pattern) ? true : false;
+    return Word.extractNumberBetweenDots(text).match(Akkadogram.pattern) ? true : false;
   }
 
   /**
@@ -833,7 +871,7 @@ export class Word implements LineEntity {
    * @return True if the given text is of type Sumerogram.
    */
   private static isSumerogramType(text: string): boolean {
-    return text.match(Sumerogram.pattern) ? true : false;
+    return Word.extractNumberBetweenDots(text).match(Sumerogram.pattern) ? true : false;
   }
   
   /**
