@@ -94,7 +94,10 @@ export class Content implements Slice {
     text = text.replace(/⒩/g, '(n)').replace(/⑴/g, '(+n)').replace(/⑵/g, '(n+)').replace(/⒳/g, '(x)').replace(/⒫/g, '(.)').replace(/⒠/g, '(=)').replace(/⒣/g, '(-)')
     
     // WordConstants.surplusEscapeHyphen -> Ⓗ
-    .replace(/Ⓗ/g, '-');
+    .replace(/Ⓗ/g, '-')
+    
+     // WordConstants.beginEscapeNEqual -> ⓝ
+    .replace(/ⓝ/g, 'n=');
     
     const matches = text.matchAll(Content.patternUnescape);
     let index = 0;

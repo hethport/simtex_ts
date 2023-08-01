@@ -532,6 +532,20 @@ export class Word implements LineEntity {
     
     return buffer.join('');
   }
+  
+  /**
+   * Returns the text with escaped begin n= pattern.
+   *
+   * @param text The text to escape.
+   * @return The text with escaped begin n= pattern.
+   */
+  private escapeBeginNEqual(text: string): string {
+    if (text.startsWith('n='))
+      return WordConstants.beginEscapeNEqual + (text.length < 3 ? '' : text.substring(2));
+    else
+      return text;
+  }
+  
   /**
    * Parses the text.
    *
@@ -539,7 +553,7 @@ export class Word implements LineEntity {
    * @return The fragments.
    */
   private parseText(text: string): Fragment[] {
-    text = this.escapeSurplus(text);
+    text = this.escapeBeginNEqual(this.escapeSurplus(text));
     
     const fragments: Fragment[] = [];
     const hyphenFirstIndex: number = text.indexOf('-');
