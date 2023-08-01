@@ -22,7 +22,7 @@ export  class Basic extends Collection {
    * The alphabet.
    */
   private static readonly alphabet:  string = WordConstants.alphabetLowerCase + WordConstants.alphabetSymbols + WordConstants.brackets + '\\d' + WordConstants.indexDigits + WordConstants.delimiterAlphabet
-			+ '\\+' + WordConstants.escapedAlphabet;
+			+ '\\+' + WordConstants.escapedAlphabet + WordConstants.beginEscapeNEqual;
 
   /**
    * The pattern for basics.

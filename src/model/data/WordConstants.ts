@@ -106,7 +106,7 @@ export class WordConstants {
   /**
    * The escaped alphabet.
    */
-  static readonly escapedAlphabet: string = WordConstants.beginEscapeNEqual + WordConstants.surplusEscapeHyphen + WordConstants.parenthesisAlphabet + WordConstants.textEvaluationAlphabet;
+  static readonly escapedAlphabet: string = WordConstants.surplusEscapeHyphen + WordConstants.parenthesisAlphabet + WordConstants.textEvaluationAlphabet;
             
   /**
    * The subscript.
