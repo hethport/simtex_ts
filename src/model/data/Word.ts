@@ -225,13 +225,10 @@ export class Word implements LineEntity {
         }
         return fractionNumberText == null ? '' : fractionNumberText;
       } else
-        return TextEvaluation.escape(Content.escape(text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
+        return TextEvaluation.escape(Content.escape(text
 
           .replace(/</g, '〈').replace(/>/g, '〉').replace(/〈-/g, '-〈').replace(/-〉/g, '〉-')
 
-          // Unicodes 12039
-          .replace(/;/g, '𒀹')
-          
           .replace(/\.\.\./g, '…')
           
           .replace(/\+_/g, '+')
@@ -281,8 +278,7 @@ export class Word implements LineEntity {
           let index = 0;
           for (const match of matches) {
             if (match.index && index < match.index) {
-              // Unicodes 12471
-              fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index, match.index).replace(/:/g, '𒑱')));
+              fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index, match.index)));
             }
             
             // tag S can not be empty and can not contain spaces
@@ -314,8 +310,7 @@ export class Word implements LineEntity {
           }
 
           if (index < text.length) {
-           // Unicodes 12471
-           fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index).replace(/:/g, '𒑱')));
+           fragments = fragments.concat(this.parseDeterminativeGlossing(text.substring(index)));
           }
         }
       }
@@ -331,8 +326,16 @@ export class Word implements LineEntity {
    * @return The fragments.
    */
   private parseDeterminativeGlossing(text: string): Fragment[] {
-    let fragments: Fragment[] = [];
+    //  escape required text characters that do not belong to a tag
+    text = text.replace(/h/g, 'ḫ').replace(/H/g, 'Ḫ')
 
+          // Unicodes 12471
+          .replace(/:/g, '𒑱')
+          
+          // Unicodes 12039
+          .replace(/;/g, '𒀹');
+ 
+    let fragments: Fragment[] = [];
     /*
      * extract the determinative and glossing, and recursively the remainder
      * fragments
