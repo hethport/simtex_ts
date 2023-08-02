@@ -57,6 +57,16 @@ export class Word implements LineEntity {
   private static readonly surplusPattern:  RegExp = new RegExp('〈〈([^〈]*)〉〉', 'g');
   
   /**
+   * The pattern to split by dots.
+   */
+  static readonly patternSplitDot: RegExp = new RegExp('\\.', 'g');
+  
+  /**
+   * The pattern to split by dots, hyphens and equals.
+   */
+  static readonly patternSplitDotHyphenDot: RegExp = new RegExp('[\\.\\-=]{1}', 'g');
+  
+  /**
    * The status.
    */
   private readonly status: Status = new Status();
@@ -108,7 +118,7 @@ export class Word implements LineEntity {
     const fragments = this.parse(this.normalizedText);
     
     // God determinative
-    const godFragments: Fragment[] = [];
+    let godFragments: Fragment[] = [];
     for (let index = 0; index < fragments.length; index++) {
       const fragment = fragments[index];
       
@@ -122,13 +132,13 @@ export class Word implements LineEntity {
           
           // text is never null, since it is a god number
           const text = godNumber.getText();
-          godFragments.push(this.getFragment(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text ));
+          godFragments = godFragments.concat(this.getTypeFragments(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text, false ));
         }
       }
     }
     
     // Text evaluation
-    const textEvaluationFragments: Fragment[] = [];
+    let textEvaluationFragments: Fragment[] = [];
     for (let index = 0; index < godFragments.length; index++) {
       const fragment = godFragments[index];
 
@@ -150,7 +160,7 @@ export class Word implements LineEntity {
               for (const textEvaluation of textEvaluations)
                 buffer.push(textEvaluation.getText());
               
-              textEvaluationFragments.push(this.getFragment(FragmentBreakdownType.Basic, null, buffer.join('')));
+              textEvaluationFragments = textEvaluationFragments.concat(this.getTypeFragments(FragmentBreakdownType.Basic, null, buffer.join(''), true));
 			}
           }
         } else {
@@ -263,7 +273,7 @@ export class Word implements LineEntity {
       else if (text.match(Gap.pattern))
         fragments.push(new Gap(text));
       else  if (text.match(TextEvaluation.patternWord))
-        fragments.push(this.getFragment(FragmentBreakdownType.Basic, null, text));
+        fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.Basic, null, text, true));
       else {
         // test for fraction numbers
         const match = text.match(FractionNumber.pattern);
@@ -349,13 +359,13 @@ export class Word implements LineEntity {
         prefixText = text.substring(index, match.index);
       }
       const prefixSuffix : PrefixSuffix = new PrefixSuffix();
-      const fragment = this.getDeterminativeGlossing(match[0], match[1], prefixSuffix);
+      const determinativeGlossingFragments = this.getDeterminativeGlossing(match[0], match[1], prefixSuffix);
       
       prefixText = suffixGlossing.concat(prefixText, prefixSuffix.getPrefix().join(''));     
       if (prefixText != '')
         fragments = fragments.concat(this.parseLigature(prefixText));
       
-      fragments.push(fragment);
+      fragments = fragments.concat(determinativeGlossingFragments);
       
       suffixGlossing = prefixSuffix.getSuffix().join('');
          
@@ -376,24 +386,25 @@ export class Word implements LineEntity {
   }
   
   /**
-   * Returns the determinative/glossing fragment depending on the content. On
+   * Returns the determinative/glossing fragments depending on the content. On
    * troubles returns an
    *
    * @param segment The segment.
    * @param content The content.
    * @return The fragment.
    */
-  private getDeterminativeGlossing(segment: string, content: string, prefixSuffix: PrefixSuffix): Fragment {
-    let fragment: Fragment;
+  private getDeterminativeGlossing(segment: string, content: string, prefixSuffix: PrefixSuffix): Fragment[] {
+    let fragments: Fragment[];
 
     if (content.trim().length == 0 || content.includes(' ')) {
-      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
+      fragments = this.getTypeFragments(FragmentBreakdownType.UndefinedDegreeSign, segment, content, true);
 
-      fragment.getStatus()
-        .add(new StatusEvent(StatusLevel.error, StatusEventCode.undefined, 'degree sign segment \''
-          + Word.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
+      if (fragments.length > 0)
+        fragments[0].getStatus()
+          .add(new StatusEvent(StatusLevel.error, StatusEventCode.undefined, 'degree sign segment \''
+            + Word.unescape(segment) + '\' contains ' + (content.length == 0 ? 'an empty string' : 'space') + '.'));
     } else if (content.match(Determinative.pattern))
-      fragment = this.getFragment(FragmentBreakdownType.Determinative, segment, content);
+      fragments = this.getTypeFragments(FragmentBreakdownType.Determinative, segment, content, true);
     else if (content.match(Glossing.pattern)) {
       const bufferContent: string [] = [];     
       const bufferDotLesionDelete: string [][] = [];
@@ -461,15 +472,16 @@ export class Word implements LineEntity {
          }
       }
 
-      fragment = this.getFragment(FragmentBreakdownType.Glossing, segment, content);
+      fragments = this.getTypeFragments(FragmentBreakdownType.Glossing, segment, content, true);
     } else {
-      fragment = this.getFragment(FragmentBreakdownType.UndefinedDegreeSign, segment, content);
+      fragments = this.getTypeFragments(FragmentBreakdownType.UndefinedDegreeSign, segment, content, true);
 
-      fragment.getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.malformed,
-        'degree sign segment \'' + Word.unescape(segment) + '\' is malformed.'));
+      if (fragments.length > 0)
+        fragments[0].getStatus().add(new StatusEvent(StatusLevel.error, StatusEventCode.malformed,
+          'degree sign segment \'' + Word.unescape(segment) + '\' is malformed.'));
     }
 
-    return fragment;
+    return fragments;
   }
 
   /**
@@ -555,7 +567,8 @@ export class Word implements LineEntity {
   private parseText(text: string): Fragment[] {
     text = this.escapeBeginNEqual(this.escapeSurplus(text));
     
-    const fragments: Fragment[] = [];
+    let fragments: Fragment[] = [];
+    
     const hyphenFirstIndex: number = text.indexOf('-');
     const equalFirstIndex: number = text.indexOf('=');
     const tagFirstIndex = hyphenFirstIndex < 0 ? equalFirstIndex : (equalFirstIndex < 0 ? hyphenFirstIndex : Math.min(hyphenFirstIndex, equalFirstIndex));
@@ -575,11 +588,11 @@ export class Word implements LineEntity {
 
           buffer.push(akkadogram);
         } else
-          fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, part));
+          fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.NotImplemented, null, part, true));
       } else if (Word.isDelimiterType(part))
-        fragments.push(this.getFragment(FragmentBreakdownType.Delimiter, null, part));
+        fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.Delimiter, null, part, true));
       else if (Word.isNumberType(part))
-        fragments.push(this.getFragment(FragmentBreakdownType.Number, null, part));
+        fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.Number, null, part, true));
       else if (Word.isSumerogramType(part)) {
         type = FragmentBreakdownType.Sumerogram;
 
@@ -589,7 +602,7 @@ export class Word implements LineEntity {
 
         buffer.push(part);
       } else 
-        fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, part));
+        fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.NotImplemented, null, part, true));
     }
 
     // The text parts after hyphens/equals
@@ -609,7 +622,7 @@ export class Word implements LineEntity {
         } else if (WordConstants.hyphenEscapeCharacter == match[1] || WordConstants.equalEscapeCharacter == match[1]) {
           if (Word.isSumerogramType(match[2])) {
             if (type !== null && FragmentBreakdownType.Sumerogram != type) {
-              fragments.push(this.getFragment(type, null, buffer.join('')));
+              fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
               buffer = [];
             }
 
@@ -617,28 +630,28 @@ export class Word implements LineEntity {
 
             buffer.push((WordConstants.hyphenEscapeCharacter == match[1] ? '-' : '=') + match[2]);
           } else {
-            fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, (WordConstants.hyphenEscapeCharacter == match[1] ? '--' : '==') + match[2]));
+            fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.NotImplemented, null, (WordConstants.hyphenEscapeCharacter == match[1] ? '--' : '==') + match[2], true));
           }
         } else if (Word.isDelimiterType(match[2])) {
           if (type != null) {
-            fragments.push(this.getFragment(type, null, buffer.join('')));
+            fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
             type = null;
             buffer = [];
           }
 
-          fragments.push(this.getFragment(FragmentBreakdownType.Delimiter, null, match[1] + match[2]));
+          fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.Delimiter, null, match[1] + match[2], true));
         } else if (Word.isNumberType(match[2])) {
           if (type != null) {
-            fragments.push(this.getFragment(type, null, buffer.join('')));
+            fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
 
             type = null;
             buffer = [];
           }
 
-          fragments.push(this.getFragment(FragmentBreakdownType.Number, null, match[1] + match[2]));
+          fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.Number, null, match[1] + match[2], true));
         } else if (Word.isAkkadogramType(match[2])) {
           if (type != null && FragmentBreakdownType.Akkadogram != type) {
-            fragments.push(this.getFragment(type, null, buffer.join('')));
+            fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
             buffer = [];
           }
 
@@ -647,7 +660,7 @@ export class Word implements LineEntity {
           buffer.push(match[1] + match[2]);
         } else if (Word.isBasicType(match[2])) {
           if (type != null && FragmentBreakdownType.Basic != type) {
-            fragments.push(this.getFragment(type, null, buffer.join('')));
+            fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
             buffer = [];
           }
 
@@ -656,17 +669,17 @@ export class Word implements LineEntity {
           buffer.push(match[1] + match[2]);
         } else {
           if (type != null) {
-            fragments.push(this.getFragment(type, null, buffer.join('')));
+            fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
             buffer = [];
           }
           
-          fragments.push(this.getFragment(FragmentBreakdownType.NotImplemented, null, match[1] + match[2]));
+          fragments = fragments.concat(this.getTypeFragments(FragmentBreakdownType.NotImplemented, null, match[1] + match[2], true));
         }
       }
     }
 
     if (type !== null)
-      fragments.push(this.getFragment(type, null, buffer.join('')));
+      fragments = fragments.concat(this.getTypeFragments(type, null, buffer.join(''), true));
 
     return fragments;
   }
@@ -729,47 +742,54 @@ export class Word implements LineEntity {
   }
 
   /**
-   * Returns the fragment for given text type without segment.
+   * Returns the fragments for given text type without segment.
    *
    * @param type   The text type.
    * @param segment The Segment.
-   * @param buffer The text.
-   * @return The fragment.
+   * @param text The text.
+   * @param isExtractNumbers True if extract numbers. Only used by Akkadograms and Sumerograms.
+   * @return The fragments.
    */
-  private getFragment(type: FragmentBreakdownType, segment: string | null, text: string): Fragment {
-    let fragment: Breakdown;
+  private getTypeFragments(type: FragmentBreakdownType, segment: string | null, text: string, isExtractNumbers: boolean): Fragment[] {
+    let fragments: Breakdown[] = [];
 
     switch (type) {
     case FragmentBreakdownType.Determinative:
-      fragment = new Determinative(this.deleriPosition, segment, text);
+      fragments.push(new Determinative(this.deleriPosition, segment, text));
       break;
 
     case FragmentBreakdownType.Glossing:
-      fragment = new Glossing(this.deleriPosition, segment, text);
+      fragments.push(new Glossing(this.deleriPosition, segment, text));
       break;
 
     case FragmentBreakdownType.UndefinedDegreeSign:
-      fragment = new UndefinedDegreeSign(this.deleriPosition, segment, text);
+      fragments.push( new UndefinedDegreeSign(this.deleriPosition, segment, text));
       break;
 
     case FragmentBreakdownType.Delimiter:
-      fragment = new Delimiter(this.deleriPosition, text);
+      fragments.push(new Delimiter(this.deleriPosition, text));
       break;
 
     case FragmentBreakdownType.Number:
-      fragment = new Number(this.deleriPosition, text);
+      fragments.push(new Number(this.deleriPosition, text));
       break;
 
     case FragmentBreakdownType.Basic:
-      fragment = new Basic(this.deleriPosition, text);
+      fragments.push(new Basic(this.deleriPosition, text));
       break;
 
     case FragmentBreakdownType.Akkadogram:
-      fragment = new Akkadogram(this.deleriPosition, text);
+      if (isExtractNumbers)
+        fragments = fragments.concat(this.getAkkadogramSumerogramFragmentsWinthNumber(FragmentBreakdownType.Akkadogram, text));
+      else
+        fragments = fragments.concat(new Akkadogram(this.deleriPosition, text));
       break;
 
     case FragmentBreakdownType.Sumerogram:
-      fragment = new Sumerogram(this.deleriPosition, text);
+      if (isExtractNumbers)
+        fragments = fragments.concat(this.getAkkadogramSumerogramFragmentsWinthNumber(FragmentBreakdownType.Sumerogram, text));
+      else
+        fragments = fragments.concat(new Sumerogram(this.deleriPosition, text));
       break;
 
     case FragmentBreakdownType.NotImplemented:
@@ -777,22 +797,113 @@ export class Word implements LineEntity {
       text = Word.unescape(text);
       
       this.getStatus().add(new StatusEvent(StatusLevel.critical, StatusEventCode.parser, 'the word part \'' + text + '\' cannot be parsed.'));
-
-      return new NotImplemented(text);
+      
+      return [new NotImplemented(text)];
     }
 
-    this.deleriPosition = fragment.getDeleriPosition();
+	if (fragments.length > 0)
+      this.deleriPosition = fragments[fragments.length - 1].getDeleriPosition();
 
-    return fragment;
+    return fragments;
   }
 
-  static readonly patternSplitDot: RegExp = new RegExp('\\.', 'g');
+
+  /**
+   * Returns the Akkadogram and Sumerogram fragments with numbers.
+   *
+   * @param type   The text type. It is either Akkadogram or Sumerogram.
+   * @param text The text.
+   * @return The fragments.
+   */
+  private getAkkadogramSumerogramFragmentsWinthNumber(type: FragmentBreakdownType, text: string): Breakdown[] {
+  
+    const fragments: Breakdown[] = [];
+    
+    let deleri = this.deleriPosition;
+
+    let buffer: string [] = [];
+    
+    const matches = text.matchAll(Word.patternSplitDotHyphenDot);
+    let index = 0;
+    for (const match of matches) {
+      if (match.index && index < match.index) {
+        const part = text.substring(index, match.index);
+        
+        if (Word.isNumberType(part)) {
+          if (buffer.length > 0) {
+            switch (type) {
+            case FragmentBreakdownType.Akkadogram:
+              fragments.push(new Akkadogram(deleri, buffer.join('')));
+              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              break;
+
+            case FragmentBreakdownType.Sumerogram:
+              fragments.push(new Sumerogram(deleri, buffer.join('')));
+              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              break;
+            }
+            
+            buffer = [];
+          }
+          
+          fragments.push(new Number(deleri, part));
+          deleri = fragments[fragments.length - 1].getDeleriPosition();
+		} else
+          buffer.push(part);
+      }
+      
+      buffer.push(match[0]);
+       
+      if (match.index != null) {
+        index = match.index + match[0].length;
+      }
+    }
+
+    if (index < text.length) {
+        const part = text.substring(index);
+        
+        if (Word.isNumberType(part)) {
+          if (buffer.length > 0) {
+            switch (type) {
+            case FragmentBreakdownType.Akkadogram:
+              fragments.push(new Akkadogram(deleri, buffer.join('')));
+              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              break;
+
+            case FragmentBreakdownType.Sumerogram:
+              fragments.push(new Sumerogram(deleri, buffer.join('')));
+              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              break;
+            }
+            
+            buffer = [];
+          }
+          
+          fragments.push(new Number(deleri, part));
+		} else
+          buffer.push(part);
+    }
+    
+    if (buffer.length > 0) {
+        switch (type) {
+        case FragmentBreakdownType.Akkadogram:
+          fragments.push(new Akkadogram(deleri, buffer.join('')));
+          break;
+
+        case FragmentBreakdownType.Sumerogram:
+          fragments.push(new Sumerogram(deleri, buffer.join('')));
+          break;
+         }
+    }
+    
+    return fragments;
+  }
   
   /**
-   * Etracts the text between dots.
+   * Etracts from the text the number parts between dots and returns it.
    *
    * @param text The text.
-   * @return True if the given text is of type number.
+   * @return The text without number parts between dots.
    */
   private static extractNumberBetweenDots(text: string): string {
     const buffer: string [] = [];

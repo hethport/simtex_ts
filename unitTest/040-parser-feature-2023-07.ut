@@ -1,0 +1,14 @@
+1 # n=ašta n=e n=an n=aš=ššan	<lb lnr="1" lg="Hit"/><w>n=ašta</w><w>n=e</w><w>n=an</w><w>n=aš=ššan</w>
+2 # n=an=kan ta=an=kan	<lb lnr="2" lg="Hit"/><w>n=an=kan</w><w>ta=an=kan</w>
+3 # nu-uš-šan na-an-kán	<lb lnr="3" lg="Hit"/><w>nu-uš-šan</w><w>na-an-kán</w>
+4 # n-ŠU n-el n-e n-uš	<lb lnr="4" lg="Hit"/><w><num>n</num><aGr>-ŠU</aGr></w><w><num>n</num>-el</w><w><num>n</num>-e</w><w><num>n</num>-uš</w>
+5 # n	<lb lnr="5" lg="Hit"/><w><num>n</num></w>
+6 # [n+]5-ŠU [n+5-ŠU ⸢n⸣+99-ŠU [n+]7°KAM° 7+n°KAM° [n+5+]n-ŠU	<lb lnr="6" lg="Hit"/><w><num><del_in/>n+<del_fin/>5</num><aGr>-ŠU</aGr></w><w><num><del_in/>n+5</num><aGr>-ŠU</aGr></w><w><num><laes_in/>n<laes_fin/>+99</num><aGr>-ŠU</aGr></w><w><num><del_in/>n+<del_fin/>7</num><d>KAM</d></w><w><num>7+n</num><d>KAM</d></w><w><num><del_in/>n+5+<del_fin/>n</num><aGr>-ŠU</aGr></w>
+7 # n°KAM°	<lb lnr="7" lg="Hit"/><w><num>n</num><d>KAM</d></w>
+8 # DUB.n-PU DUB.51+n-PU DUB.3-PU.n+78-KAM 	<lb lnr="8" lg="Hit"/><w><sGr>DUB.</sGr><num>n</num><aGr>-PU</aGr></w><w><sGr>DUB.</sGr><num>51+n</num><aGr>-PU</aGr></w><w><sGr>DUB.</sGr><num>3</num><aGr>-PU.</aGr><num>n+78</num><aGr>-KAM</aGr></w>
+9 # n.TA.ÀM	<lb lnr="9" lg="Hit"/><w><num>n</num><sGr>.TA.ÀM</sGr></w>
+10 # a-ni-ia-an<<ni-ia>>-zi a-ni-ia-an〈〈ni-ia〉〉-zi	<lb lnr="10" lg="Hit"/><w>a-ni-ia-an<surpl c="ni-ia"/>-zi</w><w>a-ni-ia-an<surpl c="ni-ia"/>-zi</w>
+%Vs.	<LINE_PREFIX>Vs. </LINE_PREFIX>
+12 # na-an-kán	<lb lnr="Vs. 12" lg="Hit"/><w>na-an-kán</w>
+13 # an-kán	<lb lnr="Vs. 13" lg="Hit"/><w>an-kán</w>
+14 # kán{F:with h and ;}-SU	<lb lnr="Vs. 14" lg="Hit"/><w>kán<note c="with h and ;"/><aGr>-SU</aGr></w>

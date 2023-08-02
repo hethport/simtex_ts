@@ -125,7 +125,7 @@ export class WordConstants {
   static readonly patternGodName: RegExp = new RegExp('(°D°)(10|15|20|30|50)', 'g');
 
   /**
-   * The pattern for text with hyphens and escaped hyphens.
+   * The pattern for text with hyphens, equals and escaped hyphens.
    */
   static readonly patternHyphenAndEscape: RegExp = new RegExp('([\\-=' + WordConstants.hyphenEscapeCharacter + WordConstants.equalEscapeCharacter + ']{1})' + '([^\\-=' + WordConstants.hyphenEscapeCharacter + WordConstants.equalEscapeCharacter + ']*)', 'g');
 

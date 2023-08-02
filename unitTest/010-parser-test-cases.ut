@@ -27,7 +27,7 @@
 27 # _ŠA É	<lb lnr="27" lg="Hit"/><w><aGr>ŠA</aGr> <sGr>É</sGr></w>
 28 # _ŠA-A É	<lb lnr="28" lg="Hit"/><w><aGr>ŠA-A</aGr> <sGr>É</sGr></w>
 29 # _ŠÁ É	<lb lnr="29" lg="Hit"/><w><aGr>ŠÁ</aGr></w><w><sGr>É</sGr></w>
-30 # _ŠA 2.ÀM!	<lb lnr="30" lg="Hit"/><w><aGr>ŠA</aGr> <sGr>2.ÀM<corr c="!"/></sGr></w>
+30 # _ŠA 2.ÀM!	<lb lnr="30" lg="Hit"/><w><aGr>ŠA</aGr> <num>2</num><sGr>.ÀM<corr c="!"/></sGr></w>
 31 # _ŠA °m°ḫa-at-tu-ši-li	<lb lnr="31" lg="Hit"/><w><aGr>ŠA</aGr> <d>m</d>ḫa-at-tu-ši-li</w>
 32 # _ŠA °D°ti-ti-[wa]-⸢at⸣-t[i	<lb lnr="32" lg="Hit"/><w><aGr>ŠA</aGr> <d>D</d>ti-ti-<del_in/>wa<del_fin/>-<laes_in/>at<laes_fin/>-t<del_in/>i</w>
 33 # _PA-NI °D°ti-ti-[wa]-⸢at⸣-t[i	<lb lnr="33" lg="Hit"/><w><aGr>PA-NI</aGr> <d>D</d>ti-ti-<del_in/>wa<del_fin/>-<laes_in/>at<laes_fin/>-t<del_in/>i</w>
