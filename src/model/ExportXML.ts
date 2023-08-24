@@ -4,8 +4,20 @@
  * Author:   Herbert Baier (herbert.baier@uni-wuerzburg.de)
  * Date:     20.02.2023
  */
- 
+
 import {XmlNode} from 'simple_xml';
+
+interface NotIgnored<T> {
+  _type: 'NotIgnored';
+  value: T;
+}
+
+interface Ignored<T> {
+  _type: 'Ignored';
+  value: T;
+}
+
+export type MaybeIgnored<T> = Ignored<T> | NotIgnored<T>;
 
 /**
  * Defines xml exports.
@@ -14,7 +26,8 @@ import {XmlNode} from 'simple_xml';
  * @version 1.0
  */
 export interface ExportXML {
-  exportXml:() => XmlNode;
+  exportXml: () => XmlNode;
+  newExportXml: () => MaybeIgnored<XmlNode>;
 }
 
 /**
