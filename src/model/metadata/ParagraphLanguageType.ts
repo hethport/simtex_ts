@@ -5,6 +5,16 @@
  * Date:     16.02.2023
  */
 
+/*
+ * @‌Akk (Akkadian)
+ * @‌Sum (Sumerian)
+ * @‌Luw (Luwian)
+ * @‌Pal (Palaic)
+ * @‌Hur (Hurrian)
+ * @‌Hat (Hattic)
+ * @‌Hit (Hittite)
+ * @‌Ign (Ignota/unknown language)
+ */
 export enum  ParagraphLanguageType {
     Akk,
     Sum,
