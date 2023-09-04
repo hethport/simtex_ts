@@ -1,6 +1,6 @@
 {
   "name": "simtex",
-  "version": "0.4.2",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/model/TLHParser.js",
   "scripts": {
