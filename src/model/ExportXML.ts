@@ -27,7 +27,7 @@ export type MaybeIgnored<T> = Ignored<T> | NotIgnored<T>;
  */
 export interface ExportXML {
   exportXml: () => XmlNode;
-  newExportXml: () => MaybeIgnored<XmlNode>;
+  // newExportXml: () => MaybeIgnored<XmlNode>;
 }
 
 /**
