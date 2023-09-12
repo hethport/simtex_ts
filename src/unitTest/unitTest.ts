@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import {TLHParser, OXTED} from '../model/TLHParser';
 import {writeNode} from 'simple_xml';
 import {StatusLevel} from '../model/StatusLevel';
+import { UnitTestConstants } from './unitTestConstants';
 
 /**
   * The unit-test folder.
@@ -93,7 +94,7 @@ function testParser(type: Type, filename: string, parserText: string, targetLine
     for (const node of line.getNodes())
       line_list.push(writeNode(node, {}, true).join(''));
       
-    testData.push({filename: filename, line: (index + 1), source: line.getText(), awaitedResult: targetLines[index], parserResult: line_list.join('')});
+    testData.push({filename: filename, line: (index + 1), source: line.getText(), awaitedResult: targetLines[index], parserResult: (line.getParserLine().isPartPreviousLine() ? UnitTestConstants.joinChar : '') +line_list.join('')});
     
     if (type == Type.term) {
       if (targetLines[index] != line_list.join('')) {

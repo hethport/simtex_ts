@@ -12,6 +12,7 @@ import { Marker } from '../model/metadata/Marker';
 import { Word } from '../model/data/Word';
 import { TextEvaluation } from '../model/data/fragment/TextEvaluation';
 import { Content } from '../model/data/fragment/Content';
+import { UnitTestConstants } from '../unitTest/unitTestConstants';
 
 /**
   * The tools folder.
@@ -44,7 +45,7 @@ export function csv(transliterationFileName: string, outputFileName: string) {
       line_list.push(writeNode(node, {}, true).join(''));
     }
     
-    buffer.push(line.getText() + '\t' + line_list.join('') + '\n');
+    buffer.push(line.getText() + '\t' + (line.getParserLine().isPartPreviousLine() ? UnitTestConstants.joinChar : '') + line_list.join('') + '\n');
   }
   
   fs.writeFileSync(targetFolder + outputFileName, buffer.join(''), 'utf8');
@@ -63,7 +64,7 @@ export function debug(transliterationFileName: string) {
   console.log('\nStatus: ' + StatusLevel[oxted.getStatusLevel()]);
 
   for (const line of oxted.getLines()) {
-    console.log(line.getNumber() + ' (status ' + StatusLevel[line.getStatusLevel()] + '): ' + line.getText());
+    console.log(line.getNumber() + ' (status ' + StatusLevel[line.getStatusLevel()] + (line.getParserLine().isPartPreviousLine() ? '/part previous line' : '') + '): ' + line.getText());
 
     const parserLine = line.getParserLine();
     if (parserLine instanceof Identifier)

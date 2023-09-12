@@ -96,6 +96,11 @@ export class Data extends Line {
 
         if (lineNumber.trim().length == 0)
           this.getStatus().add(new StatusEvent(StatusLevel.info, StatusEventCode.empty, 'line number is empty'));
+        
+        if (lineSource.startsWith('~')) {
+			this.setPartPreviousLine();
+			lineSource = lineSource.substring(1);
+		}
       }
     }
 
@@ -392,7 +397,11 @@ export class Data extends Line {
       attributes['txtid'] = inventoryNumber.getIdentifiers()[0] + (inventoryNumber.getIdentifiers().length == 1 ? '' : '+');
     }
     attributes['lnr'] = this.information.getLine().getFormatted();
-    attributes['lg'] = ParagraphLanguageType[this.information.getParagraphLanguage()];
+    
+    if (this.information.getParagraphLanguage() == ParagraphLanguageType.Ign)
+      attributes['lg'] = 'ign';
+    else
+      attributes['lg'] = ParagraphLanguageType[this.information.getParagraphLanguage()];
 
     // create new lineBreak <lb> Node, which contains lineInformation as attributes
     entities.push(xmlElementNode(Data.xmlTag, attributes, []));
