@@ -44,7 +44,7 @@ export function convertToAbbreviation(languageType: LanguageChangeType): string 
   case LanguageChangeType.h:
     return 'Hit';
   case LanguageChangeType.i:
-    return 'Ign';
+    return 'ign';
   default:
     return '';
   }

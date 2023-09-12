@@ -73,6 +73,11 @@ export class ParagraphLanguage extends Metadata {
 
   public exportXml(): XmlNode[] {
     const lang: ParagraphLanguageType = this.language == null ? defaultParagraphLanguage() : this.language;
-    return [xmlElementNode(ParagraphLanguage.xmlTag, {}, [xmlTextNode(ParagraphLanguageType[lang])])];
+    let name = ParagraphLanguageType[lang];
+    
+    if (name == 'Ign')
+    name = 'ign';
+    
+    return [xmlElementNode(ParagraphLanguage.xmlTag, {}, [xmlTextNode(name)])];
   }
 }

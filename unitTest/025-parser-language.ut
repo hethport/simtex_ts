@@ -4,10 +4,10 @@
 @Akk	<PARAGRAPH_LANGUAGE>Akk</PARAGRAPH_LANGUAGE>
 5 # _ME-E]	<lb lnr="5" lg="Akk"/><w><aGr>ME-E<del_fin/></aGr></w>
 6 # _UŠ-K]É-⸢EN⸣	<lb lnr="6" lg="Akk"/><w><aGr>UŠ-K<del_fin/>É-<laes_in/>EN<laes_fin/></aGr></w>
-7 # _EM-ṢA @ha GE6 LUGAL-i @i pa-a-i	<lb lnr="7" lg="Akk"/><w><aGr>EM-ṢA</aGr></w><w lg="Hat"><sGr>GE₆</sGr></w><w><sGr>LUGAL</sGr>-i</w><w lg="Ign">pa-a-i</w>
-@Ign	<PARAGRAPH_LANGUAGE>Ign</PARAGRAPH_LANGUAGE>
-9 # _I+_NA	<lb lnr="9" lg="Ign"/><w><aGr>I+NA</aGr></w>
-10 # _IŠsic-TU	<lb lnr="10" lg="Ign"/><w><aGr>IŠ<corr c="sic"/>-TU</aGr></w>
-11 # °GIŠ°BAN]ŠUR @p pa-a-i @l na-an-ša-an-x[	<lb lnr="11" lg="Ign"/><w><d>GIŠ</d><sGr>BAN<del_fin/>ŠUR</sGr></w><w lg="Pal">pa-a-i</w><w lg="Luw">na-an-ša-an-x<del_in/></w>
+7 # _EM-ṢA @ha GE6 LUGAL-i @i pa-a-i	<lb lnr="7" lg="Akk"/><w><aGr>EM-ṢA</aGr></w><w lg="Hat"><sGr>GE₆</sGr></w><w><sGr>LUGAL</sGr>-i</w><w lg="ign">pa-a-i</w>
+@Ign	<PARAGRAPH_LANGUAGE>ign</PARAGRAPH_LANGUAGE>
+9 # _I+_NA	<lb lnr="9" lg="ign"/><w><aGr>I+NA</aGr></w>
+10 # _IŠsic-TU	<lb lnr="10" lg="ign"/><w><aGr>IŠ<corr c="sic"/>-TU</aGr></w>
+11 # °GIŠ°BAN]ŠUR @p pa-a-i @l na-an-ša-an-x[	<lb lnr="11" lg="ign"/><w><d>GIŠ</d><sGr>BAN<del_fin/>ŠUR</sGr></w><w lg="Pal">pa-a-i</w><w lg="Luw">na-an-ša-an-x<del_in/></w>
 @Hat	<PARAGRAPH_LANGUAGE>Hat</PARAGRAPH_LANGUAGE>
 13 # @h x-az °GIŠ°BANŠU[R	<lb lnr="13" lg="Hat"/><w lg="Hit">x-az</w><w><d>GIŠ</d><sGr>BANŠU<del_in/>R</sGr></w>
