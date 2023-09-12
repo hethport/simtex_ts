@@ -96,6 +96,11 @@ export class Data extends Line {
 
         if (lineNumber.trim().length == 0)
           this.getStatus().add(new StatusEvent(StatusLevel.info, StatusEventCode.empty, 'line number is empty'));
+        
+        if (lineSource.startsWith('~')) {
+			this.setPartPreviousLine();
+			lineSource = lineSource.substring(1);
+		}
       }
     }
 

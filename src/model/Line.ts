@@ -27,6 +27,11 @@ export abstract class Line {
   private readonly source: LineSource;
   
   /**
+   * True if this line is a part of the previous one.
+   */
+  private isPreviousLine = false;
+  
+  /**
    * Creates a TLH dig parser line.
    *
    * @param source The line source.
@@ -51,6 +56,22 @@ export abstract class Line {
    */
   public getSource(): LineSource {
     return this.source;
+  }
+
+  /**
+   * Set as part of previous line.
+   */
+  protected setPartPreviousLine() {
+    this.isPreviousLine = true;
+  }
+ 
+  /**
+   * Returns true if this line is a part of the previous one.
+   *
+   * @return True if this line is a part of the previous one.
+   */
+  public isPartPreviousLine(): boolean {
+    return this.isPreviousLine;
   }
 
   /**
