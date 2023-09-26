@@ -11,3 +11,5 @@
 11 # °GIŠ°BAN]ŠUR @p pa-a-i @l na-an-ša-an-x[	<lb lnr="11" lg="ign"/><w><d>GIŠ</d><sGr>BAN<del_fin/>ŠUR</sGr></w><w lg="Pal">pa-a-i</w><w lg="Luw">na-an-ša-an-x<del_in/></w>
 @Hat	<PARAGRAPH_LANGUAGE>Hat</PARAGRAPH_LANGUAGE>
 13 # @h x-az °GIŠ°BANŠU[R	<lb lnr="13" lg="Hat"/><w lg="Hit">x-az</w><w><d>GIŠ</d><sGr>BANŠU<del_in/>R</sGr></w>
+@ign	<PARAGRAPH_LANGUAGE>ign</PARAGRAPH_LANGUAGE>
+15 # _I+_NA	<lb lnr="15" lg="ign"/><w><aGr>I+NA</aGr></w>
