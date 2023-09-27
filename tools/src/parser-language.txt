@@ -11,3 +11,5 @@
 11 # °GIŠ°BAN]ŠUR @p pa-a-i @l na-an-ša-an-x[
 @Hat
 13 # @h x-az °GIŠ°BANŠU[R
+@ign
+15 # _I+_NA

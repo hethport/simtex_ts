@@ -76,7 +76,7 @@ export class ParagraphLanguage extends Metadata {
     let name = ParagraphLanguageType[lang];
     
     if (name == 'Ign')
-    name = 'ign';
+      name = 'ign';
     
     return [xmlElementNode(ParagraphLanguage.xmlTag, {}, [xmlTextNode(name)])];
   }

@@ -24,6 +24,7 @@ export enum  ParagraphLanguageType {
     Hat,
     Hit,
     Ign,
+    ign,
 }
 
 export function defaultParagraphLanguage(): ParagraphLanguageType {
