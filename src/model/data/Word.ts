@@ -116,7 +116,11 @@ export class Word implements LineEntity {
       : paragraphLanguage;
 	
     const fragments = this.parse(this.normalizedText);
-    
+
+    if (MetadataPosition.initial != this.deleriPosition)
+      this.status.add(new StatusEvent(StatusLevel.info, StatusEventCode.required,
+        'missed final deleri (\'*\' / erased / Rasur).'));
+        
     // God determinative
     let godFragments: Fragment[] = [];
     for (let index = 0; index < fragments.length; index++) {
@@ -132,6 +136,8 @@ export class Word implements LineEntity {
           
           // text is never null, since it is a god number
           const text = godNumber.getText();
+          //this.deleriPosition = fragment.getDeleriPosition();
+          //console.log('\t\tWord deleri ' + (MetadataPosition.initial == this.deleriPosition ? 'initial' : 'end'));
           godFragments = godFragments.concat(this.getTypeFragments(FragmentBreakdownType.Sumerogram, null, text == null ? '' : text, false ));
         }
       }
@@ -207,10 +213,6 @@ export class Word implements LineEntity {
         }
       }
     }
-
-    if (MetadataPosition.initial != this.deleriPosition)
-      this.status.add(new StatusEvent(StatusLevel.info, StatusEventCode.required,
-        'missed final deleri (\'*\' / erased / Rasur).'));
      
   }
 
