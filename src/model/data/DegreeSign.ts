@@ -6,7 +6,6 @@
  */
 
 import { Breakdown } from './fragment/Breakdown';
-import { MetadataPosition } from './fragment/MetadataPosition';
 
 /**
  * DegreeSign is an immutable class that defines word fragments between degree
@@ -29,12 +28,11 @@ export abstract class DegreeSign extends Breakdown {
   /**
    * Creates a word fragment between degree signs.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
    * @param content        The content. Null on troubles.
    */
-  public constructor(deleriPosition: MetadataPosition, segment: string| null, content: string| null) {
-    super(deleriPosition, content);
+  public constructor(segment: string| null, content: string| null) {
+    super(content);
 
     this.segment = segment;
   }

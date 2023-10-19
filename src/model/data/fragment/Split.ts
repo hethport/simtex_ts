@@ -41,11 +41,6 @@ export  class Split {
   private static metadataPattern = new RegExp('([' + WordConstants.delimiterAlphabet + WordConstants.textEvaluationAlphabet + ']{1})', 'g');
 
   /**
-   * The deleri ('*' / erased / Rasur) position.
-   */
-  private deleriPosition: MetadataPosition;
-
-  /**
    * The main part.
    */
   private mainPart: Slice[];
@@ -64,12 +59,9 @@ export  class Split {
    * Creates a split.
    *
    * @param status         The status.
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(status: Status, deleriPosition: MetadataPosition, text: string) {
-    this.deleriPosition = deleriPosition;
-
+  public constructor(status: Status, text: string) {
     const  split: string[] = text.split(WordConstants.subscript, 2);
     
     this.mainPart = this.normalize(split[0]);
@@ -152,14 +144,6 @@ export  class Split {
         }
 
         switch (match[1]) {
-        case WordConstants.deleri:
-          slice.push(new Metadata(match[1], this.deleriPosition));
-
-          this.deleriPosition = MetadataPosition.initial == this.deleriPosition ? MetadataPosition.end
-            : MetadataPosition.initial;
-
-          break;
-          
         case '⓵':
         case '⓶':
         case '⓷':
@@ -169,7 +153,7 @@ export  class Split {
           break;
           
         default:
-            slice.push(new Metadata(match[1], null));
+            slice.push(new Metadata(match[1]));
         }
 
         if (match.index != null) {  index = match.index + match[0].length; }
@@ -307,12 +291,31 @@ export  class Split {
   }
 
   /**
-   * Returns the deleri ('*' / erased / Rasur) position.
+   * Set the deleri positions.
    *
-   * @return The deleri ('*' / erased / Rasur) position.
+   * @param slices The slices.
+   * @param position The initial position.
+   * @return The next position.
    */
-  public getDeleriPosition(): MetadataPosition {
-    return this.deleriPosition;
+  private setDeleriPositions(slices: Slice[], position: MetadataPosition):  MetadataPosition {
+    for (const slice of slices)
+      if (slice instanceof Metadata)
+        if (( slice as Metadata).setDeleriPosition(position)) {
+          position = MetadataPosition.initial == position ? MetadataPosition.end
+            : MetadataPosition.initial;
+        }
+
+    return position;
+  }
+
+  /**
+   * Update the deleri positions.
+   *
+   * @param position The initial position.
+   * @return The next position.
+   */
+  public updateDeleriPositions(position: MetadataPosition):  MetadataPosition {
+    return this.setDeleriPositions(this.subscript, this.setDeleriPositions(this.mainPart, position));
   }
 
   /**

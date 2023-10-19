@@ -92,11 +92,6 @@ export class Word implements LineEntity {
   private readonly fragments: Fragment[] = [];
 
   /**
-   * The deleri ('*' / erased / Rasur) position.
-   */
-  private deleriPosition: MetadataPosition = MetadataPosition.initial;
-
-  /**
    * The language change.
    */
   private languageChange: LanguageChangeType | null = null;
@@ -117,10 +112,6 @@ export class Word implements LineEntity {
 	
     const fragments = this.parse(this.normalizedText);
 
-    if (MetadataPosition.initial != this.deleriPosition)
-      this.status.add(new StatusEvent(StatusLevel.info, StatusEventCode.required,
-        'missed final deleri (\'*\' / erased / Rasur).'));
-        
     // God determinative
     let godFragments: Fragment[] = [];
     for (let index = 0; index < fragments.length; index++) {
@@ -213,7 +204,16 @@ export class Word implements LineEntity {
         }
       }
     }
+    
+    let deleriPosition = MetadataPosition.initial;
+    for (const fragment of this.fragments)
+      if (fragment instanceof Breakdown)
+        deleriPosition = (fragment as Breakdown).updateDeleriPositions(deleriPosition);
      
+    if (MetadataPosition.initial != deleriPosition)
+      this.status.add(new StatusEvent(StatusLevel.info, StatusEventCode.required,
+        'missed final deleri (\'*\' / erased / Rasur).'));
+        
   }
 
   /**
@@ -757,41 +757,41 @@ export class Word implements LineEntity {
 
     switch (type) {
     case FragmentBreakdownType.Determinative:
-      fragments.push(new Determinative(this.deleriPosition, segment, text));
+      fragments.push(new Determinative(segment, text));
       break;
 
     case FragmentBreakdownType.Glossing:
-      fragments.push(new Glossing(this.deleriPosition, segment, text));
+      fragments.push(new Glossing(segment, text));
       break;
 
     case FragmentBreakdownType.UndefinedDegreeSign:
-      fragments.push( new UndefinedDegreeSign(this.deleriPosition, segment, text));
+      fragments.push( new UndefinedDegreeSign(segment, text));
       break;
 
     case FragmentBreakdownType.Delimiter:
-      fragments.push(new Delimiter(this.deleriPosition, text));
+      fragments.push(new Delimiter(text));
       break;
 
     case FragmentBreakdownType.Number:
-      fragments.push(new Number(this.deleriPosition, text));
+      fragments.push(new Number(text));
       break;
 
     case FragmentBreakdownType.Basic:
-      fragments.push(new Basic(this.deleriPosition, text));
+      fragments.push(new Basic(text));
       break;
 
     case FragmentBreakdownType.Akkadogram:
       if (isExtractNumbers)
         fragments = fragments.concat(this.getAkkadogramSumerogramFragmentsWinthNumber(FragmentBreakdownType.Akkadogram, text));
       else
-        fragments = fragments.concat(new Akkadogram(this.deleriPosition, text));
+        fragments = fragments.concat(new Akkadogram(text));
       break;
 
     case FragmentBreakdownType.Sumerogram:
       if (isExtractNumbers)
         fragments = fragments.concat(this.getAkkadogramSumerogramFragmentsWinthNumber(FragmentBreakdownType.Sumerogram, text));
       else
-        fragments = fragments.concat(new Sumerogram(this.deleriPosition, text));
+        fragments = fragments.concat(new Sumerogram(text));
       break;
 
     case FragmentBreakdownType.NotImplemented:
@@ -802,9 +802,6 @@ export class Word implements LineEntity {
       
       return [new NotImplemented(text)];
     }
-
-	if (fragments.length > 0)
-      this.deleriPosition = fragments[fragments.length - 1].getDeleriPosition();
 
     return fragments;
   }
@@ -821,8 +818,6 @@ export class Word implements LineEntity {
   
     const fragments: Breakdown[] = [];
     
-    let deleri = this.deleriPosition;
-
     let buffer: string [] = [];
     
     const matches = text.matchAll(Word.patternSplitDotHyphenDot);
@@ -835,21 +830,18 @@ export class Word implements LineEntity {
           if (buffer.length > 0) {
             switch (type) {
             case FragmentBreakdownType.Akkadogram:
-              fragments.push(new Akkadogram(deleri, buffer.join('')));
-              deleri = fragments[fragments.length - 1].getDeleriPosition();
-              break;
+              fragments.push(new Akkadogram(buffer.join('')));
+               break;
 
             case FragmentBreakdownType.Sumerogram:
-              fragments.push(new Sumerogram(deleri, buffer.join('')));
-              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              fragments.push(new Sumerogram(buffer.join('')));
               break;
             }
             
             buffer = [];
           }
           
-          fragments.push(new Number(deleri, part));
-          deleri = fragments[fragments.length - 1].getDeleriPosition();
+          fragments.push(new Number(part));
 		} else
           buffer.push(part);
       }
@@ -868,20 +860,18 @@ export class Word implements LineEntity {
           if (buffer.length > 0) {
             switch (type) {
             case FragmentBreakdownType.Akkadogram:
-              fragments.push(new Akkadogram(deleri, buffer.join('')));
-              deleri = fragments[fragments.length - 1].getDeleriPosition();
-              break;
+              fragments.push(new Akkadogram(buffer.join('')));
+               break;
 
             case FragmentBreakdownType.Sumerogram:
-              fragments.push(new Sumerogram(deleri, buffer.join('')));
-              deleri = fragments[fragments.length - 1].getDeleriPosition();
+              fragments.push(new Sumerogram(buffer.join('')));
               break;
             }
             
             buffer = [];
           }
           
-          fragments.push(new Number(deleri, part));
+          fragments.push(new Number(part));
 		} else
           buffer.push(part);
     }
@@ -889,11 +879,11 @@ export class Word implements LineEntity {
     if (buffer.length > 0) {
         switch (type) {
         case FragmentBreakdownType.Akkadogram:
-          fragments.push(new Akkadogram(deleri, buffer.join('')));
+          fragments.push(new Akkadogram(buffer.join('')));
           break;
 
         case FragmentBreakdownType.Sumerogram:
-          fragments.push(new Sumerogram(deleri, buffer.join('')));
+          fragments.push(new Sumerogram(buffer.join('')));
           break;
          }
     }

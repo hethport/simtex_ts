@@ -7,7 +7,6 @@
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode} from 'simple_xml';
 
 /**
@@ -60,11 +59,10 @@ export  class Number extends Breakdown {
   /**
    * Creates a number.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, text);
+  public constructor(text: string) {
+    super(text);
 
     try {
       this.integer = parseInt(Number.extractNumber(this.getPlainText()));

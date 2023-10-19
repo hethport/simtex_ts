@@ -24,41 +24,35 @@ export abstract class Breakdown extends Fragment {
   private readonly splits:  Split[] = [];
 
   /**
-   * The deleri ('*' / erased / Rasur) position.
-   */
-  private readonly deleriPosition:  MetadataPosition;
-
-  /**
    * Creates a breakdown.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text. If null, do not normalize.
    */
-  protected constructor(deleriPosition: MetadataPosition, text: string| null) {
+  protected constructor(text: string| null) {
     super(text);
 
     if (text !== null) {
       const  matches = text.matchAll(Split.pattern);
       for (const match of matches) {
         if(match[1].length > 0) {
-          const  split: Split = new  Split(this.getStatus(), deleriPosition, match[1]);
+          const  split: Split = new  Split(this.getStatus(), match[1]);
           this.splits.push(split);
-
-          deleriPosition = split.getDeleriPosition();
         }
       }
     }
-
-    this.deleriPosition = deleriPosition;
   }
 
   /**
-   * Returns the deleri ('*' / erased / Rasur) position.
+   * Update the deleri positions.
    *
-   * @return The deleri ('*' / erased / Rasur) position.
+   * @param position The initial position.
+   * @return The next position.
    */
-  public getDeleriPosition():  MetadataPosition {
-    return this.deleriPosition;
+  public updateDeleriPositions(position: MetadataPosition):  MetadataPosition {
+    for (const split of this.splits)
+       position = split.updateDeleriPositions(position);
+       
+    return position;
   }
 
   /**

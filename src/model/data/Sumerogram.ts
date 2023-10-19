@@ -6,7 +6,6 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 import { Collection } from './fragment/Collection';
 
@@ -43,11 +42,10 @@ export  class Sumerogram extends Collection {
   /**
    * Creates a Sumerogram.
    * 
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, Sumerogram.resolveInscribedCharacter(text.replace(/“/g, '"').replace(/”/g, '"')));
+  public constructor(text: string) {
+    super(Sumerogram.resolveInscribedCharacter(text.replace(/“/g, '"').replace(/”/g, '"')));
   }
 
   /**

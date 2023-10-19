@@ -33,15 +33,14 @@ export  class Metadata implements Slice {
   /**
    * The position.
    */
-  private readonly position:  MetadataPosition;
+  private position:  MetadataPosition;
   
   /**
    * Creates a metadata.
    *
    * @param text     The text.
-   * @param position The position.
    */
-  public constructor(text: string | null, position: MetadataPosition | null) {
+  public constructor(text: string | null) {
     this.symbol = text;
 
     if (text != null && text.trim().length > 0) {
@@ -65,7 +64,7 @@ export  class Metadata implements Slice {
     else if (']' == this.symbol || '⸣' == this.symbol || '〉' == this.symbol)
       this.position = MetadataPosition.end;
     else
-      this.position = position == null ? MetadataPosition.unknown : position; 
+      this.position = MetadataPosition.unknown; 
   }
 
 
@@ -96,6 +95,20 @@ export  class Metadata implements Slice {
     return this.position;
   }
 
+  /**
+   * Set the deleri position.
+   *
+   * @param position The position.
+   * @return True if the type is deleri and consequently the position was set.
+   */
+  public setDeleriPosition(position: MetadataPosition):  boolean {
+    if (this.type == MetadataType.deleri) {
+      this.position = position;
+      return true;
+	} else
+      return false;
+  }
+
   public exportXml(): XmlElementNode {
     let tag = '';
     switch (this.type) {
@@ -108,8 +121,21 @@ export  class Metadata implements Slice {
       
       break;
     case MetadataType.deleri:
-      tag = this.position == MetadataPosition.initial ? 'ras_in' : 'ras_fin';
+      switch (this.position) {
+      case MetadataPosition.initial:
+        tag = 'ras_in';
       
+        break;
+      case MetadataPosition.end:
+        tag = 'ras_fin';
+      
+        break;
+      default:
+        tag = 'ras_unknown';
+      
+        break;
+      }
+       
       break;
     case MetadataType.add:
       tag = this.position == MetadataPosition.initial ? 'add_in' : 'add_fin';

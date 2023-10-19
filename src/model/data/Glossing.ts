@@ -7,7 +7,6 @@
 
 import { DegreeSign } from './DegreeSign';
 import { matchesFullStringRegularExpression, WordConstants } from './WordConstants';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {Attributes, XmlElementNode, xmlElementNode} from 'simple_xml';
 
 /**
@@ -38,12 +37,11 @@ export  class Glossing extends DegreeSign {
   /**
    * Creates a glossing.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param segment        The segment.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, segment: string| null, text: string) {
-    super(deleriPosition, segment, text);
+  public constructor(segment: string| null, text: string) {
+    super(segment, text);
   }
 
   public exportXml(): XmlElementNode {

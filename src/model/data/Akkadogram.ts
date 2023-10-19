@@ -6,7 +6,6 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {xmlElementNode, XmlElementNode} from 'simple_xml';
 import { Collection } from './fragment/Collection';
 
@@ -111,11 +110,10 @@ export  class Akkadogram extends Collection {
   /**
    * Creates an Akkadogram.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, text);
+  public constructor(text: string) {
+    super(text);
   }
 
   public exportXml(): XmlElementNode {

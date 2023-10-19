@@ -6,7 +6,6 @@
  */
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 import { Collection } from './fragment/Collection';
 
@@ -33,11 +32,10 @@ export  class Basic extends Collection {
   /**
    * Creates a basic.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, text);
+  public constructor(text: string) {
+    super(text);
   }
 
   public exportXml(): XmlElementNode {

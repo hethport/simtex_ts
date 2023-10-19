@@ -7,7 +7,6 @@
 
 import { WordConstants, matchesFullStringRegularExpression } from './WordConstants';
 import { Breakdown } from './fragment/Breakdown';
-import { MetadataPosition } from './fragment/MetadataPosition';
 import {XmlElementNode, xmlElementNode} from 'simple_xml';
 
 /**
@@ -31,11 +30,10 @@ export  class Delimiter extends Breakdown {
   /**
    * Creates a delimiter.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, text);
+  public constructor(text: string) {
+    super(text);
   }
 
   public exportXml(): XmlElementNode {

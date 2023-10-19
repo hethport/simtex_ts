@@ -5,7 +5,6 @@
  * Date:     05.07.2023
  */
 
-import { MetadataPosition } from './MetadataPosition';
 import { Breakdown } from './Breakdown';
 import { XmlNode } from 'simple_xml';
 
@@ -24,11 +23,10 @@ export abstract class Collection extends Breakdown {
   /**
    * Creates a collection.
    *
-   * @param deleriPosition The deleri ('*' / erased / Rasur) position.
    * @param text           The text.
    */
-  public constructor(deleriPosition: MetadataPosition, text: string) {
-    super(deleriPosition, text);
+  public constructor(text: string) {
+    super(text);
   }
   
   /**
