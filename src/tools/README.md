@@ -55,3 +55,25 @@ npx run-func dist/tools/tools.js debug parser-test-cases.txt
 ```
 
 The debug results are printed on the standard output.
+
+#### word
+Runs the parser for a word.
+The Arguments are language and word. The default language is Hit.
+For example:
+
+```bash
+npx run-func dist/tools/tools.js word "Hit" "1 _ME 50"
+```
+
+The debug results are printed on the standard output.
+
+#### line
+Runs the parser for a line.
+The Arguments are language and line. The default language is Hit.
+For example:
+
+```bash
+npx run-func dist/tools/tools.js line "Hit" "1 _ME 50"
+```
+
+The debug results are printed on the standard output.

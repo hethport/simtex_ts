@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import {TLHParser, OXTED} from '../model/TLHParser';
-import {writeNode} from 'simple_xml';
+import {TLHParser, OXTED, ParagraphLanguageType, defaultParagraphLanguage} from '../model/TLHParser';
+import {XmlElementNode, writeNode} from 'simple_xml';
 import {StatusLevel} from '../model/StatusLevel';
 import {StatusEventCode} from '../model/StatusEventCode';
 import { Identifier } from '../model/metadata/Identifier';
@@ -90,6 +90,54 @@ export function debug(transliterationFileName: string) {
     }
     console.log('\t' + line_list.join(''));
   }
+}
+
+export function word(language: string, word: string) {
+  const lang : ParagraphLanguageType =  getLanguage(language);
+  const node: XmlElementNode = Word.parseWord(lang, word).exportXml();
+  
+  let name = ParagraphLanguageType[lang];
+    
+  if (name == 'Ign')
+    name = 'ign';
+  
+  console.log('language: ' + name);  
+  console.log('word: "' + word + '"');
+  console.log('\txml: ' + writeNode(node, {}, true).join(''));
+}
+
+export function line(language: string, line: string) {
+  const lang : ParagraphLanguageType =  getLanguage(language);
+  
+  let name = ParagraphLanguageType[lang];
+    
+  if (name == 'Ign')
+    name = 'ign';
+  
+  console.log('language: ' + name);  
+  console.log('line: "' + line + '"');
+  
+  let i = 0;
+  for (const entry of Data.parseContent(lang, line).getEntities()) {
+    const node: XmlElementNode = entry.exportXml();
+    i++;
+    console.log('\txml ' + i + ': ' + writeNode(node, {}, true).join(''));
+  }
+}
+
+function getLanguage(language: string): ParagraphLanguageType {
+  let lang: ParagraphLanguageType | null = null;
+
+  try {
+    lang = ParagraphLanguageType[language as keyof typeof ParagraphLanguageType];
+  
+    if (lang == undefined)
+      lang = defaultParagraphLanguage();
+  } catch (e) {
+    lang = defaultParagraphLanguage();
+  }
+
+  return lang;
 }
 
 function logStatus(message: string, status: Status, word:  Word | null) {
