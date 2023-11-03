@@ -7,18 +7,6 @@
 
 import {XmlNode} from 'simple_xml';
 
-interface NotIgnored<T> {
-  _type: 'NotIgnored';
-  value: T;
-}
-
-interface Ignored<T> {
-  _type: 'Ignored';
-  value: T;
-}
-
-export type MaybeIgnored<T> = Ignored<T> | NotIgnored<T>;
-
 /**
  * Defines xml exports.
  *
@@ -27,7 +15,6 @@ export type MaybeIgnored<T> = Ignored<T> | NotIgnored<T>;
  */
 export interface ExportXML {
   exportXml: () => XmlNode;
-  // newExportXml: () => MaybeIgnored<XmlNode>;
 }
 
 /**
