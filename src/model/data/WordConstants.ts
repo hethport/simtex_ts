@@ -34,7 +34,7 @@ export class WordConstants {
   /**
    * The alphabet symbols. Unicodes 12039 and 12471, add ….
    */
-  static readonly alphabetSymbols: string = '𒀹𒑱' + WordConstants.horizontalEllipsis;
+  static readonly alphabetSymbols: string = '𒀹𒑱' + WordConstants.horizontalEllipsis + 'ʿʾ';
 
   /**
    * The alphabet in lower case.
