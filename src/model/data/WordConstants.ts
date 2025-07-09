@@ -32,7 +32,7 @@ export class WordConstants {
   static readonly horizontalEllipsis: string = '…';
 
   /**
-   * The alphabet symbols. Unicodes 12039 and 12471, add ….
+   * The alphabet symbols. Unicodes 12039 and 12471, ellipsis …, ain ʿ, alef ʾ.
    */
   static readonly alphabetSymbols: string = '𒀹𒑱' + WordConstants.horizontalEllipsis + 'ʿʾ';
 
