@@ -15,7 +15,7 @@ import {XmlElementNode, xmlElementNode} from 'simple_xml';
  * @version 1.0
  */
 export class Column implements LineEntity {
-  static readonly xmlTag: string = 'cl';
+  static readonly xmlTag: string = 'tab_sep';
 
   public exportXml(): XmlElementNode {
     return xmlElementNode(Column.xmlTag, {}, []);
