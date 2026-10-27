@@ -25,9 +25,11 @@ export  class Basic extends Collection {
 
   /**
    * The pattern for basics.
+   * The glossenkeil is encoded as two characters,
+   * so it should not be inside the character class.
    */
-  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*[' + WordConstants.alphabetLowerCase + WordConstants.horizontalEllipsis + ']+[' + Basic.alphabet + ']*'
-    + WordConstants.subscriptRegularExpression));
+  static readonly pattern:  RegExp = new RegExp(matchesFullStringRegularExpression('[' + Basic.alphabet + ']*(?:[' + WordConstants.alphabetLowerCase + WordConstants.horizontalEllipsis + ']|' + WordConstants.glossenkeil + ')+[' + Basic.alphabet + ']*'
+    + WordConstants.subscriptRegularExpression), 'u');
 
   /**
    * Creates a basic.

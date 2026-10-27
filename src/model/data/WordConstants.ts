@@ -37,6 +37,12 @@ export class WordConstants {
   static readonly alphabetSymbols: string = '𒀹𒑱' + WordConstants.horizontalEllipsis;
 
   /**
+   * Glossenkeil
+   * Added Unicode 73785 as a surrogate pair - I. Smirnov
+   */
+  static readonly glossenkeil: string = '\uD808\uDC39';
+
+  /**
    * The alphabet in lower case.
    */
   static readonly alphabetLowerCase: string = 'a-zāáàâēéèêīíìîōôūúùûḫṣšṭġž';
